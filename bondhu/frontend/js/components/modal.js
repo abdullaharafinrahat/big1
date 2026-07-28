@@ -1,0 +1,1 @@
+export function openModal({title='Details',content=''}={}){const b=document.createElement('div');b.className='modal-backdrop';b.innerHTML=`<section class="modal"><button class="btn btn-outline" data-close>Close</button><h2>${title}</h2><div>${content}</div></section>`;b.onclick=e=>{if(e.target===b||e.target.matches('[data-close]'))b.remove()};document.body.append(b);return b}

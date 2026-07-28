@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="bn" data-page="request-blood">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#d62828"><title>Request Blood | Bondhu</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/layout.css"><link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages/request-blood.css">
+</head>
+<body><a class="skip-link" href="#main">Skip</a><div id="app-header"></div><div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div><main id="main" class="page page-request-blood">
+<section class="container narrow"><h1>Request Blood</h1><p class="muted">Requests go to moderation before public matching.</p><form class="card form-grid" id="blood-request-form"><label>Patient<input name="patientName" required></label><label>Phone<input name="contactPhone" required placeholder="01XXXXXXXXX"></label><label>Blood<select name="bloodGroup" required><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label><label>Units<input name="unitsNeeded" type="number" min="1" value="1"></label><label>Hospital<input name="hospitalName" required></label><label>District<input name="district" required></label><label>Needed by<input name="neededBy" type="datetime-local"></label><label>Urgency<select name="urgency"><option>critical</option><option>high</option><option>normal</option></select></label><label class="full">Notes<textarea name="notes"></textarea></label><input type="hidden" name="latitude"><input type="hidden" name="longitude"><p class="full"><button class="btn btn-outline" type="button" id="use-location">Use location</button> <button class="btn btn-primary">Submit</button></p></form><article class="card"><h2>Compatible donor groups</h2><p id="compatibility-preview">Select blood group.</p></article></section></main><div id="app-footer"></div><script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/pages/request-blood.page.js"></script>
+</body></html>

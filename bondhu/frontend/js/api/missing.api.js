@@ -1,0 +1,1 @@
+import{apiRequest,toJsonBody}from'./client.js';export const listMissingReports=(p={})=>apiRequest(`/missing-bureau?${new URLSearchParams(p)}`);export const createMissingReport=p=>apiRequest('/missing-bureau',{method:'POST',body:toJsonBody(p)});

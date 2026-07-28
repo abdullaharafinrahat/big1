@@ -1,0 +1,10 @@
+openapi: 3.0.3
+info: {title: Bondhu API, version: 0.1.0}
+servers: [{url: /api}]
+paths:
+  /auth/login: {post: {summary: Login, responses: {'200': {description: OK}}}}
+  /donors: {get: {summary: List donors, responses: {'200': {description: OK}}}, post: {summary: Register donor, responses: {'201': {description: Created}}}}
+  /blood-requests: {get: {summary: List blood requests, responses: {'200': {description: OK}}}, post: {summary: Create blood request, responses: {'201': {description: Created}}}}
+  /hospitals: {get: {summary: List hospitals, responses: {'200': {description: OK}}}}
+  /ambulances: {get: {summary: List ambulances, responses: {'200': {description: OK}}}}
+  /missing-bureau: {get: {summary: List missing reports, responses: {'200': {description: OK}}}, post: {summary: Create missing report, responses: {'201': {description: Created}}}}

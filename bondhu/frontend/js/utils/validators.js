@@ -1,0 +1,1 @@
+export const validatePhone=v=>/^(?:\+?88)?01[3-9]\d{8}$/.test(String(v).replace(/[\s-]/g,''));export const required=v=>v!==undefined&&v!==null&&String(v).trim()!=='';export const formToObject=f=>Object.fromEntries([...new FormData(f)].map(([k,v])=>[k,typeof v==='string'?v.trim():v]));

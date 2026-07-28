@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Admin Verification | Bondhu.org</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/><link href="../../css/pages/app.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="app-header">
+<div class="app-header-inner">
+<button aria-label="Open menu" class="mobile-menu" id="mobile-menu" type="button">☰</button>
+<a class="app-brand" href="../../index.html"><div class="app-brand-icon"><i class="fa-solid fa-heart"></i></div><span><strong>Bondhu<span>.org</span></strong><small>Together for Humanity</small></span></a>
+<div class="date-chip" id="date-chip"></div>
+<div class="header-actions"><div class="lang-switcher"><button data-lang="bn" type="button">বাংলা</button><button data-lang="en" type="button">English</button></div><button class="notification" type="button"><i class="fa-regular fa-bell"></i><b>2</b></button><div class="user-chip"><div class="user-avatar"></div><strong class="app-user-name">Bondhu User</strong></div><a class="primary-link" href="../login.html">Login / Register</a></div>
+</div>
+</header>
+<div class="app-layout">
+<aside class="sidebar" id="app-sidebar"><button class="drawer-close" id="drawer-close" type="button">×</button><nav><a data-page="dashboard" href="../dashboard.html"><span><i class="fa-solid fa-gauge w-4 text-center"></i></span>Dashboard</a>
+<a data-page="profile" href="../profile.html"><span><i class="fa-solid fa-user w-4 text-center"></i></span>Profile</a>
+<a data-page="blood" href="../request-blood.html"><span><i class="fa-solid fa-droplet w-4 text-center"></i></span>Blood Request</a>
+<a data-page="donors" href="../donor-register.html"><span><i class="fa-solid fa-list-check w-4 text-center"></i></span>Donor List</a>
+<a data-page="thalassemia" href="../hospitals.html"><span><i class="fa-solid fa-notes-medical w-4 text-center"></i></span>Thalassemia Corner</a>
+<a data-page="volunteer" href="../news.html"><span><i class="fa-solid fa-hand-holding-heart w-4 text-center"></i></span>Volunteer</a>
+<a data-page="ambulance" href="../ambulance.html"><span><i class="fa-solid fa-truck-medical w-4 text-center"></i></span>Ambulance</a>
+<a data-page="pharmacy" href="../hospitals.html"><span><i class="fa-solid fa-pills w-4 text-center"></i></span>Pharmacy</a>
+<a data-page="foundation" href="../news.html"><span><i class="fa-solid fa-building-columns w-4 text-center"></i></span>Foundation</a>
+<a data-page="calendar" href="../workflow.html"><span><i class="fa-solid fa-calendar w-4 text-center"></i></span>Calendar</a>
+<a data-page="messages" href="../news.html"><span><i class="fa-solid fa-envelope w-4 text-center"></i></span>Messages<b class="badge">3</b></a>
+<a data-page="badges" href="../member-card.html"><span><i class="fa-solid fa-id-card w-4 text-center"></i></span>Badges &amp; ID</a>
+<a data-page="support" href="../forgot-password.html"><span><i class="fa-solid fa-headset w-4 text-center"></i></span>Support</a>
+<a data-page="admin" href="verification.html"><span><i class="fa-solid fa-user-check w-4 text-center"></i></span>Admin Verification</a><div class="sidebar-divider"></div><button id="logout-btn" type="button">↪ Logout</button></nav></aside>
+<div class="drawer-backdrop hidden" id="drawer-backdrop"></div>
+<main class="app-main">
+<section class="page-title"><div><h1>User Verification</h1><p>Review submitted profiles, add notes, approve or request correction.</p></div><a class="soft-link" href="../dashboard.html">User Dashboard</a></section>
+<section class="grid" style="grid-template-columns:2fr 1fr"><article class="card"><div class="button-row" style="margin-top:0"><input id="verification-search" placeholder="Search by name or mobile"/><select id="verification-filter"><option value="all">All Status</option><option value="pending">Pending</option><option value="verified">Verified</option><option value="revision">Needs Correction</option></select></div><div class="table-wrap"><table class="data-table"><thead><tr><th>ID</th><th>Name</th><th>Mobile</th><th>Blood</th><th>Status</th><th>Action</th></tr></thead><tbody id="verification-body"></tbody></table></div></article><aside class="card"><h2>Review Note System</h2><div class="review-list" id="selected-user"><p><span>Select a user</span><strong>—</strong></p></div><label>Review Note<textarea id="review-note" maxlength="200" placeholder="Type review note here..."></textarea></label><div style="text-align:right;color:var(--muted);font-size:.75rem"><span id="note-count">0</span>/200</div><div class="review-list" id="note-history"><p><span>No notes yet</span></p></div><div class="button-row"><button class="btn primary" id="approve-user">Approve &amp; Verify</button><button class="btn soft" id="send-note">Send Review Note</button></div></aside></section>
+</main>
+</div>
+<footer class="footer"><span>📍 House #12, Road #05, Dhanmondi, Dhaka-1205</span><span>☎ +880 1712-345678 · ✉ info@bondhu.org</span><span>© 2026 Bondhu.org</span></footer>
+<div class="toast-region" id="toast-region"></div>
+<script src="../../js/pages/app-shell.js"></script>
+<script src="../../js/pages/admin-verification.page.js"></script>
+</body>
+</html>

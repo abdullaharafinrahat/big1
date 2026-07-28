@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bondhu — Blood Management Network</title>
+<style>
+  :root {
+    --green-dark: #0b5a35;
+    --green: #0e6e42;
+    --green-light: #e9f5ee;
+    --red: #e31e24;
+    --red-dark: #c81419;
+    --pink: #f7d9dc;
+    --ink: #1c2b24;
+    --muted: #6b7a72;
+    --card-bg: #ffffff;
+    --border: #e5e9e6;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, 'Noto Sans Bengali', Arial, sans-serif;
+    background: #f4f6f5;
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* ==========================================================================
+     1. DESKTOP STYLES (Default / Viewport > 768px)
+     ========================================================================== */
+
+  /* Header */
+  header.topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .logo-badge {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 18px;
+    border: 2px solid var(--red);
+  }
+
+  .brand-text h1 {
+    margin: 0; font-size: 22px; letter-spacing: .3px;
+    color: var(--green-dark);
+  }
+  .brand-text h1 span { color: var(--red); }
+  .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
+
+  .mobile-menu-btn { display: none; } /* Hidden on PC */
+
+  .topbar-meta {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    font-size: 12.5px; color: #3a463f;
+  }
+  .meta-item { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .meta-item .dot { width: 18px; height: 18px; object-fit: contain; border-radius: 50%; }
+
+  .lang-switcher {
+    display: inline-flex; background: #f3f4f6; border-radius: 8px;
+    padding: 2px; font-size: 12px; font-weight: 700;
+  }
+  .lang-switcher button {
+    border: 0; background: transparent; color: #667085;
+    padding: 6px 12px; border-radius: 7px; font-weight: 800;
+    cursor: pointer; min-height: 36px;
+  }
+  .lang-switcher button.active {
+    background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18);
+  }
+
+  .login-btn {
+    background: var(--green-dark); color: #fff;
+    padding: 8px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
+
+  /* Quick Navigation Bar */
+  .quick-nav {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap;
+  }
+  .quick-nav a {
+    color: var(--green-dark); background: var(--green-light);
+    border: 1px solid #d7eadf; border-radius: 999px;
+    padding: 8px 16px; font-size: 12px; font-weight: 700;
+    display: inline-flex; align-items: center;
+  }
+  .quick-nav a:hover { background: var(--green-dark); color: #fff; }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    background: linear-gradient(120deg, var(--green-light) 0%, #f7fbf9 40%, var(--pink) 100%);
+    padding: 34px 24px 20px;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 260px;
+  }
+  .hero-emblem {
+    width: 300px; max-width: 75vw; height: 220px;
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-main-icon {
+    width: 148px; height: 148px; object-fit: contain; border-radius: 50%;
+    filter: drop-shadow(0 12px 24px rgba(11,90,53,.14)); z-index: 2;
+  }
+  .hero-mini-icon {
+    position: absolute; width: 64px; height: 64px; object-fit: contain;
+    border-radius: 50%; filter: drop-shadow(0 8px 16px rgba(0,0,0,.10));
+  }
+  .hero-mini-icon.one { left: 18px; top: 24px; }
+  .hero-mini-icon.two { right: 18px; top: 28px; }
+  .hero-mini-icon.three { left: 46px; bottom: 20px; }
+  .hero-mini-icon.four { right: 42px; bottom: 14px; }
+
+  .hero-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--green-dark); cursor: pointer; font-size: 20px; z-index: 3;
+  }
+  .hero-arrow.left { left: 6px; }
+  .hero-arrow.right { right: 6px; }
+
+  .hero-learn-btn { display: none; } /* Hidden on PC */
+
+  .hero-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
+  .hero-dots .d { width: 7px; height: 7px; border-radius: 50%; background: #b8c4bd; }
+  .hero-dots .d.active { background: var(--green-dark); width: 16px; border-radius: 5px; }
+
+  /* Notice Bar */
+  .notice {
+    background: var(--green-dark); color: #fff;
+    display: flex; align-items: center; font-size: 13px; overflow: hidden;
+  }
+  .notice-label {
+    background: var(--red); padding: 9px 16px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  }
+  .notice-label img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
+  .notice-track-wrap { flex: 1; overflow: hidden; position: relative; height: 34px; }
+  .notice-track {
+    position: absolute; white-space: nowrap; display: flex; align-items: center;
+    height: 100%; gap: 40px; animation: scrollLeft 22s linear infinite; padding-left: 100%;
+  }
+  @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+  /* Service Cards Grid (Desktop 4-column) */
+  .services {
+    max-width: 1200px; margin: 26px auto; padding: 0 24px 10px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 12px 16px;
+    text-align: center; position: relative; display: block;
+    transition: transform .15s ease, box-shadow .15s ease; cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(11,90,53,.10); border-color: transparent;
+  }
+  .card .num {
+    position: absolute; top: 8px; left: 8px;
+    width: 19px; height: 19px; border-radius: 50%;
+    background: var(--green-dark); color: #fff;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon-wrap {
+    width: 72px; height: 72px; border-radius: 50%; background: #eef1f0;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
+  }
+  .icon-wrap img { width: 42px; height: 42px; object-fit: contain; }
+  .card p { margin: 0; font-size: 13px; font-weight: 600; color: #28352f; line-height: 1.3; }
+
+  /* Footer */
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: 30px; }
+  .footer-top {
+    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .logo-badge {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #fff; color: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; border: 2px solid var(--red);
+  }
+  .footer-brand h2 { margin: 0; font-size: 18px; }
+  .footer-brand h2 span { color: #ff8b8e; }
+  .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
+  .footer-links { display: flex; gap: 26px; flex-wrap: wrap; font-size: 12.5px; }
+  .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; }
+
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px;
+  }
+  .dev-by { display: flex; align-items: center; gap: 6px; }
+  .dev-by .dot-badge {
+    width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark);
+    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800;
+  }
+
+  /* ==========================================================================
+     2. MOBILE SPECIFIC OVERRIDES (Screens <= 768px - Matches Image Layout)
+     ========================================================================== */
+  @media (max-width: 768px) {
+    body { background: #fff; }
+
+    /* Header Mobile Adjustments */
+    header.topbar { padding: 12px 14px; }
+    .topbar-meta { display: none; } /* Hide PC date/calendars in mobile view */
+    .mobile-menu-btn {
+      display: block; background: none; border: none;
+      font-size: 22px; cursor: pointer; color: #333; order: 2;
+    }
+    .quick-nav { display: none; } /* Hide top nav links on mobile image style */
+
+    .mobile-header-right {
+      display: flex; align-items: center; gap: 10px; order: 3;
+    }
+
+    /* Mobile Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #e4f3ea 0%, #ffffff 50%, #fcdfe2 100%);
+      padding: 30px 16px 16px; min-height: 180px;
+    }
+    .hero-emblem { display: none; } /* Hide mini icon floating rings */
+    .hero-arrow { display: none; }
+    .hero-learn-btn {
+      display: inline-block; background: rgba(40, 40, 40, 0.85);
+      color: #fff; border: none; padding: 8px 22px; border-radius: 8px;
+      font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .hero-dots { margin-top: 30px; }
+
+    /* Mobile Services Grid: 4-Columns with compact spacing */
+    .services {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px 6px; padding: 14px 8px; margin: 0;
+    }
+    .card {
+      padding: 10px 2px 6px; border-radius: 10px; min-height: auto;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .card .num { width: 15px; height: 15px; font-size: 8.5px; top: 4px; left: 4px; }
+    .icon-wrap { width: 40px; height: 40px; margin: 0 auto 4px; }
+    .icon-wrap img { width: 24px; height: 24px; }
+    .card p { font-size: 9.5px; line-height: 1.1; font-weight: 700; }
+
+    /* Mobile Notice Bar */
+    .notice { font-size: 11.5px; }
+    .notice-label { padding: 6px 10px; font-size: 11px; }
+
+    /* Mobile Footer */
+    footer { padding: 16px 12px 10px; margin-top: 10px; }
+    .footer-top { flex-direction: row; justify-content: space-between; padding: 0 0 12px 0; }
+    .footer-links {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 6px 12px; font-size: 11px;
+    }
+    .footer-bottom { font-size: 9px; padding: 10px 0 0 0; }
+  }
+
+
+  /* === Compact mobile hero === */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 22px 12px 14px;
+      min-height: 138px;
+    }
+    .hero-inner {
+      min-height: 112px;
+    }
+    .hero-learn-btn {
+      margin-top: 12px;
+      padding: 8px 20px;
+      font-size: 12px;
+      border-radius: 7px;
+    }
+    .hero-dots {
+      margin-top: 14px;
+    }
+  }
+  @media (max-width: 420px) {
+    .hero {
+      padding: 18px 10px 12px;
+      min-height: 116px;
+    }
+    .hero-inner {
+      min-height: 92px;
+    }
+    .hero-dots {
+      margin-top: 10px;
+    }
+  }
+
+
+
+  /* === Sticky mobile top navigation layout === */
+  header.topbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 14px rgba(0,0,0,.06);
+  }
+  @media (min-width: 769px){
+    .quick-nav{
+      position:sticky;
+      top:63px;
+      z-index:999;
+      box-shadow:0 3px 10px rgba(0,0,0,.04);
+    }
+  }
+  @media (max-width: 768px){
+    header.topbar{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:start;
+      gap:8px 10px;
+      padding:10px 12px;
+    }
+    .brand{
+      grid-column:1;
+      grid-row:1 / span 2;
+      align-self:center;
+      min-width:0;
+    }
+    .brand .logo-badge{
+      width:38px;
+      height:38px;
+      flex:0 0 auto;
+    }
+    .brand-text h1{font-size:20px;line-height:1.05;}
+    .brand-text p{font-size:10px;line-height:1.2;}
+    .mobile-header-right{
+      grid-column:2;
+      grid-row:1 / span 2;
+      display:grid;
+      grid-template-columns:auto auto;
+      grid-template-areas:
+        "menu login"
+        "lang lang";
+      justify-items:end;
+      align-items:center;
+      gap:6px;
+    }
+    .mobile-menu-btn{
+      grid-area:menu;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:38px;
+      height:36px;
+      border-radius:10px;
+      background:#f3f4f6;
+      border:1px solid #e5e9e6;
+      color:var(--green-dark);
+      font-size:21px;
+      line-height:1;
+      padding:0;
+    }
+    .login-btn{
+      grid-area:login;
+      min-height:36px;
+      padding:7px 10px;
+      border-radius:10px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .login-btn img{display:none;}
+    .lang-switcher{
+      grid-area:lang;
+      justify-self:stretch;
+      width:100%;
+    }
+    .lang-switcher button{
+      flex:1;
+      min-height:30px;
+      padding:4px 8px;
+      font-size:11px;
+    }
+    .quick-nav{
+      display:none;
+      position:sticky;
+      top:68px;
+      z-index:999;
+      justify-content:flex-start;
+      overflow-x:auto;
+      flex-wrap:nowrap;
+      padding:8px 10px;
+      box-shadow:0 6px 14px rgba(0,0,0,.08);
+      -webkit-overflow-scrolling:touch;
+    }
+    .quick-nav.is-open{display:flex;}
+    .quick-nav a{white-space:nowrap;}
+  }
+  @media (max-width:420px){
+    header.topbar{grid-template-columns:minmax(0,1fr) auto;gap:6px;}
+    .brand{gap:7px;}
+    .brand .logo-badge{width:34px;height:34px;font-size:15px;}
+    .brand-text h1{font-size:18px;}
+    .brand-text p{font-size:9px;}
+    .mobile-menu-btn{width:34px;height:34px;font-size:19px;}
+    .login-btn{height:34px;padding:6px 9px;font-size:11px;}
+  }
+
+
+
+  /* === Smaller navigation bar === */
+  header.topbar{
+    padding:6px 18px;
+    gap:6px;
+  }
+  .brand{gap:8px;}
+  .brand .logo-badge{
+    width:34px;
+    height:34px;
+    font-size:15px;
+  }
+  .brand-text h1{
+    font-size:18px;
+    line-height:1.05;
+  }
+  .brand-text p{
+    font-size:9px;
+    line-height:1.15;
+  }
+  .topbar-meta{
+    gap:12px;
+    font-size:11px;
+  }
+  .meta-item .dot{
+    width:15px;
+    height:15px;
+  }
+  .lang-switcher{
+    font-size:11px;
+    border-radius:7px;
+    padding:1px;
+  }
+  .lang-switcher button{
+    min-height:28px;
+    padding:3px 9px;
+    border-radius:6px;
+    font-size:11px;
+  }
+  .login-btn{
+    min-height:30px;
+    padding:5px 12px;
+    border-radius:7px;
+    font-size:12px;
+  }
+  .login-btn img{
+    width:14px;
+    height:14px;
+  }
+  .quick-nav{
+    padding:5px 18px;
+    gap:6px;
+  }
+  .quick-nav a{
+    padding:5px 10px;
+    font-size:11px;
+  }
+  @media (min-width: 769px){
+    .quick-nav{top:48px;}
+  }
+  @media (max-width: 768px){
+    header.topbar{
+      padding:6px 8px;
+      gap:4px 6px;
+    }
+    .brand{
+      gap:6px;
+    }
+    .brand .logo-badge{
+      width:30px;
+      height:30px;
+      font-size:13px;
+      border-width:1.5px;
+    }
+    .brand-text h1{
+      font-size:16px;
+    }
+    .brand-text p{
+      display:none;
+    }
+    .mobile-header-right{
+      gap:4px;
+    }
+    .mobile-menu-btn{
+      width:30px;
+      height:30px;
+      border-radius:8px;
+      font-size:17px;
+    }
+    .login-btn{
+      min-height:30px;
+      height:30px;
+      padding:4px 8px;
+      border-radius:8px;
+      font-size:11px;
+    }
+    .lang-switcher button{
+      min-height:24px;
+      padding:2px 7px;
+      font-size:10px;
+    }
+    .quick-nav{
+      top:48px;
+      padding:5px 8px;
+      gap:5px;
+    }
+    .quick-nav a{
+      padding:5px 9px;
+      font-size:10.5px;
+    }
+  }
+  @media (max-width:420px){
+    .brand .logo-badge{width:28px;height:28px;font-size:12px;}
+    .brand-text h1{font-size:15px;}
+    .mobile-menu-btn{width:28px;height:28px;font-size:16px;}
+    .login-btn{height:28px;min-height:28px;padding:3px 7px;font-size:10px;}
+    .lang-switcher button{min-height:23px;padding:2px 6px;font-size:10px;}
+  }
+
+
+
+  /* === Real hamburger overlay menu === */
+  .mobile-menu-close,
+  .mobile-menu-title{display:none;}
+  @media (max-width: 768px){
+    body.menu-open{overflow:hidden;}
+    .quick-nav{
+      display:none;
+      position:fixed;
+      inset:0;
+      top:0;
+      z-index:2000;
+      background:rgba(7,43,27,.78);
+      backdrop-filter:blur(8px);
+      padding:76px 18px 24px;
+      box-shadow:none;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:flex-start;
+      gap:10px;
+    }
+    .quick-nav.is-open{display:flex;}
+    .quick-nav a{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:min(100%,360px);
+      margin:0 auto;
+      padding:13px 16px;
+      border-radius:14px;
+      background:#fff;
+      color:var(--green-dark);
+      border:1px solid rgba(255,255,255,.6);
+      font-size:15px;
+      font-weight:800;
+      box-shadow:0 10px 24px rgba(0,0,0,.12);
+      white-space:normal;
+    }
+    .quick-nav a:hover{background:var(--green-light);color:var(--green-dark);}
+    .mobile-menu-title{
+      display:block;
+      width:min(100%,360px);
+      margin:0 auto 4px;
+      color:#fff;
+      font-size:20px;
+      text-align:center;
+      letter-spacing:.02em;
+    }
+    .mobile-menu-close{
+      display:grid;
+      place-items:center;
+      position:fixed;
+      top:12px;
+      right:12px;
+      width:42px;
+      height:42px;
+      border:0;
+      border-radius:50%;
+      background:#fff;
+      color:var(--red);
+      font-size:30px;
+      line-height:1;
+      font-weight:700;
+      box-shadow:0 10px 26px rgba(0,0,0,.22);
+      cursor:pointer;
+    }
+  }
+
+
+  .calendar-label{
+    font-weight:800;
+    color:var(--green-dark);
+    margin-right:3px;
+  }
+
+
+
+  /* === Mobile header: lang + login + hamburger in one row === */
+  @media (max-width: 768px){
+    header.topbar{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      align-items:center;
+      gap:6px;
+      padding:7px 8px;
+    }
+    .brand{
+      grid-column:1;
+      grid-row:1;
+      align-self:center;
+      min-width:0;
+      gap:6px;
+    }
+    .brand .logo-badge{
+      width:30px;
+      height:30px;
+      font-size:13px;
+      border-width:1.5px;
+    }
+    .brand-text h1{
+      font-size:16px;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .brand-text p{
+      display:none;
+    }
+    .mobile-header-right{
+      grid-column:2;
+      grid-row:1;
+      display:grid;
+      grid-template-columns:auto auto auto;
+      grid-template-areas:"lang login menu";
+      align-items:center;
+      justify-items:end;
+      gap:5px;
+    }
+    .lang-switcher{
+      grid-area:lang;
+      width:auto!important;
+      justify-self:end;
+      display:inline-flex;
+      padding:1px;
+      border-radius:7px;
+    }
+    .lang-switcher button{
+      flex:0 0 auto;
+      min-height:27px;
+      padding:3px 7px;
+      font-size:10px;
+      border-radius:6px;
+    }
+    .login-btn{
+      grid-area:login;
+      height:29px;
+      min-height:29px;
+      padding:4px 8px;
+      border-radius:8px;
+      font-size:10.5px;
+      white-space:nowrap;
+    }
+    .login-btn img{
+      display:none;
+    }
+    .mobile-menu-btn{
+      grid-area:menu;
+      justify-self:end;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:30px;
+      height:29px;
+      border-radius:8px;
+      font-size:17px;
+      padding:0;
+      margin:0;
+    }
+  }
+  @media (max-width: 380px){
+    header.topbar{
+      padding:6px;
+      gap:4px;
+    }
+    .brand .logo-badge{
+      width:27px;
+      height:27px;
+      font-size:12px;
+    }
+    .brand-text h1{
+      font-size:14px;
+    }
+    .mobile-header-right{
+      gap:3px;
+    }
+    .lang-switcher button{
+      padding:2px 5px;
+      font-size:9.5px;
+      min-height:25px;
+    }
+    .login-btn{
+      height:26px;
+      min-height:26px;
+      padding:3px 6px;
+      font-size:9.5px;
+    }
+    .mobile-menu-btn{
+      width:27px;
+      height:26px;
+      font-size:16px;
+    }
+  }
+
+</style>
+</head>
+<body>
+<!-- TOP HEADER -->
+<header class="topbar">
+<div class="brand">
+<div class="logo-badge">B</div>
+<div class="brand-text">
+<h1>Bondhu<span>.</span></h1>
+<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+</div>
+</div>
+<!-- PC Topbar Meta Items (Date/Calendar) -->
+<div class="topbar-meta">
+<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+</div>
+<!-- Mobile & Desktop Language + Login Actions -->
+<div class="mobile-header-right">
+<button aria-controls="main-quick-nav" aria-expanded="false" aria-label="Open menu" class="mobile-menu-btn">☰</button>
+<div aria-label="Language switcher" class="lang-switcher">
+<button class="active" data-lang="bn" type="button">BN</button>
+<button data-lang="en" type="button">EN</button>
+</div>
+<a class="login-btn" href="pages/login.html">
+<img alt="" src="assets/images/service-icons/person-search.png"/>
+<span>Login</span>
+</a>
+</div>
+</header>
+<!-- QUICK NAVIGATION (Visible on Desktop) -->
+<nav aria-label="Main page links" class="quick-nav" id="main-quick-nav"><button aria-label="Close menu" class="mobile-menu-close" type="button">×</button><strong class="mobile-menu-title">Menu</strong>
+<a href="index.html">Home</a>
+
+
+
+<a href="pages/request-blood.html">Blood</a>
+<a href="pages/donor-register.html">Donor</a>
+<a href="pages/hospitals.html">Hospitals</a>
+<a href="pages/ambulance.html">Ambulance</a>
+<a href="pages/missing-bureau.html">Missing</a>
+<a href="pages/news.html">News</a>
+</nav>
+<!-- HERO SECTION -->
+<section class="hero">
+<div class="hero-inner">
+<div class="hero-arrow left">‹</div>
+<div aria-label="Bondhu emergency service icons" class="hero-emblem">
+<img alt="Bondhu donation and care" class="hero-main-icon" src="assets/images/service-icons/heart-in-hand.png"/>
+<img alt="Blood request" class="hero-mini-icon one" src="assets/images/service-icons/blood-drop.png"/>
+<img alt="Ambulance" class="hero-mini-icon two" src="assets/images/service-icons/ambulance.png"/>
+<img alt="Healthcare" class="hero-mini-icon three" src="assets/images/service-icons/stethoscope.png"/>
+<img alt="Emergency alert" class="hero-mini-icon four" src="assets/images/service-icons/emergency-siren.png"/>
+</div>
+<!-- Mobile-only Learn More overlay button -->
+<button class="hero-learn-btn">Learn More</button>
+<div class="hero-arrow right">›</div>
+</div>
+<div class="hero-dots">
+<div class="d active"></div><div class="d"></div><div class="d"></div><div class="d"></div>
+</div>
+</section>
+<!-- NOTICE TICKER BAR -->
+<div class="notice">
+<div class="notice-label">
+<img alt="" src="assets/images/service-icons/emergency-siren.png"/>
+    Notice
+  </div>
+<div class="notice-track-wrap">
+<div class="notice-track">
+<span>Welcome to Bondhu Family</span>
+<span>Blood Needed: O+ (Uttara, Dhaka)</span>
+<span>Emergency Notice</span>
+<span>Government Notice</span>
+<span>Campaign</span>
+<span>Latest Update</span>
+</div>
+</div>
+</div>
+<!-- SERVICES GRID -->
+<section class="services">
+<a class="card" href="pages/request-blood.html">
+<div class="num">1</div>
+<div class="icon-wrap"><img alt="Blood Request" src="assets/images/service-icons/blood-drop.png"/></div>
+<p>Blood Request</p>
+</a>
+<a class="card" href="pages/hospitals.html">
+<div class="num">2</div>
+<div class="icon-wrap"><img alt="Healthcare" src="assets/images/service-icons/stethoscope.png"/></div>
+<p>Healthcare</p>
+</a>
+<a class="card" href="pages/ambulance.html">
+<div class="num">3</div>
+<div class="icon-wrap"><img alt="Ambulance" src="assets/images/service-icons/ambulance.png"/></div>
+<p>Ambulance</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">4</div>
+<div class="icon-wrap"><img alt="Foundation" src="assets/images/service-icons/handshake.png"/></div>
+<p>Foundation</p>
+</a>
+<a class="card" href="pages/hospitals.html">
+<div class="num">5</div>
+<div class="icon-wrap"><img alt="Pharmacy" src="assets/images/service-icons/medicine-capsule.png"/></div>
+<p>Pharmacy</p>
+</a>
+<a class="card" href="pages/hospitals.html">
+<div class="num">6</div>
+<div class="icon-wrap"><img alt="DIMS" src="assets/images/service-icons/laboratory-flask.png"/></div>
+<p>DIMS</p>
+</a>
+<a class="card" href="pages/donor-register.html">
+<div class="num">7</div>
+<div class="icon-wrap"><img alt="Astha" src="assets/images/service-icons/health-heart.png"/></div>
+<p>Astha</p>
+</a>
+<a class="card" href="pages/missing-bureau.html">
+<div class="num">8</div>
+<div class="icon-wrap"><img alt="Missing Bureau" src="assets/images/service-icons/person-search.png"/></div>
+<p>Missing Bureau</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">9</div>
+<div class="icon-wrap"><img alt="Education" src="assets/images/service-icons/education-cap.png"/></div>
+<p>Education</p>
+</a>
+<a class="card" href="pages/hospitals.html">
+<div class="num">10</div>
+<div class="icon-wrap"><img alt="Hospital" src="assets/images/service-icons/hospital-building.png"/></div>
+<p>Hospital</p>
+</a>
+<a class="card" href="index.html">
+<div class="num">11</div>
+<div class="icon-wrap"><img alt="Homes" src="assets/images/service-icons/home.png"/></div>
+<p>Homes</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">12</div>
+<div class="icon-wrap"><img alt="News" src="assets/images/service-icons/news.png"/></div>
+<p>News</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">13</div>
+<div class="icon-wrap"><img alt="Agricultural Info" src="assets/images/service-icons/leaves.png"/></div>
+<p>Agricultural Info &amp; Services</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">14</div>
+<div class="icon-wrap"><img alt="Tourism" src="assets/images/service-icons/island.png"/></div>
+<p>Tourism &amp; Heritage</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">15</div>
+<div class="icon-wrap"><img alt="National Icons" src="assets/images/service-icons/award-star.png"/></div>
+<p>National Icons</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">16</div>
+<div class="icon-wrap"><img alt="Our Projects" src="assets/images/service-icons/rocket.png"/></div>
+<p>Our Projects</p>
+</a>
+<a class="card" href="pages/register.html">
+<div class="num">17</div>
+<div class="icon-wrap"><img alt="Join Us" src="assets/images/service-icons/people-group.png"/></div>
+<p>Join Us</p>
+</a>
+<a class="card" href="pages/news.html">
+<div class="num">18</div>
+<div class="icon-wrap"><img alt="Sponsors" src="assets/images/service-icons/heart-in-hand.png"/></div>
+<p>Sponsors</p>
+</a>
+<a class="card" href="pages/forgot-password.html">
+<div class="num">19</div>
+<div class="icon-wrap"><img alt="Helpline" src="assets/images/service-icons/emergency-call.png"/></div>
+<p>Helpline</p>
+</a>
+<a class="card" href="pages/ambulance.html">
+<div class="num">20</div>
+<div class="icon-wrap"><img alt="Emergency" src="assets/images/service-icons/emergency-siren.png"/></div>
+<p>Emergency</p>
+</a>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="footer-top">
+<div class="footer-brand">
+<div class="logo-badge">B</div>
+<div>
+<h2>Bondhu<span>.</span></h2>
+<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+</div>
+</div>
+<div class="footer-links">
+<a href="mailto:help@bondhu.local">Contact</a>
+<a href="pages/donor-register.html">Donation</a>
+<a href="pages/news.html">Privacy Policy</a>
+<a href="pages/news.html">Terms &amp; Conditions</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Bondhu. All Rights Reserved.</span>
+<div class="dev-by">
+<span>Developed By</span>
+<div class="dot-badge">T</div>
+<span>TechSolutions Ltd.</span>
+</div>
+</div>
+</footer>
+<script>
+  // Dynamic Language & Calendar Scripting
+  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
+  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+  function getBanglaDate(date = new Date(), lang = getLang()) {
+    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+    const year = date.getFullYear();
+    const startThisYear = new Date(year, 3, 14); // 14 April
+    const startYear = date >= startThisYear ? year : year - 1;
+    const banglaYear = startYear - 593;
+    const startDate = new Date(startYear, 3, 14);
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    let dayIndex = Math.floor((today - startDate) / 86400000);
+    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+    let month = 0;
+    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+      dayIndex -= monthLengths[month];
+      month += 1;
+    }
+    const day = dayIndex + 1;
+    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+  }
+
+  function getArabicDate(date = new Date(), lang = getLang()) {
+    try {
+      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+    } catch (error) {
+      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+    }
+  }
+
+  function applyLanguage(lang = getLang()) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+    const date = new Date();
+
+    const gregElem = document.getElementById('gregorian-date');
+    const banglaElem = document.getElementById('bangla-calendar');
+    const arabicElem = document.getElementById('arabic-calendar');
+
+    if (gregElem) {
+      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+    }
+    if (banglaElem) {
+      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+    }
+    if (arabicElem) {
+      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+    }
+  }
+
+  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+  applyLanguage(getLang());
+
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const quickNav = document.querySelector('.quick-nav');
+  const closeMenuBtn = document.querySelector('.mobile-menu-close');
+
+  function openMobileMenu() {
+    quickNav?.classList.add('is-open');
+    document.body.classList.add('menu-open');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+  }
+  function closeMobileMenu() {
+    quickNav?.classList.remove('is-open');
+    document.body.classList.remove('menu-open');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+  }
+
+  mobileMenuBtn?.addEventListener('click', () => {
+    if (quickNav?.classList.contains('is-open')) closeMobileMenu();
+    else openMobileMenu();
+  });
+  closeMenuBtn?.addEventListener('click', closeMobileMenu);
+  quickNav?.addEventListener('click', (event) => {
+    if (event.target === quickNav) closeMobileMenu();
+  });
+  quickNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMobileMenu();
+  });
+</script>
+</body>
+</html>

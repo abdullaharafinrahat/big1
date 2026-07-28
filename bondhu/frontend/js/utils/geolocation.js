@@ -1,0 +1,1 @@
+export function getCurrentPosition(o={enableHighAccuracy:true,timeout:1e4}){return new Promise((res,rej)=>navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>res({latitude:p.coords.latitude,longitude:p.coords.longitude}),()=>rej(new Error('Could not read location')),o):rej(new Error('Geolocation unsupported')))}

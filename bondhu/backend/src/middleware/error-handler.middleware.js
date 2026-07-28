@@ -1,0 +1,1 @@
+exports.notFoundHandler=(q,r,n)=>n(Object.assign(Error(`Route not found: ${q.method} ${q.originalUrl}`),{status:404}));exports.errorHandler=(e,q,r,n)=>r.status(e.status||500).json({message:e.message||'Internal server error',status:e.status||500});
