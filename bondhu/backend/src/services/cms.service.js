@@ -1,0 +1,1 @@
+const crypto=require('crypto'),notices=[{id:'notice-1',title:'Verify before sharing',body:'Moderate public emergency posts.'}],news=[];exports.listNotices=async()=>notices;exports.listNews=async()=>news;exports.createNews=async b=>{const x={id:crypto.randomUUID(),status:'draft',...b,createdAt:new Date().toISOString()};news.push(x);return x};

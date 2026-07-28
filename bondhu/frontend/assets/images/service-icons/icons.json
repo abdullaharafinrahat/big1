@@ -1,0 +1,182 @@
+[
+  {
+    "id": "blood-drop",
+    "label": "Blood drop",
+    "alt": "Emergency blood donation and blood request icon",
+    "category": "health",
+    "file": "blood-drop.png",
+    "src": "assets/images/service-icons/blood-drop.png",
+    "originalUpload": "1.jpg"
+  },
+  {
+    "id": "stethoscope",
+    "label": "Stethoscope",
+    "alt": "Doctor consultation and medical service icon",
+    "category": "health",
+    "file": "stethoscope.png",
+    "src": "assets/images/service-icons/stethoscope.png",
+    "originalUpload": "2.png"
+  },
+  {
+    "id": "ambulance",
+    "label": "Ambulance",
+    "alt": "Ambulance and emergency transport icon",
+    "category": "emergency",
+    "file": "ambulance.png",
+    "src": "assets/images/service-icons/ambulance.png",
+    "originalUpload": "3.png"
+  },
+  {
+    "id": "handshake",
+    "label": "Handshake",
+    "alt": "Volunteer partnership and community support icon",
+    "category": "community",
+    "file": "handshake.png",
+    "src": "assets/images/service-icons/handshake.png",
+    "originalUpload": "4.png"
+  },
+  {
+    "id": "medicine-capsule",
+    "label": "Medicine capsule",
+    "alt": "Medicine and pharmacy support icon",
+    "category": "health",
+    "file": "medicine-capsule.png",
+    "src": "assets/images/service-icons/medicine-capsule.png",
+    "originalUpload": "5.png"
+  },
+  {
+    "id": "laboratory-flask",
+    "label": "Laboratory flask",
+    "alt": "Medical test and laboratory service icon",
+    "category": "health",
+    "file": "laboratory-flask.png",
+    "src": "assets/images/service-icons/laboratory-flask.png",
+    "originalUpload": "6.png"
+  },
+  {
+    "id": "health-heart",
+    "label": "Health heart",
+    "alt": "Healthcare and first-aid support icon",
+    "category": "health",
+    "file": "health-heart.png",
+    "src": "assets/images/service-icons/health-heart.png",
+    "originalUpload": "7.png"
+  },
+  {
+    "id": "person-search",
+    "label": "Person search",
+    "alt": "Missing-person search and help desk icon",
+    "category": "safety",
+    "file": "person-search.png",
+    "src": "assets/images/service-icons/person-search.png",
+    "originalUpload": "8.png"
+  },
+  {
+    "id": "education-cap",
+    "label": "Education cap",
+    "alt": "Training and awareness icon",
+    "category": "education",
+    "file": "education-cap.png",
+    "src": "assets/images/service-icons/education-cap.png",
+    "originalUpload": "9.png"
+  },
+  {
+    "id": "hospital-building",
+    "label": "Hospital building",
+    "alt": "Hospital directory and blood bank icon",
+    "category": "health",
+    "file": "hospital-building.png",
+    "src": "assets/images/service-icons/hospital-building.png",
+    "originalUpload": "10.png"
+  },
+  {
+    "id": "home",
+    "label": "Home",
+    "alt": "Home and shelter support icon",
+    "category": "community",
+    "file": "home.png",
+    "src": "assets/images/service-icons/home.png",
+    "originalUpload": "11.png"
+  },
+  {
+    "id": "news",
+    "label": "News",
+    "alt": "News and public notice icon",
+    "category": "cms",
+    "file": "news.png",
+    "src": "assets/images/service-icons/news.png",
+    "originalUpload": "12.png"
+  },
+  {
+    "id": "leaves",
+    "label": "Leaves",
+    "alt": "Environment and wellness icon",
+    "category": "community",
+    "file": "leaves.png",
+    "src": "assets/images/service-icons/leaves.png",
+    "originalUpload": "13.png"
+  },
+  {
+    "id": "island",
+    "label": "Island",
+    "alt": "Area and local community icon",
+    "category": "community",
+    "file": "island.png",
+    "src": "assets/images/service-icons/island.png",
+    "originalUpload": "14.png"
+  },
+  {
+    "id": "award-star",
+    "label": "Award star",
+    "alt": "Achievement and recognition icon",
+    "category": "community",
+    "file": "award-star.png",
+    "src": "assets/images/service-icons/award-star.png",
+    "originalUpload": "15.png"
+  },
+  {
+    "id": "rocket",
+    "label": "Rocket",
+    "alt": "Fast response and launch icon",
+    "category": "platform",
+    "file": "rocket.png",
+    "src": "assets/images/service-icons/rocket.png",
+    "originalUpload": "16.png"
+  },
+  {
+    "id": "people-group",
+    "label": "People group",
+    "alt": "Community volunteer group icon",
+    "category": "community",
+    "file": "people-group.png",
+    "src": "assets/images/service-icons/people-group.png",
+    "originalUpload": "17.png"
+  },
+  {
+    "id": "heart-in-hand",
+    "label": "Heart in hand",
+    "alt": "Donation and care icon",
+    "category": "donation",
+    "file": "heart-in-hand.png",
+    "src": "assets/images/service-icons/heart-in-hand.png",
+    "originalUpload": "18.png"
+  },
+  {
+    "id": "emergency-call",
+    "label": "Emergency call",
+    "alt": "Emergency phone call icon",
+    "category": "emergency",
+    "file": "emergency-call.png",
+    "src": "assets/images/service-icons/emergency-call.png",
+    "originalUpload": "19.png"
+  },
+  {
+    "id": "emergency-siren",
+    "label": "Emergency siren",
+    "alt": "Emergency alert siren icon",
+    "category": "emergency",
+    "file": "emergency-siren.png",
+    "src": "assets/images/service-icons/emergency-siren.png",
+    "originalUpload": "20.png"
+  }
+]

@@ -1,0 +1,1 @@
+exports.createPayment=async payload=>({provider:'bkash',status:'initiated',paymentUrl:'https://pay.example/bkash',...payload});exports.handleCallback=async payload=>({provider:'bkash',status:'received',payload});

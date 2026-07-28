@@ -1,0 +1,1 @@
+exports.distanceKm=(a,b,c,d)=>{const n=[a,b,c,d].map(Number);if(n.some(Number.isNaN))return Infinity;const[x,y,z,w]=n.map(v=>v*Math.PI/180),h=Math.sin((z-x)/2)**2+Math.cos(x)*Math.cos(z)*Math.sin((w-y)/2)**2;return 6371*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))};

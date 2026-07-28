@@ -1,0 +1,1 @@
+import{apiRequest,toJsonBody}from'./client.js';export const listBloodRequests=(p={})=>apiRequest(`/blood-requests?${new URLSearchParams(p)}`);export const createBloodRequest=p=>apiRequest('/blood-requests',{method:'POST',body:toJsonBody(p)});export const matchBloodRequest=id=>apiRequest(`/blood-requests/${id}/match`,{method:'POST'});

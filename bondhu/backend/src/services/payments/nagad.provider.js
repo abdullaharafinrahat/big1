@@ -1,0 +1,1 @@
+exports.createPayment=async payload=>({provider:'nagad',status:'initiated',paymentUrl:'https://pay.example/nagad',...payload});exports.handleCallback=async payload=>({provider:'nagad',status:'received',payload});

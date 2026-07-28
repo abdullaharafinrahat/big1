@@ -1,0 +1,1 @@
+import{apiRequest,toJsonBody}from'./client.js';export const listDonors=(p={})=>apiRequest(`/donors?${new URLSearchParams(p)}`);export const createDonor=p=>apiRequest('/donors',{method:'POST',body:toJsonBody(p)});export const getNearbyDonors=p=>apiRequest(`/donors/nearby?${new URLSearchParams(p)}`);

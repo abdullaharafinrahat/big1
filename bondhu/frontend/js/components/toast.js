@@ -1,0 +1,1 @@
+let r;export function showToast(msg,type='success',ms=4000){r||(r=document.body.appendChild(Object.assign(document.createElement('div'),{className:'toast-region'})));const t=Object.assign(document.createElement('div'),{className:`toast ${type}`,textContent:msg});r.append(t);setTimeout(()=>t.remove(),ms)}

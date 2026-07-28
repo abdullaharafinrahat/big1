@@ -1,0 +1,1 @@
+(() => { window.BondhuApp.setupShell('calendar'); })();

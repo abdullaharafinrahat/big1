@@ -1,0 +1,1 @@
+const events=[];exports.record=async e=>{const x={id:events.length+1,...e,createdAt:new Date().toISOString()};events.push(x);return x};exports.list=async()=>events;

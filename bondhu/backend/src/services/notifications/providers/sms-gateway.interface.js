@@ -1,0 +1,1 @@
+class SmsGateway{async sendSms(){throw Error('sendSms must be implemented')}}module.exports=SmsGateway;

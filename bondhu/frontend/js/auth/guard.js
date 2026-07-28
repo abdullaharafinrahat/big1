@@ -1,0 +1,1 @@
+import{getAccessToken,getCurrentUser}from'./session.js';export function requireAuth({role}={}){const u=getCurrentUser();if(!getAccessToken()||role&&u?.role!==role)location.href='../login.html';return u}

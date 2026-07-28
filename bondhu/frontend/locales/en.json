@@ -1,0 +1,10 @@
+{
+  "app": {
+    "name": "Bondhu"
+  },
+  "nav": {
+    "blood": "Blood",
+    "donor": "Donor",
+    "hospitals": "Hospitals"
+  }
+}

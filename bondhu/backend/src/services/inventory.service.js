@@ -1,0 +1,1 @@
+const stock=new Map();exports.setStock=async(hospitalId,bloodGroup,units)=>{const x={hospitalId,bloodGroup,units,updatedAt:new Date().toISOString()};stock.set(`${hospitalId}:${bloodGroup}`,x);return x};exports.getStock=async hospitalId=>[...stock.values()].filter(x=>x.hospitalId===hospitalId);
