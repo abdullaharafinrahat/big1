@@ -22,9 +22,11 @@
   <div class="flex min-h-screen">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-[#0B1727] text-gray-300 flex flex-col shrink-0 justify-between">
+    <div id="backdrop" class="hidden fixed inset-0 z-40 bg-black/50 md:hidden" onclick="closeSidebar()"></div>
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0B1727] text-gray-300 flex flex-col justify-between transform -translate-x-full transition-transform duration-300 md:static md:translate-x-0 md:shrink-0">
       <div>
         <!-- Brand Logo -->
+        <button id="sidebarClose" type="button" class="md:hidden absolute top-3 right-3 text-white" aria-label="Close menu" onclick="closeSidebar()"><i class="fa-solid fa-xmark text-xl"></i></button>
         <a href="index.html" class="p-4 border-b border-gray-800 flex items-center space-x-3 block">
           <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-emerald-600 font-bold text-xl shadow">
             <i class="fa-solid fa-heart-pulse text-red-500"></i>
@@ -133,9 +135,9 @@
     <div class="flex-1 flex flex-col min-w-0">
 
       <!-- Admin Top Bar -->
-      <header class="bg-white border-b px-6 py-2.5 flex items-center justify-between text-xs">
+      <header class="bg-white border-b px-3 sm:px-6 py-2.5 flex items-center justify-between text-xs">
         <div class="flex items-center space-x-3">
-          <button class="text-gray-500 hover:text-gray-700"><i class="fa-solid fa-bars text-base"></i></button>
+          <button id="menuBtn" type="button" class="md:hidden text-gray-500 hover:text-gray-700" aria-label="Open menu" onclick="openSidebar()"><i class="fa-solid fa-bars text-base"></i></button>
           <a href="index.html" class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center space-x-1">
             <i class="fa-solid fa-globe"></i><span>View Site</span>
           </a>
@@ -143,7 +145,7 @@
 
         <div class="flex items-center space-x-4">
           <!-- Date Cards -->
-          <div class="flex items-center space-x-2">
+          <div class="hidden lg:flex items-center space-x-2">
             <div class="border rounded px-2 py-1 bg-gray-50 flex items-center space-x-1.5 text-gray-600">
               <i class="fa-regular fa-calendar text-gray-500"></i>
               <div>
@@ -183,10 +185,10 @@
       </header>
 
       <!-- Dashboard Inner Content -->
-      <main class="p-6 bg-slate-50 flex-1 grid grid-cols-12 gap-6">
+      <main class="p-3 sm:p-6 bg-slate-50 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
 
         <!-- News Management Table Section (8 cols) -->
-        <div class="col-span-8 bg-white p-5 rounded-lg border shadow-sm">
+        <div class="lg:col-span-8 bg-white p-3 sm:p-5 rounded-lg border shadow-sm">
           <div class="flex justify-between items-center mb-4">
             <div>
               <h2 class="text-base font-bold text-gray-800">All News Posts</h2>
@@ -195,7 +197,7 @@
           </div>
 
           <!-- Controls / Filters -->
-          <div class="flex items-center justify-between gap-3 mb-4 text-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 text-xs">
             <div class="flex space-x-2">
               <select class="border rounded px-2 py-1.5 text-gray-600 bg-white">
                 <option>All Categories</option>
@@ -204,7 +206,7 @@
                 <option>All Status</option>
               </select>
             </div>
-            <div class="relative w-48">
+            <div class="relative w-full sm:w-48">
               <input type="text" placeholder="Search news..." class="w-full border rounded pl-2 pr-7 py-1.5 text-xs focus:outline-none focus:border-emerald-500">
               <i class="fa-solid fa-magnifying-glass absolute right-2.5 top-2.5 text-gray-400 text-xs"></i>
             </div>
@@ -212,7 +214,7 @@
 
           <!-- Table -->
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs border-collapse">
+            <table class="w-full min-w-[760px] text-left text-xs border-collapse">
               <thead>
                 <tr class="bg-gray-50 text-gray-500 border-y">
                   <th class="p-2.5 font-medium">#</th>
@@ -312,7 +314,7 @@
           </div>
 
           <!-- Pagination -->
-          <div class="flex items-center justify-between mt-4 text-xs text-gray-500 border-t pt-3">
+          <div class="flex flex-wrap items-center justify-between gap-3 mt-4 text-xs text-gray-500 border-t pt-3">
             <span>Showing 1 to 5 of 46 entries</span>
             <div class="flex space-x-1 font-medium">
               <button class="px-2 py-1 border rounded hover:bg-gray-100">&lt;</button>
@@ -329,7 +331,7 @@
         </div>
 
         <!-- Add New News Form Panel (4 cols) -->
-        <div id="add-news" class="col-span-4 bg-white p-5 rounded-lg border shadow-sm flex flex-col justify-between">
+        <div id="add-news" class="lg:col-span-4 bg-white p-3 sm:p-5 rounded-lg border shadow-sm flex flex-col justify-between">
           <div>
             <h2 class="text-base font-bold text-gray-800">Add New News</h2>
             <p class="text-xs text-gray-500 mb-4">Create a new news post</p>
@@ -401,5 +403,14 @@
     </div>
   </div>
 
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
+    function openSidebar() { sidebar.classList.remove('-translate-x-full'); backdrop.classList.remove('hidden'); }
+    function closeSidebar() { sidebar.classList.add('-translate-x-full'); backdrop.classList.add('hidden'); }
+    sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      if (window.innerWidth < 768) closeSidebar();
+    }));
+  </script>
 </body>
 </html>
