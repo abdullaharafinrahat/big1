@@ -62,16 +62,46 @@
     .si:hover { color: #fff; background: rgba(255,255,255,0.05); }
     .si.a { color: #fff; background: rgba(59,130,246,0.15); border-left: 3px solid #3b82f6; }
     .dash { border: 2px dashed #cbd5e1; border-radius: 6px; padding: 10px; text-align: center; cursor: pointer; }
+
+    .app { min-height: 100vh; }
+    .sidebar { width: 210px; flex-shrink: 0; overflow: auto; position: sticky; top: 0; height: 100vh; }
+    .backing { display: none; }
+    .dashboard-header { flex-wrap: wrap; height: auto !important; min-height: 52px; }
+    #menuBtn { display: none; }
+    .content-grid { display: grid; grid-template-columns: 320px 1fr 300px; gap: 12px; }
+    .form2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stats5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+    .stats4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+    @media (max-width: 1280px) { .content-grid { grid-template-columns: 300px 1fr 280px; } }
+    @media (max-width: 1100px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .sidebar { position: fixed; z-index: 50; left: 0; top: 0; transform: translateX(-100%); transition: transform .25s ease; }
+      .sidebar.open { transform: translateX(0); }
+      .backing.show { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(15, 23, 42, .5); }
+      #menuBtn { display: block; }
+      .hdates { display: none; }
+      .stats5 { grid-template-columns: repeat(3, 1fr); }
+      .p12 { overflow-x: auto; }
+      .tbl { min-width: 560px; }
+    }
+    @media (max-width: 640px) {
+      .hphones { display: none; }
+      .stats5, .stats4, .cards3 { grid-template-columns: repeat(2, 1fr); }
+      .form2 { grid-template-columns: 1fr; }
+      .form2 > * { grid-column: auto !important; }
+    }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   </style>
 </head>
 <body>
 
-  <div class="f" style="height: 100vh; background: #f1f5f9; overflow: hidden;">
+  <div class="f app" style="background: #f1f5f9;">
+    <div class="backing" id="backing"></div>
 
     <!-- Sidebar -->
-    <div class="sb fc" style="width: 210px; flex-shrink: 0; overflow: auto;">
+    <div class="sb fc sidebar" id="sidebar">
       <a href="index.html" class="f" style="padding: 14px; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-decoration: none;">
         <div style="width: 30px; height: 30px; background: linear-gradient(135deg,#ef4444,#dc2626); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">&#10084;</div>
         <div>
@@ -115,18 +145,18 @@
     <div class="fc" style="flex: 1; overflow: hidden;">
 
       <!-- Header -->
-      <div class="f bgw" style="height: 52px; border-bottom: 1px solid #e2e8f0; align-items: center; justify-content: space-between; padding: 0 16px; flex-shrink: 0;">
+      <div class="f bgw dashboard-header" style=" border-bottom: 1px solid #e2e8f0; align-items: center; justify-content: space-between; padding: 0 16px; flex-shrink: 0;">
         <div class="f g2" style="align-items: center;">
-          <button style="background: none; border: none; font-size: 16px; cursor: pointer; color: #475569;">&#9776;</button>
-          <div class="f g" style="align-items: center; color: #475569;"><span>&#128197;</span> <span class="fs13 fw6">08 July 2026</span><span class="fs12 c4">Tuesday</span></div>
-          <div class="f g" style="align-items: center; color: #475569; font-size: 11px;"><span>&#127769;</span> <span>২৪ আষাঢ় ১৪৩৩</span></div>
-          <div class="f g" style="align-items: center; color: #475569; font-size: 11px;"><span>&#9770;</span><span>২৩ মহররম ১৪৪৮</span></div>
+          <button id="menuBtn" type="button" style="background: none; border: none; font-size: 16px; cursor: pointer; color: #475569;">&#9776;</button>
+          <div class="f g hdates" style="align-items: center; color: #475569;"><span>&#128197;</span> <span class="fs13 fw6">08 July 2026</span><span class="fs12 c4">Tuesday</span></div>
+          <div class="f g hdates" style="align-items: center; color: #475569; font-size: 11px;"><span>&#127769;</span> <span>২৪ আষাঢ় ১৪৩৩</span></div>
+          <div class="f g hdates" style="align-items: center; color: #475569; font-size: 11px;"><span>&#9770;</span><span>২৩ মহররম ১৪৪৮</span></div>
         </div>
         <div class="f g2" style="align-items: center;">
           <button style="background: #16a34a; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer;">বাংলা</button>
           <button style="background: #e2e8f0; color: #475569; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer;">English</button>
-          <div class="f g" style="font-size: 11px; color: #475569;"><span class="cr">&#128680;</span><div><div class="fs10 c4">Emergency</div><div class="fw6">10647</div></div></div>
-          <div class="f g" style="font-size: 11px; color: #475569;"><span class="cg">&#128657;</span><div><div class="fs10 c4">Ambulance</div><div class="fw6">01712-345678</div></div></div>
+          <div class="f g hphones" style="font-size: 11px; color: #475569;"><span class="cr">&#128680;</span><div><div class="fs10 c4">Emergency</div><div class="fw6">10647</div></div></div>
+          <div class="f g hphones" style="font-size: 11px; color: #475569;"><span class="cg">&#128657;</span><div><div class="fs10 c4">Ambulance</div><div class="fw6">01712-345678</div></div></div>
           <div style="position: relative; cursor: pointer;"><span style="font-size: 16px;">&#128276;</span><span style="position: absolute; top: -3px; right: -3px; background: #ef4444; color: white; font-size: 8px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</span></div>
           <div class="f g" style="align-items: center;">
             <img src="https://ui-avatars.com/api/?name=Super+Admin&background=0D8ABC&color=fff&size=28" style="width: 28px; height: 28px; border-radius: 50%;">
@@ -137,7 +167,7 @@
 
       <!-- Content -->
       <div style="flex: 1; overflow: auto; padding: 12px;">
-        <div style="display: grid; grid-template-columns: 320px 1fr 300px; gap: 12px; min-width: 1100px;">
+        <div class="content-grid">
 
           <!-- Left: Form -->
           <div class="fc g2">
@@ -146,7 +176,7 @@
               <p class="fs11 c4" style="margin-bottom: 10px;">Add ambulance and all related information</p>
 
               <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">1. Ambulance Information</div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div class="form2">
                 <div><label class="lbl">Institution <span class="req">*</span></label><input class="inp" value="Bondhu General Hospital"></div>
                 <div><label class="lbl">Ambulance Type <span class="req">*</span></label><select class="inp"><option>ICU Ambulance</option></select></div>
                 <div><label class="lbl">Name / Title <span class="req">*</span></label><input class="inp" value="Bondhu ICU Ambulance"></div>
@@ -163,34 +193,34 @@
               <div style="margin-bottom: 10px;"><label class="lbl">Description</label><textarea class="inp" rows="2" placeholder="বিবরণ লিখুন"></textarea></div>
 
               <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">2. Owner Information</div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div class="form2">
                 <div><label class="lbl">Owner Name <span class="req">*</span></label><input class="inp" placeholder="নাম লিখুন"></div>
                 <div><label class="lbl">Owner Mobile <span class="req">*</span></label><input class="inp" placeholder="01XXXXXXXXX"></div>
                 <div style="grid-column: span 2;"><label class="lbl">Owner NID Number <span class="req">*</span></label><input class="inp" placeholder="NID নম্বর লিখুন"></div>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div class="form2">
                 <div><label class="lbl">NID Upload <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Front)</div><div class="fs10 c5">JPG, PNG or PDF</div></div></div>
                 <div><label class="lbl" style="opacity: 0;">.</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Back)</div><div class="fs10 c5">JPG, PNG or PDF</div></div></div>
               </div>
 
               <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">3. Driver Information</div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div class="form2">
                 <div><label class="lbl">Driver Name <span class="req">*</span></label><input class="inp" placeholder="নাম লিখুন"></div>
                 <div><label class="lbl">Driver Mobile <span class="req">*</span></label><input class="inp" placeholder="01XXXXXXXXX"></div>
                 <div><label class="lbl">License Number <span class="req">*</span></label><input class="inp" placeholder="লাইসেন্স নম্বর"></div>
                 <div><label class="lbl">Driver NID <span class="req">*</span></label><input class="inp" placeholder="NID নম্বর লিখুন"></div>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div class="form2">
                 <div><label class="lbl">NID Upload <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Front)</div></div></div>
                 <div><label class="lbl" style="opacity: 0;">.</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Back)</div></div></div>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+              <div class="form2">
                 <div><label class="lbl">License Upload <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload License (Front)</div></div></div>
                 <div><label class="lbl" style="opacity: 0;">.</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload License (Back)</div></div></div>
               </div>
 
               <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">4. Documents &amp; Permits</div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+              <div class="form2">
                 <div><label class="lbl">Vehicle Image</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload Image</div></div></div>
                 <div><label class="lbl">Route Permits</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload File</div></div></div>
                 <div><label class="lbl">Fitness Certificate</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload File</div></div></div>
@@ -249,7 +279,7 @@
                 <div class="f g"><button class="btn btn-o" style="padding: 3px 8px;">&lt;</button><button class="btn" style="padding: 3px 8px; background: #3b82f6; color: white;">1</button><button class="btn btn-o" style="padding: 3px 8px;">2</button><button class="btn btn-o" style="padding: 3px 8px;">3</button><button class="btn btn-o" style="padding: 3px 8px;">4</button><button class="btn btn-o" style="padding: 3px 8px;">&gt;</button></div>
               </div>
 
-              <div style="display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-top: 12px;">
+              <div class="stats5">
                 <div class="sc"><div class="sci" style="background: #eff6ff;">&#128657;</div><div><div class="fs10 c4">Total Ambulances</div><div class="fs14 fw7 c1">24</div></div></div>
                 <div class="sc"><div class="sci" style="background: #dcfce7;">&#9989;</div><div><div class="fs10 c4">Active</div><div class="fs14 fw7 cg">20</div></div></div>
                 <div class="sc"><div class="sci" style="background: #ffedd5;">&#9888;&#65039;</div><div><div class="fs10 c4">Inactive</div><div class="fs14 fw7 co">4</div></div></div>
@@ -280,7 +310,7 @@
             <div class="bgw br8 bdr p12" id="visitor-view">
               <h4 class="fs13 c1 fw6" style="margin-bottom: 2px;">Homepage View (For Visitors)</h4>
               <p class="fs11 c4" style="margin-bottom: 10px;">Ambulance list will be shown on homepage</p>
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+              <div class="cards3">
                 <div class="bgw br8 bdr" style="overflow: hidden;">
                   <div style="position: relative;"><img src="https://images.unsplash.com/photo-1615463867974-2ad5b5c6825a?w=120&h=80&fit=crop" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #ef4444; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">ICU</span></div>
                   <div class="p8"><div class="fs10 fw6 c1">Bondhu ICU Ambulance</div><div class="fs9 c4">Bondhu General Hospital</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
@@ -311,7 +341,7 @@
             <!-- Book Ambulance Modal -->
             <div class="bgw br8 bdr p12" style="border: 2px dashed #cbd5e1;">
               <h4 class="fs13 c1 fw6" style="margin-bottom: 10px;">&#128203; Book Ambulance</h4>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <div class="form2">
                 <div style="grid-column: span 2;"><label class="lbl">Select Ambulance <span class="req">*</span></label><select class="inp"><option>ICU Ambulance</option></select></div>
                 <div><label class="lbl">Patient Name <span class="req">*</span></label><input class="inp" placeholder="রোগীর নাম"></div>
                 <div><label class="lbl">Mobile Number <span class="req">*</span></label><input class="inp" placeholder="01XXXXXXXXX"></div>
@@ -331,7 +361,7 @@
             <!-- Admin Dashboard -->
             <div class="bgw br8 bdr p12">
               <h4 class="fs13 c1 fw6" style="margin-bottom: 10px;">&#128100; Admin Dashboard - All Bookings</h4>
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div class="stats4">
                 <div class="sc"><div class="sci" style="background: #fef3c7;">&#128203;</div><div><div class="fs10 c4">Total Bookings</div><div class="fs14 fw7 c1">245</div></div></div>
                 <div class="sc"><div class="sci" style="background: #dbeafe;">&#128197;</div><div><div class="fs10 c4">Today's Bookings</div><div class="fs14 fw7 c1">18</div></div></div>
                 <div class="sc"><div class="sci" style="background: #dcfce7;">&#9989;</div><div><div class="fs10 c4">Completed</div><div class="fs14 fw7 cg">152</div></div></div>
@@ -354,5 +384,17 @@
     </div>
   </div>
 
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const backing = document.getElementById('backing');
+    function toggleSidebar(open) {
+      const shouldOpen = typeof open === 'boolean' ? open : !sidebar.classList.contains('open');
+      sidebar.classList.toggle('open', shouldOpen);
+      backing.classList.toggle('show', shouldOpen);
+    }
+    document.getElementById('menuBtn').addEventListener('click', () => toggleSidebar());
+    backing.addEventListener('click', () => toggleSidebar(false));
+    sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', () => toggleSidebar(false)));
+  </script>
 </body>
 </html>
