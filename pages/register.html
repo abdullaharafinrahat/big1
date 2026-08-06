@@ -5,28 +5,35 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Bondhu Healthcare - Registration</title>
-<link href="../css/pages/register.css" rel="stylesheet"/>
-</head>
-<body>
+
+<link href="../css/base.css" rel="stylesheet"/><link href="../css/components.css" rel="stylesheet"/><link href="../css/pages/register.css" rel="stylesheet"/><link href="../css/layout.css" rel="stylesheet"/></head>
+<body><div id="app-header"></div>
 <div class="sim-shell">
-<header class="sim-header">
-<a aria-label="Back to Bondhu home" class="brand" href="../index.html">
-<img alt="Bondhu Healthcare" class="brand-icon" src="../assets/images/service-icons/heart-in-hand.png"/>
-<span><strong>Bondhu Healthcare</strong></span>
-</a>
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">বাংলা</button>
-<button data-lang="en" type="button">English</button>
-</div>
-</header>
 <main class="sim-main">
-<section class="sim-card choose-section" id="choose-section">
+<section aria-label="Registration type" class="account-type-section">
+<article class="account-type-card" data-account-type="user">
+<div class="account-type-icon"><img alt="New user" src="../assets/images/service-icons/people-group.png"/></div>
+<div>
+<h3>New User</h3>
+<p>Register as a new user</p>
+<a href="register.html?type=user">Register<span>→</span></a>
+</div>
+</article>
+<article class="account-type-card" data-account-type="institution">
+<div class="account-type-icon"><img alt="Institution" src="../assets/images/service-icons/hospital-building.png"/></div>
+<div>
+<h3>Institution</h3>
+<p>Register your institution</p>
+<a href="register.html?type=institution">Register<span>→</span></a>
+</div>
+</article>
+</section>
+<section class="sim-card choose-section" hidden="" id="choose-section"><button class="btn soft account-type-back" id="back-account-type-btn" type="button">← Back</button>
 <div class="section-heading">
 <div>
 <h3>Choose registration method</h3>
 <p>Select how you want to create your Bondhu Healthcare account.</p>
 </div>
-
 </div>
 <div class="method-grid">
 <button class="method-card" data-method="mobile" type="button">
@@ -97,14 +104,9 @@
 </article>
 </div>
 </section>
-</main>
-<footer class="sim-footer">
-<span>© 2026 Bondhu Healthcare. সকল অধিকার সংরক্ষিত।</span>
-<strong>Health • Humanity • Hope</strong>
-<span>Help: <b>09609-123456</b></span>
-</footer>
+</main><div id="app-footer"></div>
 </div>
 <div aria-live="polite" class="toast-region" id="toast-region"></div>
-<script src="../js/pages/register.page.js"></script>
+<script src="../js/main.js" type="module"></script><script src="../js/pages/register.page.js"></script>
 </body>
 </html>

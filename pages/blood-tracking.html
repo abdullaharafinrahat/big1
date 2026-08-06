@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="bn">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blood Request Tracking | Bondhu Foundation</title>
+<link href="../css/pages/blood-tracking.css" rel="stylesheet"/>
+<link href="../css/base.css" rel="stylesheet"/>
+<link href="../css/layout.css" rel="stylesheet"/>
+<link href="../css/components.css" rel="stylesheet"/>
+</head>
+<body>
+<main class="tracking-page">
+<section class="tracking-shell">
+<a class="back-link" href="messages.html">← Messages</a>
+<article class="tracking-card-main">
+<div class="tracking-title-row">
+<img alt="Blood request" src="../assets/images/service-icons/blood-drop.png"/>
+<div>
+<h1>Tracking Page</h1>
+<p>রক্তের অনুরোধের লাইভ অবস্থা</p>
+</div>
+</div>
+<div class="browser-frame">
+<div class="browser-head">
+<div class="browser-dots"><span></span><span></span><span></span></div>
+<div class="browser-url" id="browser-url">bondhu.org/r/BR----</div>
+</div>
+<div class="tracking-body">
+<div class="request-head"><button aria-controls="tracking-drawer" aria-expanded="false" aria-label="Open dashboard menu" class="tracking-menu-btn" id="tracking-menu-btn" type="button">☰</button><span class="request-head-title">Blood Request</span><a class="request-head-message" href="messages.html">message</a></div>
+<section class="request-summary-box">
+<div class="tracking-id-row">
+<span>Tracking ID: <strong id="tracking-id">BR----</strong></span>
+<b id="request-status">সক্রিয়</b>
+</div>
+<div class="request-info-grid">
+<p><span>রোগী:</span> <strong id="patient-name">—</strong></p>
+<p><span>রক্তের গ্রুপ:</span> <strong class="red" id="blood-group">—</strong></p>
+<p><span>প্রয়োজনীয় ব্যাগ:</span> <strong id="units-needed">—</strong></p>
+<p><span>হাসপাতাল:</span> <strong id="hospital-name">—</strong></p>
+<p class="wide"><span>লোকেশন:</span> <strong id="request-location">—</strong></p>
+<p class="wide"><span>তারিখ ও সময়:</span> <strong id="needed-time">—</strong></p>
+</div>
+</section>
+<section class="tracking-stats">
+<article>
+<span>ইতিমধ্যে সাড়া দিয়েছেন</span>
+<strong id="response-count">0 জন</strong>
+</article>
+<article>
+<span>এখনও প্রয়োজন</span>
+<strong id="units-left">0 ব্যাগ</strong>
+</article>
+</section>
+<button class="donor-response-btn" id="donor-response-btn" type="button">আমি রক্ত দিতে চাই</button><p class="tracking-help">এই পেজে রিকোয়েস্টের বর্তমান অবস্থা দেখা যাবে। আপনি সাড়া দিলে রিকোয়েস্টার ও হাসপাতাল আপডেট পাবে।</p>
+</div>
+</div>
+</article>
+<article class="donor-live-card" hidden="" id="donor-live-panel">
+<div class="donor-live-title">
+<button aria-controls="tracking-drawer" aria-expanded="false" aria-label="Open dashboard menu" class="tracking-menu-btn donor-menu-btn" id="tracking-menu-btn-live" type="button">☰</button>
+<h2>ডোনার এর সাড়া ও লাইভ আপডেট</h2>
+<a class="request-head-message donor-message-link" href="messages.html">message</a>
+</div>
+<div class="donor-live-frame">
+<div class="donor-app-head">
+<button id="back-to-tracking" type="button">←</button>
+<span>আমার সাড়া</span>
+<span>🔔</span>
+</div>
+<div class="donor-live-body">
+<div class="donor-accepted-box">
+<span>✓</span>
+<div><strong>আপনার সাড়া গ্রহণ করা হয়েছে</strong><small>আপনি লাইনে আছেন: <b id="my-queue-position">২ নম্বর</b></small></div>
+</div>
+<div class="donor-live-label">ডোনার তালিকা (লাইনে অনুযায়ী)</div>
+<div class="donor-queue-list" id="donor-live-queue">
+<div class="arrived"><span>1. রাশেদুল ইসলাম</span><b>হাসপাতালে</b></div>
+<div class="me"><span>2. আপনি</span><b>অপেক্ষমাণ</b></div>
+<div><span>3. আরিফ হোসেন</span><b>অপেক্ষমাণ</b></div>
+<div><span>4. তানভীর হাসান</span><b>অপেক্ষমাণ</b></div>
+<div><span>5. ইমরান হোসেন</span><b>অপেক্ষমাণ</b></div>
+<div><span>6. সাকিব আহমেদ</span><b>অপেক্ষমাণ</b></div>
+</div>
+<div class="donor-live-label">লাইভ আপডেট</div>
+<div class="donor-live-updates" id="donor-live-updates">
+<p><time>10:16 AM</time><span>রিকোয়েস্ট তৈরি হয়েছে</span></p>
+<p><time>10:17 AM</time><span>12 জন সাড়া দিয়েছেন</span></p>
+<p><time>10:25 AM</time><span>রাশেদুল ইসলাম হাসপাতালে পৌঁছেছেন</span></p>
+</div>
+</div>
+</div>
+<div class="donor-live-note">🔔 নতুন কেউ সাড়া দিলে সবার কাছে <strong>App Notification</strong> যাবে।</div>
+</article>
+
+</section>
+</main>
+<!-- FOOTER -->
+<footer>
+<div class="footer-top">
+<div class="footer-brand">
+<div class="logo-badge">B</div>
+<div>
+<h2>Bondhu<span>.</span></h2>
+<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+</div>
+</div>
+<div class="footer-links">
+<a href="mailto:help@bondhu.local">Contact</a>
+<a href="pages/donor-register.html">Donation</a>
+<a href="pages/news.html">Privacy Policy</a>
+<a href="pages/news.html">Terms &amp; Conditions</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Bondhu. All Rights Reserved.</span>
+<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+</div>
+</footer>
+<div class="tracking-drawer-backdrop" hidden="" id="tracking-drawer-backdrop"></div>
+<aside aria-label="Dashboard menu" class="tracking-drawer" hidden="" id="tracking-drawer">
+<button aria-label="Close menu" class="tracking-drawer-close" id="tracking-drawer-close" type="button">×</button>
+<div class="tracking-drawer-logo"><span>❤</span><strong>Bondhu.org</strong></div>
+<nav>
+<a href="dashboard.html"><span>🏠</span>Dashboard</a>
+<a href="profile.html"><span>👤</span>Profile</a>
+<a href="request-blood.html"><span>🩸</span>Blood Request</a>
+<a href="donor-register.html"><span>📋</span>Donor List</a>
+<a href="hospitals.html"><span>🩺</span>Thalassemia Corner</a>
+<a href="news.html"><span>🤝</span>Volunteer</a>
+<a href="ambulance.html"><span>🚑</span>Ambulance</a>
+<a href="hospitals.html"><span>💊</span>Pharmacy</a>
+<a href="news.html"><span>🏛️</span>Foundation</a>
+<a href="workflow.html"><span>📅</span>Calendar</a>
+<a href="messages.html"><span>✉️</span>Messages</a>
+<a href="admin/verification.html"><span>✅</span>Admin Verification</a>
+<a href="member-card.html"><span>🏅</span>Badges &amp; ID</a>
+<a href="forgot-password.html"><span>🎧</span>Support</a>
+</nav>
+</aside>
+<div aria-live="polite" class="tracking-toast-region" id="toast-region"></div>
+<script src="../js/pages/blood-tracking.page.js"></script>
+</body>
+</html>

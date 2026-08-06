@@ -1,13 +1,1112 @@
-<!doctype html>
-<html lang="bn" data-page="hospitals">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#d62828"><title>Hospitals | Bondhu</title>
-  <link rel="manifest" href="../manifest.json">
-  <link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/layout.css"><link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/pages/hospitals.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bondhu General Hospital Admin Dashboard - Multi Super Speciality Hospital Management System">
+  <title>Dashboard — Bondhu General Hospital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'] },
+          colors: {
+            sidebar: { DEFAULT:'#0f172a', hover:'#1e293b', active:'#2563eb', border:'#1e293b' },
+            brand: { red:'#ef4444', green:'#10b981', blue:'#3b82f6', purple:'#8b5cf6', orange:'#f97316', amber:'#f59e0b', teal:'#14b8a6', rose:'#f43f5e' }
+          },
+          boxShadow: {
+            card: '0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04)',
+            'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif}
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+    .custom-scroll::-webkit-scrollbar{width:5px}
+    .custom-scroll::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
+    *:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
+    button:focus-visible,a:focus-visible{outline:2px solid #2563eb;outline-offset:2px;border-radius:4px}
+    .sidebar-transition{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+    .hover-lift{transition:transform .2s ease,box-shadow .2s ease}
+    .hover-lift:hover{transform:translateY(-2px);box-shadow:0 10px 25px -5px rgb(0 0 0 / .08),0 8px 10px -6px rgb(0 0 0 / .05)}
+    .sparkline-path{stroke-dasharray:300;stroke-dashoffset:300;animation:draw 1.5s ease-out forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    .progress-fill{animation:progressGrow 1s ease-out forwards;transform-origin:left}
+    @keyframes progressGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+    .status-urgent{position:relative}
+    .status-urgent::before{content:'';position:absolute;inset:-2px;border-radius:9999px;border:2px solid #ef4444;animation:pulse-ring 2s cubic-bezier(.215,.61,.355,1) infinite}
+    @keyframes pulse-ring{0%{transform:scale(.95);opacity:.7}50%{transform:scale(1.05);opacity:.3}100%{transform:scale(.95);opacity:.7}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    .chart-container{position:relative;height:100%;width:100%;min-height:260px}
+  </style>
+<base target="_blank">
 </head>
-<body><a class="skip-link" href="#main">Skip</a><div id="app-header"></div><div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div><main id="main" class="page page-hospitals">
-<section class="container"><h1>Hospitals & Blood Banks</h1><form class="toolbar" id="hospital-search"><input name="q" placeholder="Search"><select name="type"><option value="">All</option><option>government</option><option>private</option><option>blood_bank</option></select><button class="btn btn-primary">Search</button></form><div class="listing-grid" id="hospital-list"></div></section></main><div id="app-footer"></div><script type="module" src="../js/main.js"></script>
-  <script type="module" src="../js/pages/hospitals.page.js"></script>
-</body></html>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
+<div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity opacity-0" aria-hidden="true" onclick="toggleSidebar()"></div>
+<div class="flex min-h-screen">
+
+<!-- Sidebar -->
+<aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-50 h-screen w-64 bg-sidebar text-slate-300 flex flex-col sidebar-transition -translate-x-full lg:translate-x-0 overflow-hidden" role="navigation" aria-label="Main navigation">
+  <div class="flex items-center gap-3 px-5 py-5 border-b border-sidebar-border/50 flex-shrink-0">
+    <div class="relative flex-shrink-0">
+      <div class="w-10 h-10 bg-gradient-to-br from-brand-red to-rose-600 rounded-xl flex items-center justify-center shadow-lg">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+      </div>
+      <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-brand-green rounded-full border-2 border-sidebar flex items-center justify-center">
+        <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+      </div>
+    </div>
+    <div class="min-w-0">
+      <h1 class="text-white font-bold text-sm leading-tight truncate">Bondhu General Hospital</h1>
+      <p class="text-[11px] text-slate-400 truncate">বন্ধু জেনারেল হাসপাতাল</p>
+    </div>
+  </div>
+  <nav class="flex-1 overflow-y-auto custom-scroll py-3 px-3 space-y-6">
+    <div>
+      <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Main</p>
+      <ul class="space-y-0.5">
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-blue text-white text-sm font-medium transition-colors" aria-current="page">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+          <span>Dashboard</span></a></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+          <span>Analytics</span></a></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+          <span>Hospital Profile</span></a></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M3.75 3h16.5M3.75 9h16.5M3.75 15h16.5"/></svg><span>Departments</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg><span>Doctors</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+          <span>Staff Management</span></a></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          <span>Patients</span></a></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg><span>Appointments</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg><span>IPD Management</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M3.75 3h16.5M3.75 9h16.5M3.75 15h16.5"/></svg><span>OPD Management</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg><span>Bed Management</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg><span>Ambulance</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg><span>Blood Center</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg><span>Pharmacy</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg><span>Laboratory</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg><span>Billing & Invoice</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg><span>Reports</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg><span>CMS Management</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+        <li><button class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors group" onclick="toggleDropdown(this)" aria-expanded="false">
+          <div class="flex items-center gap-3"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.212 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span>Settings</span></div>
+          <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button></li>
+      </ul>
+    </div>
+    <div>
+      <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">System</p>
+      <ul class="space-y-0.5">
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          <span>Users & Roles</span></a></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Activity Logs</span></a></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.212 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>System Settings</span></a></li>
+        <li><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-sidebar-hover text-slate-300 hover:text-white text-sm font-medium transition-colors">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+          <span>Backup & Restore</span></a></li>
+      </ul>
+    </div>
+  </nav>
+</aside>
+
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0">
+
+  <!-- Top Header -->
+  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4 shadow-sm">
+    <div class="flex items-center gap-3">
+      <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors" aria-label="Toggle navigation menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+      </button>
+      <div class="hidden sm:flex items-center gap-2 text-sm text-slate-600">
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+        <span class="font-medium text-slate-800">08 July 2026</span>
+        <span class="text-slate-400">Tuesday</span>
+      </div>
+      <div class="hidden md:flex items-center gap-4 ml-4 pl-4 border-l border-slate-200">
+        <div class="flex items-center gap-1.5 text-xs text-slate-500">
+          <svg class="w-3.5 h-3.5 text-brand-orange" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+          <span>১৪ অগাস্ট ১৪৩০</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs text-slate-500">
+          <svg class="w-3.5 h-3.5 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+          <span>৩০ জিলহজ্জ ১৪৪৭</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 sm:gap-4">
+      <div class="hidden sm:flex items-center bg-slate-100 rounded-lg p-0.5">
+        <button class="px-3 py-1.5 text-xs font-medium rounded-md bg-brand-green text-white shadow-sm transition-all">বাংলা</button>
+        <button class="px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 transition-all">English</button>
+      </div>
+      <button class="relative p-2 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors" aria-label="Notifications">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+        <span class="absolute top-1.5 right-1.5 w-4 h-4 bg-brand-red text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">12</span>
+      </button>
+      <div class="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-slate-200">
+        <img src="../assets/images/hospital/admin-avatar.png" alt="Super Admin profile" class="w-9 h-9 rounded-full object-cover border-2 border-slate-200">
+        <div class="hidden sm:block">
+          <p class="text-sm font-semibold text-slate-800 leading-tight">Super Admin</p>
+          <p class="text-xs text-slate-500">Administrator</p>
+        </div>
+        <button class="p-1 rounded-lg hover:bg-slate-100 text-slate-400 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-4 sm:p-6 space-y-6">
+
+    <!-- Contact Cards -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" aria-label="Emergency contacts">
+      <div class="bg-white rounded-xl p-4 shadow-card hover-lift flex items-center gap-3 border border-slate-100">
+        <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 font-medium">Emergency</p>
+          <p class="text-sm font-bold text-slate-800">10647</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-card hover-lift flex items-center gap-3 border border-slate-100">
+        <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 font-medium">Ambulance</p>
+          <p class="text-sm font-bold text-slate-800">01712-345678</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-card hover-lift flex items-center gap-3 border border-slate-100">
+        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 font-medium">Hospital Helpline</p>
+          <p class="text-sm font-bold text-slate-800">01712-345678</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-card hover-lift flex items-center gap-3 border border-slate-100">
+        <div class="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-brand-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        </div>
+        <div class="min-w-0">
+          <p class="text-xs text-slate-500 font-medium">Email</p>
+          <p class="text-sm font-bold text-slate-800 truncate">info@bondhuhospital.com</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl p-4 shadow-card hover-lift flex items-center gap-3 border border-slate-100">
+        <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+        </div>
+        <div>
+          <p class="text-xs text-brand-green font-semibold">Verified Hospital</p>
+          <p class="text-xs text-slate-500">License No: DGHS-12345</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hospital Profile + Stats Grid -->
+    <section class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+      <!-- Hospital Profile Card -->
+      <div class="xl:col-span-5 bg-white rounded-xl shadow-card border border-slate-100 overflow-hidden hover-lift">
+        <div class="p-5 flex flex-col sm:flex-row gap-5">
+          <div class="relative flex-shrink-0">
+            <img src="../assets/images/hospital/hospital-building.png" alt="Bondhu General Hospital building exterior" class="w-full sm:w-48 h-32 sm:h-36 object-cover rounded-lg">
+            <div class="absolute top-2 left-2 bg-brand-green text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Active</div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <h2 class="text-lg font-bold text-slate-900">Bondhu General Hospital</h2>
+            </div>
+            <p class="text-sm text-brand-blue font-medium mb-3">Multi Super Speciality Hospital</p>
+            <div class="flex items-start gap-1.5 text-xs text-slate-500 mb-3">
+              <svg class="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+              <span>House # 12, Road # 05, Dhanmondi, Dhaka-1205, Bangladesh</span>
+            </div>
+            <div class="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-500">
+              <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg> Established: 2015</span>
+              <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/></svg> Hospital ID: HSP-GL-0001</span>
+              <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg> Type: General Hospital</span>
+              <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg> Ownership: Private</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="xl:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <!-- Total Visitors -->
+        <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-1.5 py-0.5 rounded">+12.5%</span>
+          </div>
+          <p class="text-2xl font-bold text-slate-900">12,450</p>
+          <p class="text-xs text-slate-500 mt-0.5">Total Visitors</p>
+          <p class="text-[10px] text-slate-400 mt-1">This Month</p>
+          <div class="mt-2 h-8">
+            <svg class="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <path class="sparkline-path" d="M0,25 Q10,22 20,18 T40,15 T60,12 T80,8 T100,5" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+              <path d="M0,25 Q10,22 20,18 T40,15 T60,12 T80,8 T100,5 V30 H0 Z" fill="url(#grad1)" opacity="0.1"/>
+              <defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <!-- Total Patients -->
+        <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-lg bg-violet-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-brand-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-1.5 py-0.5 rounded">+8.3%</span>
+          </div>
+          <p class="text-2xl font-bold text-slate-900">8,620</p>
+          <p class="text-xs text-slate-500 mt-0.5">Total Patients</p>
+          <p class="text-[10px] text-slate-400 mt-1">This Month</p>
+          <div class="mt-2 h-8">
+            <svg class="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <path class="sparkline-path" d="M0,22 Q15,20 30,16 T60,12 T100,6" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>
+              <path d="M0,22 Q15,20 30,16 T60,12 T100,6 V30 H0 Z" fill="url(#grad2)" opacity="0.1"/>
+              <defs><linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <!-- Blood Requests -->
+        <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-1.5 py-0.5 rounded">+15.7%</span>
+          </div>
+          <p class="text-2xl font-bold text-slate-900">1,248</p>
+          <p class="text-xs text-slate-500 mt-0.5">Blood Requests</p>
+          <p class="text-[10px] text-slate-400 mt-1">This Month</p>
+          <div class="mt-2 h-8">
+            <svg class="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <path class="sparkline-path" d="M0,24 Q20,20 40,18 T70,10 T100,4" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+              <path d="M0,24 Q20,20 40,18 T70,10 T100,4 V30 H0 Z" fill="url(#grad3)" opacity="0.1"/>
+              <defs><linearGradient id="grad3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#ef4444" stop-opacity="0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <!-- Successful Support -->
+        <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-1.5 py-0.5 rounded">+18.2%</span>
+          </div>
+          <p class="text-2xl font-bold text-slate-900">1,105</p>
+          <p class="text-xs text-slate-500 mt-0.5">Successful Support</p>
+          <p class="text-[10px] text-slate-400 mt-1">This Month</p>
+          <div class="mt-2 h-8">
+            <svg class="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <path class="sparkline-path" d="M0,20 Q25,18 50,14 T100,6" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+              <path d="M0,20 Q25,18 50,14 T100,6 V30 H0 Z" fill="url(#grad4)" opacity="0.1"/>
+              <defs><linearGradient id="grad4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <!-- Total Doctors -->
+        <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-lg bg-sky-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-1.5 py-0.5 rounded">+5.4%</span>
+          </div>
+          <p class="text-2xl font-bold text-slate-900">58</p>
+          <p class="text-xs text-slate-500 mt-0.5">Total Doctors</p>
+          <p class="text-[10px] text-slate-400 mt-1">This Month</p>
+          <div class="mt-2 h-8">
+            <svg class="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <path class="sparkline-path" d="M0,18 Q20,16 40,14 T80,10 T100,8" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round"/>
+              <path d="M0,18 Q20,16 40,14 T80,10 T100,8 V30 H0 Z" fill="url(#grad5)" opacity="0.1"/>
+              <defs><linearGradient id="grad5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <!-- Total Staff -->
+        <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-brand-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+            </div>
+            <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-1.5 py-0.5 rounded">+6.1%</span>
+          </div>
+          <p class="text-2xl font-bold text-slate-900">198</p>
+          <p class="text-xs text-slate-500 mt-0.5">Total Staff</p>
+          <p class="text-[10px] text-slate-400 mt-1">This Month</p>
+          <div class="mt-2 h-8">
+            <svg class="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <path class="sparkline-path" d="M0,22 Q15,20 30,17 T60,14 T100,10" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+              <path d="M0,22 Q15,20 30,17 T60,14 T100,10 V30 H0 Z" fill="url(#grad6)" opacity="0.1"/>
+              <defs><linearGradient id="grad6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts + Recent Blood Requests -->
+    <section class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+      <!-- Overall Statistics -->
+      <div class="xl:col-span-7 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="text-base font-bold text-slate-900">Overall Statistics</h3>
+          <div class="flex items-center gap-3">
+            <div class="hidden sm:flex items-center gap-3 text-[11px]">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-brand-blue"></span>Visitors</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-brand-purple"></span>Patients</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-brand-green"></span>Appointments</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-brand-red"></span>Blood Requests</span>
+            </div>
+            <button class="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 bg-slate-50 px-2.5 py-1.5 rounded-lg transition-colors">
+              Last 7 Days
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="chart-container" style="min-height:300px;">
+          <canvas id="overallStatsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Department Wise Patients + Recent Blood Requests -->
+      <div class="xl:col-span-5 space-y-6">
+        <!-- Department Chart -->
+        <div class="bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-slate-900">Department Wise Patients</h3>
+            <button class="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 bg-slate-50 px-2.5 py-1.5 rounded-lg transition-colors">
+              This Month
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+          </div>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="relative w-40 h-40 flex-shrink-0">
+              <canvas id="deptChart"></canvas>
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="text-center">
+                  <p class="text-[10px] text-slate-400">Total</p>
+                  <p class="text-xl font-bold text-slate-800">8,620</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex-1 w-full">
+              <ul class="space-y-2.5 text-xs">
+                <li class="flex items-center justify-between"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-blue"></span>Medicine</span><span class="font-semibold text-slate-700">28% <span class="text-slate-400 font-normal">(2,414)</span></span></li>
+                <li class="flex items-center justify-between"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-orange"></span>Surgery</span><span class="font-semibold text-slate-700">18% <span class="text-slate-400 font-normal">(1,552)</span></span></li>
+                <li class="flex items-center justify-between"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-green"></span>Gyne & Obs</span><span class="font-semibold text-slate-700">16% <span class="text-slate-400 font-normal">(1,379)</span></span></li>
+                <li class="flex items-center justify-between"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-amber"></span>Pediatrics</span><span class="font-semibold text-slate-700">12% <span class="text-slate-400 font-normal">(1,034)</span></span></li>
+                <li class="flex items-center justify-between"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-red"></span>Cardiology</span><span class="font-semibold text-slate-700">10% <span class="text-slate-400 font-normal">(862)</span></span></li>
+                <li class="flex items-center justify-between"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-purple"></span>Others</span><span class="font-semibold text-slate-700">16% <span class="text-slate-400 font-normal">(1,379)</span></span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Blood Requests -->
+        <div class="bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-slate-900">Recent Blood Requests</h3>
+            <a href="#" class="text-xs font-medium text-brand-blue hover:text-blue-700 transition-colors">View All</a>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-brand-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-800">BR-2026-1250</span>
+                  <span class="w-5 h-5 rounded bg-slate-100 text-[10px] font-bold flex items-center justify-center text-slate-600">A+</span>
+                  <span class="status-urgent text-[10px] font-bold text-brand-red bg-red-50 px-1.5 py-0.5 rounded">Urgent</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5 truncate">Dhanmondi, Dhaka</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-[11px] text-slate-400">08 Jul</p>
+                <p class="text-[11px] text-slate-500 font-medium">10:30 AM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-brand-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-800">BR-2026-1249</span>
+                  <span class="w-5 h-5 rounded bg-slate-100 text-[10px] font-bold flex items-center justify-center text-slate-600">O-</span>
+                  <span class="text-[10px] font-bold text-brand-orange bg-orange-50 px-1.5 py-0.5 rounded">High</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5 truncate">Mirpur, Dhaka</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-[11px] text-slate-400">08 Jul</p>
+                <p class="text-[11px] text-slate-500 font-medium">09:15 AM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-brand-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-800">BR-2026-1248</span>
+                  <span class="w-5 h-5 rounded bg-slate-100 text-[10px] font-bold flex items-center justify-center text-slate-600">B+</span>
+                  <span class="text-[10px] font-bold text-brand-amber bg-amber-50 px-1.5 py-0.5 rounded">Medium</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5 truncate">Gulshan, Dhaka</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-[11px] text-slate-400">08 Jul</p>
+                <p class="text-[11px] text-slate-500 font-medium">08:45 AM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-brand-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-800">BR-2026-1247</span>
+                  <span class="w-5 h-5 rounded bg-slate-100 text-[10px] font-bold flex items-center justify-center text-slate-600">AB+</span>
+                  <span class="status-urgent text-[10px] font-bold text-brand-red bg-red-50 px-1.5 py-0.5 rounded">Urgent</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5 truncate">Uttara, Dhaka</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-[11px] text-slate-400">08 Jul</p>
+                <p class="text-[11px] text-slate-500 font-medium">08:10 AM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-brand-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-800">BR-2026-1246</span>
+                  <span class="w-5 h-5 rounded bg-slate-100 text-[10px] font-bold flex items-center justify-center text-slate-600">A-</span>
+                  <span class="text-[10px] font-bold text-brand-amber bg-amber-50 px-1.5 py-0.5 rounded">Medium</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5 truncate">Banani, Dhaka</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-[11px] text-slate-400">08 Jul</p>
+                <p class="text-[11px] text-slate-500 font-medium">07:45 AM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resource Overview -->
+    <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" aria-label="Resource overview">
+      <!-- Beds -->
+      <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-slate-900">450</p>
+            <p class="text-[11px] text-slate-500">Total Beds</p>
+          </div>
+        </div>
+      </div>
+      <!-- Occupied Beds -->
+      <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-slate-900">320</p>
+            <p class="text-[11px] text-slate-500">Occupied Beds</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div class="h-full bg-brand-orange rounded-full progress-fill" style="width:71%"></div>
+          </div>
+          <span class="text-[10px] font-bold text-brand-orange">71%</span>
+        </div>
+      </div>
+      <!-- Available Beds -->
+      <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-slate-900">130</p>
+            <p class="text-[11px] text-slate-500">Available Beds</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div class="h-full bg-brand-green rounded-full progress-fill" style="width:29%"></div>
+          </div>
+          <span class="text-[10px] font-bold text-brand-green">29%</span>
+        </div>
+      </div>
+      <!-- ICU Beds -->
+      <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-slate-900">45</p>
+            <p class="text-[11px] text-slate-500">Total ICU</p>
+          </div>
+        </div>
+      </div>
+      <!-- Operation Theatres -->
+      <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-cyan-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-slate-900">8</p>
+            <p class="text-[11px] text-slate-500">Total OT</p>
+          </div>
+        </div>
+      </div>
+      <!-- Ambulances -->
+      <div class="bg-white rounded-xl p-4 shadow-card border border-slate-100 hover-lift">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-slate-900">12</p>
+            <p class="text-[11px] text-slate-500">Available</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Section: 4 Cards + Recent Appointments + Quick Actions -->
+    <section class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+      <!-- Appointments Overview -->
+      <div class="xl:col-span-3 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold text-slate-900">Appointments Overview</h3>
+          <a href="#" class="text-[11px] font-medium text-brand-blue hover:text-blue-700 transition-colors">View All</a>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Today's Appointments</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">156</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Completed</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">98</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Upcoming</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">42</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Cancelled</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today's OPD/IPD Summary -->
+      <div class="xl:col-span-3 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold text-slate-900">Today's OPD/IPD Summary</h3>
+          <a href="#" class="text-[11px] font-medium text-brand-blue hover:text-blue-700 transition-colors">View All</a>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">OPD Patients</span>
+            </div>
+            <div class="text-right">
+              <span class="text-sm font-bold text-slate-900">214</span>
+              <span class="text-[10px] text-brand-green ml-1">+12%</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">IPD Admissions</span>
+            </div>
+            <div class="text-right">
+              <span class="text-sm font-bold text-slate-900">32</span>
+              <span class="text-[10px] text-brand-green ml-1">+8%</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Discharged</span>
+            </div>
+            <div class="text-right">
+              <span class="text-sm font-bold text-slate-900">18</span>
+              <span class="text-[10px] text-brand-green ml-1">+5%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing Overview -->
+      <div class="xl:col-span-3 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold text-slate-900">Billing Overview</h3>
+          <a href="#" class="text-[11px] font-medium text-brand-blue hover:text-blue-700 transition-colors">View All</a>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Today's Collection</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">৳ 1,245,600</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">This Month</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">৳ 28,450,000</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Pending Bills</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">৳ 3,245,600</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pharmacy Overview -->
+      <div class="xl:col-span-3 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold text-slate-900">Pharmacy Overview</h3>
+          <a href="#" class="text-[11px] font-medium text-brand-blue hover:text-blue-700 transition-colors">View All</a>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Total Medicines</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">1,245</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Low Stock</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">58</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+              </div>
+              <span class="text-xs text-slate-600">Out of Stock</span>
+            </div>
+            <span class="text-sm font-bold text-slate-900">12</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Appointments + Quick Actions -->
+    <section class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+      <!-- Recent Appointments -->
+      <div class="xl:col-span-8 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-slate-900">Recent Appointments</h3>
+          <a href="#" class="text-xs font-medium text-brand-blue hover:text-blue-700 transition-colors">View All</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b border-slate-100">
+                <th class="pb-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Patient</th>
+                <th class="pb-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Department</th>
+                <th class="pb-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider text-right">Time</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                <td class="py-3">
+                  <div class="flex items-center gap-3">
+                    <img src="../assets/images/hospital/avatar-1.png" alt="Rafiq Ahmed" class="w-8 h-8 rounded-full object-cover">
+                    <span class="font-medium text-slate-800">Rafiq Ahmed</span>
+                  </div>
+                </td>
+                <td class="py-3 text-slate-600">Medicine</td>
+                <td class="py-3 text-right font-medium text-slate-700">10:30 AM</td>
+              </tr>
+              <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                <td class="py-3">
+                  <div class="flex items-center gap-3">
+                    <img src="../assets/images/hospital/avatar-2.png" alt="Nurat Jahan" class="w-8 h-8 rounded-full object-cover">
+                    <span class="font-medium text-slate-800">Nurat Jahan</span>
+                  </div>
+                </td>
+                <td class="py-3 text-slate-600">Gyne & Obs</td>
+                <td class="py-3 text-right font-medium text-slate-700">11:00 AM</td>
+              </tr>
+              <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                <td class="py-3">
+                  <div class="flex items-center gap-3">
+                    <img src="../assets/images/hospital/avatar-3.png" alt="Abdullah Al Mamun" class="w-8 h-8 rounded-full object-cover">
+                    <span class="font-medium text-slate-800">Abdullah Al Mamun</span>
+                  </div>
+                </td>
+                <td class="py-3 text-slate-600">Cardiology</td>
+                <td class="py-3 text-right font-medium text-slate-700">11:30 AM</td>
+              </tr>
+              <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                <td class="py-3">
+                  <div class="flex items-center gap-3">
+                    <img src="../assets/images/hospital/avatar-4.png" alt="Farzana Akter" class="w-8 h-8 rounded-full object-cover">
+                    <span class="font-medium text-slate-800">Farzana Akter</span>
+                  </div>
+                </td>
+                <td class="py-3 text-slate-600">Pediatrics</td>
+                <td class="py-3 text-right font-medium text-slate-700">12:00 PM</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50 transition-colors">
+                <td class="py-3">
+                  <div class="flex items-center gap-3">
+                    <img src="../assets/images/hospital/avatar-5.png" alt="Sajidul Islam" class="w-8 h-8 rounded-full object-cover">
+                    <span class="font-medium text-slate-800">Sajidul Islam</span>
+                  </div>
+                </td>
+                <td class="py-3 text-slate-600">Surgery</td>
+                <td class="py-3 text-right font-medium text-slate-700">12:30 PM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="xl:col-span-4 bg-white rounded-xl shadow-card border border-slate-100 p-5 hover-lift">
+        <h3 class="text-base font-bold text-slate-900 mb-4">Quick Actions</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-2 gap-3">
+          <button class="flex items-center gap-2.5 px-4 py-3 rounded-lg bg-brand-green text-white text-sm font-medium hover:bg-emerald-600 transition-colors shadow-sm hover:shadow-md active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Add Doctor
+          </button>
+          <button class="flex items-center gap-2.5 px-4 py-3 rounded-lg bg-brand-blue text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm hover:shadow-md active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Add Staff
+          </button>
+          <button class="flex items-center gap-2.5 px-4 py-3 rounded-lg bg-brand-purple text-white text-sm font-medium hover:bg-violet-600 transition-colors shadow-sm hover:shadow-md active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Add Patient
+          </button>
+          <button class="flex items-center gap-2.5 px-4 py-3 rounded-lg bg-brand-red text-white text-sm font-medium hover:bg-red-600 transition-colors shadow-sm hover:shadow-md active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            Blood Request
+          </button>
+          <button class="flex items-center gap-2.5 px-4 py-3 rounded-lg bg-brand-teal text-white text-sm font-medium hover:bg-teal-600 transition-colors shadow-sm hover:shadow-md active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+            Ambulance
+          </button>
+          <button class="flex items-center gap-2.5 px-4 py-3 rounded-lg bg-brand-orange text-white text-sm font-medium hover:bg-orange-600 transition-colors shadow-sm hover:shadow-md active:scale-[0.98]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+            Generate Report
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 px-6 py-4">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p>© 2026 Bondhu General Hospital. All Rights Reserved.</p>
+      <div class="flex items-center gap-4">
+        <span>Version 1.0.0</span>
+        <a href="#" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-brand-blue transition-colors">Terms & Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  // Sidebar toggle for mobile
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isOpen = !sidebar.classList.contains('-translate-x-full');
+
+    if (isOpen) {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('opacity-100');
+      overlay.classList.add('opacity-0');
+    } else {
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+      // Small delay to allow display:block to apply before opacity transition
+      requestAnimationFrame(() => {
+        overlay.classList.remove('opacity-0');
+        overlay.classList.add('opacity-100');
+      });
+    }
+  }
+
+  // Dropdown toggle (visual only for this demo)
+  function toggleDropdown(btn) {
+    const arrow = btn.querySelector('svg:last-child');
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', !isExpanded);
+    if (isExpanded) {
+      arrow.style.transform = 'rotate(0deg)';
+    } else {
+      arrow.style.transform = 'rotate(180deg)';
+    }
+  }
+
+  // Close sidebar on window resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+      document.getElementById('sidebarOverlay').classList.add('hidden');
+    }
+  });
+
+  // Chart.js defaults
+  Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+  Chart.defaults.color = '#64748b';
+
+  // Overall Statistics Line Chart
+  const ctxStats = document.getElementById('overallStatsChart').getContext('2d');
+  new Chart(ctxStats, {
+    type: 'line',
+    data: {
+      labels: ['01 Jul', '02 Jul', '03 Jul', '04 Jul', '05 Jul', '06 Jul', '07 Jul', '08 Jul'],
+      datasets: [
+        {
+          label: 'Visitors',
+          data: [900, 1050, 980, 1100, 1300, 1000, 1150, 1200],
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59,130,246,0.08)',
+          borderWidth: 2.5,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          fill: true
+        },
+        {
+          label: 'Patients',
+          data: [600, 720, 650, 780, 900, 700, 750, 800],
+          borderColor: '#8b5cf6',
+          backgroundColor: 'rgba(139,92,246,0.08)',
+          borderWidth: 2.5,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          fill: true
+        },
+        {
+          label: 'Appointments',
+          data: [300, 350, 320, 380, 450, 360, 400, 420],
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16,185,129,0.08)',
+          borderWidth: 2.5,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          fill: true
+        },
+        {
+          label: 'Blood Requests',
+          data: [150, 180, 160, 200, 240, 190, 210, 230],
+          borderColor: '#ef4444',
+          backgroundColor: 'rgba(239,68,68,0.08)',
+          borderWidth: 2.5,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0f172a',
+          titleColor: '#f8fafc',
+          bodyColor: '#f8fafc',
+          padding: 10,
+          cornerRadius: 8,
+          displayColors: true,
+          usePointStyle: true,
+          callbacks: {
+            label: function(context) {
+              return context.dataset.label + ': ' + context.parsed.y.toLocaleString();
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11 }, color: '#94a3b8' }
+        },
+        y: {
+          beginAtZero: true,
+          max: 1500,
+          ticks: { stepSize: 300, font: { size: 11 }, color: '#94a3b8' },
+          grid: { color: '#f1f5f9', drawBorder: false }
+        }
+      }
+    }
+  });
+
+  // Department Wise Patients Doughnut Chart
+  const ctxDept = document.getElementById('deptChart').getContext('2d');
+  new Chart(ctxDept, {
+    type: 'doughnut',
+    data: {
+      labels: ['Medicine', 'Surgery', 'Gyne & Obs', 'Pediatrics', 'Cardiology', 'Others'],
+      datasets: [{
+        data: [28, 18, 16, 12, 10, 16],
+        backgroundColor: ['#3b82f6', '#f97316', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+        borderWidth: 0,
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '72%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0f172a',
+          titleColor: '#f8fafc',
+          bodyColor: '#f8fafc',
+          padding: 10,
+          cornerRadius: 8,
+          callbacks: {
+            label: function(context) {
+              return ' ' + context.label + ': ' + context.parsed + '%';
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

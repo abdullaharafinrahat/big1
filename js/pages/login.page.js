@@ -12,10 +12,10 @@
 
   const copy = {
     bn: {
-      tagline: 'এক প্ল্যাটফর্ম, সকল সেবা', welcome: 'স্বাগতম ফিরে আসার জন্য', subtitle: 'আপনার অ্যাকাউন্ট লগইন করুন', idLabel: 'ইউজার আইডি / মোবাইল নম্বর', idPlaceholder: 'ইউজার আইডি অথবা মোবাইল নম্বর লিখুন', passLabel: 'পাসওয়ার্ড', passPlaceholder: 'পাসওয়ার্ড লিখুন', show: 'দেখুন', hide: 'লুকান', remember: 'আমাকে মনে রাখুন', submit: 'লগইন করুন', or: 'অথবা', forgot: 'পাসওয়ার্ড ভুলে গেছেন?', newUser: 'নতুন ব্যবহারকারী', newUserText: 'নতুন হিসাবে নিবন্ধন করুন', institution: 'প্রতিষ্ঠান', institutionText: 'আপনার প্রতিষ্ঠান নিবন্ধন করুন', register: 'নিবন্ধন করুন', safe: 'আপনার তথ্য নিরাপদ এবং গোপন রাখা হবে।', support: 'সহায়তার জন্য কল করুন', copyright: '© 2026 Bondhu. সকল অধিকার সংরক্ষিত।'
+      tagline: 'এক প্ল্যাটফর্ম, সকল সেবা', welcome: 'স্বাগতম ফিরে আসার জন্য', subtitle: 'আপনার অ্যাকাউন্ট লগইন করুন', idLabel: 'ইউজার আইডি / মোবাইল নম্বর', idPlaceholder: 'ইউজার আইডি অথবা মোবাইল নম্বর লিখুন', passLabel: 'পাসওয়ার্ড', passPlaceholder: 'পাসওয়ার্ড লিখুন', show: 'দেখুন', hide: 'লুকান', remember: 'আমাকে মনে রাখুন', submit: 'লগইন করুন', or: 'অথবা', forgot: 'পাসওয়ার্ড ভুলে গেছেন?', newUser: 'নতুন ব্যবহারকারী', newUserText: 'নতুন হিসাবে নিবন্ধন করুন', institution: 'প্রতিষ্ঠান', institutionText: 'আপনার প্রতিষ্ঠান নিবন্ধন করুন', register: 'নিবন্ধন করুন', safe: 'আপনার তথ্য নিরাপদ এবং গোপন রাখা হবে।', support: 'সহায়তার জন্য কল করুন', dontHave: 'অ্যাকাউন্ট নেই?', registerNow: 'এখনই রেজিস্টার করুন', copyright: '© 2026 Bondhu. সকল অধিকার সংরক্ষিত।'
     },
     en: {
-      tagline: 'One platform, all services', welcome: 'Welcome back', subtitle: 'Login to your account', idLabel: 'User ID / Mobile Number', idPlaceholder: 'Enter user ID or mobile number', passLabel: 'Password', passPlaceholder: 'Enter password', show: 'Show', hide: 'Hide', remember: 'Remember me', submit: 'Login', or: 'or', forgot: 'Forgot password?', newUser: 'New User', newUserText: 'Register as a new user', institution: 'Institution', institutionText: 'Register your institution', register: 'Register', safe: 'Your information will be kept safe and private.', support: 'Call for support', copyright: '© 2026 Bondhu. All rights reserved.'
+      tagline: 'One platform, all services', welcome: 'Welcome back', subtitle: 'Login to your account', idLabel: 'User ID / Mobile Number', idPlaceholder: 'Enter user ID or mobile number', passLabel: 'Password', passPlaceholder: 'Enter password', show: 'Show', hide: 'Hide', remember: 'Remember me', submit: 'Login', or: 'or', forgot: 'Forgot password?', newUser: 'New User', newUserText: 'Register as a new user', institution: 'Institution', institutionText: 'Register your institution', register: 'Register', safe: 'Your information will be kept safe and private.', support: 'Call for support', dontHave: "Don’t have an account?", registerNow: 'Register now', copyright: '© 2026 Bondhu. All rights reserved.'
     }
   };
 
@@ -45,13 +45,11 @@
     document.querySelector('.submit-btn span').textContent = t.submit;
     document.querySelector('.or-divider b').textContent = t.or;
     document.querySelector('.forgot-link span').textContent = t.forgot;
-    const cards = document.querySelectorAll('.registration-card');
-    cards[0].querySelector('h3').textContent = t.newUser;
-    cards[0].querySelector('p').textContent = t.newUserText;
-    cards[0].querySelector('a').firstChild.textContent = `${t.register} `;
-    cards[1].querySelector('h3').textContent = t.institution;
-    cards[1].querySelector('p').textContent = t.institutionText;
-    cards[1].querySelector('a').firstChild.textContent = `${t.register} `;
+    const prompt = document.querySelector('.register-prompt');
+    if (prompt) {
+      prompt.querySelector('span').textContent = t.dontHave;
+      prompt.querySelector('a').textContent = t.registerNow;
+    }
     document.querySelector('.security-copy span').textContent = t.safe;
     document.querySelector('.support-copy small').textContent = t.support;
     document.querySelector('.copyright').textContent = t.copyright;

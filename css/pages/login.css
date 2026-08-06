@@ -57,3 +57,20 @@
   .login-nav-links { order: 10; }
   .copyright { order: 11; }
 }
+
+/* Simple register prompt replacing login registration cards */
+.register-prompt{margin:0 0 20px;text-align:center;background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:12px;font-size:.85rem;font-weight:800;color:#4b5563}.register-prompt a{color:var(--green);font-weight:950;margin-left:4px}.register-prompt a:hover{text-decoration:underline}@media(max-width:640px){.register-prompt{order:8;margin-bottom:16px}}
+
+/* Mobile: hide requested heading texts */
+@media (max-width:640px){
+  .login-header h1,
+  .login-header p,
+  .welcome-text h2{display:none!important;}
+  .login-header{margin-bottom:6px;}
+  .welcome-text{margin-bottom:8px;}
+}
+
+/* Remove blood-drop imagery and login subtitle */
+.login-header .logo-link,
+.drop-divider,
+.welcome-text p{display:none!important;}

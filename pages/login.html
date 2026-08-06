@@ -1,121 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bondhu - Login</title>
-  <link rel="stylesheet" href="../css/pages/login.css">
-</head>
-<body>
-  <main class="login-page">
-    <section class="login-card">
-      <div class="lang-switcher" aria-label="Language switcher">
-        <button class="active" type="button" data-lang="bn">বাংলা</button>
-        <button type="button" data-lang="en">English</button>
-      </div>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bondhu - Login</title>
 
-      <header class="login-header">
-        <a href="../index.html" class="logo-link" aria-label="Bondhu home">
-          <img src="../assets/images/service-icons/blood-drop.png" alt="Bondhu logo" class="logo-icon">
-        </a>
-        <h1>Bondhu</h1>
-        <p>এক প্ল্যাটফর্ম, সকল সেবা</p>
-      </header>
-
-      <div class="drop-divider" aria-hidden="true">
-        <span></span>
-        <img src="../assets/images/service-icons/blood-drop.png" alt="">
-        <span></span>
-      </div>
-
-      <section class="welcome-text">
-        <h2>স্বাগতম ফিরে আসার জন্য</h2>
-        <p>আপনার অ্যাকাউন্ট লগইন করুন</p>
-      </section>
-
-      <form class="login-form" id="login-form">
-        <label>
-          <span>ইউজার আইডি / মোবাইল নম্বর</span>
-          <div class="input-wrap">
-            <img src="../assets/images/service-icons/person-search.png" alt="" aria-hidden="true">
-            <input name="identifier" type="text" placeholder="ইউজার আইডি অথবা মোবাইল নম্বর লিখুন" autocomplete="username" required>
-          </div>
-        </label>
-
-        <label>
-          <span>পাসওয়ার্ড</span>
-          <div class="input-wrap password-wrap">
-            <img src="../assets/images/service-icons/emergency-siren.png" alt="" aria-hidden="true">
-            <input name="password" id="password" type="password" placeholder="পাসওয়ার্ড লিখুন" autocomplete="current-password" required>
-            <button type="button" id="toggle-password" aria-label="Show password">দেখুন</button>
-          </div>
-        </label>
-
-        <label class="remember-row">
-          <input id="remember-me" name="remember" type="checkbox">
-          <span>আমাকে মনে রাখুন</span>
-        </label>
-
-        <button type="submit" class="submit-btn">
-          <img src="../assets/images/service-icons/emergency-call.png" alt="" aria-hidden="true">
-          <span>লগইন করুন</span>
-        </button>
-      </form>
-
-      <div class="or-divider">
-        <span></span>
-        <b>অথবা</b>
-        <span></span>
-      </div>
-
-      <div class="forgot-wrap">
-        <a href="forgot-password.html" class="forgot-link">
-          <img src="../assets/images/service-icons/emergency-siren.png" alt="" aria-hidden="true">
-          <span>পাসওয়ার্ড ভুলে গেছেন?</span>
-        </a>
-      </div>
-
-      <section class="registration-grid" aria-label="Registration options">
-        <article class="registration-card user-card">
-          <div class="reg-icon"><img src="../assets/images/service-icons/people-group.png" alt="New user"></div>
-          <h3>নতুন ব্যবহারকারী</h3>
-          <p>নতুন হিসাবে নিবন্ধন করুন</p>
-          <a href="register.html">নিবন্ধন করুন <span>→</span></a>
-        </article>
-
-        <article class="registration-card institution-card">
-          <div class="reg-icon"><img src="../assets/images/service-icons/hospital-building.png" alt="Institution"></div>
-          <h3>প্রতিষ্ঠান</h3>
-          <p>আপনার প্রতিষ্ঠান নিবন্ধন করুন</p>
-          <a href="register.html?type=institution">নিবন্ধন করুন <span>→</span></a>
-        </article>
-      </section>
-
-      <section class="support-banner">
-        <div class="security-copy">
-          <img src="../assets/images/service-icons/award-star.png" alt="Security">
-          <span>আপনার তথ্য নিরাপদ এবং গোপন রাখা হবে।</span>
-        </div>
-        <div class="banner-divider"></div>
-        <div class="support-copy">
-          <img src="../assets/images/service-icons/emergency-call.png" alt="Support">
-          <span><small>সহায়তার জন্য কল করুন</small><strong>09609-123456</strong></span>
-        </div>
-      </section>
-
-      <nav class="login-nav-links" aria-label="Quick links">
-        <a href="../index.html">Home</a>
-        <a href="request-blood.html">Blood</a>
-        <a href="hospitals.html">Hospitals</a>
-        <a href="ambulance.html">Ambulance</a>
-        <a href="news.html">News</a>
-      </nav>
-
-      <p class="copyright">© 2026 Bondhu. সকল অধিকার সংরক্ষিত।</p>
-    </section>
-  </main>
-
-  <div class="login-toast-region" id="toast-region" aria-live="polite"></div>
-  <script src="../js/pages/login.page.js"></script>
+<link href="../css/base.css" rel="stylesheet"/><link href="../css/components.css" rel="stylesheet"/><link href="../css/pages/login.css" rel="stylesheet"/><link href="../css/layout.css" rel="stylesheet"/></head>
+<body><div id="app-header"></div>
+<main class="login-page">
+<section class="login-card">
+<header class="login-header">
+<a aria-label="Bondhu home" class="logo-link" href="../index.html">
+<img alt="Bondhu logo" class="logo-icon" src="../assets/images/service-icons/blood-drop.png"/>
+</a>
+<h1>Bondhu</h1>
+<p>এক প্ল্যাটফর্ম, সকল সেবা</p>
+</header>
+<div aria-hidden="true" class="drop-divider">
+<span></span>
+<img alt="" src="../assets/images/service-icons/blood-drop.png"/>
+<span></span>
+</div>
+<section class="welcome-text">
+<h2>স্বাগতম ফিরে আসার জন্য</h2>
+<p>আপনার অ্যাকাউন্ট লগইন করুন</p>
+</section>
+<form class="login-form" id="login-form">
+<label>
+<span>ইউজার আইডি / মোবাইল নম্বর</span>
+<div class="input-wrap">
+<img alt="" aria-hidden="true" src="../assets/images/service-icons/person-search.png"/>
+<input autocomplete="username" name="identifier" placeholder="ইউজার আইডি অথবা মোবাইল নম্বর লিখুন" required="" type="text"/>
+</div>
+</label>
+<label>
+<span>পাসওয়ার্ড</span>
+<div class="input-wrap password-wrap">
+<img alt="" aria-hidden="true" src="../assets/images/service-icons/emergency-siren.png"/>
+<input autocomplete="current-password" id="password" name="password" placeholder="পাসওয়ার্ড লিখুন" required="" type="password"/>
+<button aria-label="Show password" id="toggle-password" type="button">দেখুন</button>
+</div>
+</label>
+<label class="remember-row">
+<input id="remember-me" name="remember" type="checkbox"/>
+<span>আমাকে মনে রাখুন</span>
+</label>
+<button class="submit-btn" type="submit">
+<img alt="" aria-hidden="true" src="../assets/images/service-icons/emergency-call.png"/>
+<span>লগইন করুন</span>
+</button>
+</form>
+<div class="or-divider">
+<span></span>
+<b>অথবা</b>
+<span></span>
+</div>
+<div class="forgot-wrap">
+<a class="forgot-link" href="forgot-password.html">
+<img alt="" aria-hidden="true" src="../assets/images/service-icons/emergency-siren.png"/>
+<span>পাসওয়ার্ড ভুলে গেছেন?</span>
+</a>
+</div>
+<div class="register-prompt">
+<span>অ্যাকাউন্ট নেই?</span>
+<a href="register.html">এখনই রেজিস্টার করুন</a>
+</div>
+<section class="support-banner">
+<div class="security-copy">
+<img alt="Security" src="../assets/images/service-icons/award-star.png"/>
+<span>আপনার তথ্য নিরাপদ এবং গোপন রাখা হবে।</span>
+</div>
+<div class="banner-divider"></div>
+<div class="support-copy">
+<img alt="Support" src="../assets/images/service-icons/emergency-call.png"/>
+<span><small>সহায়তার জন্য কল করুন</small><strong>09609-123456</strong></span>
+</div>
+</section>
+<nav aria-label="Quick links" class="login-nav-links">
+<a href="../index.html">Home</a>
+<a href="request-blood.html">Blood</a>
+<a href="hospitals.html">Hospitals</a>
+<a href="ambulance.html">Ambulance</a>
+<a href="news.html">News</a>
+</nav>
+<p class="copyright">© 2026 Bondhu. সকল অধিকার সংরক্ষিত।</p>
+</section>
+</main><div id="app-footer"></div>
+<div aria-live="polite" class="login-toast-region" id="toast-region"></div>
+<script src="../js/main.js" type="module"></script><script src="../js/pages/login.page.js"></script>
 </body>
 </html>

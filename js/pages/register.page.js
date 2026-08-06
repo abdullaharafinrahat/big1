@@ -1,10 +1,11 @@
 (() => {
   const CODES = { mobile: '1123456', email: '123456' };
-  const state = { method: '', code: '', account: null };
+  const state = { accountType: '', method: '', code: '', account: null };
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
+  const accountTypeSection = $('.account-type-section');
   const chooseSection = $('#choose-section');
   const registrationSection = $('#registration-section');
   const methodButtons = $$('[data-method]');
@@ -76,8 +77,14 @@
     const c = t();
     document.documentElement.lang = lang();
     document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang()));
-    $('.choose-section h3').textContent = c.chooseTitle;
-    $('.choose-section .section-heading p').textContent = c.chooseText;
+    const isInstitution = state.accountType === 'institution';
+    $('.choose-section h3').textContent = isInstitution
+      ? (lang() === 'bn' ? 'প্রতিষ্ঠান রেজিস্ট্রেশন পদ্ধতি নির্বাচন করুন' : 'Choose institution registration method')
+      : c.chooseTitle;
+    $('.choose-section .section-heading p').textContent = isInstitution
+      ? (lang() === 'bn' ? 'প্রতিষ্ঠানের অ্যাকাউন্ট যাচাই করার জন্য মোবাইল অথবা ইমেইল নির্বাচন করুন।' : 'Select mobile or email verification for the institution account.')
+      : c.chooseText;
+    $('#back-account-type-btn').textContent = lang() === 'bn' ? '← আবার নির্বাচন করুন' : '← Back to account type';
     methodButtons[0].querySelector('strong').textContent = c.mobileTitle;
     methodButtons[0].querySelector('small').textContent = c.mobileSmall;
     methodButtons[0].querySelector('em').textContent = c.mobileEm;
@@ -87,10 +94,13 @@
     $('.registration-section .section-toolbar h2').textContent = c.registrationForm;
     $('#change-method-btn').textContent = c.changeMethod;
     $('#identity-form .panel-title strong').textContent = c.enterInfo;
-    setLabelText(identityForm.name, c.name);
-    setLabelText(identityForm.phone, c.phone);
-    setLabelText(identityForm.email, c.email);
-    setLabelText(identityForm.referralId, c.referral);
+    setLabelText(identityForm.name, isInstitution ? (lang() === 'bn' ? 'প্রতিষ্ঠানের নাম *' : 'Institution Name *') : c.name);
+    setLabelText(identityForm.phone, isInstitution ? (lang() === 'bn' ? 'প্রতিষ্ঠানের মোবাইল নম্বর *' : 'Institution Mobile Number *') : c.phone);
+    setLabelText(identityForm.email, isInstitution ? (lang() === 'bn' ? 'প্রতিষ্ঠানের ইমেইল ঠিকানা *' : 'Institution Email Address *') : c.email);
+    setLabelText(identityForm.referralId, isInstitution ? (lang() === 'bn' ? 'প্রতিষ্ঠান/রেফারেল আইডি (ঐচ্ছিক)' : 'Institution / Referral ID (optional)') : c.referral);
+    identityForm.name.placeholder = isInstitution ? (lang() === 'bn' ? 'প্রতিষ্ঠানের নাম লিখুন' : 'Enter institution name') : (lang() === 'bn' ? 'আপনার পূর্ণ নাম লিখুন' : 'Enter your full name');
+    identityForm.phone.placeholder = isInstitution ? '1XXXXXXXXX' : '1XXXXXXXXX';
+    identityForm.email.placeholder = isInstitution ? 'institution@example.com' : 'name@example.com';
     $('#identity-form button[type="submit"]').textContent = c.sendCode;
     $('#otp-form .panel-title strong').textContent = c.verifyTitle;
     if (!state.account) codeMessage.textContent = c.codeReady;
@@ -104,12 +114,69 @@
     $('#success-panel h2').textContent = c.successTitle;
     if (!state.account) $('#success-summary').textContent = c.successSummary;
     $('#open-dashboard-btn').textContent = c.goDashboard;
-    $('.sim-footer span:first-child').textContent = c.footer;
-    $('.sim-footer span:last-child').innerHTML = `${c.help} <b>09609-123456</b>`;
+    const legacyFooter = $('.sim-footer');
+    if (legacyFooter) {
+      legacyFooter.querySelector('span:first-child').textContent = c.footer;
+      legacyFooter.querySelector('span:last-child').innerHTML = `${c.help} <b>09609-123456</b>`;
+    }
     if (state.method) {
       selectedMethodLabel.textContent = state.method === 'mobile' ? c.mobileSelected : c.emailSelected;
-      $('#identity-hint').textContent = state.method === 'mobile' ? c.mobileHint : c.emailHint;
+      if (isInstitution) {
+        $('#identity-hint').textContent = state.method === 'mobile'
+          ? (lang() === 'bn' ? 'প্রতিষ্ঠানের নাম ও অফিসিয়াল মোবাইল নম্বর দিন। যাচাইয়ের জন্য OTP পাঠানো হবে।' : 'Enter institution name and official mobile number. We will send an OTP to verify it.')
+          : (lang() === 'bn' ? 'প্রতিষ্ঠানের নাম ও অফিসিয়াল ইমেইল দিন। যাচাইয়ের জন্য কোড পাঠানো হবে।' : 'Enter institution name and official email address. We will send a verification code.');
+      } else {
+        $('#identity-hint').textContent = state.method === 'mobile' ? c.mobileHint : c.emailHint;
+      }
     } else $('#identity-hint').textContent = c.defaultHint;
+  }
+
+
+  function chooseAccountType(type, updateUrl = true) {
+    state.accountType = type === 'institution' ? 'institution' : 'user';
+    localStorage.setItem('bondhu.accountType', state.accountType);
+    document.querySelectorAll('.account-type-card').forEach((card) => {
+      card.classList.toggle('is-active', card.dataset.accountType === state.accountType);
+    });
+    accountTypeSection.hidden = true;
+    chooseSection.hidden = false;
+    registrationSection.hidden = true;
+    document.querySelector('.sim-footer')?.removeAttribute('hidden');
+    state.method = '';
+    state.code = '';
+    methodButtons.forEach((button) => button.classList.remove('is-active'));
+    setVisiblePanel('identity-form');
+    applyLanguage();
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('type', state.accountType);
+      history.replaceState({}, '', url);
+    }
+    chooseSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function setupAccountType() {
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get('type');
+    const initialType = typeParam === 'institution' || typeParam === 'user' ? typeParam : '';
+
+    document.querySelectorAll('.account-type-card').forEach((card) => {
+      card.classList.toggle('is-active', initialType && card.dataset.accountType === initialType);
+      card.addEventListener('click', (event) => {
+        event.preventDefault();
+        chooseAccountType(card.dataset.accountType || 'user');
+      });
+    });
+
+    if (initialType) {
+      chooseAccountType(initialType, false);
+    } else {
+      state.accountType = '';
+      accountTypeSection.hidden = false;
+      chooseSection.hidden = true;
+      registrationSection.hidden = true;
+      document.querySelector('.sim-footer')?.setAttribute('hidden', '');
+    }
   }
 
   function setupLanguageSwitcher() {
@@ -190,7 +257,7 @@
   function readIdentity() {
     const name = identityForm.name.value.trim();
     const referralId = identityForm.referralId.value.trim();
-    if (!name) throw new Error(t().errName);
+    if (!name) throw new Error(state.accountType === 'institution' ? (lang() === 'bn' ? 'প্রতিষ্ঠানের নাম লিখুন।' : 'Institution name is required.') : t().errName);
     if (state.method === 'mobile') {
       const phone = normalizePhone(identityForm.phone.value);
       if (!validatePhone(phone)) throw new Error(t().errPhone);
@@ -201,29 +268,55 @@
     return { name, email, target: email, referralId };
   }
 
-  function restart() {
+  function showAccountTypeSelection() {
+    state.accountType = '';
     state.method = '';
     state.code = '';
     state.account = null;
-    methodButtons.forEach((button) => button.classList.remove('is-active'));
-    chooseSection.hidden = false;
+    localStorage.removeItem('bondhu.accountType');
+    const url = new URL(window.location.href);
+    url.searchParams.delete('type');
+    history.replaceState({}, '', url);
+    document.querySelectorAll('.account-type-card').forEach((card) => card.classList.remove('is-active'));
+    accountTypeSection.hidden = false;
+    chooseSection.hidden = true;
     registrationSection.hidden = true;
+    document.querySelector('.sim-footer')?.setAttribute('hidden', '');
     identityForm.reset();
     otpForm.reset();
     passwordForm.reset();
     setVisiblePanel('identity-form');
     applyLanguage();
-    chooseSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    accountTypeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function restart() {
+    state.method = '';
+    state.code = '';
+    state.account = null;
+    methodButtons.forEach((button) => button.classList.remove('is-active'));
+    accountTypeSection.hidden = Boolean(state.accountType);
+    chooseSection.hidden = !state.accountType;
+    registrationSection.hidden = true;
+    if (state.accountType) document.querySelector('.sim-footer')?.removeAttribute('hidden');
+    else document.querySelector('.sim-footer')?.setAttribute('hidden', '');
+    identityForm.reset();
+    otpForm.reset();
+    passwordForm.reset();
+    setVisiblePanel('identity-form');
+    applyLanguage();
+    (state.accountType ? chooseSection : accountTypeSection)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   methodButtons.forEach((button) => button.addEventListener('click', () => selectMethod(button.dataset.method)));
   $('#change-method-btn').addEventListener('click', restart);
+  $('#back-account-type-btn').addEventListener('click', showAccountTypeSelection);
 
   identityForm.addEventListener('submit', (event) => {
     event.preventDefault();
     try {
       const identity = readIdentity();
-      state.account = { ...identity, method: state.method };
+      state.account = { ...identity, accountType: state.accountType || 'user', method: state.method };
       codeMessage.textContent = t().codeSentTo(identity.target);
       clearOtpCode();
       setVisiblePanel('otp-form');
@@ -261,6 +354,7 @@
 
   $('#open-dashboard-btn').addEventListener('click', () => { window.location.href = 'dashboard.html'; });
 
+  setupAccountType();
   setupLanguageSwitcher();
   restart();
 })();

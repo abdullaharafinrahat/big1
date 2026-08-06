@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Messages | Bondhu.org</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../css/pages/app.css" rel="stylesheet"/>
+</head>
+<body class="messages-page">
+<header class="app-header">
+<div class="app-header-inner">
+<button aria-label="Open menu" class="mobile-menu" id="mobile-menu" type="button">☰</button>
+<a class="app-brand" href="../index.html"><div class="app-brand-icon"><i class="fa-solid fa-heart"></i></div><span><strong>Bondhu<span>.org</span></strong><small>Together for Humanity</small></span></a>
+<div class="date-chip" id="date-chip"></div>
+<div class="header-actions"><div class="lang-switcher"><button data-lang="bn" type="button">বাংলা</button><button data-lang="en" type="button">English</button></div><button class="notification" type="button"><i class="fa-regular fa-bell"></i><b>0</b></button><div class="user-chip"><div class="user-avatar"></div><strong class="app-user-name">Bondhu User</strong></div></div>
+</div>
+</header>
+<div class="app-layout">
+<aside class="sidebar" id="app-sidebar"><button class="drawer-close" id="drawer-close" type="button">×</button><nav><a data-page="dashboard" href="dashboard.html"><span><i class="fa-solid fa-gauge"></i></span>Dashboard</a><a data-page="profile" href="profile.html"><span><i class="fa-solid fa-user"></i></span>Profile</a><a data-page="blood" href="request-blood.html"><span><i class="fa-solid fa-droplet"></i></span>Blood Request</a><a data-page="donors" href="donor-register.html"><span><i class="fa-solid fa-list-check"></i></span>Donor List</a><a data-page="thalassemia" href="hospitals.html"><span><i class="fa-solid fa-notes-medical"></i></span>Thalassemia Corner</a><a data-page="volunteer" href="news.html"><span><i class="fa-solid fa-hand-holding-heart"></i></span>Volunteer</a><a data-page="ambulance" href="ambulance.html"><span><i class="fa-solid fa-truck-medical"></i></span>Ambulance</a><a data-page="pharmacy" href="hospitals.html"><span><i class="fa-solid fa-pills"></i></span>Pharmacy</a><a data-page="foundation" href="news.html"><span><i class="fa-solid fa-building-columns"></i></span>Foundation</a><a data-page="calendar" href="workflow.html"><span><i class="fa-solid fa-calendar"></i></span>Calendar</a><a data-page="messages" href="messages.html"><span><i class="fa-solid fa-envelope"></i></span>Messages<b class="badge">0</b></a><a data-page="admin" href="admin/verification.html"><span><i class="fa-solid fa-user-check"></i></span>Admin Verification</a><a data-page="badges" href="member-card.html"><span><i class="fa-solid fa-id-card"></i></span>Badges &amp; ID</a><a data-page="support" href="forgot-password.html"><span><i class="fa-solid fa-headset"></i></span>Support</a><div class="sidebar-divider"></div><button id="logout-btn" type="button">↪ Logout</button></nav></aside>
+<div class="drawer-backdrop hidden" id="drawer-backdrop"></div>
+<main class="app-main">
+<section class="page-title"><div><h1>Messages</h1><p>Matching blood request SMS/messages for you as a donor.</p></div><button class="btn soft" id="mark-all-read" type="button">Mark all read</button></section>
+<section class="card"><div class="message-list" id="message-list"></div></section>
+</main>
+</div>
+<footer class="footer"><span>📍 House #12, Road #05, Dhanmondi, Dhaka-1205</span><span>☎ +880 1712-345678 · ✉ info@bondhu.org</span><span>© 2026 Bondhu.org</span></footer>
+<div class="toast-region" id="toast-region"></div>
+<script src="../js/pages/app-shell.js"></script>
+<script src="../js/pages/messages.page.js"></script>
+</body>
+</html>
