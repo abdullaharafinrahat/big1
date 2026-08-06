@@ -1,1 +1,0 @@
-const{consume}=require('../../shared/queue-client'),n=require('./notifications.service');consume('donors.notify',({donors,message})=>n.notifyDonors(donors,message));

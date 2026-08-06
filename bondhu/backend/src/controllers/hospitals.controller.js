@@ -1,1 +1,0 @@
-const s=require('../services/hospitals.service');exports.list=async(q,r,n)=>{try{r.json(await s.list(q.query))}catch(e){n(e)}};exports.create=async(q,r,n)=>{try{r.status(201).json(await s.create(q.body))}catch(e){n(e)}};exports.getById=async(q,r,n)=>{try{r.json(await s.getById(q.params.id))}catch(e){n(e)}};

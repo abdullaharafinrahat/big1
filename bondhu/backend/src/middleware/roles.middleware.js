@@ -1,1 +1,0 @@
-exports.requireRole=(...roles)=>(q,r,n)=>!q.user||!roles.includes(q.user.role)?n(Object.assign(Error('Forbidden'),{status:403})):n();

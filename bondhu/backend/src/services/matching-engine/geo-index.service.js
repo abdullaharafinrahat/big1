@@ -1,1 +1,0 @@
-const{distanceKm}=require('../../shared/distance.util'),pts=new Map();exports.addDonor=({id,latitude,longitude})=>pts.set(id,{latitude:+latitude,longitude:+longitude});exports.nearby=({latitude,longitude,radiusKm=25})=>[...pts].map(([id,p])=>({id,distanceKm:distanceKm(latitude,longitude,p.latitude,p.longitude)})).filter(x=>x.distanceKm<=+radiusKm);

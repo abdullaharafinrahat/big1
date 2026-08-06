@@ -1,1 +1,0 @@
-const{consume}=require('../../shared/queue-client'),m=require('./matching.service');consume('blood-request.created',job=>m.matchDonorsForRequest(job));

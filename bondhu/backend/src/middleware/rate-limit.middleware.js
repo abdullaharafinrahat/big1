@@ -1,1 +1,0 @@
-const rateLimit=require('express-rate-limit');exports.apiRateLimiter=rateLimit({windowMs:60000,max:120,standardHeaders:true,legacyHeaders:false});

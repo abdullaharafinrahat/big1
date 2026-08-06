@@ -1,1 +1,0 @@
-const s=require('../services/cms.service');exports.notices=async(_q,r)=>r.json(await s.listNotices());exports.news=async(_q,r)=>r.json(await s.listNews());exports.createNews=async(q,r,n)=>{try{r.status(201).json(await s.createNews(q.body))}catch(e){n(e)}};

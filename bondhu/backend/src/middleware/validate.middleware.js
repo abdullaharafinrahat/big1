@@ -1,1 +1,0 @@
-exports.validateBody=fields=>(q,r,n)=>{const miss=fields.filter(f=>q.body[f]===undefined||q.body[f]==='');return miss.length?n(Object.assign(Error(`Missing fields: ${miss.join(', ')}`),{status:400})):n()};

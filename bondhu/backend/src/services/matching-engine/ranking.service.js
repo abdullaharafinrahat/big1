@@ -1,1 +1,0 @@
-exports.scoreDonor=d=>Number(((Math.max(0,1-(d.distanceKm||0)/50)*.55)+((d.reliabilityScore??.5)*.45)).toFixed(4));exports.rankDonors=a=>a.map(d=>({...d,matchScore:exports.scoreDonor(d)})).sort((a,b)=>b.matchScore-a.matchScore);

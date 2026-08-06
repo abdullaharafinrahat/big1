@@ -1,1 +1,0 @@
-const h=new Map();exports.publish=async(q,p)=>{await Promise.all((h.get(q)||[]).map(fn=>fn(p)));return{queued:true,queue:q}};exports.consume=(q,fn)=>{const a=h.get(q)||[];a.push(fn);h.set(q,a);console.log('Worker subscribed:',q)};

@@ -1,1 +1,0 @@
-const r=require('express').Router(),p=require('../services/payments/payments.service');r.post('/initiate',async(q,s,n)=>{try{s.status(201).json(await p.initiate(q.body))}catch(e){n(e)}});r.post('/callback/:provider',async(q,s,n)=>{try{s.json(await p.handleCallback(q.params.provider,q.body))}catch(e){n(e)}});module.exports=r;

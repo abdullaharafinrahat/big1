@@ -1,1 +1,0 @@
-exports.createPayment=async payload=>({provider:'sslcommerz',status:'initiated',paymentUrl:'https://pay.example/sslcommerz',...payload});exports.handleCallback=async payload=>({provider:'sslcommerz',status:'received',payload});

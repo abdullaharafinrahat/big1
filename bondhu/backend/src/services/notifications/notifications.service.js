@@ -1,1 +1,0 @@
-const sms=require('./providers/ssl-wireless.provider'),fcm=require('./providers/fcm.provider');exports.notifyDonors=(donors,msg)=>Promise.all(donors.map(d=>sms.sendSms(d.phone,msg)));exports.pushToUser=(token,payload)=>fcm.sendPush(token,payload);

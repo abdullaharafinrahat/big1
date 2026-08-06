@@ -1,1 +1,0 @@
-const a=require('../services/auth.service');exports.authenticate=(q,r,n)=>{try{const h=q.headers.authorization||'',t=h.startsWith('Bearer ')?h.slice(7):null;if(!t)throw Object.assign(Error('Authentication required'),{status:401});q.user=a.verifyToken(t);n()}catch(e){e.status=e.status||401;n(e)}};

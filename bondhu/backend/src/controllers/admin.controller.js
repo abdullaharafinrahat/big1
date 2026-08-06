@@ -1,1 +1,0 @@
-const m=require('../services/moderation.service');exports.dashboard=async(_q,r)=>r.json({openRequests:0,availableDonors:0,pendingModeration:m.queueSize()});exports.moderationQueue=async(_q,r)=>r.json(m.queue());exports.approve=(q,r)=>r.json(m.approve(q.params.type,q.params.id,q.user));exports.reject=(q,r)=>r.json(m.reject(q.params.type,q.params.id,q.user));

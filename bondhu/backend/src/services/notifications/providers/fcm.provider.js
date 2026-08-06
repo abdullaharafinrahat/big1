@@ -1,1 +1,0 @@
-exports.sendPush=async(token,payload)=>{console.log('[fcm]',token,payload);return{provider:'fcm',token,status:'queued'}};
