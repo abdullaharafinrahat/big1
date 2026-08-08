@@ -1,0 +1,40 @@
+{
+  "name": "bondhu-backend",
+  "version": "1.0.0",
+  "description": "Production-ready backend API for Bondhu emergency healthcare and blood donation network",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node --test test/**/*.test.js",
+    "lint": "eslint src/ --ext .js"
+  },
+  "dependencies": {
+    "bullmq": "^5.8.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.12.0",
+    "winston": "^3.13.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "keywords": [
+    "blood-donation",
+    "emergency-healthcare",
+    "geospatial-matching",
+    "bangladesh",
+    "hospital-management"
+  ],
+  "author": "Bondhu Healthcare Network",
+  "license": "MIT"
+}

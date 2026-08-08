@@ -1,0 +1,82 @@
+services:
+  api:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: bondhu-api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DATABASE_URL=postgres://bondhu:bondhu_secure_pass_2026@postgres:5432/bondhu
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=bondhu_production_secure_jwt_secret_key_change_me_in_env_2026
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - bondhu-net
+
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: bondhu-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bondhu
+      POSTGRES_PASSWORD: bondhu_secure_pass_2026
+      POSTGRES_DB: bondhu
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../backend/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bondhu"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bondhu-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: bondhu-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bondhu-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: bondhu-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../:/var/www/bondhu:ro
+    depends_on:
+      - api
+    networks:
+      - bondhu-net
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  bondhu-net:
+    driver: bridge

@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: Bondhu Emergency Healthcare & Blood Network API
+  version: 1.0.0
+  description: Enterprise REST API for blood donation matching, ambulance dispatch, and hospital telemetry.
+servers:
+  - url: http://localhost:4000/api
+    description: Local development server
+  - url: https://api.bondhu.org/api
+    description: Production API Gateway
+paths:
+  /blood-requests:
+    get:
+      summary: List blood requests
+      parameters:
+        - name: bloodGroup
+          in: query
+          schema:
+            type: string
+        - name: district
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+    post:
+      summary: Create new emergency blood request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [patientName, bloodGroup, unitsCount, hospitalName, district, contactPhone]
+              properties:
+                patientName:
+                  type: string
+                bloodGroup:
+                  type: string
+                  enum: [A+, A-, B+, B-, AB+, AB-, O+, O-]
+                unitsCount:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                hospitalName:
+                  type: string
+                district:
+                  type: string
+                contactPhone:
+                  type: string
+                  pattern: '^01[3-9]\d{8}$'
+      responses:
+        '201':
+          description: Blood request created and queued for matching
+  /blood-requests/{id}/match:
+    post:
+      summary: Trigger geospatial donor matching for a request
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Top ranked compatible donor matches
+  /donors:
+    get:
+      summary: Query donor registry
+      responses:
+        '200':
+          description: List of available donors
+    post:
+      summary: Register as a voluntary blood donor
+      responses:
+        '201':
+          description: Donor profile created
+  /hospitals:
+    get:
+      summary: Hospital directory with live bed & blood inventory
+      responses:
+        '200':
+          description: Hospital list
+  /ambulances:
+    get:
+      summary: Ambulance fleet directory
+      responses:
+        '200':
+          description: Ambulance list
+  /missing-bureau:
+    get:
+      summary: Missing person public notices
+      responses:
+        '200':
+          description: Approved missing person notices
+    post:
+      summary: Submit new missing person report
+      responses:
+        '201':
+          description: Report submitted for admin verification
+  /admin/stats:
+    get:
+      summary: Administrative overview metrics & audit logs
+      responses:
+        '200':
+          description: System analytics
