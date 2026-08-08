@@ -1,93 +1,396 @@
 <!DOCTYPE html>
-
 <html lang="bn">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Bondhu - Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Bondhu.org - সাইন ইন</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
 
-<link href="../css/base.css" rel="stylesheet"/><link href="../css/components.css" rel="stylesheet"/><link href="../css/pages/login.css" rel="stylesheet"/><link href="../css/layout.css" rel="stylesheet"/></head>
-<body><div id="app-header"></div>
-<main class="login-page">
-<section class="login-card">
-<header class="login-header">
-<a aria-label="Bondhu home" class="logo-link" href="../index.html">
-<img alt="Bondhu logo" class="logo-icon" src="../assets/images/service-icons/blood-drop.png"/>
-</a>
-<h1>Bondhu</h1>
-<p>এক প্ল্যাটফর্ম, সকল সেবা</p>
-</header>
-<div aria-hidden="true" class="drop-divider">
-<span></span>
-<img alt="" src="../assets/images/service-icons/blood-drop.png"/>
-<span></span>
-</div>
-<section class="welcome-text">
-<h2>স্বাগতম ফিরে আসার জন্য</h2>
-<p>আপনার অ্যাকাউন্ট লগইন করুন</p>
-</section>
-<form class="login-form" id="login-form">
-<label>
-<span>ইউজার আইডি / মোবাইল নম্বর</span>
-<div class="input-wrap">
-<img alt="" aria-hidden="true" src="../assets/images/service-icons/person-search.png"/>
-<input autocomplete="username" name="identifier" placeholder="ইউজার আইডি অথবা মোবাইল নম্বর লিখুন" required="" type="text"/>
-</div>
-</label>
-<label>
-<span>পাসওয়ার্ড</span>
-<div class="input-wrap password-wrap">
-<img alt="" aria-hidden="true" src="../assets/images/service-icons/emergency-siren.png"/>
-<input autocomplete="current-password" id="password" name="password" placeholder="পাসওয়ার্ড লিখুন" required="" type="password"/>
-<button aria-label="Show password" id="toggle-password" type="button">দেখুন</button>
-</div>
-</label>
-<label class="remember-row">
-<input id="remember-me" name="remember" type="checkbox"/>
-<span>আমাকে মনে রাখুন</span>
-</label>
-<button class="submit-btn" type="submit">
-<img alt="" aria-hidden="true" src="../assets/images/service-icons/emergency-call.png"/>
-<span>লগইন করুন</span>
-</button>
-</form>
-<div class="or-divider">
-<span></span>
-<b>অথবা</b>
-<span></span>
-</div>
-<div class="forgot-wrap">
-<a class="forgot-link" href="forgot-password.html">
-<img alt="" aria-hidden="true" src="../assets/images/service-icons/emergency-siren.png"/>
-<span>পাসওয়ার্ড ভুলে গেছেন?</span>
-</a>
-</div>
-<div class="register-prompt">
-<span>অ্যাকাউন্ট নেই?</span>
-<a href="register.html">এখনই রেজিস্টার করুন</a>
-</div>
-<section class="support-banner">
-<div class="security-copy">
-<img alt="Security" src="../assets/images/service-icons/award-star.png"/>
-<span>আপনার তথ্য নিরাপদ এবং গোপন রাখা হবে।</span>
-</div>
-<div class="banner-divider"></div>
-<div class="support-copy">
-<img alt="Support" src="../assets/images/service-icons/emergency-call.png"/>
-<span><small>সহায়তার জন্য কল করুন</small><strong>09609-123456</strong></span>
-</div>
-</section>
-<nav aria-label="Quick links" class="login-nav-links">
-<a href="../index.html">Home</a>
-<a href="request-blood.html">Blood</a>
-<a href="hospitals.html">Hospitals</a>
-<a href="ambulance.html">Ambulance</a>
-<a href="news.html">News</a>
-</nav>
-<p class="copyright">© 2026 Bondhu. সকল অধিকার সংরক্ষিত।</p>
-</section>
-</main><div id="app-footer"></div>
-<div aria-live="polite" class="login-toast-region" id="toast-region"></div>
-<script src="../js/main.js" type="module"></script><script src="../js/pages/login.page.js"></script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Auth Card Container */
+    .auth-container {
+      max-width: 440px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+
+    .auth-card {
+      background: white;
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      border: 1px solid var(--border-color);
+    }
+
+    .auth-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-green);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .auth-subtitle {
+      font-size: 12px;
+      color: var(--text-gray);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-green);
+    }
+
+    .btn-auth-submit {
+      width: 100%;
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .btn-auth-submit:hover {
+      background: var(--dark-green);
+    }
+
+    .auth-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      font-size: 12px;
+    }
+
+    .auth-links a {
+      color: var(--primary-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>06 August 2026<br>Thursday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২২ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২১ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="donor-register.html"><i class="fa-solid fa-pills"></i> Donor Portal</a></li>
+      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li><a href="missing-bureau.html"><i class="fa-solid fa-person-circle-question"></i> Missing Bureau</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <a href="register.html" class="nav-right-btn"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+  </nav>
+
+  <!-- Auth Card -->
+  <div class="auth-container">
+    <div class="auth-card">
+      <h1 class="auth-title">স্বাগতম ফিরে আসার জন্য</h1>
+      <p class="auth-subtitle">আপনার বন্ধু অ্যাকাউন্টে লগইন করুন</p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label>মোবাইল নম্বর অথবা ইমেইল</label>
+          <input type="text" class="form-control" placeholder="01XXXXXXXXX" value="01712345678" required>
+        </div>
+
+        <div class="form-group">
+          <label>পাসওয়ার্ড</label>
+          <input type="password" class="form-control" placeholder="••••••••" value="123456" required>
+        </div>
+
+        <button type="submit" class="btn-auth-submit"><i class="fa-solid fa-right-to-bracket"></i> সাইন ইন করুন</button>
+
+        <div class="auth-links">
+          <a href="forgot-password.html">পাসওয়ার্ড ভুলে গেছেন?</a>
+          <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      window.location.href = 'dashboard.html';
+    });
+  </script>
 </body>
 </html>

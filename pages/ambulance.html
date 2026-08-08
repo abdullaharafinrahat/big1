@@ -1,12 +1,1185 @@
-<!doctype html>
-<html lang="bn" data-page="ambulance">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#d62828"><title>Ambulance | Bondhu</title>
-  <link rel="manifest" href="../manifest.json">
-  <link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/layout.css"><link rel="stylesheet" href="../css/components.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambulance Service | Bondhu.org - জরুরি অ্যাম্বুলেন্স সেবা</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    .btn-login:hover {
+      background: var(--dark-red);
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .nav-right-btn:hover {
+      background: #00332c;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1350px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+
+    /* Hero Banner Grid */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .hero-intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #ffffff 60%, #fff3e0 100%);
+      border-left: 4px solid #f57c00;
+    }
+
+    .hero-title {
+      font-size: 26px;
+      color: #e65100;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin: 10px 0 15px;
+    }
+
+    .search-input-group {
+      display: flex;
+      gap: 0;
+    }
+
+    .search-input-group select {
+      border: 1px solid #ccc;
+      border-right: none;
+      padding: 8px;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      background: #f9f9f9;
+      font-size: 13px;
+    }
+
+    .search-input-group input {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      width: 100%;
+      outline: none;
+      font-size: 13px;
+    }
+
+    .search-input-group button {
+      background: #f57c00;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .search-input-group button:hover {
+      background: #e65100;
+    }
+
+    /* Stats Cards */
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-badge {
+      background: #fff3e0;
+      color: #e65100;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .stat-grid {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-item .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .stat-item.orange .number { color: #f57c00; }
+    .stat-item.green .number { color: var(--primary-green); }
+    .stat-item.red .number { color: var(--primary-red); }
+
+    .stat-item .label {
+      font-size: 12px;
+      color: var(--text-gray);
+    }
+
+    .btn-block-action {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      font-size: 13px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-block-action:hover {
+      opacity: 0.9;
+    }
+
+    .btn-green { background: var(--primary-green); color: white; }
+    .btn-orange { background: #f57c00; color: white; }
+    .btn-red { background: var(--primary-red); color: white; }
+
+    /* Content Layout */
+    .main-content {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .card-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 15px;
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      right: 15px;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+
+    .step-item {
+      position: relative;
+      z-index: 2;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 25%;
+      cursor: pointer;
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      transition: all 0.2s;
+    }
+
+    .step-item.active .step-number {
+      background: #f57c00;
+      color: white;
+      box-shadow: 0 0 0 3px rgba(245,124,0,0.2);
+    }
+
+    .step-item.completed .step-number {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--text-gray);
+      text-align: center;
+    }
+
+    .step-item.active .step-label {
+      color: #f57c00;
+      font-weight: 600;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #444;
+    }
+
+    .form-group label span {
+      color: var(--primary-red);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-green);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn-reset {
+      background: #e0e0e0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-next {
+      background: #f57c00;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-next:hover {
+      background: #e65100;
+    }
+
+    .wizard-step {
+      display: none;
+    }
+
+    .wizard-step.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Filters */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar input, .filter-bar select {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .filter-bar input { flex: 2; min-width: 140px; }
+    .filter-bar select { flex: 1; min-width: 100px; }
+
+    /* Ambulance Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .ambulance-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .ambulance-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .card-banner {
+      height: 90px;
+      background: #f8f9fa;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(255,255,255,0.92);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-weight: 700;
+    }
+
+    .status-badge.available { color: #2e7d32; }
+    .status-badge.onduty { color: #f57c00; }
+
+    .ambulance-icon-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid white;
+      position: absolute;
+      bottom: -12px;
+      left: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      color: #e65100;
+      font-size: 16px;
+    }
+
+    .card-content {
+      padding: 18px 12px 12px;
+    }
+
+    .ambulance-code {
+      font-size: 11px;
+      color: #888;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .ambulance-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 6px;
+    }
+
+    .info-line {
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .info-line i {
+      width: 14px;
+      color: #f57c00;
+    }
+
+    .card-footer-tags {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .tag {
+      background: #fff3e0;
+      color: #e65100;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .btn-call {
+      font-size: 12px;
+      background: #00695c;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.2s;
+    }
+
+    .btn-call:hover {
+      background: #004d40;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #fff3e0;
+      color: #e65100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 13px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .feature-text p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-section { grid-template-columns: 1fr; }
+      .main-content { grid-template-columns: 1fr; }
+      .grid-container { grid-template-columns: repeat(2, 1fr); }
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      .grid-container { grid-template-columns: 1fr; }
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+      .date-widgets { width: 100%; justify-content: space-between; }
+      .top-right-actions { width: 100%; justify-content: space-between; }
+    }
+  </style>
 </head>
-<body><a class="skip-link" href="#main">Skip</a><div id="app-header"></div><div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div><main id="main" class="page page-ambulance">
-<section class="container"><h1>Ambulance Contacts</h1><form class="toolbar" id="ambulance-search"><input name="district" placeholder="District"><button class="btn btn-primary">Find</button></form><div class="listing-grid" id="ambulance-list"></div></section></main><div id="app-footer"></div><script type="module" src="../js/main.js"></script>
-  <script type="module" src="../js/pages/ambulance.page.js"></script>
-</body></html>
+<body>
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>06 August 2026<br>Thursday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২২ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২১ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li class="active"><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="donor-register.html"><i class="fa-solid fa-pills"></i> Donor Portal</a></li>
+      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li><a href="donor-register.html"><i class="fa-solid fa-hand-holding-heart"></i> Volunteers</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <a href="#ambulance-list" class="nav-right-btn"><i class="fa-solid fa-truck-medical"></i> Find Ambulance</a>
+  </nav>
+
+  <!-- Main Content Container -->
+  <div class="container">
+
+    <!-- Hero Cards Banner -->
+    <section class="hero-section">
+      <div class="hero-card hero-intro">
+        <div>
+          <h1 class="hero-title">দ্রুততম জরুরি<br>অ্যাম্বুলেন্স নেটওয়ার্ক</h1>
+          <p class="hero-subtitle">সারাদেশের আইসিইউ, এসি ও নন-এসি অ্যাম্বুলেন্স সার্ভিস তাৎক্ষণিকভাবে বুক করুন।</p>
+        </div>
+        <div class="search-input-group">
+          <select id="search-type">
+            <option value="all">District / Hospital</option>
+          </select>
+          <input type="text" id="hero-search-input" placeholder="জেলা বা হাসপাতালের নাম লিখুন...">
+          <button type="button" id="hero-search-btn">খুঁজুন</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-truck-medical" style="color:#f57c00;"></i>
+            <strong>Active Fleet</strong>
+          </div>
+          <span class="stat-badge">+140+</span>
+        </div>
+        <p style="font-size:11px; color:#666; margin-bottom:12px;">২৪ ঘণ্টা অন-কল জরুরি সেবা</p>
+        <div class="stat-grid">
+          <div class="stat-item orange">
+            <div class="number">142</div>
+            <div class="label">Total Ambulances</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">98</div>
+            <div class="label">Available Now</div>
+          </div>
+          <div class="stat-item red">
+            <div class="number">44</div>
+            <div class="label">On Trip</div>
+          </div>
+        </div>
+        <a href="#ambulance-list" class="btn-block-action btn-orange">সব অ্যাম্বুলেন্স দেখুন</a>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-phone-volume" style="color:var(--primary-red);"></i>
+            <strong>Emergency Hotline</strong>
+          </div>
+        </div>
+        <div class="stat-grid" style="margin-top:20px;">
+          <div class="stat-item red">
+            <div class="number">10647</div>
+            <div class="label">National Care</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">&lt; 15 min</div>
+            <div class="label">Average Arrival</div>
+          </div>
+        </div>
+        <a href="tel:10647" class="btn-block-action btn-red" style="margin-top:10px;"><i class="fa-solid fa-phone"></i> সরাসরি কল করুন</a>
+      </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+      <!-- Left Column: Registration Form -->
+      <div class="card">
+        <h2 class="card-header-title">Register Ambulance</h2>
+        <p class="card-subtitle">অ্যাম্বুলেন্স অন্তর্ভুক্তি ফরম</p>
+
+        <!-- Stepper -->
+        <div class="stepper" id="amb-stepper">
+          <div class="step-item active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-label">Vehicle</div>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-label">Driver</div>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-label">Equipment</div>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-label">Submit</div>
+          </div>
+        </div>
+
+        <form id="ambulance-form">
+          <div class="wizard-step active" data-step-panel="1">
+            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">১. গাড়ির বিবরণ (Vehicle Details)</div>
+            <div class="form-group">
+              <label>Service / Provider Name <span>*</span></label>
+              <input type="text" class="form-control" placeholder="e.g. Bondhu ICU Ambulance" required>
+            </div>
+            <div class="form-group">
+              <label>Vehicle Number Plate <span>*</span></label>
+              <input type="text" class="form-control" placeholder="e.g. DH-11-2024" required>
+            </div>
+            <div class="form-group">
+              <label>Ambulance Type <span>*</span></label>
+              <select class="form-control">
+                <option>ICU Life Support Ambulance</option>
+                <option>AC Emergency Ambulance</option>
+                <option>Non-AC Patient Transport</option>
+                <option>Freezer Ambulance</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group" style="flex:1;">
+                <label>District <span>*</span></label>
+                <select class="form-control">
+                  <option>Dhaka</option>
+                  <option>Chattogram</option>
+                  <option>Rajshahi</option>
+                  <option>Khulna</option>
+                  <option>Sylhet</option>
+                  <option>Barishal</option>
+                </select>
+              </div>
+              <div class="form-group" style="flex:1;">
+                <label>Base Hospital</label>
+                <input type="text" class="form-control" placeholder="হাসপাতাল / স্ট্যান্ড">
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step-panel="2">
+            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">২. চালকের তথ্য (Driver Details)</div>
+            <div class="form-group">
+              <label>Driver Full Name <span>*</span></label>
+              <input type="text" class="form-control" placeholder="চালকের পূর্ণ নাম" required>
+            </div>
+            <div class="form-group">
+              <label>Mobile Number <span>*</span></label>
+              <input type="text" class="form-control" placeholder="01XXXXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label>Driving License Number</label>
+              <input type="text" class="form-control" placeholder="ড্রাইভিং লাইসেন্স নম্বর">
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step-panel="3">
+            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">৩. চিকিৎসা সরঞ্জাম (Equipment)</div>
+            <div class="form-group">
+              <label><input type="checkbox" checked> ICU Ventilator</label>
+            </div>
+            <div class="form-group">
+              <label><input type="checkbox" checked> Oxygen Cylinder & Mask</label>
+            </div>
+            <div class="form-group">
+              <label><input type="checkbox" checked> Defibrillator</label>
+            </div>
+            <div class="form-group">
+              <label><input type="checkbox" checked> First-Aid Kit & Stretcher</label>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step-panel="4">
+            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">৪. নিশ্চিতকরণ (Review & Submit)</div>
+            <p style="font-size:12px; color:#666; margin-bottom:10px;">আপনার প্রদত্ত তথ্যাদি যাচাই করে তালিকায় যুক্ত করা হবে।</p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-reset" id="amb-btn-prev">Back</button>
+            <button type="button" class="btn-next" id="amb-btn-next">Next Step &rarr;</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Column: Ambulance Directory Grid -->
+      <div class="card" id="ambulance-list">
+        <h2 class="card-header-title">Available Ambulances</h2>
+        
+        <!-- Filters -->
+        <div class="filter-bar">
+          <input type="text" id="filter-amb-keyword" placeholder="🔍 জেলা, হাসপাতাল বা নাম দিয়ে খুঁজুন">
+          <select id="filter-amb-type">
+            <option value="">All Types</option>
+            <option value="ICU">ICU Ambulance</option>
+            <option value="AC">AC Ambulance</option>
+            <option value="Non-AC">Non-AC Transport</option>
+          </select>
+          <select id="filter-amb-district">
+            <option value="">All Districts</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Chattogram">Chattogram</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Khulna">Khulna</option>
+          </select>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid-container" id="amb-grid">
+          <!-- Ambulance 1 -->
+          <div class="ambulance-card" data-district="Dhaka" data-type="ICU" data-name="Bondhu ICU Ambulance">
+            <div class="card-banner">
+              <img src="../assets/images/hospital/ambulance-1.png" alt="Ambulance">
+              <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
+              <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
+            </div>
+            <div class="card-content">
+              <div class="ambulance-code">DH-11-2024</div>
+              <div class="ambulance-title">Bondhu ICU Ambulance</div>
+              <div class="info-line"><i class="fa-solid fa-hospital"></i> Bondhu General Hospital</div>
+              <div class="info-line"><i class="fa-solid fa-location-dot"></i> Mirpur-10, Dhaka</div>
+              <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Abdullah Rahman</div>
+              <div class="card-footer-tags">
+                <span class="tag">ICU Life Support</span>
+                <a href="tel:01712345678" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ambulance 2 -->
+          <div class="ambulance-card" data-district="Dhaka" data-type="AC" data-name="City Care Emergency Ambulance">
+            <div class="card-banner">
+              <img src="../assets/images/hospital/ambulance-2.png" alt="Ambulance">
+              <span class="status-badge onduty"><i class="fa-solid fa-clock"></i> On Duty</span>
+              <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
+            </div>
+            <div class="card-content">
+              <div class="ambulance-code">DH-12-5544</div>
+              <div class="ambulance-title">City Care Emergency</div>
+              <div class="info-line"><i class="fa-solid fa-hospital"></i> Square Hospital</div>
+              <div class="info-line"><i class="fa-solid fa-location-dot"></i> Panthapath, Dhaka</div>
+              <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Mohammad Faruk</div>
+              <div class="card-footer-tags">
+                <span class="tag">AC Emergency</span>
+                <a href="tel:01711223344" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ambulance 3 -->
+          <div class="ambulance-card" data-district="Chattogram" data-type="ICU" data-name="Chattogram Medical Ambulance">
+            <div class="card-banner">
+              <img src="../assets/images/hospital/ambulance-exterior.png" alt="Ambulance">
+              <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
+              <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
+            </div>
+            <div class="card-content">
+              <div class="ambulance-code">CTG-05-9988</div>
+              <div class="ambulance-title">Chattogram Med Ambulance</div>
+              <div class="info-line"><i class="fa-solid fa-hospital"></i> Chattogram Medical College</div>
+              <div class="info-line"><i class="fa-solid fa-location-dot"></i> Panchlaish, Chattogram</div>
+              <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Rashedul Karim</div>
+              <div class="card-footer-tags">
+                <span class="tag">ICU Ambulance</span>
+                <a href="tel:01713456789" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Features Strip -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="feature-text">
+          <h4>দ্রুত রেসপন্স</h4>
+          <p>১৫ মিনিটে অ্যাম্বুলেন্স</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="feature-text">
+          <h4>লাইফ সাপোর্ট</h4>
+          <p>আইসিইউ ও ভেন্টিলেটর</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-location-crosshairs"></i></div>
+        <div class="feature-text">
+          <h4>জিপিএস ট্র্যাকিং</h4>
+          <p>লাইভ অবস্থান পর্যবেক্ষণ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-phone-volume"></i></div>
+        <div class="feature-text">
+          <h4>২৪/৭ হটলাইন</h4>
+          <p>জরুরি সেবা ১০৬৪৭</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="feature-text">
+          <h4>ভেরিফাইড চালক</h4>
+          <p>নিরাপদ ও বিশ্বস্ত যাত্রা</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-snowflake"></i></div>
+        <div class="feature-text">
+          <h4>ফ্রিজার ভ্যান</h4>
+          <p>মরদেহ পরিবহন সুবিধা</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let step = 1;
+    const total = 4;
+    const items = document.querySelectorAll('#amb-stepper .step-item');
+    const panels = document.querySelectorAll('.wizard-step');
+    const nextBtn = document.getElementById('amb-btn-next');
+    const prevBtn = document.getElementById('amb-btn-prev');
+
+    function renderStep(s) {
+      step = s;
+      panels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.stepPanel, 10) === step));
+      items.forEach(it => {
+        const idx = parseInt(it.dataset.step, 10);
+        it.classList.toggle('active', idx === step);
+        it.classList.toggle('completed', idx < step);
+      });
+      prevBtn.style.display = step === 1 ? 'none' : 'block';
+      nextBtn.textContent = step === total ? 'Submit Ambulance' : 'Next Step →';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (step < total) renderStep(step + 1);
+      else alert('অ্যাম্বুলেন্স সফলভাবে নিবন্ধিত হয়েছে!');
+    });
+    prevBtn.addEventListener('click', () => {
+      if (step > 1) renderStep(step - 1);
+    });
+    renderStep(1);
+
+    // Filters
+    const kw = document.getElementById('filter-amb-keyword');
+    const ty = document.getElementById('filter-amb-type');
+    const dt = document.getElementById('filter-amb-district');
+    const ambCards = document.querySelectorAll('#amb-grid .ambulance-card');
+
+    function filterAmbs() {
+      const q = (kw.value || '').toLowerCase();
+      const t = ty.value;
+      const d = dt.value;
+
+      ambCards.forEach(c => {
+        const name = (c.dataset.name || '').toLowerCase();
+        const dist = c.dataset.district || '';
+        const typ = c.dataset.type || '';
+
+        const mQ = !q || name.includes(q) || dist.toLowerCase().includes(q);
+        const mT = !t || typ === t;
+        const mD = !d || dist === d;
+
+        c.style.display = (mQ && mT && mD) ? 'block' : 'none';
+      });
+    }
+
+    kw.addEventListener('input', filterAmbs);
+    ty.addEventListener('change', filterAmbs);
+    dt.addEventListener('change', filterAmbs);
+  </script>
+</body>
+</html>

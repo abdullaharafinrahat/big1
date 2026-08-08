@@ -1,136 +1,914 @@
 <!DOCTYPE html>
-
-<html data-page="request-blood" lang="bn">
+<html lang="bn">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="#d62828" name="theme-color"/>
-<title>Request Blood | Bondhu</title>
-<link href="../manifest.json" rel="manifest"/>
-<link href="../css/base.css" rel="stylesheet"/>
-<link href="../css/layout.css" rel="stylesheet"/>
-<link href="../css/components.css" rel="stylesheet"/>
-<link href="../css/pages/request-blood.css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Blood | Bondhu.org - জরুরি রক্তের অনুরোধ</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1350px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+
+    /* Hero Banner Grid */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .hero-intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #ffffff 60%, #ffebee 100%);
+      border-left: 4px solid var(--primary-red);
+    }
+
+    .hero-title {
+      font-size: 26px;
+      color: var(--primary-red);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin: 10px 0 15px;
+    }
+
+    /* Stats Cards */
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-badge {
+      background: #ffebee;
+      color: var(--primary-red);
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .stat-grid {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-item .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .stat-item.red .number { color: var(--primary-red); }
+    .stat-item.green .number { color: var(--primary-green); }
+
+    .stat-item .label {
+      font-size: 12px;
+      color: var(--text-gray);
+    }
+
+    .btn-block-action {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      font-size: 13px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-green { background: var(--primary-green); color: white; }
+    .btn-red { background: var(--primary-red); color: white; }
+
+    /* Content Layout */
+    .main-content {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .card-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 15px;
+    }
+
+    /* Blood Group Tiles */
+    .blood-group-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .blood-tile {
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px 4px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      color: #333;
+      transition: all 0.2s;
+      background: #fafafa;
+    }
+
+    .blood-tile:hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red);
+    }
+
+    .blood-tile.active {
+      background: var(--primary-red);
+      color: white;
+      border-color: var(--primary-red);
+      box-shadow: 0 2px 6px rgba(211,47,47,0.25);
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #444;
+    }
+
+    .form-group label span {
+      color: var(--primary-red);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-green);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--dark-red);
+    }
+
+    /* Compatibility & Live Matching */
+    .compatibility-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .compatibility-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .compat-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .compat-pill {
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    /* Live Requests Feed */
+    .request-list-item {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .request-list-item:hover {
+      border-color: var(--primary-red);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .req-blood-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #ffebee;
+      color: var(--primary-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .req-info {
+      flex: 1;
+      margin-left: 12px;
+    }
+
+    .req-hospital {
+      font-size: 13px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .req-meta {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .btn-respond {
+      background: var(--primary-green);
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #ffebee;
+      color: var(--primary-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 13px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .feature-text p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-section { grid-template-columns: 1fr; }
+      .main-content { grid-template-columns: 1fr; }
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip</a>
-<div id="app-header"></div>
-<main class="page page-request-blood" id="main">
-<section class="request-choice-section container" id="request-choice-section">
-<div class="choice-heading">
-<p class="eyebrow">Bondhu Blood Service</p>
-<h3 class="choice-title">আপনি কী করতে চান?</h3>
-<p>রক্ত প্রয়োজন হলে অনুরোধ করুন, অথবা রক্তদাতা হিসেবে যুক্ত হন।</p>
-</div>
-<div class="request-choice-grid">
-<button class="request-choice-card need-blood" id="need-blood-option" type="button">
-<img alt="Need blood" src="../assets/images/service-icons/blood-drop.png"/>
-<span><strong>Need Blood</strong><small>রক্তের জন্য জরুরি অনুরোধ করুন</small></span>
-</button>
-<button class="request-choice-card donor-option" id="blood-donor-option" type="button">
-<img alt="Blood donor" src="../assets/images/service-icons/heart-in-hand.png"/>
-<span><strong>Blood Donor</strong><small>রক্তদাতা হিসেবে নিবন্ধন করুন</small></span>
-</button>
-</div>
-</section>
-<section class="need-blood-view" hidden="" id="need-blood-section">
-<div class="need-blood-shell">
-<button class="back-choice" data-back-choice="" type="button">← Back</button>
-<article class="need-step-card">
-<div class="need-step-title"><img alt="" class="need-title-icon" src="../assets/images/service-icons/blood-drop.png"/>
-<h2>রক্তের অনুরোধ করুন</h2>
-</div>
-<form class="need-phone-frame" id="blood-request-form">
-<div class="need-phone-head">
-<span>রক্তের অনুরোধ</span>
-<span>🔔</span>
-</div>
-<div class="need-phone-body">
-<div class="need-section-label">রোগীর তথ্য</div>
-<label class="need-field">User ID / Mobile
-                <div class="input-status-wrap"><input name="contactPhone" placeholder="01312345678" required=""/><span class="ok-dot">✓</span></div>
-</label>
-<label class="need-field">রোগীর নাম
-                <input name="patientName" placeholder="সাইফুল ইসলাম" required=""/>
-</label>
-<label class="need-field">মোবাইল নম্বর
-                <div class="input-status-wrap"><input id="display-mobile" placeholder="01312345678"/><span class="edit-dot">✎</span></div>
-</label>
-<label class="need-field">রক্তের গ্রুপ
-                <select class="blood-highlight" name="bloodGroup" required="">
-<option value="">Select</option>
-<option>O+</option><option>O-</option><option>A+</option><option>A-</option>
-<option>B+</option><option>B-</option><option>AB+</option><option>AB-</option>
-</select>
-</label>
-<div class="need-section-label">লোকেশন</div>
-<div class="need-mini-grid">
-<label>বিভাগ<select name="division"><option>ঢাকা</option><option>চট্টগ্রাম</option><option>সিলেট</option><option>রাজশাহী</option></select></label>
-<label>জেলা<select name="district" required=""><option>ঢাকা</option><option>চট্টগ্রাম</option><option>কুমিল্লা</option><option>সিলেট</option></select></label>
-<label>উপজেলা<select name="upazila"><option>ধানমন্ডি</option><option>পাঁচলাইশ</option><option>দেবিদ্বার</option><option>সদর</option></select></label>
-</div>
-<div class="need-section-label">হাসপাতাল</div>
-<label class="need-field">
-<select name="hospitalName" required="">
-<option>ঢাকা মেডিকেল কলেজ হাসপাতাল</option>
-<option>চট্টগ্রাম মেডিকেল কলেজ হাসপাতাল</option>
-<option>স্কয়ার হাসপাতাল</option>
-<option>ইবনে সিনা হাসপাতাল</option>
-</select>
-</label>
-<button class="hospital-add-link" id="add-hospital" type="button">তালিকায় না পেলে + নতুন হাসপাতাল যোগ করুন</button>
-<div class="need-section-label">রক্তের তথ্য</div>
-<div class="need-unit-row">
-<span>প্রয়োজনীয় ব্যাগ</span>
-<div class="need-counter">
-<button id="unit-minus" type="button">-</button>
-<span id="unit-display">2</span>
-<button id="unit-plus" type="button">+</button>
-</div>
-<input id="units-needed" name="unitsNeeded" type="hidden" value="2"/>
-</div>
-<div>
-<span class="need-small-label">অগ্রাধিকার</span>
-<div class="priority-row" id="priority-row">
-<button class="active" data-urgency="critical" type="button">জরুরী</button>
-<button data-urgency="normal" type="button">স্বাভাবিক</button>
-<button data-urgency="high" type="button">অতি জরুরী</button>
-</div>
-<input id="urgency-input" name="urgency" type="hidden" value="critical"/>
-</div>
-<label class="need-field">কারণ
-                <select name="reason"><option>অপারেশন</option><option>দুর্ঘটনা</option><option>ডেলিভারি</option><option>থ্যালাসেমিয়া</option><option>অন্যান্য</option></select>
-</label>
-<label class="need-field">প্রয়োজনীয় তারিখ ও সময়
-                <input name="neededBy" required="" type="datetime-local"/>
-</label>
-<div class="compatible-box"><strong>Compatible donor groups:</strong> <span id="compatibility-preview">Select blood group.</span></div>
-<button class="need-submit" type="submit">অনুরোধ পাঠান</button>
-</div>
-</form>
-<div class="need-notes">
-<div class="system-note"><span>⚙️</span><p>অনুরোধ করার সাথে সাথে <strong>Tracking ID</strong> তৈরি হবে এবং Matching Donor-দের SMS যাবে।</p></div>
-<div class="cancel-note"><strong>বাতিল করলে কারণ লিখতে হবে</strong><p><span>কারণ:</span> HB কম</p><p><span>নোট:</span> Hemoglobin is low</p><button id="cancel-request-preview" type="button">বাতিল করুন</button></div>
-</div>
-</article>
 
-</div>
-</section>
-<section class="container donor-entry-section" hidden="" id="donor-section">
-<button class="back-choice" data-back-choice="" type="button">← Back</button>
-<article class="donor-entry-card">
-<img alt="Blood donor" src="../assets/images/service-icons/heart-in-hand.png"/>
-<h2>Blood Donor</h2>
-<p>আপনি যদি রক্তদাতা হতে চান, তাহলে ডোনার হিসেবে নিবন্ধন করুন। যাচাইকৃত জরুরি অনুরোধের সময় আপনাকে SMS/App notification পাঠানো হবে।</p>
-<div class="donor-actions"><a class="btn btn-primary" href="donor-register.html">Register as Donor</a><button class="btn btn-outline" id="view-last-request" type="button">View latest request</button></div>
-</article>
-</section>
-<section class="container request-result-section" hidden="" id="request-result-section">
-<article class="result-card"><div class="success-mark">✓</div><h2>রক্তের অনুরোধ তৈরি হয়েছে</h2><p>Tracking ID: <strong id="result-tracking-id">BR----</strong></p><div class="result-actions"><button class="btn btn-primary" id="copy-tracking-link" type="button">Copy tracking link</button><button class="btn btn-outline" id="create-another-request" type="button">Create another request</button></div></article>
-</section>
-</main>
-<div id="app-footer"></div>
-<script src="../js/main.js" type="module"></script>
-<script src="../js/pages/request-blood.page.js" type="module"></script>
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>06 August 2026<br>Thursday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২২ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২১ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li class="active"><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="donor-register.html"><i class="fa-solid fa-pills"></i> Donor Portal</a></li>
+      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li><a href="donor-register.html"><i class="fa-solid fa-hand-holding-heart"></i> Volunteers</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <a href="blood-tracking.html" class="nav-right-btn"><i class="fa-solid fa-location-crosshairs"></i> Track Blood Request</a>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Hero Cards Banner -->
+    <section class="hero-section">
+      <div class="hero-card hero-intro">
+        <div>
+          <h1 class="hero-title">জরুরি রক্তের জন্য<br>তাৎক্ষণিক আবেদন</h1>
+          <p class="hero-subtitle">মুহূর্তের মধ্যে নিকটস্থ ভেরিফাইড রক্তদাতাদের সাথে সংযোগ স্থাপন করুন।</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <a href="#request-form" class="btn-block-action btn-red" style="width:auto; padding:8px 16px;">এখনই রক্তের অনুরোধ করুন &darr;</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-droplet" style="color:var(--primary-red);"></i>
+            <strong>Blood Matrix</strong>
+          </div>
+          <span class="stat-badge">Live</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-item red">
+            <div class="number">1,248</div>
+            <div class="label">Total Reqs.</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">1,052</div>
+            <div class="label">Fulfilled</div>
+          </div>
+          <div class="stat-item red">
+            <div class="number">196</div>
+            <div class="label">Searching</div>
+          </div>
+        </div>
+        <a href="blood-tracking.html" class="btn-block-action btn-green">লাইভ ট্র্যাকিং দেখুন</a>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-user-check" style="color:var(--primary-green);"></i>
+            <strong>Active Donors</strong>
+          </div>
+        </div>
+        <div class="stat-grid" style="margin-top:20px;">
+          <div class="stat-item green">
+            <div class="number">18,400+</div>
+            <div class="label">Registered</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">14,200+</div>
+            <div class="label">Verified</div>
+          </div>
+        </div>
+        <a href="donor-register.html" class="btn-block-action btn-red" style="margin-top:10px;">রক্তদাতা হিসেবে যুক্ত হন</a>
+      </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+      <!-- Left Column: Request Form -->
+      <div class="card" id="request-form">
+        <h2 class="card-header-title">Create Emergency Request</h2>
+        <p class="card-subtitle">রক্তের অনুরোধের বিবরণ পূরণ করুন</p>
+
+        <form id="blood-request-form">
+          <div class="form-group">
+            <label>রক্তের গ্রুপ নির্বাচন করুন <span>*</span></label>
+            <div class="blood-group-grid" id="blood-picker">
+              <div class="blood-tile active" data-bg="A+">A+</div>
+              <div class="blood-tile" data-bg="A-">A-</div>
+              <div class="blood-tile" data-bg="B+">B+</div>
+              <div class="blood-tile" data-bg="B-">B-</div>
+              <div class="blood-tile" data-bg="O+">O+</div>
+              <div class="blood-tile" data-bg="O-">O-</div>
+              <div class="blood-tile" data-bg="AB+">AB+</div>
+              <div class="blood-tile" data-bg="AB-">AB-</div>
+            </div>
+          </div>
+
+          <!-- Compatibility Helper -->
+          <div class="compatibility-box">
+            <div class="compatibility-title"><i class="fa-solid fa-circle-info"></i> গ্রহণ করতে পারবে:</div>
+            <div class="compat-pills" id="compat-pills">
+              <span class="compat-pill">A+</span>
+              <span class="compat-pill">A-</span>
+              <span class="compat-pill">O+</span>
+              <span class="compat-pill">O-</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>রোগীর নাম <span>*</span></label>
+            <input type="text" class="form-control" id="req-patient" placeholder="রোগীর পূর্ণ নাম" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>রক্তের পরিমাণ (ব্যাগ) <span>*</span></label>
+              <input type="number" class="form-control" value="1" min="1" max="10" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>জরুরিতা <span>*</span></label>
+              <select class="form-control">
+                <option value="immediate">তাৎক্ষণিক (Immediate)</option>
+                <option value="urgent" selected>জরুরি (Urgent)</option>
+                <option value="scheduled">পরিকল্পিত (Scheduled)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>হাসপাতাল / ক্লিনিকের নাম <span>*</span></label>
+            <input type="text" class="form-control" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>জেলা <span>*</span></label>
+              <select class="form-control">
+                <option>Dhaka</option>
+                <option>Chattogram</option>
+                <option>Rajshahi</option>
+                <option>Khulna</option>
+                <option>Sylhet</option>
+                <option>Barishal</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>উপজেলা / এলাকা <span>*</span></label>
+              <input type="text" class="form-control" placeholder="যেমন: শাহবাগ">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>যোগাযোগের মোবাইল নম্বর <span>*</span></label>
+            <input type="text" class="form-control" placeholder="01XXXXXXXXX" required>
+          </div>
+
+          <div class="form-group">
+            <label>রোগীর সমস্যা / কারণ</label>
+            <textarea class="form-control" rows="2" placeholder="অপারেশন / সিজার / থ্যালাসেমিয়া ইত্যাদি"></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> রক্তের অনুরোধ পোস্ট করুন</button>
+        </form>
+      </div>
+
+      <!-- Right Column: Live Urgent Feed -->
+      <div class="card">
+        <h2 class="card-header-title">Live Urgent Blood Requests</h2>
+        <p class="card-subtitle">চলমান জরুরি রক্তের আবেদন তালিকা</p>
+
+        <div id="live-requests-feed">
+          <!-- Item 1 -->
+          <div class="request-list-item">
+            <div class="req-blood-badge">B+</div>
+            <div class="req-info">
+              <div class="req-hospital">Dhaka Medical College Hospital</div>
+              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Shahbagh, Dhaka • 2 Bags needed • 10m ago</div>
+            </div>
+            <a href="blood-tracking.html?id=REQ-2026-08101" class="btn-respond">রক্ত দিন &rarr;</a>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="request-list-item">
+            <div class="req-blood-badge">O+</div>
+            <div class="req-info">
+              <div class="req-hospital">Square Hospital</div>
+              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Panthapath, Dhaka • 1 Bag needed • 25m ago</div>
+            </div>
+            <a href="blood-tracking.html?id=REQ-2026-08102" class="btn-respond">রক্ত দিন &rarr;</a>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="request-list-item">
+            <div class="req-blood-badge">AB-</div>
+            <div class="req-info">
+              <div class="req-hospital">Chattogram Medical College</div>
+              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Panchlaish, CTG • 2 Bags needed • 40m ago</div>
+            </div>
+            <a href="blood-tracking.html?id=REQ-2026-08103" class="btn-respond">রক্ত দিন &rarr;</a>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="request-list-item">
+            <div class="req-blood-badge">A+</div>
+            <div class="req-info">
+              <div class="req-hospital">Ibn Sina Specialized Hospital</div>
+              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Dhanmondi, Dhaka • 1 Bag needed • 1h ago</div>
+            </div>
+            <a href="blood-tracking.html?id=REQ-2026-08104" class="btn-respond">রক্ত দিন &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Features Strip -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="feature-text">
+          <h4>দ্রুততম ম্যাচিং</h4>
+          <p>নিকটস্থ রক্তদাতাদের অ্যালার্ট</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="feature-text">
+          <h4>ভেরিফাইড ডোনার</h4>
+          <p>এনআইডি ও স্বাস্থ্য যাচাই</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="feature-text">
+          <h4>লাইভ ট্র্যাকিং</h4>
+          <p>ডোনারের আগমন পর্যবেক্ষণ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+        <div class="feature-text">
+          <h4>সম্পূর্ণ বিনামূল্যে</h4>
+          <p>মানবিক ও স্বেচ্ছাসেবী সেবা</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-hospital"></i></div>
+        <div class="feature-text">
+          <h4>হাসপাতাল নেটওয়ার্ক</h4>
+          <p>সারা দেশে অনুমোদিত শাখা</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-lock"></i></div>
+        <div class="feature-text">
+          <h4>তথ্য নিরাপত্তা</h4>
+          <p>নিরাপদ ও সুরক্ষিত প্ল্যাটফর্ম</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const compatMatrix = {
+      'A+': ['A+', 'A-', 'O+', 'O-'],
+      'A-': ['A-', 'O-'],
+      'B+': ['B+', 'B-', 'O+', 'O-'],
+      'B-': ['B-', 'O-'],
+      'AB+': ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      'AB-': ['AB-', 'A-', 'B-', 'O-'],
+      'O+': ['O+', 'O-'],
+      'O-': ['O-']
+    };
+
+    const tiles = document.querySelectorAll('#blood-picker .blood-tile');
+    const compatContainer = document.getElementById('compat-pills');
+
+    tiles.forEach(t => {
+      t.addEventListener('click', () => {
+        tiles.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        const bg = t.dataset.bg;
+        const allowed = compatMatrix[bg] || [bg];
+        compatContainer.innerHTML = allowed.map(g => `<span class="compat-pill">${g}</span>`).join('');
+      });
+    });
+
+    document.getElementById('blood-request-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('রক্তের অনুরোধ সফলভাবে গ্রহণ করা হয়েছে! নিকটস্থ রক্তদাতাদের সতর্কবার্তা পাঠানো হচ্ছে।');
+      window.location.href = 'blood-tracking.html?id=REQ-2026-' + Math.floor(10000 + Math.random() * 90000);
+    });
+  </script>
 </body>
 </html>

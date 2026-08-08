@@ -1,12 +1,778 @@
-<!doctype html>
-<html lang="bn" data-page="missing-bureau">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#d62828"><title>Missing Bureau | Bondhu</title>
-  <link rel="manifest" href="../manifest.json">
-  <link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/layout.css"><link rel="stylesheet" href="../css/components.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missing Bureau | Bondhu.org - নিখোঁজ সংবাদ ও অনুসন্ধান</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1350px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+
+    /* Hero Banner Grid */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .hero-intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #ffffff 60%, #e0f2f1 100%);
+      border-left: 4px solid var(--primary-green);
+    }
+
+    .hero-title {
+      font-size: 26px;
+      color: var(--primary-green);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin: 10px 0 15px;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-badge {
+      background: #e8f5e9;
+      color: var(--primary-green);
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .stat-grid {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-item .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .stat-item.green .number { color: var(--primary-green); }
+    .stat-item.red .number { color: var(--primary-red); }
+
+    .stat-item .label {
+      font-size: 12px;
+      color: var(--text-gray);
+    }
+
+    .btn-block-action {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .btn-green { background: var(--primary-green); color: white; }
+    .btn-red { background: var(--primary-red); color: white; }
+
+    /* Content Layout */
+    .main-content {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .card-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #444;
+    }
+
+    .form-group label span {
+      color: var(--primary-red);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-green);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--dark-green);
+    }
+
+    /* Missing Person Grid */
+    .missing-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: white;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .missing-card:hover {
+      border-color: var(--primary-red);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .missing-photo-box {
+      width: 65px;
+      height: 65px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #64748b;
+      flex-shrink: 0;
+      border: 1px solid #cbd5e1;
+    }
+
+    .missing-info {
+      flex: 1;
+    }
+
+    .missing-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .missing-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .status-urgent {
+      background: #fee2e2;
+      color: var(--primary-red);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .missing-meta {
+      font-size: 12px;
+      color: #555;
+      margin-top: 3px;
+    }
+
+    .btn-contact {
+      background: #00695c;
+      color: white;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #e8f5e9;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 13px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .feature-text p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-section { grid-template-columns: 1fr; }
+      .main-content { grid-template-columns: 1fr; }
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body><a class="skip-link" href="#main">Skip</a><div id="app-header"></div><div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div><main id="main" class="page page-missing-bureau">
-<section class="container"><h1>Missing Bureau</h1><form class="card form-grid" id="missing-report-form"><label>Name<input name="name" required></label><label>Age<input name="age" type="number"></label><label>Last seen<input name="lastSeenLocation" required></label><label>Phone<input name="contactPhone" required></label><label class="full">Description<textarea name="description" required></textarea></label><p class="full"><button class="btn btn-primary">Submit for moderation</button></p></form><div class="listing-grid" id="missing-list"></div></section></main><div id="app-footer"></div><script type="module" src="../js/main.js"></script>
-  <script type="module" src="../js/pages/missing-bureau.page.js"></script>
-</body></html>
+<body>
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>06 August 2026<br>Thursday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২২ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২১ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="donor-register.html"><i class="fa-solid fa-pills"></i> Donor Portal</a></li>
+      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li class="active"><a href="missing-bureau.html"><i class="fa-solid fa-person-circle-question"></i> Missing Bureau</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <a href="#missing-form" class="nav-right-btn"><i class="fa-solid fa-plus"></i> Report Missing</a>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-card hero-intro">
+        <div>
+          <h1 class="hero-title">নিখোঁজ অনুসন্ধান ও<br>সহায়তা ব্যুরো</h1>
+          <p class="hero-subtitle">সারাদেশের ভলান্টিয়ার ও সাধারণ মানুষের সহযোগিতায় নিখোঁজদের খুঁজে বের করার জাতীয় নেটওয়ার্ক।</p>
+        </div>
+        <div>
+          <a href="#missing-form" class="btn-block-action btn-green" style="width:auto; display:inline-block; padding:8px 18px;">বিজ্ঞপ্তি প্রকাশ করুন &darr;</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-users-viewfinder" style="color:var(--primary-green);"></i>
+            <strong>Bureau Status</strong>
+          </div>
+          <span class="stat-badge">Live</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-item green">
+            <div class="number">420</div>
+            <div class="label">Total Reports</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">385</div>
+            <div class="label">Found & Reunited</div>
+          </div>
+          <div class="stat-item red">
+            <div class="number">35</div>
+            <div class="label">Active Search</div>
+          </div>
+        </div>
+        <a href="#missing-directory" class="btn-block-action btn-green">নিখোঁজ তালিকা দেখুন</a>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-headset" style="color:var(--primary-red);"></i>
+            <strong>Emergency Helpdesk</strong>
+          </div>
+        </div>
+        <div class="stat-grid" style="margin-top:20px;">
+          <div class="stat-item red">
+            <div class="number">10647</div>
+            <div class="label">Free Hotline</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">64 Districts</div>
+            <div class="label">Volunteer Coverage</div>
+          </div>
+        </div>
+        <a href="tel:10647" class="btn-block-action btn-red" style="margin-top:10px;">জরুরি কল করুন</a>
+      </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+      <!-- Left Column: Report Form -->
+      <div class="card" id="missing-form">
+        <h2 class="card-header-title">Submit Missing Report</h2>
+        <p class="card-subtitle">নিখোঁজ ব্যক্তির তথ্য দিন</p>
+
+        <form id="missing-report-form">
+          <div class="form-group">
+            <label>নিখোঁজ ব্যক্তির নাম <span>*</span></label>
+            <input type="text" class="form-control" placeholder="পূর্ণ নাম" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>বয়স <span>*</span></label>
+              <input type="number" class="form-control" placeholder="যেমন: ৬৮" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>লিঙ্গ <span>*</span></label>
+              <select class="form-control">
+                <option>পুরুষ (Male)</option>
+                <option>নারী (Female)</option>
+                <option>শিশু (Child)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>সর্বশেষ দেখার স্থান <span>*</span></label>
+            <input type="text" class="form-control" placeholder="যেমন: নিউ মার্কেট, ঢাকা" required>
+          </div>
+          <div class="form-group">
+            <label>যোগাযোগের ফোন নম্বর <span>*</span></label>
+            <input type="text" class="form-control" placeholder="01XXXXXXXXX" required>
+          </div>
+          <div class="form-group">
+            <label>শারীরিক বিবরণ ও পোশাকের বর্ণনা <span>*</span></label>
+            <textarea class="form-control" rows="3" placeholder="পোশাকের রং, উচ্চতা, বিশেষ কোনো চিহ্ন বা শারীরিক অবস্থা..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit"><i class="fa-solid fa-shield"></i> মডারেশনের জন্য জমা দিন</button>
+        </form>
+      </div>
+
+      <!-- Right Column: Missing Directory -->
+      <div class="card" id="missing-directory">
+        <h2 class="card-header-title">Verified Missing Notices</h2>
+        <p class="card-subtitle">যাচাইকৃত সক্রিয় অনুসন্ধান তালিকা</p>
+
+        <div class="missing-card">
+          <div class="missing-photo-box"><i class="fa-solid fa-user"></i></div>
+          <div class="missing-info">
+            <div class="missing-name-row">
+              <span class="missing-name">আব্দুর রহিম (বয়স: ৬৮)</span>
+              <span class="status-urgent">Active Search</span>
+            </div>
+            <div class="missing-meta"><i class="fa-solid fa-location-dot"></i> শেষ দেখা: নিউ মার্কেট, ঢাকা • সাদা পাঞ্জাবি পরিহিত</div>
+            <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; color:#777;">পোস্ট: ৫ আগস্ট ২০২৬</span>
+              <a href="tel:01712998877" class="btn-contact"><i class="fa-solid fa-phone"></i> ০১৭১২-৯৯৮৮৭৭</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="missing-card">
+          <div class="missing-photo-box"><i class="fa-solid fa-child"></i></div>
+          <div class="missing-info">
+            <div class="missing-name-row">
+              <span class="missing-name">সুমাইয়া আক্তার (বয়স: ১২)</span>
+              <span class="status-urgent">Urgent Search</span>
+            </div>
+            <div class="missing-meta"><i class="fa-solid fa-location-dot"></i> শেষ দেখা: জিইসি মোড়, চট্টগ্রাম • নেভি ব্লু স্কুল ড্রেস</div>
+            <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; color:#777;">পোস্ট: ৬ আগস্ট ২০২৬</span>
+              <a href="tel:01819554433" class="btn-contact"><i class="fa-solid fa-phone"></i> ০১৮১৯-৫৫৪৪৩৩</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Features -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="feature-text">
+          <h4>তাত্ক্ষণিক প্রচার</h4>
+          <p>সোশ্যাল ও ভলান্টিয়ার অ্যালার্ট</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-shield-heart"></i></div>
+        <div class="feature-text">
+          <h4>নিরাপত্তা ও সহায়তা</h4>
+          <p>আইনশৃঙ্খলা বাহিনীর সাথে সমন্বয়</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-phone-volume"></i></div>
+        <div class="feature-text">
+          <h4>২৪/৭ হেল্পডেস্ক</h4>
+          <p>টোল ফ্রি নম্বর ১০৬৪৭</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="feature-text">
+          <h4>জাতীয় নেটওয়ার্ক</h4>
+          <p>৬৪ জেলার স্বেচ্ছাসেবী টিম</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="feature-text">
+          <h4>যাচাইকৃত তথ্য</h4>
+          <p>ভুয়া খবর প্রতিরোধ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-hands-holding-child"></i></div>
+        <div class="feature-text">
+          <h4>পরিবারে প্রত্যাবর্তন</h4>
+          <p>মানবিক সহায়তা ও পুনর্মিলন</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('missing-report-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('নিখোঁজ বিজ্ঞপ্তি সফলভাবে মডারেশনের জন্য জমা হয়েছে। যাচাই শেষে দ্রুত প্রকাশ করা হবে।');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
