@@ -1,1226 +1,940 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bondhu Foundation - NGO & Volunteer Platform</title>
-    <!-- Tailwind CSS -->
+    <title>সেবা সহায়ক - সব সেবার এক ঠিকানা</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts: Hind Siliguri for Bengali typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eefef4',
-                            100: '#d6fcd8',
-                            500: '#00a651',
-                            600: '#008a42',
-                            700: '#006c33',
-                            800: '#03542a',
-                        },
-                        darkbg: '#0f172a',
-                        darkcard: '#1e293b'
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#00a651',
+                            700: '#008a43',
+                            800: '#065f46',
+                        }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'Noto Sans Bengali', 'sans-serif'],
+                        sans: ['Hind Siliguri', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        .custom-scrollbar::-webkit-scrollbar {
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f4f6f8;
+            color: #333333;
+        }
+        
+        .custom-shadow {
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
+        ::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #00a651;
-            border-radius: 10px;
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
         }
-        .dark .custom-scrollbar::-webkit-scrollbar-track {
-            background: #1e293b;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #334155;
+
+        /* Smooth tab transition */
+        .tab-btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Toast animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%) translateX(-50%); opacity: 0; }
+            to { transform: translateY(0) translateX(-50%); opacity: 1; }
+        }
+        .toast-animate {
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col custom-scrollbar">
+<body class="min-h-screen flex flex-col antialiased">
 
-    <!-- Top Direct View Switcher Navigation Bar -->
-    <div class="bg-gray-900 text-white py-2 px-4 shadow-md sticky top-0 z-50 flex flex-wrap items-center justify-between gap-2 text-xs border-b border-gray-800">
-        <div class="flex items-center space-x-2">
-            <span class="bg-brand-500 font-bold px-2 py-0.5 rounded text-white text-[11px] uppercase tracking-wider">Screen Previewer</span>
-            <span class="hidden md:inline text-gray-300">Jump directly to any of the 13 reference UI screens:</span>
-        </div>
-        <div class="flex flex-wrap gap-1 items-center overflow-x-auto py-1 max-w-full">
-            <button onclick="switchView(1)" id="btn-view-1" class="view-btn px-2.5 py-1 rounded bg-brand-500 text-white font-semibold transition hover:opacity-90">1. Search</button>
-            <button onclick="switchView(2)" id="btn-view-2" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">2. Details</button>
-            <button onclick="switchView(3)" id="btn-view-3" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">3. Posts</button>
-            <button onclick="switchView(4)" id="btn-view-4" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">4. Activities</button>
-            <button onclick="switchView(5)" id="btn-view-5" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">5. Jobs</button>
-            <button onclick="switchView(6)" id="btn-view-6" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">6. Job Spec</button>
-            <button onclick="switchView(7)" id="btn-view-7" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">7. Application</button>
-            <button onclick="switchView(8)" id="btn-view-8" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">8. Verification</button>
-            <button onclick="switchView(9)" id="btn-view-9" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">9. Chairman</button>
-            <button onclick="switchView(10)" id="btn-view-10" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">10. Contact</button>
-            <button onclick="switchView(11)" id="btn-view-11" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">11. Login</button>
-            <button onclick="switchView(12)" id="btn-view-12" class="view-btn px-2.5 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition">12. Drawer</button>
-            <button onclick="switchView(13)" id="btn-view-13" class="view-btn px-2.5 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700 font-semibold transition">13. Dashboard (Dark)</button>
+    <!-- Top Mode Toggle Bar for Seamless Demo Experience -->
+    <div class="bg-slate-900 text-white text-xs py-2 px-4 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="font-medium text-slate-200">সেবা সহায়ক ওয়েব প্ল্যাটফর্ম</span>
+                <span class="text-slate-400 hidden sm:inline">| মূল পোর্টাল এবং অ্যাডমিন প্যানেল ভিউ</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="switchView('split')" id="btn-view-split" class="px-3 py-1 rounded text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-sm">
+                    <i data-lucide="columns" class="w-3.5 h-3.5 inline mr-1"></i>পাশাপাশি জোড়া ভিউ (Split Screen)
+                </button>
+                <button onclick="switchView('public')" id="btn-view-public" class="px-3 py-1 rounded text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 inline mr-1"></i>পাবলিক পোটাল
+                </button>
+                <button onclick="switchView('admin')" id="btn-view-admin" class="px-3 py-1 rounded text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all">
+                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 inline mr-1"></i>অ্যাডমিন ড্যাশবোর্ড
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Main Navigation Header (Shared Header Across Pages) -->
-    <header class="bg-white border-b border-gray-200 sticky top-[41px] z-40 shadow-sm" id="main-header">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Brand Logo -->
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView(1)">
-                    <div class="w-12 h-12 bg-gradient-to-br from-brand-500 to-emerald-700 rounded-full flex items-center justify-center text-white shadow-md">
-                        <i class="fa-solid font-bold fa-hand-holding-heart text-2xl"></i>
-                    </div>
-                    <div>
-                        <span class="text-xl font-bold text-gray-900 block leading-tight">Bondhu Foundation</span>
-                        <span class="text-xs text-brand-600 font-medium tracking-wide">Empowering Communities</span>
-                    </div>
-                </div>
+    <!-- MAIN CONTAINER FOR SPLIT OR SINGLE VIEW -->
+    <main id="main-container" class="flex-1 w-full max-w-[1720px] mx-auto p-3 md:p-5 transition-all duration-300">
+        <div id="views-wrapper" class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-                <!-- Multi-Calendar Widget (Exactly as in prompt image) -->
-                <div class="hidden lg:flex items-center bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 space-x-3 text-xs">
-                    <div class="text-brand-500 text-lg">
-                        <i class="fa-regular fa-calendar-days"></i>
-                    </div>
-                    <div class="border-r border-gray-200 pr-3">
-                        <div class="font-bold text-gray-800">12 August 2026</div>
-                        <div class="text-gray-500 text-[10px]">Gregorian Calendar</div>
-                    </div>
-                    <div class="border-r border-gray-200 pr-3">
-                        <div class="font-semibold text-gray-700">25 শ্রাবণ ১৪৩৩</div>
-                        <div class="text-gray-500 text-[10px]">Bengali Calendar</div>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-gray-700">07 Safar 1448</div>
-                        <div class="text-gray-500 text-[10px]">Hijri Calendar</div>
-                    </div>
-                </div>
-
-                <!-- Nav Menu Links -->
-                <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600">
-                    <button onclick="switchView(1)" class="hover:text-brand-500 transition py-1 border-b-2 border-transparent hover:border-brand-500">Home</button>
-                    <button onclick="switchView(3)" class="hover:text-brand-500 transition py-1 border-b-2 border-transparent hover:border-brand-500">Posts</button>
-                    <button onclick="switchView(4)" class="hover:text-brand-500 transition py-1 border-b-2 border-transparent hover:border-brand-500">Activities</button>
-                    <button onclick="switchView(5)" class="hover:text-brand-500 transition py-1 border-b-2 border-transparent hover:border-brand-500">Jobs</button>
-                    <button onclick="switchView(10)" class="hover:text-brand-500 transition py-1 border-b-2 border-transparent hover:border-brand-500">Contact</button>
-                </nav>
-
-                <!-- Header Buttons -->
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchView(11)" class="px-5 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-md text-sm font-semibold shadow-sm transition flex items-center space-x-2">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>Login</span>
-                    </button>
-                    <button onclick="toggleUserDrawer()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-md md:hidden">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- App Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
-
-        <!-- VIEW 1: Organization Search / Listing -->
-        <div id="view-1" class="view-container">
-            <!-- Search Banner -->
-            <div class="bg-gradient-to-r from-emerald-50 via-white to-emerald-50 rounded-2xl p-8 border border-emerald-100 text-center mb-8 shadow-sm">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">Search any keyword</h1>
-                <p class="text-gray-500 text-sm max-w-xl mx-auto mb-6">Search organization, activity, job, location and more...</p>
-                <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2">
-                    <div class="relative flex-1">
-                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" placeholder="Search any keyword..." class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none text-sm bg-white shadow-sm">
-                    </div>
-                    <button class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-3 rounded-lg shadow-md transition">Search</button>
-                </div>
-            </div>
-
-            <!-- Organizations Grid -->
-            <div class="mb-4 flex justify-between items-center">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-900">Organizations</h2>
-                    <p class="text-gray-500 text-xs">Showing 24 organizations</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Org Card 1 -->
-                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition text-center flex flex-col items-center">
-                    <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center text-brand-500 mb-3 border border-emerald-100">
-                        <i class="fa-solid fa-hand-holding-heart text-3xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-gray-800 mb-1">Bondhu Foundation</h3>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-brand-700 mb-2">
-                        <i class="fa-solid fa-circle-check mr-1 text-brand-500"></i> Verified
-                    </span>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fa-regular fa-calendar text-gray-400 mr-1"></i> Join Date: 12 Mar 2024</p>
-                    <div class="flex items-center space-x-1 text-xs text-amber-500 mb-4">
-                        <i class="fa-solid fa-star"></i>
-                        <span class="font-bold text-gray-700">4.8</span>
-                        <span class="text-gray-400">(128)</span>
-                    </div>
-                    <button onclick="switchView(2)" class="w-full py-2 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg text-sm shadow-sm transition">View Details</button>
-                </div>
-
-                <!-- Org Card 2 -->
-                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition text-center flex flex-col items-center">
-                    <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-3 border border-blue-100">
-                        <i class="fa-solid fa-hands-holding-circle text-3xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-gray-800 mb-1">Humanity First BD</h3>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-brand-700 mb-2">
-                        <i class="fa-solid fa-circle-check mr-1 text-brand-500"></i> Verified
-                    </span>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fa-regular fa-calendar text-gray-400 mr-1"></i> Join Date: 05 Jan 2024</p>
-                    <div class="flex items-center space-x-1 text-xs text-amber-500 mb-4">
-                        <i class="fa-solid fa-star"></i>
-                        <span class="font-bold text-gray-700">4.7</span>
-                        <span class="text-gray-400">(95)</span>
-                    </div>
-                    <button onclick="switchView(2)" class="w-full py-2 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg text-sm shadow-sm transition">View Details</button>
-                </div>
-
-                <!-- Org Card 3 -->
-                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition text-center flex flex-col items-center">
-                    <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-600 mb-3 border border-green-100">
-                        <i class="fa-solid fa-seedling text-3xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-gray-800 mb-1">Safe Life Society</h3>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-brand-700 mb-2">
-                        <i class="fa-solid fa-circle-check mr-1 text-brand-500"></i> Verified
-                    </span>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fa-regular fa-calendar text-gray-400 mr-1"></i> Join Date: 20 Feb 2024</p>
-                    <div class="flex items-center space-x-1 text-xs text-amber-500 mb-4">
-                        <i class="fa-solid fa-star"></i>
-                        <span class="font-bold text-gray-700">4.9</span>
-                        <span class="text-gray-400">(110)</span>
-                    </div>
-                    <button onclick="switchView(2)" class="w-full py-2 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg text-sm shadow-sm transition">View Details</button>
-                </div>
-
-                <!-- Org Card 4 -->
-                <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition text-center flex flex-col items-center">
-                    <div class="w-20 h-20 bg-purple-50 rounded-full flex items-center justify-center text-purple-600 mb-3 border border-purple-100">
-                        <i class="fa-solid fa-people-group text-3xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-gray-800 mb-1">Hope for All</h3>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-brand-700 mb-2">
-                        <i class="fa-solid fa-circle-check mr-1 text-brand-500"></i> Verified
-                    </span>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fa-regular fa-calendar text-gray-400 mr-1"></i> Join Date: 12 Nov 2023</p>
-                    <div class="flex items-center space-x-1 text-xs text-amber-500 mb-4">
-                        <i class="fa-solid fa-star"></i>
-                        <span class="font-bold text-gray-700">4.6</span>
-                        <span class="text-gray-400">(78)</span>
-                    </div>
-                    <button onclick="switchView(2)" class="w-full py-2 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg text-sm shadow-sm transition">View Details</button>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #1: Organization Search / Listing View
-            </div>
-        </div>
-
-        <!-- VIEW 2: Organization Details -->
-        <div id="view-2" class="view-container hidden">
-            <!-- Organization Cover Header -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6">
-                <div class="h-48 bg-gradient-to-r from-emerald-600 to-teal-800 relative">
-                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80" alt="Volunteers Cover" class="w-full h-full object-cover opacity-40">
-                </div>
-                <div class="px-6 py-4 relative flex flex-col sm:flex-row items-center sm:items-end justify-between -mt-16 sm:-mt-20 mb-4 gap-4">
-                    <div class="flex flex-col sm:flex-row items-center sm:items-end space-y-3 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
-                        <div class="w-28 h-28 bg-white p-2 rounded-full shadow-lg border-2 border-brand-500 relative">
-                            <div class="w-full h-full bg-emerald-50 rounded-full flex items-center justify-center text-brand-500">
-                                <i class="fa-solid fa-hand-holding-heart text-4xl"></i>
-                            </div>
+            <!-- LEFT CONTAINER: PUBLIC PORTAL -->
+            <div id="public-portal-container" class="bg-white rounded-2xl border border-gray-200 custom-card-shadow overflow-hidden flex flex-col min-h-[850px]">
+                
+                <!-- Navbar -->
+                <header class="bg-white border-b border-gray-100 px-4 md:px-6 py-3.5 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-600 flex items-center justify-center text-white shadow-sm">
+                            <i data-lucide="sprout" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <div class="flex items-center justify-center sm:justify-start space-x-2">
-                                <h1 class="text-2xl font-bold text-gray-900">Bondhu Foundation</h1>
-                                <span class="bg-emerald-100 text-brand-700 text-xs px-2 py-0.5 rounded font-semibold inline-flex items-center">
-                                    <i class="fa-solid fa-circle-check text-brand-500 mr-1"></i> Verified
-                                </span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1">Join Date: 12 March 2024 &bull; <i class="fa-solid fa-star text-amber-500"></i> 4.8 (128 Reviews)</p>
-                        </div>
-                    </div>
-                    <button class="px-6 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg shadow-sm transition flex items-center space-x-2">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>Follow</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Ticker Notice Bar -->
-            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mb-6 flex items-center text-xs text-emerald-900 space-x-3">
-                <span class="bg-brand-500 text-white px-2 py-1 rounded font-bold uppercase tracking-wider flex items-center space-x-1 shrink-0">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <span>Latest Notice</span>
-                </span>
-                <p class="truncate font-medium">Blood Donation Campaign will be held on 20 August 2026 at Dhaka Medical College.</p>
-            </div>
-
-            <!-- Chairman Quote Message Card -->
-            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mb-6 flex flex-col md:flex-row items-center gap-6">
-                <div class="relative shrink-0">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80" alt="MD. Sajjad Hossain" class="w-24 h-24 rounded-full object-cover border-2 border-brand-500 shadow">
-                </div>
-                <div class="text-center md:text-left flex-1">
-                    <h3 class="text-lg font-bold text-gray-900">Chairman Message</h3>
-                    <p class="text-xs font-semibold text-brand-600 mb-2">MD. Sajjad Hossain - Chairman</p>
-                    <p class="text-gray-600 italic text-sm leading-relaxed mb-3">
-                        "বন্যা ও দুর্যোগে দুর্দশাগ্রস্ত মানুষের পাশে দাঁড়ানো আমাদের সবার মানবিক দায়িত্ব। আসুন আমরা সবাই মিলে একটি সুন্দর সমাজ গড়ে তুলি।"
-                    </p>
-                    <button onclick="switchView(9)" class="text-xs bg-brand-500 text-white font-medium px-4 py-1.5 rounded hover:bg-brand-600 transition inline-block">Read More</button>
-                </div>
-            </div>
-
-            <!-- Organization Metrics Stats Cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div class="bg-white rounded-xl p-5 border border-gray-200 text-center shadow-sm">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-500 mb-1">150+</div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Activities</div>
-                </div>
-                <div class="bg-white rounded-xl p-5 border border-gray-200 text-center shadow-sm">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-500 mb-1">25K+</div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Beneficiaries</div>
-                </div>
-                <div class="bg-white rounded-xl p-5 border border-gray-200 text-center shadow-sm">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-500 mb-1">300+</div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Volunteers</div>
-                </div>
-                <div class="bg-white rounded-xl p-5 border border-gray-200 text-center shadow-sm">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-500 mb-1">50+</div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Projects</div>
-                </div>
-            </div>
-
-            <div class="text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #2: Organization Details View
-            </div>
-        </div>
-
-        <!-- VIEW 3: Posts / News -->
-        <div id="view-3" class="view-container hidden">
-            <div class="bg-emerald-800 text-white p-6 rounded-2xl mb-6 shadow-sm">
-                <h1 class="text-3xl font-bold">All Posts</h1>
-                <p class="text-xs text-emerald-200 mt-1">Home / Posts</p>
-            </div>
-
-            <!-- Category Pill Filters -->
-            <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-4 text-xs font-medium">
-                <button class="px-4 py-2 bg-brand-500 text-white rounded-full shadow-sm">All</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">News</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Activities</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Events</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Notice</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Jobs</button>
-            </div>
-
-            <!-- Posts Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Post Card 1 -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="News" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <span class="bg-emerald-100 text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Events</span>
-                        <h3 class="font-bold text-gray-900 mt-2 text-sm line-clamp-2">New Project Launched for Education Support</h3>
-                        <p class="text-xs text-gray-400 mt-1"><i class="fa-regular fa-clock mr-1"></i> 10 Aug 2026</p>
-                        <a href="#" class="text-xs text-brand-600 font-semibold mt-3 inline-block hover:underline">Read More &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Post Card 2 -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=600&q=80" alt="News" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <span class="bg-emerald-100 text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Activities</span>
-                        <h3 class="font-bold text-gray-900 mt-2 text-sm line-clamp-2">Blood Donation Campaign Successfully Completed</h3>
-                        <p class="text-xs text-gray-400 mt-1"><i class="fa-regular fa-clock mr-1"></i> 08 Aug 2026</p>
-                        <a href="#" class="text-xs text-brand-600 font-semibold mt-3 inline-block hover:underline">Read More &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Post Card 3 -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" alt="News" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <span class="bg-emerald-100 text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">News</span>
-                        <h3 class="font-bold text-gray-900 mt-2 text-sm line-clamp-2">Tree Plantation Program at Rajshahi Region</h3>
-                        <p class="text-xs text-gray-400 mt-1"><i class="fa-regular fa-clock mr-1"></i> 05 Aug 2026</p>
-                        <a href="#" class="text-xs text-brand-600 font-semibold mt-3 inline-block hover:underline">Read More &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Post Card 4 -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80" alt="News" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Notice</span>
-                        <h3 class="font-bold text-gray-900 mt-2 text-sm line-clamp-2">Office Closed on the Occasion of Eid</h3>
-                        <p class="text-xs text-gray-400 mt-1"><i class="fa-regular fa-clock mr-1"></i> 03 Aug 2026</p>
-                        <a href="#" class="text-xs text-brand-600 font-semibold mt-3 inline-block hover:underline">Read More &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Post Card 5 -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=600&q=80" alt="News" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <span class="bg-emerald-100 text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Activities</span>
-                        <h3 class="font-bold text-gray-900 mt-2 text-sm line-clamp-2">Winter Clothes Distribution Program 2026</h3>
-                        <p class="text-xs text-gray-400 mt-1"><i class="fa-regular fa-clock mr-1"></i> 01 Aug 2026</p>
-                        <a href="#" class="text-xs text-brand-600 font-semibold mt-3 inline-block hover:underline">Read More &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Post Card 6 -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="News" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <span class="bg-emerald-100 text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">News</span>
-                        <h3 class="font-bold text-gray-900 mt-2 text-sm line-clamp-2">New Partnership with Local Hospitals</h3>
-                        <p class="text-xs text-gray-400 mt-1"><i class="fa-regular fa-clock mr-1"></i> 31 Jul 2026</p>
-                        <a href="#" class="text-xs text-brand-600 font-semibold mt-3 inline-block hover:underline">Read More &rarr;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #3: Posts / News Listing View
-            </div>
-        </div>
-
-        <!-- VIEW 4: Social Activities -->
-        <div id="view-4" class="view-container hidden">
-            <div class="bg-purple-900 text-white p-6 rounded-2xl mb-6 shadow-sm">
-                <h1 class="text-3xl font-bold">Social Activities</h1>
-                <p class="text-xs text-purple-200 mt-1">Home / Social Activities</p>
-            </div>
-
-            <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-4 text-xs font-medium">
-                <button class="px-4 py-2 bg-brand-500 text-white rounded-full">All</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Blood Donation</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Education</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Relief</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Environment</button>
-                <button class="px-4 py-2 bg-white text-gray-600 hover:bg-gray-100 rounded-full border border-gray-200">Health</button>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Activity 1 -->
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=500&q=80" class="w-full h-36 object-cover" alt="Blood Donation">
-                    <div class="p-4">
-                        <h3 class="font-bold text-gray-900 text-sm mb-2">Blood Donation Campaign</h3>
-                        <p class="text-xs text-gray-500 mb-1"><i class="fa-regular fa-calendar text-brand-500 mr-1"></i> 10 Aug 2026</p>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> Dhaka</p>
-                        <button class="w-full py-1.5 border border-brand-500 text-brand-600 hover:bg-brand-50 text-xs font-semibold rounded transition">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Activity 2 -->
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=500&q=80" class="w-full h-36 object-cover" alt="Winter Clothes">
-                    <div class="p-4">
-                        <h3 class="font-bold text-gray-900 text-sm mb-2">Winter Clothes Distribution</h3>
-                        <p class="text-xs text-gray-500 mb-1"><i class="fa-regular fa-calendar text-brand-500 mr-1"></i> 08 Aug 2026</p>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> Gazipur</p>
-                        <button class="w-full py-1.5 border border-brand-500 text-brand-600 hover:bg-brand-50 text-xs font-semibold rounded transition">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Activity 3 -->
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=500&q=80" class="w-full h-36 object-cover" alt="Tree Plantation">
-                    <div class="p-4">
-                        <h3 class="font-bold text-gray-900 text-sm mb-2">Tree Plantation Program</h3>
-                        <p class="text-xs text-gray-500 mb-1"><i class="fa-regular fa-calendar text-brand-500 mr-1"></i> 05 Aug 2026</p>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> Rajshahi</p>
-                        <button class="w-full py-1.5 border border-brand-500 text-brand-600 hover:bg-brand-50 text-xs font-semibold rounded transition">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Activity 4 -->
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=500&q=80" class="w-full h-36 object-cover" alt="Food Distribution">
-                    <div class="p-4">
-                        <h3 class="font-bold text-gray-900 text-sm mb-2">Food Distribution Program</h3>
-                        <p class="text-xs text-gray-500 mb-1"><i class="fa-regular fa-calendar text-brand-500 mr-1"></i> 01 Aug 2026</p>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> Narayanganj</p>
-                        <button class="w-full py-1.5 border border-brand-500 text-brand-600 hover:bg-brand-50 text-xs font-semibold rounded transition">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #4: Social Activities View
-            </div>
-        </div>
-
-        <!-- VIEW 5: Available Jobs -->
-        <div id="view-5" class="view-container hidden">
-            <div class="bg-amber-600 text-white p-6 rounded-2xl mb-6 shadow-sm">
-                <h1 class="text-3xl font-bold">Available Jobs</h1>
-                <p class="text-xs text-amber-100 mt-1">Home / Jobs</p>
-            </div>
-
-            <!-- Job Filters Bar -->
-            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-6 flex flex-wrap gap-4 items-center justify-between">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
-                    <select class="px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                        <option>All Category</option>
-                        <option>IT & Software</option>
-                        <option>Management</option>
-                        <option>Design</option>
-                    </select>
-                    <select class="px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                        <option>All Location</option>
-                        <option>Dhaka</option>
-                        <option>Chittagong</option>
-                        <option>Remote</option>
-                    </select>
-                    <select class="px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                        <option>Job Type</option>
-                        <option>Full Time</option>
-                        <option>Part Time</option>
-                        <option>Contractual</option>
-                    </select>
-                </div>
-                <button class="px-6 py-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-xs shadow transition">
-                    <i class="fa-solid fa-filter mr-1"></i> Filter
-                </button>
-            </div>
-
-            <!-- Job List -->
-            <div class="space-y-4">
-                <!-- Job Card 1 -->
-                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-brand-500 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-base">Software Developer</h3>
-                        <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
-                            <span class="bg-emerald-100 text-brand-700 px-2 py-0.5 rounded font-medium"><i class="fa-solid fa-briefcase mr-1"></i> Full Time</span>
-                            <span><i class="fa-solid fa-location-dot mr-1"></i> Dhaka</span>
-                            <span><i class="fa-regular fa-clock mr-1"></i> Deadline: 31-Aug-2026</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
-                        <button onclick="switchView(6)" class="text-xs font-semibold text-gray-600 hover:text-brand-600">View Job</button>
-                        <button onclick="switchView(7)" class="px-5 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold rounded-lg shadow-sm transition">Apply Now</button>
-                    </div>
-                </div>
-
-                <!-- Job Card 2 -->
-                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-brand-500 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-base">Graphic Designer</h3>
-                        <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
-                            <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-medium"><i class="fa-solid fa-briefcase mr-1"></i> Full Time</span>
-                            <span><i class="fa-solid fa-laptop-house mr-1"></i> Remote</span>
-                            <span><i class="fa-regular fa-clock mr-1"></i> Deadline: 28-Aug-2026</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
-                        <button onclick="switchView(6)" class="text-xs font-semibold text-gray-600 hover:text-brand-600">View Job</button>
-                        <button onclick="switchView(7)" class="px-5 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold rounded-lg shadow-sm transition">Apply Now</button>
-                    </div>
-                </div>
-
-                <!-- Job Card 3 -->
-                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-brand-500 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-base">Program Officer</h3>
-                        <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
-                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-medium"><i class="fa-solid fa-briefcase mr-1"></i> Full Time</span>
-                            <span><i class="fa-solid fa-location-dot mr-1"></i> Chittagong</span>
-                            <span><i class="fa-regular fa-clock mr-1"></i> Deadline: 25-Aug-2026</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
-                        <button onclick="switchView(6)" class="text-xs font-semibold text-gray-600 hover:text-brand-600">View Job</button>
-                        <button onclick="switchView(7)" class="px-5 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold rounded-lg shadow-sm transition">Apply Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #5: Job Listings View
-            </div>
-        </div>
-
-        <!-- VIEW 6: Job Details -->
-        <div id="view-6" class="view-container hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Spec Container -->
-                <div class="lg:col-span-2 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-                    <h1 class="text-2xl font-bold text-gray-900 mb-2">Software Developer</h1>
-                    <div class="flex flex-wrap items-center gap-3 text-xs mb-6">
-                        <span class="bg-red-100 text-red-600 px-2.5 py-1 rounded font-semibold"><i class="fa-solid fa-clock mr-1"></i> Full Time</span>
-                        <span class="text-gray-600"><i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> Dhaka</span>
-                        <span class="text-gray-600"><i class="fa-solid fa-money-bill-wave text-brand-500 mr-1"></i> Salary: 40,000 - 60,000 BDT</span>
-                    </div>
-
-                    <div class="bg-emerald-50 border-l-4 border-brand-500 p-3 rounded mb-6 text-xs text-brand-800">
-                        <i class="fa-solid fa-calendar-check mr-1"></i> <strong>Deadline:</strong> 31-Aug-2026
-                    </div>
-
-                    <div class="space-y-6 text-sm text-gray-700">
-                        <div>
-                            <h3 class="text-base font-bold text-gray-900 mb-2">Job Description</h3>
-                            <p class="leading-relaxed text-xs sm:text-sm text-gray-600">
-                                বন্ধু ফাউন্ডেশনের ওয়েব অ্যাপ্লিকেশন এবং ডিজিটাল প্ল্যাটফর্ম উন্নয়নের জন্য অভিজ্ঞ সফটওয়্যার ডেভেলপার প্রয়োজন। আমাদের সামাজিক প্রভাব বাড়াতে প্রযুক্তিভিত্তিক সমাধান তৈরিতে কাজ করতে হবে।
-                            </p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-base font-bold text-gray-900 mb-2">Requirements</h3>
-                            <ul class="list-disc list-inside text-xs sm:text-sm text-gray-600 space-y-1">
-                                <li>At least 2 years experience</li>
-                                <li>Strong knowledge in PHP, Laravel, JS</li>
-                                <li>Database design & management</li>
-                                <li>Good communication skills</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h3 class="text-base font-bold text-gray-900 mb-2">Benefits</h3>
-                            <ul class="list-disc list-inside text-xs sm:text-sm text-gray-600 space-y-1">
-                                <li>Professional environment</li>
-                                <li>Festival bonus</li>
-                                <li>Career growth opportunity</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Org Details Card -->
-                <div class="space-y-6">
-                    <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm text-center">
-                        <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-brand-500 mx-auto mb-3">
-                            <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
-                        </div>
-                        <h3 class="font-bold text-gray-900 text-base">Bondhu Foundation</h3>
-                        <span class="text-xs text-brand-600 font-semibold block mt-1"><i class="fa-solid fa-circle-check"></i> Verified Organization</span>
-                        <div class="flex items-center justify-center space-x-1 text-xs text-amber-500 my-3">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="font-bold text-gray-700">4.8</span>
-                            <span class="text-gray-400">(128 reviews)</span>
-                        </div>
-                        <button onclick="switchView(7)" class="w-full py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm shadow transition">
-                            Apply Now
-                        </button>
-                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-center space-x-4 text-gray-400 text-sm">
-                            <span class="text-xs text-gray-500">Share Job:</span>
-                            <a href="#" class="hover:text-blue-600"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#" class="hover:text-blue-700"><i class="fa-brands fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #6: Job Specification Details View
-            </div>
-        </div>
-
-        <!-- VIEW 7: Job Application Form -->
-        <div id="view-7" class="view-container hidden">
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm">
-                <div class="border-b border-gray-100 pb-4 mb-6">
-                    <p class="text-xs text-gray-400">Home / Jobs / Software Developer / Apply</p>
-                    <h1 class="text-2xl font-bold text-gray-900 mt-1">Application Form</h1>
-                </div>
-
-                <form onsubmit="event.preventDefault(); alert('Application Submitted Successfully!'); switchView(13);" class="space-y-5">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Full Name *</label>
-                            <input type="text" placeholder="Enter your full name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Mobile Number *</label>
-                            <input type="tel" placeholder="017XXXXXXXX" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <h1 class="text-lg font-bold text-gray-800 leading-tight">সেবা সহায়ক</h1>
+                            <p class="text-[11px] text-emerald-700 font-medium -mt-0.5">সব সেবার এক ঠিকানা</p>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Email *</label>
-                        <input type="email" placeholder="Enter your email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                    </div>
-
-                    <!-- Address Select Cascade -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Division *</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                                <option>Dhaka</option>
-                                <option>Chittagong</option>
-                                <option>Rajshahi</option>
-                                <option>Sylhet</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">District *</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                                <option>Select District</option>
-                                <option selected>Dhaka</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Upazila *</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                                <option>Select Upazila</option>
-                                <option selected>Dhanmondi</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Union / Thana</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                                <option>Select Union</option>
-                                <option selected>Dhanmondi Thana</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Word</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white text-gray-700">
-                                <option>Select Word</option>
-                                <option selected>Word 15</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Upload CV *</label>
-                            <input type="file" required class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white text-gray-500">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Why should we hire you?</label>
-                        <textarea rows="4" placeholder="Write something about yourself..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
-                    </div>
-
-                    <div class="text-center pt-2">
-                        <button type="submit" class="px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-lg text-sm shadow-md transition">
-                            Submit Application
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #7: Job Application Form View
-            </div>
-        </div>
-
-        <!-- VIEW 8: Org Information / Verification -->
-        <div id="view-8" class="view-container hidden">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <!-- Sidebar Menu -->
-                <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                    <h3 class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-3 px-2">Navigation</h3>
-                    <nav class="space-y-1 text-xs font-medium">
-                        <a href="#" class="flex items-center px-3 py-2 rounded-lg bg-brand-50 text-brand-700 font-bold">
-                            <i class="fa-solid fa-shield-halved mr-2"></i> Verification Status
+                    <!-- Desktop Nav Links -->
+                    <nav class="hidden md:flex items-center gap-6 text-sm text-gray-600 font-medium">
+                        <a href="#" class="flex items-center gap-1.5 text-emerald-600 font-semibold hover:text-emerald-700">
+                            <i data-lucide="home" class="w-4 h-4"></i> হোম
                         </a>
-                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50">
-                            <i class="fa-solid fa-file-lines mr-2"></i> Documents
+                        <a href="#" class="flex items-center gap-1.5 hover:text-emerald-600 transition-colors">
+                            <i data-lucide="layout-grid" class="w-4 h-4"></i> সকল সেবা
                         </a>
-                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50">
-                            <i class="fa-solid fa-address-book mr-2"></i> Contact Information
+                        <a href="#" class="flex items-center gap-1.5 hover:text-emerald-600 transition-colors">
+                            <i data-lucide="phone-call" class="w-4 h-4"></i> জরুরি সেবা
                         </a>
-                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50">
-                            <i class="fa-solid fa-map-location-dot mr-2"></i> Working Area
+                        <a href="#" class="flex items-center gap-1.5 hover:text-emerald-600 transition-colors">
+                            <i data-lucide="headphones" class="w-4 h-4"></i> যোগাযোগ
                         </a>
                     </nav>
-                </div>
 
-                <!-- Main Verification Content -->
-                <div class="md:col-span-3 bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-gray-900 mb-4">Verification Status</h2>
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center justify-between p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-xs">
-                            <div class="flex items-center space-x-3">
-                                <i class="fa-solid fa-circle-check text-brand-500 text-lg"></i>
-                                <span class="font-semibold text-gray-800">Organization Verified</span>
-                            </div>
-                            <span class="bg-brand-500 text-white px-2 py-0.5 rounded text-[10px] font-bold">Verified</span>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-xs">
-                            <div class="flex items-center space-x-3">
-                                <i class="fa-solid fa-circle-check text-brand-500 text-lg"></i>
-                                <span class="font-semibold text-gray-800">Mobile Verified</span>
-                            </div>
-                            <span class="bg-brand-500 text-white px-2 py-0.5 rounded text-[10px] font-bold">Verified</span>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-xs">
-                            <div class="flex items-center space-x-3">
-                                <i class="fa-solid fa-circle-check text-brand-500 text-lg"></i>
-                                <span class="font-semibold text-gray-800">Address Verified</span>
-                            </div>
-                            <span class="bg-brand-500 text-white px-2 py-0.5 rounded text-[10px] font-bold">Verified</span>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-xs">
-                            <div class="flex items-center space-x-3">
-                                <i class="fa-solid fa-circle-check text-brand-500 text-lg"></i>
-                                <span class="font-semibold text-gray-800">Information Reviewed</span>
-                            </div>
-                            <span class="bg-brand-500 text-white px-2 py-0.5 rounded text-[10px] font-bold">Passed</span>
-                        </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="openAdminFormFromPublic()" class="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm transition-all shadow-sm flex items-center gap-1">
+                            লগইন
+                        </button>
+                        <button class="p-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-colors">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </button>
                     </div>
+                </header>
 
-                    <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg text-xs text-gray-600">
-                        <p>Your organization information has been verified successfully.</p>
-                        <span class="text-[10px] text-gray-400 mt-1 block">Last verified on 10 August 2026</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #8: Org Information / Verification View
-            </div>
-        </div>
-
-        <!-- VIEW 9: Chairman Profile -->
-        <div id="view-9" class="view-container hidden">
-            <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm max-w-4xl mx-auto">
-                <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pb-6 border-b border-gray-100">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80" alt="MD. Sajjad Hossain" class="w-28 h-28 rounded-full object-cover border-4 border-brand-500 shadow-md">
-                    <div class="text-center sm:text-left">
-                        <h1 class="text-2xl font-bold text-gray-900">MD. Sajjad Hossain</h1>
-                        <p class="text-brand-600 font-semibold text-sm">Chairman</p>
-                        <div class="flex items-center justify-center sm:justify-start space-x-3 mt-3 text-gray-500">
-                            <a href="#" class="hover:text-brand-500"><i class="fa-brands fa-facebook text-lg"></i></a>
-                            <a href="#" class="hover:text-brand-500"><i class="fa-brands fa-linkedin text-lg"></i></a>
-                            <a href="#" class="hover:text-brand-500"><i class="fa-solid fa-envelope text-lg"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tabs Navigation -->
-                <div class="flex border-b border-gray-200 mt-6 text-xs font-bold text-gray-600">
-                    <button class="px-4 py-2 text-brand-600 border-b-2 border-brand-500">About</button>
-                    <button class="px-4 py-2 hover:text-brand-600">Message</button>
-                    <button class="px-4 py-2 hover:text-brand-600">Vision</button>
-                    <button class="px-4 py-2 hover:text-brand-600">Activities</button>
-                </div>
-
-                <!-- Tab Details -->
-                <div class="pt-6 space-y-4 text-xs sm:text-sm text-gray-700">
-                    <p class="leading-relaxed">
-                        MD. Sajjad Hossain একজন সমাজসেবক ও উদ্যোক্তা। তিনি দীর্ঘ ১০ বছর ধরে বিভিন্ন সামাজিক ও মানবিক কর্মকাণ্ডের সাথে যুক্ত আছেন। তিনি বন্ধু ফাউন্ডেশনের প্রতিষ্ঠাতা চেয়ারম্যান হিসেবে অসহায় মানুষের সেবায় নিরলস কাজ করে যাচ্ছেন।
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200 text-xs">
-                        <div>
-                            <span class="font-bold text-gray-900 block">Education:</span>
-                            <span class="text-gray-600">MSc (DU)</span>
-                        </div>
-                        <div>
-                            <span class="font-bold text-gray-900 block">Experience:</span>
-                            <span class="text-gray-600">10+ Years</span>
-                        </div>
-                        <div>
-                            <span class="font-bold text-gray-900 block">Profession:</span>
-                            <span class="text-gray-600">Social Worker</span>
-                        </div>
-                        <div>
-                            <span class="font-bold text-gray-900 block">Nationality:</span>
-                            <span class="text-gray-600">Bangladeshi</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #9: Chairman Profile View
-            </div>
-        </div>
-
-        <!-- VIEW 10: Contact / Maps -->
-        <div id="view-10" class="view-container hidden">
-            <div class="text-xs text-gray-400 mb-2">Home / Chairman / Contact</div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Info Side -->
-                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-6">
-                    <h2 class="text-xl font-bold text-gray-900">Get in Touch</h2>
+                <!-- Public Portal Content -->
+                <div class="p-4 md:p-6 flex-1 flex flex-col">
                     
-                    <div class="space-y-4 text-xs">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-500 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-gray-800 block">Phone</span>
-                                <span class="text-gray-600">+880 1234-567890</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-500 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-gray-800 block">Email</span>
-                                <span class="text-gray-600">info@bondhufoundation.org</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-500 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-gray-800 block">Address</span>
-                                <span class="text-gray-600">House 23, Road 08, Dhanmondi, Dhaka-1205, Bangladesh</span>
-                            </div>
+                    <!-- Search Header Banner -->
+                    <div class="text-center my-4 max-w-xl mx-auto w-full">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">যেকোনো সেবা খুঁজুন</h2>
+                        <p class="text-sm text-gray-500 mt-1">নাম, কীওয়ার্ড বা নম্বর লিখে সার্চ করুন</p>
+                        
+                        <!-- Search Box -->
+                        <div class="mt-4 relative flex items-center shadow-sm rounded-xl border border-gray-300 focus-within:border-brand-600 focus-within:ring-2 focus-within:ring-brand-500/20 bg-white overflow-hidden transition-all">
+                            <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-3.5 pointer-events-none"></i>
+                            <input 
+                                type="text" 
+                                id="public-search-input"
+                                oninput="filterServices()"
+                                placeholder="999 / 333 / 16123 / পুলিশ / কৃষি / হাসপাতাল..." 
+                                class="w-full pl-11 pr-24 py-3 text-sm text-gray-700 outline-none bg-transparent placeholder-gray-400"
+                            >
+                            <button onclick="filterServices()" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm rounded-lg flex items-center gap-1.5 transition-colors shadow-sm">
+                                <i data-lucide="search" class="w-4 h-4"></i> সার্চ
+                            </button>
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-100 pt-4">
-                        <h3 class="font-bold text-gray-800 text-xs mb-2">Opening Times</h3>
-                        <div class="text-xs text-gray-600 space-y-1">
-                            <p class="flex justify-between"><span>Saturday - Thursday:</span> <span class="font-semibold">09:00 AM - 05:00 PM</span></p>
-                            <p class="flex justify-between"><span>Friday:</span> <span class="text-red-500 font-semibold">Closed</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Simulated Map View -->
-                <div class="bg-gray-200 rounded-2xl border border-gray-300 relative overflow-hidden min-h-[300px] flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" alt="Map" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute bg-white px-4 py-2 rounded-xl shadow-lg border border-gray-200 text-center flex items-center space-x-2">
-                        <i class="fa-solid fa-location-dot text-red-500 text-xl animate-bounce"></i>
-                        <span class="font-bold text-xs text-gray-800">Bondhu Foundation HQ</span>
-                    </div>
-                    <button class="absolute bottom-4 right-4 bg-brand-500 text-white text-xs font-bold px-4 py-2 rounded-lg shadow hover:bg-brand-600 transition">Get Directions</button>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #10: Contact / Map Location View
-            </div>
-        </div>
-
-        <!-- VIEW 11: Login Page -->
-        <div id="view-11" class="view-container hidden">
-            <div class="max-w-md mx-auto bg-white p-8 rounded-2xl border border-gray-200 shadow-md">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 bg-brand-50 text-brand-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-hand-holding-heart text-3xl"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-gray-900">Welcome Back</h1>
-                    <p class="text-xs text-gray-500 mt-1">Login to your account</p>
-                </div>
-
-                <form onsubmit="event.preventDefault(); switchView(13);" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Mobile Number / User ID</label>
-                        <input type="text" placeholder="017XXXXXXXX" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Password</label>
-                        <input type="password" placeholder="••••••••" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                    </div>
-
-                    <div class="flex items-center justify-between text-xs">
-                        <label class="flex items-center text-gray-600">
-                            <input type="checkbox" class="rounded text-brand-500 mr-2"> Remember me
-                        </label>
-                        <a href="#" class="text-brand-600 hover:underline">Forgot Password?</a>
-                    </div>
-
-                    <button type="submit" class="w-full py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-lg text-sm shadow transition">
-                        Login
-                    </button>
-
-                    <div class="text-center text-xs text-gray-500 pt-2">
-                        Don't have an account? <a href="#" class="text-brand-600 font-bold hover:underline">Create Account</a>
-                    </div>
-                </form>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #11: Login Authentication View
-            </div>
-        </div>
-
-        <!-- VIEW 12: User Profile / Navigation Drawer -->
-        <div id="view-12" class="view-container hidden">
-            <div class="max-w-xs mx-auto bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
-                <!-- User Banner -->
-                <div class="p-6 bg-slate-50 text-center border-b border-gray-100">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" class="w-16 h-16 rounded-full mx-auto border-2 border-brand-500 mb-2 object-cover" alt="User">
-                    <h3 class="font-bold text-gray-900 text-sm">MD. Riaz Hossain</h3>
-                    <p class="text-xs text-gray-500">User</p>
-                </div>
-
-                <!-- Navigation List -->
-                <div class="p-3 space-y-1 text-xs font-medium text-gray-700">
-                    <button onclick="switchView(13)" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-brand-50 text-brand-600 font-bold">
-                        <i class="fa-solid fa-gauge text-base"></i>
-                        <span>Dashboard</span>
-                    </button>
-                    <button onclick="switchView(2)" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-building text-base text-gray-400"></i>
-                        <span>Organization Profile</span>
-                    </button>
-                    <button onclick="switchView(5)" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-briefcase text-base text-gray-400"></i>
-                        <span>Street / Jobs</span>
-                    </button>
-                    <button class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-100">
-                        <div class="flex items-center space-x-3">
-                            <i class="fa-solid fa-bell text-base text-gray-400"></i>
-                            <span>Notifications</span>
-                        </div>
-                        <span class="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
-                    </button>
-                    <button class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-100">
-                        <div class="flex items-center space-x-3">
-                            <i class="fa-solid fa-comments text-base text-gray-400"></i>
-                            <span>Messages</span>
-                        </div>
-                        <span class="bg-brand-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">2</span>
-                    </button>
-                    <button onclick="switchView(9)" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-user text-base text-gray-400"></i>
-                        <span>Profile</span>
-                    </button>
-                    <button class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-gear text-base text-gray-400"></i>
-                        <span>Settings</span>
-                    </button>
-                    <div class="pt-2 border-t border-gray-100">
-                        <button onclick="switchView(11)" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50">
-                            <i class="fa-solid fa-arrow-right-from-bracket text-base"></i>
-                            <span>Logout</span>
+                    <!-- Category Filter Chips -->
+                    <div class="flex items-center gap-2 overflow-x-auto py-2 my-2 no-scrollbar justify-start md:justify-center">
+                        <button onclick="setCategoryFilter('all', this)" class="category-chip px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm transition-all">
+                            সব সেবা
+                        </button>
+                        <button onclick="setCategoryFilter('government', this)" class="category-chip px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition-all">
+                            সরকারি সেবা
+                        </button>
+                        <button onclick="setCategoryFilter('emergency', this)" class="category-chip px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition-all">
+                            জরুরি সেবা
+                        </button>
+                        <button onclick="setCategoryFilter('health', this)" class="category-chip px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition-all">
+                            স্বাস্থ্য সেবা
+                        </button>
+                        <button onclick="setCategoryFilter('agriculture', this)" class="category-chip px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition-all">
+                            কৃষি সেবা
+                        </button>
+                        <button class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 flex items-center gap-1">
+                            আরও <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
                         </button>
                     </div>
+
+                    <!-- Services Grid -->
+                    <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                        
+                        <!-- Card 1: 999 Emergency -->
+                        <div class="service-card bg-white rounded-xl border border-gray-200 p-4 relative hover:border-red-300 hover:shadow-md transition-all flex flex-col justify-between" data-category="emergency" data-title="জাতীয় জরুরি সেবা" data-number="999" data-tags="পুলিশ ফায়ার অ্যাম্বুলেন্স emergency">
+                            <!-- Category Badge -->
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-red-100 text-red-600 text-[11px] font-semibold px-2 py-0.5 rounded border border-red-200">
+                                    জরুরি সেবা
+                                </span>
+                            </div>
+
+                            <div>
+                                <!-- Top info row -->
+                                <div class="flex items-start justify-between pt-6 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Red Circle Badge with Icon -->
+                                        <div class="w-14 h-14 rounded-full bg-red-600 text-white flex flex-col items-center justify-center shrink-0 shadow-sm relative">
+                                            <i data-lucide="siren" class="w-5 h-5 mb-0.5"></i>
+                                            <span class="text-xs font-extrabold leading-none">999</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-base font-bold text-gray-800 leading-snug">জাতীয় জরুরি সেবা</h3>
+                                            <p class="text-xs text-gray-500 font-medium">পুলিশ, ফায়ার, অ্যাম্বুলেন্স</p>
+                                            <p class="text-2xl font-black text-red-600 tracking-tight mt-0.5">999</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="copyToClipboard('999')" class="px-3 py-1.5 rounded-lg border border-gray-300 hover:border-emerald-600 hover:text-emerald-700 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition-all bg-white shadow-2xs">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5 text-gray-500"></i> কপি
+                                    </button>
+                                </div>
+
+                                <!-- Time & Tag meta -->
+                                <div class="flex items-center gap-4 text-xs text-gray-500 my-2 pt-1 border-t border-gray-100">
+                                    <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-gray-400"></i> ২৪ ঘণ্টা</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5 text-gray-400"></i> জরুরি সেবা</span>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mt-2">
+                                    <h4 class="text-xs font-bold text-gray-700">বিবরণ</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">
+                                        জরুরি প্রয়োজনে পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স সহায়তার জন্য এই নম্বরে যোগাযোগ করুন।
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Footer action button -->
+                            <div class="mt-4 pt-2 text-right">
+                                <button onclick="showDetailsModal('জাতীয় জরুরি সেবা', '999', 'পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স সহায়তার জন্য এই নম্বরে যোগাযোগ করা যায়। এটি একটি জাতীয় জরুরি সেবা নম্বর। দেশের যেকোনো স্থান থেকে ২৪ ঘণ্টা এই সেবা পাওয়া যায়।', 'জরুরি সেবা', '২৪ ঘণ্টা')" class="px-3.5 py-1.5 rounded-lg border border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs font-semibold inline-flex items-center gap-1 transition-colors">
+                                    বিস্তারিত দেখুন <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: 333 Govt Info -->
+                        <div class="service-card bg-white rounded-xl border border-gray-200 p-4 relative hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between" data-category="government" data-title="সরকারি তথ্য ও সেবা" data-number="333" data-tags="সরকারি তথ্য সেবা কেন্দ্র government">
+                            <!-- Category Badge -->
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-blue-100 text-blue-600 text-[11px] font-semibold px-2 py-0.5 rounded border border-blue-200">
+                                    সরকারি সেবা
+                                </span>
+                            </div>
+
+                            <div>
+                                <!-- Top info row -->
+                                <div class="flex items-start justify-between pt-6 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Blue Circle Badge with Icon -->
+                                        <div class="w-14 h-14 rounded-full bg-blue-600 text-white flex flex-col items-center justify-center shrink-0 shadow-sm relative">
+                                            <i data-lucide="landmark" class="w-5 h-5 mb-0.5"></i>
+                                            <span class="text-xs font-extrabold leading-none">333</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-base font-bold text-gray-800 leading-snug">সরকারি তথ্য ও সেবা</h3>
+                                            <p class="text-xs text-gray-500 font-medium">জাতীয় তথ্য সেবা কেন্দ্র</p>
+                                            <p class="text-2xl font-black text-blue-600 tracking-tight mt-0.5">333</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="copyToClipboard('333')" class="px-3 py-1.5 rounded-lg border border-gray-300 hover:border-emerald-600 hover:text-emerald-700 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition-all bg-white shadow-2xs">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5 text-gray-500"></i> কপি
+                                    </button>
+                                </div>
+
+                                <!-- Time & Tag meta -->
+                                <div class="flex items-center gap-4 text-xs text-gray-500 my-2 pt-1 border-t border-gray-100">
+                                    <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-gray-400"></i> ২৪ ঘণ্টা</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5 text-gray-400"></i> সরকারি সেবা</span>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mt-2">
+                                    <h4 class="text-xs font-bold text-gray-700">বিবরণ</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">
+                                        সরকারি বিভিন্ন সেবা, তথ্য ও পরামর্শ পাওয়ার জন্য এই নম্বরে যোগাযোগ করা যায়।
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Footer action button -->
+                            <div class="mt-4 pt-2 text-right">
+                                <button onclick="showDetailsModal('সরকারি তথ্য ও সেবা', '333', 'সরকারি বিভিন্ন তথ্য, সামাজিক নিরাপত্তা বেষ্টনী, জেলা প্রশাসন ও পাসপোর্ট সংক্রান্ত তথ্যের জন্য ৩৩৩ নম্বরে বিনামূল্যে বা নির্ধারিত ফি-তে যোগাযোগ করা যায়।', 'সরকারি সেবা', '২৪ ঘণ্টা')" class="px-3.5 py-1.5 rounded-lg border border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs font-semibold inline-flex items-center gap-1 transition-colors">
+                                    বিস্তারিত দেখুন <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: 16123 Agriculture -->
+                        <div class="service-card bg-white rounded-xl border border-gray-200 p-4 relative hover:border-emerald-300 hover:shadow-md transition-all flex flex-col justify-between" data-category="agriculture" data-title="কৃষি কল সেন্টার" data-number="16123" data-tags="কৃষি তথ্য ও পরামর্শ agriculture">
+                            <!-- Category Badge -->
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-emerald-100 text-emerald-700 text-[11px] font-semibold px-2 py-0.5 rounded border border-emerald-200">
+                                    কৃষি সেবা
+                                </span>
+                            </div>
+
+                            <div>
+                                <!-- Top info row -->
+                                <div class="flex items-start justify-between pt-6 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Green Circle Badge with Icon -->
+                                        <div class="w-14 h-14 rounded-full bg-emerald-600 text-white flex flex-col items-center justify-center shrink-0 shadow-sm relative">
+                                            <i data-lucide="sprout" class="w-5 h-5 mb-0.5"></i>
+                                            <span class="text-xs font-extrabold leading-none">16123</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-base font-bold text-gray-800 leading-snug">কৃষি কল সেন্টার</h3>
+                                            <p class="text-xs text-gray-500 font-medium">কৃষি তথ্য ও পরামর্শ</p>
+                                            <p class="text-2xl font-black text-emerald-600 tracking-tight mt-0.5">16123</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="copyToClipboard('16123')" class="px-3 py-1.5 rounded-lg border border-gray-300 hover:border-emerald-600 hover:text-emerald-700 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition-all bg-white shadow-2xs">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5 text-gray-500"></i> কপি
+                                    </button>
+                                </div>
+
+                                <!-- Time & Tag meta -->
+                                <div class="flex items-center gap-4 text-xs text-gray-500 my-2 pt-1 border-t border-gray-100">
+                                    <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-gray-400"></i> সকাল ৮টা - রাত ৮টা</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5 text-gray-400"></i> কৃষি সেবা</span>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mt-2">
+                                    <h4 class="text-xs font-bold text-gray-700">বিবরণ</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">
+                                        কৃষি বিষয়ক বিভিন্ন সমস্যা ও সমাধান, পরামর্শ এবং তথ্যের জন্য যোগাযোগ করুন।
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Footer action button -->
+                            <div class="mt-4 pt-2 text-right">
+                                <button onclick="showDetailsModal('কৃষি কল সেন্টার', '16123', 'কৃষি, ফসল, গবাদিপশু ও মৎস্য সম্পদ বিষয়ক যেকোনো জিজ্ঞাসার তাৎক্ষণিক সমাধান পেতে দেশের যেকোনো ফোন থেকে ১৬১২৩ নম্বরে কল করুন।', 'কৃষি সেবা', 'সকাল ৮টা - রাত ৮টা')" class="px-3.5 py-1.5 rounded-lg border border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs font-semibold inline-flex items-center gap-1 transition-colors">
+                                    বিস্তারিত দেখুন <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: 109 Women & Child -->
+                        <div class="service-card bg-white rounded-xl border border-gray-200 p-4 relative hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between" data-category="emergency" data-title="নারী ও শিশু সহায়তা" data-number="109" data-tags="নারী ও শিশু সহায়তা জাতীয় হটলাইন women child">
+                            <!-- Category Badge -->
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-purple-100 text-purple-700 text-[11px] font-semibold px-2 py-0.5 rounded border border-purple-200">
+                                    নারী ও শিশু সেবা
+                                </span>
+                            </div>
+
+                            <div>
+                                <!-- Top info row -->
+                                <div class="flex items-start justify-between pt-6 mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Purple Circle Badge with Icon -->
+                                        <div class="w-14 h-14 rounded-full bg-purple-700 text-white flex flex-col items-center justify-center shrink-0 shadow-sm relative">
+                                            <i data-lucide="user-check" class="w-5 h-5 mb-0.5"></i>
+                                            <span class="text-xs font-extrabold leading-none">109</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-base font-bold text-gray-800 leading-snug">নারী ও শিশু সহায়তা</h3>
+                                            <p class="text-xs text-gray-500 font-medium">জাতীয় হটলাইন</p>
+                                            <p class="text-2xl font-black text-purple-700 tracking-tight mt-0.5">109</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="copyToClipboard('109')" class="px-3 py-1.5 rounded-lg border border-gray-300 hover:border-emerald-600 hover:text-emerald-700 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition-all bg-white shadow-2xs">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5 text-gray-500"></i> কপি
+                                    </button>
+                                </div>
+
+                                <!-- Time & Tag meta -->
+                                <div class="flex items-center gap-4 text-xs text-gray-500 my-2 pt-1 border-t border-gray-100">
+                                    <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-gray-400"></i> ২৪ ঘণ্টা</span>
+                                    <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5 text-gray-400"></i> সহায়তা সেবা</span>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mt-2">
+                                    <h4 class="text-xs font-bold text-gray-700">বিবরণ</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">
+                                        নারী ও শিশু নির্যাতন, সহিংসতা বা যেকোনো সহায়তার জন্য এই নম্বরে যোগাযোগ করুন।
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Footer action button -->
+                            <div class="mt-4 pt-2 text-right">
+                                <button onclick="showDetailsModal('নারী ও শিশু সহায়তা', '109', 'নারী ও শিশু নির্যাতন প্রতিরোধে এই হটলাইন সেবা টোল ফ্রি হিসেবে ২৪ ঘণ্টা খোলা থাকে। যেকোনো জরুরি পরিস্থিতিতে ১০৯ এ কল দিয়ে আইনি ও কাউন্সিলিং সহায়তার সুযোগ রয়েছে।', 'সহায়তা সেবা', '২৪ ঘণ্টা')" class="px-3.5 py-1.5 rounded-lg border border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs font-semibold inline-flex items-center gap-1 transition-colors">
+                                    বিস্তারিত দেখুন <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div> <!-- End Grid -->
+
+                    <!-- Public Footer -->
+                    <footer class="mt-auto pt-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-500 gap-2">
+                        <div>
+                            © ২০২৪ সেবা সহায়ক, সকল অধিকার সংরক্ষিত।
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <a href="#" class="hover:text-emerald-600 transition-colors">গোপনীয়তা নীতি</a>
+                            <a href="#" class="hover:text-emerald-600 transition-colors">ব্যবহারের শর্তাবলী</a>
+                            <a href="#" class="hover:text-emerald-600 transition-colors">যোগাযোগ</a>
+                        </div>
+                    </footer>
+
                 </div>
             </div>
 
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #12: Navigation Drawer / User Sidebar View
-            </div>
-        </div>
+            <!-- RIGHT CONTAINER: ADMIN DASHBOARD PANEL -->
+            <div id="admin-panel-container" class="bg-white rounded-2xl border border-gray-200 custom-card-shadow overflow-hidden flex flex-col min-h-[850px]">
+                
+                <!-- Admin Header -->
+                <header class="bg-white border-b border-gray-100 px-4 md:px-6 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white shadow-sm">
+                            <i data-lucide="sprout" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-gray-800 leading-tight">সেবা সহায়ক</h2>
+                            <p class="text-[10px] text-emerald-700 font-medium -mt-0.5">সব সেবার এক ঠিকানা</p>
+                        </div>
+                    </div>
 
-        <!-- VIEW 13: Organization Dashboard (Separate Skin) -->
-        <div id="view-13" class="view-container hidden">
-            <!-- Dark Mode Dashboard Wrapper -->
-            <div class="bg-darkbg text-gray-100 rounded-2xl p-6 shadow-2xl border border-slate-800">
-                <!-- Dashboard Header -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
-                    <div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
-                                <i class="fa-solid fa-chart-line text-lg"></i>
+                    <div class="flex items-center gap-3">
+                        <button class="p-1.5 rounded-full hover:bg-gray-100 text-gray-500 relative transition-colors">
+                            <i data-lucide="bell" class="w-4 h-4"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500"></span>
+                        </button>
+                        <div class="flex items-center gap-2 pl-2 border-l border-gray-200">
+                            <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs overflow-hidden border border-gray-300">
+                                <i data-lucide="user" class="w-5 h-5 text-gray-600"></i>
                             </div>
-                            <div>
-                                <h1 class="text-xl font-bold">Bondhu Foundation</h1>
-                                <p class="text-xs text-indigo-400">Organization Admin Panel</p>
+                            <div class="text-left hidden sm:block">
+                                <p class="text-xs font-bold text-gray-800 leading-tight">অ্যাডমিন</p>
+                                <p class="text-[10px] text-gray-500">সুপার অ্যাডমিন</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-3 text-xs">
-                        <span class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
-                            <i class="fa-solid fa-user-shield text-emerald-400 mr-1.5"></i> Admin Access
-                        </span>
-                        <button onclick="switchView(1)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-700">
-                            Exit Admin Skin
-                        </button>
+                </header>
+
+                <!-- Admin Layout Container (Sidebar + Content) -->
+                <div class="flex flex-1 overflow-hidden">
+                    
+                    <!-- Sidebar Menu -->
+                    <aside class="w-48 border-r border-gray-200 bg-gray-50/50 p-3 flex flex-col justify-between shrink-0 hidden sm:flex">
+                        <nav class="space-y-1">
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4 text-gray-500"></i> ড্যাশবোর্ড
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i data-lucide="layers" class="w-4 h-4 text-gray-500"></i> সকল সেবা
+                            </a>
+                            <!-- Active Item -->
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-white bg-emerald-600 rounded-lg shadow-sm transition-colors">
+                                <i data-lucide="plus-circle" class="w-4 h-4 text-white"></i> নতুন সেবা যোগ করুন
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i data-lucide="grid" class="w-4 h-4 text-gray-500"></i> ক্যাটাগরি
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i data-lucide="users" class="w-4 h-4 text-gray-500"></i> ব্যবহারকারী
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-gray-500"></i> রিপোর্ট
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+                                <i data-lucide="settings" class="w-4 h-4 text-gray-500"></i> সেটিংস
+                            </a>
+                        </nav>
+
+                        <div class="pt-4 border-t border-gray-200">
+                            <a href="#" class="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+                                <i data-lucide="log-out" class="w-4 h-4 text-red-500"></i> লগআউট
+                            </a>
+                        </div>
+                    </aside>
+
+                    <!-- Main Admin Content Area -->
+                    <div class="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col justify-between bg-white">
+                        
+                        <div>
+                            <!-- Page Title Banner -->
+                            <div class="flex items-center gap-2 mb-5 pb-3 border-b border-gray-100">
+                                <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold text-lg">
+                                    +
+                                </div>
+                                <div>
+                                    <h2 class="text-lg font-bold text-gray-800 leading-tight">নতুন সেবা যোগ করুন</h2>
+                                    <p class="text-xs text-gray-500">সেবা সম্পর্কিত তথ্য দিন</p>
+                                </div>
+                            </div>
+
+                            <!-- Add New Service Form -->
+                            <form id="add-service-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                                
+                                <!-- Row 1: Name & Number -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                            সেবার নাম <span class="text-red-500">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="form-service-name"
+                                            value="জাতীয় জরুরি সেবা" 
+                                            required
+                                            class="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-500 outline-none transition-all text-gray-800"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                            সার্ভিস নম্বর <span class="text-red-500">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="form-service-number"
+                                            value="999" 
+                                            required
+                                            class="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-500 outline-none transition-all text-gray-800"
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Row 2: Type & Availability -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                            সেবার ধরন <span class="text-red-500">*</span>
+                                        </label>
+                                        <select id="form-service-type" class="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-500 outline-none transition-all text-gray-800 bg-white">
+                                            <option value="জরুরি সেবা" selected>জরুরি সেবা</option>
+                                            <option value="সরকারি সেবা">সরকারি সেবা</option>
+                                            <option value="স্বাস্থ্য সেবা">স্বাস্থ্য সেবা</option>
+                                            <option value="কৃষি সেবা">কৃষি সেবা</option>
+                                            <option value="সহায়তা সেবা">সহায়তা সেবা</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                            সেবা পাওয়ার সময় <span class="text-red-500">*</span>
+                                        </label>
+                                        <select id="form-service-time" class="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-500 outline-none transition-all text-gray-800 bg-white">
+                                            <option value="২৪ ঘণ্টা" selected>২৪ ঘণ্টা</option>
+                                            <option value="সকাল ৮টা - রাত ৮টা">সকাল ৮টা - রাত ৮টা</option>
+                                            <option value="সকাল ৯টা - বিকেল ৫টা">সকাল ৯টা - বিকেল ৫টা</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Row 3: Category & Logo/Icon -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                            ক্যাটাগরি <span class="text-red-500">*</span>
+                                        </label>
+                                        <select id="form-service-category" class="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-500 outline-none transition-all text-gray-800 bg-white">
+                                            <option value="government" selected>সরকারি সেবা</option>
+                                            <option value="emergency">জরুরি সেবা</option>
+                                            <option value="health">স্বাস্থ্য সেবা</option>
+                                            <option value="agriculture">কৃষি সেবা</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                            লোগো / আইকন
+                                        </label>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <!-- Icon Badge Preview -->
+                                            <div class="w-12 h-12 rounded-full bg-red-600 text-white flex flex-col items-center justify-center shrink-0 shadow-sm">
+                                                <i data-lucide="siren" class="w-4 h-4 mb-0.5"></i>
+                                                <span class="text-[10px] font-extrabold leading-none">999</span>
+                                            </div>
+                                            <div>
+                                                <label class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors shadow-2xs">
+                                                    <i data-lucide="upload" class="w-3.5 h-3.5 text-gray-500"></i> ছবি আপলোড
+                                                    <input type="file" class="hidden" accept="image/*">
+                                                </label>
+                                                <p class="text-[10px] text-gray-400 mt-1">JPG, PNG (সর্বোচ্চ 2MB)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 4: Detailed Description -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">
+                                        বিস্তারিত বিবরণ <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea 
+                                        id="form-service-desc"
+                                        rows="3" 
+                                        required
+                                        class="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-500 outline-none transition-all text-gray-800 leading-relaxed"
+                                    >জরুরি প্রয়োজনে পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স সহায়তার জন্য এই নম্বরে যোগাযোগ করা যায়। এটি একটি জাতীয় জরুরি সেবা নম্বর। দেশের যেকোনো স্থান থেকে ২৪ ঘণ্টা এই সেবা পাওয়া যায়।</textarea>
+                                </div>
+
+                                <!-- Row 5: Notice Alert Box -->
+                                <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3 flex items-start gap-2.5">
+                                    <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                                    <div class="text-xs text-emerald-900 space-y-1">
+                                        <p class="font-bold text-emerald-800">সতর্কতা:</p>
+                                        <ul class="list-disc list-inside text-emerald-700 space-y-0.5 text-[11px]">
+                                            <li>সঠিক তথ্য দিন যাতে মানুষ উপকৃত হয়।</li>
+                                            <li>ভুল তথ্য প্রদান করলে আপনার অ্যাকাউন্ট সীমিত করা হতে পারে।</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Row 6: Submit Buttons -->
+                                <div class="flex items-center justify-between pt-3">
+                                    <button 
+                                        type="button" 
+                                        onclick="resetAdminForm()" 
+                                        class="px-5 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 text-xs font-semibold transition-all shadow-2xs"
+                                    >
+                                        বাতিল করুন
+                                    </button>
+
+                                    <button 
+                                        type="submit" 
+                                        class="px-6 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+                                    >
+                                        <i data-lucide="check" class="w-4 h-4"></i> সেবা যোগ করুন
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <!-- Admin Footer -->
+                        <footer class="mt-6 pt-4 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-500 gap-2">
+                            <div>
+                                © ২০২৪ সেবা সহায়ক, সকল অধিকার সংরক্ষিত।
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <a href="#" class="hover:text-emerald-600 transition-colors">গোপনীয়তা নীতি</a>
+                                <a href="#" class="hover:text-emerald-600 transition-colors">ব্যবহারের শর্তাবলী</a>
+                                <a href="#" class="hover:text-emerald-600 transition-colors">যোগাযোগ</a>
+                            </div>
+                        </footer>
+
                     </div>
                 </div>
 
-                <!-- Section Label -->
-                <div class="mt-6 mb-4">
-                    <h2 class="text-lg font-bold text-white">Dashboard Overview</h2>
-                </div>
+            </div> <!-- End Right View -->
 
-                <!-- Stats Counters Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <!-- Stat Card 1 -->
-                    <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                        <div class="text-xs text-slate-400 mb-2">Total Posts</div>
-                        <div class="text-3xl font-extrabold text-white">45</div>
-                    </div>
-
-                    <!-- Stat Card 2 -->
-                    <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                        <div class="text-xs text-slate-400 mb-2">Total Activities</div>
-                        <div class="text-3xl font-extrabold text-indigo-400">28</div>
-                    </div>
-
-                    <!-- Stat Card 3 -->
-                    <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                        <div class="text-xs text-slate-400 mb-2">Total Jobs</div>
-                        <div class="text-3xl font-extrabold text-cyan-400">12</div>
-                    </div>
-
-                    <!-- Stat Card 4 -->
-                    <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                        <div class="text-xs text-slate-400 mb-2">Total Applications</div>
-                        <div class="text-3xl font-extrabold text-emerald-400">24</div>
-                    </div>
-                </div>
-
-                <!-- Job Applications Table -->
-                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
-                    <div class="p-4 border-b border-slate-800 flex justify-between items-center">
-                        <h3 class="font-bold text-sm text-white">Recent Job Applications</h3>
-                        <a href="#" class="text-xs text-indigo-400 hover:underline font-semibold">View All Applications &rarr;</a>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs">
-                            <thead class="bg-slate-800/50 text-slate-400 uppercase tracking-wider text-[10px]">
-                                <tr>
-                                    <th class="p-3.5">Name</th>
-                                    <th class="p-3.5">Job Title</th>
-                                    <th class="p-3.5">Applied Date</th>
-                                    <th class="p-3.5">Status</th>
-                                    <th class="p-3.5 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-800 text-slate-300">
-                                <tr>
-                                    <td class="p-3.5 font-medium text-white">Sajid Ahmed</td>
-                                    <td class="p-3.5">Software Developer</td>
-                                    <td class="p-3.5 text-slate-400">10 Aug 2026</td>
-                                    <td class="p-3.5">
-                                        <span class="bg-cyan-950 text-cyan-400 border border-cyan-800 text-[10px] font-bold px-2 py-0.5 rounded">New</span>
-                                    </td>
-                                    <td class="p-3.5 text-right">
-                                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded text-[11px] font-semibold transition">View</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-3.5 font-medium text-white">Nusrat Jahan</td>
-                                    <td class="p-3.5">Graphic Designer</td>
-                                    <td class="p-3.5 text-slate-400">09 Aug 2026</td>
-                                    <td class="p-3.5">
-                                        <span class="bg-indigo-950 text-indigo-400 border border-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded">Shortlisted</span>
-                                    </td>
-                                    <td class="p-3.5 text-right">
-                                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded text-[11px] font-semibold transition">View</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-3.5 font-medium text-white">Rashedul Islam</td>
-                                    <td class="p-3.5">Program Officer</td>
-                                    <td class="p-3.5 text-slate-400">08 Aug 2026</td>
-                                    <td class="p-3.5">
-                                        <span class="bg-amber-950 text-amber-400 border border-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">Under Review</span>
-                                    </td>
-                                    <td class="p-3.5 text-right">
-                                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded text-[11px] font-semibold transition">View</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-3.5 font-medium text-white">Mehedi Hasan</td>
-                                    <td class="p-3.5">Project Coordinator</td>
-                                    <td class="p-3.5 text-slate-400">07 Aug 2026</td>
-                                    <td class="p-3.5">
-                                        <span class="bg-cyan-950 text-cyan-400 border border-cyan-800 text-[10px] font-bold px-2 py-0.5 rounded">New</span>
-                                    </td>
-                                    <td class="p-3.5 text-right">
-                                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded text-[11px] font-semibold transition">View</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center text-xs text-gray-400 font-semibold bg-gray-200 py-1.5 rounded-md">
-                Screen #13: Organization Admin Dashboard (Dark Theme Skin)
-            </div>
         </div>
-
     </main>
 
-    <!-- Shared Footer -->
-    <footer class="bg-gray-900 text-gray-400 text-xs border-t border-gray-800 mt-12 py-8">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
-            <div class="flex items-center justify-center space-x-2 text-white font-bold text-base">
-                <i class="fa-solid fa-hand-holding-heart text-brand-500"></i>
-                <span>Bondhu Foundation</span>
-            </div>
-            <p class="text-gray-500">Dedicated to non-profit social welfare and humanitarian support across Bangladesh.</p>
-            <p>&copy; 2026 Bondhu Foundation. All Rights Reserved.</p>
+    <!-- Floating Toast Notification (Exact match to bottom toast) -->
+    <div id="copy-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-gray-800 px-4 py-2.5 rounded-xl border border-gray-200 shadow-xl flex items-center gap-3 text-xs font-semibold z-50 hidden toast-animate">
+        <div class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center">
+            <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
         </div>
-    </footer>
+        <span id="toast-message">নম্বর কপি হয়েছে!</span>
+        <button onclick="hideToast()" class="text-gray-400 hover:text-gray-600 ml-2">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+    </div>
 
-    <!-- Interactive JavaScript Logic -->
+    <!-- Service Details Modal -->
+    <div id="details-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-100 relative animate-in fade-in zoom-in-95 duration-200">
+            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl">
+                    <i data-lucide="phone-call" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 id="modal-title" class="text-lg font-bold text-gray-800">জাতীয় জরুরি সেবা</h3>
+                    <p id="modal-number" class="text-base font-extrabold text-emerald-600">999</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-xs text-gray-600">
+                <div class="flex items-center gap-2">
+                    <span class="font-semibold text-gray-700">ধরন:</span>
+                    <span id="modal-type" class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded">জরুরি সেবা</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-semibold text-gray-700">সময়সূচী:</span>
+                    <span id="modal-time" class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded">২৪ ঘণ্টা</span>
+                </div>
+                <div class="pt-2">
+                    <span class="font-semibold text-gray-700 block mb-1">বিস্তারিত তথ্য:</span>
+                    <p id="modal-desc" class="bg-gray-50 p-3 rounded-lg border border-gray-200 text-gray-700 leading-relaxed">
+                        জরুরি প্রয়োজনে পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স সহায়তার জন্য এই নম্বরে যোগাযোগ করুন।
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-end gap-2">
+                <button onclick="closeDetailsModal()" class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-xs transition-colors">
+                    বন্ধ করুন
+                </button>
+                <button id="modal-copy-btn" onclick="" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i> নম্বর কপি করুন
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic & Scripts -->
     <script>
-        function switchView(viewNumber) {
-            // Hide all view containers
-            const views = document.querySelectorAll('.view-container');
-            views.forEach(view => view.classList.add('hidden'));
+        // Initialize Icons on load
+        document.addEventListener("DOMContentLoaded", () => {
+            lucide.createIcons();
+        });
 
-            // Show selected view
-            const selectedView = document.getElementById(`view-${viewNumber}`);
-            if (selectedView) {
-                selectedView.classList.remove('hidden');
-            }
+        // View Switching Logic (Split, Public only, Admin only)
+        function switchView(mode) {
+            const container = document.getElementById('views-wrapper');
+            const publicBox = document.getElementById('public-portal-container');
+            const adminBox = document.getElementById('admin-panel-container');
+            
+            const btnSplit = document.getElementById('btn-view-split');
+            const btnPublic = document.getElementById('btn-view-public');
+            const btnAdmin = document.getElementById('btn-view-admin');
 
-            // Update header styling for View 13 (Dark mode admin skin vs Light public skin)
-            const header = document.getElementById('main-header');
-            if (viewNumber === 13) {
-                header.classList.add('opacity-50');
-            } else {
-                header.classList.remove('opacity-50');
-            }
-
-            // Highlight corresponding toolbar button
-            const buttons = document.querySelectorAll('.view-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-brand-500', 'text-white');
-                btn.classList.add('bg-gray-800', 'text-gray-300');
+            // Reset button styles
+            [btnSplit, btnPublic, btnAdmin].forEach(btn => {
+                btn.className = "px-3 py-1 rounded text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all";
             });
 
-            const activeBtn = document.getElementById(`btn-view-${viewNumber}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-gray-800', 'text-gray-300');
-                activeBtn.classList.add('bg-brand-500', 'text-white');
+            if (mode === 'split') {
+                container.className = "grid grid-cols-1 lg:grid-cols-2 gap-6 items-start";
+                publicBox.classList.remove('hidden');
+                adminBox.classList.remove('hidden');
+                btnSplit.className = "px-3 py-1 rounded text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-sm";
+            } else if (mode === 'public') {
+                container.className = "grid grid-cols-1 gap-6 max-w-4xl mx-auto";
+                publicBox.classList.remove('hidden');
+                adminBox.classList.add('hidden');
+                btnPublic.className = "px-3 py-1 rounded text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-sm";
+            } else if (mode === 'admin') {
+                container.className = "grid grid-cols-1 gap-6 max-w-4xl mx-auto";
+                publicBox.classList.add('hidden');
+                adminBox.classList.remove('hidden');
+                btnAdmin.className = "px-3 py-1 rounded text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-sm";
             }
-
-            // Smooth scroll to top of view
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function toggleUserDrawer() {
-            switchView(12);
+        // Copy to clipboard with Toast Notification
+        let toastTimeout;
+        function copyToClipboard(text) {
+            // Clipboard fallback
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+
+            // Show toast
+            const toast = document.getElementById('copy-toast');
+            const msg = document.getElementById('toast-message');
+            msg.textContent = `নম্বর ${text} কপি হয়েছে!`;
+            
+            toast.classList.remove('hidden');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                hideToast();
+            }, 3000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('copy-toast');
+            toast.classList.add('hidden');
+        }
+
+        // Category Filtering
+        let activeCategory = 'all';
+        function setCategoryFilter(category, btnElement) {
+            activeCategory = category;
+            
+            // Update Chip Styles
+            document.querySelectorAll('.category-chip').forEach(chip => {
+                chip.className = "category-chip px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition-all";
+            });
+
+            btnElement.className = "category-chip px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm transition-all";
+
+            filterServices();
+        }
+
+        // Search and Filter Cards
+        function filterServices() {
+            const query = document.getElementById('public-search-input').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.service-card');
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const title = card.getAttribute('data-title').toLowerCase();
+                const number = card.getAttribute('data-number').toLowerCase();
+                const tags = card.getAttribute('data-tags').toLowerCase();
+
+                const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+                const matchesSearch = query === '' || title.includes(query) || number.includes(query) || tags.includes(query);
+
+                if (matchesCategory && matchesSearch) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // Details Modal Logic
+        function showDetailsModal(title, number, desc, type, time) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-number').textContent = number;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('modal-type').textContent = type;
+            document.getElementById('modal-time').textContent = time;
+
+            document.getElementById('modal-copy-btn').onclick = () => copyToClipboard(number);
+
+            document.getElementById('details-modal').classList.remove('hidden');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('details-modal').classList.add('hidden');
+        }
+
+        function openAdminFormFromPublic() {
+            switchView('split');
+            const form = document.getElementById('add-service-form');
+            form.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add New Service Form Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('form-service-name').value.trim();
+            const number = document.getElementById('form-service-number').value.trim();
+            const type = document.getElementById('form-service-type').value;
+            const time = document.getElementById('form-service-time').value;
+            const category = document.getElementById('form-service-category').value;
+            const desc = document.getElementById('form-service-desc').value.trim();
+
+            if (!name || !number || !desc) {
+                alert('অনুগ্রহ করে সকল প্রয়োজনীয় ঘর পূরণ করুন।');
+                return;
+            }
+
+            // Create new Service Card dynamically
+            const grid = document.getElementById('services-grid');
+            const newCard = document.createElement('div');
+            newCard.className = "service-card bg-white rounded-xl border border-gray-200 p-4 relative hover:border-emerald-300 hover:shadow-md transition-all flex flex-col justify-between";
+            newCard.setAttribute('data-category', category);
+            newCard.setAttribute('data-title', name);
+            newCard.setAttribute('data-number', number);
+            newCard.setAttribute('data-tags', `${name} ${number} ${type}`);
+
+            newCard.innerHTML = `
+                <div class="absolute top-3 left-3">
+                    <span class="bg-emerald-100 text-emerald-700 text-[11px] font-semibold px-2 py-0.5 rounded border border-emerald-200">
+                        ${type}
+                    </span>
+                </div>
+                <div>
+                    <div class="flex items-start justify-between pt-6 mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-emerald-600 text-white flex flex-col items-center justify-center shrink-0 shadow-sm relative">
+                                <i data-lucide="phone" class="w-5 h-5 mb-0.5"></i>
+                                <span class="text-xs font-extrabold leading-none">${number}</span>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-800 leading-snug">${name}</h3>
+                                <p class="text-xs text-gray-500 font-medium">${type}</p>
+                                <p class="text-2xl font-black text-emerald-600 tracking-tight mt-0.5">${number}</p>
+                            </div>
+                        </div>
+                        <button onclick="copyToClipboard('${number}')" class="px-3 py-1.5 rounded-lg border border-gray-300 hover:border-emerald-600 hover:text-emerald-700 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition-all bg-white shadow-2xs">
+                            <i data-lucide="copy" class="w-3.5 h-3.5 text-gray-500"></i> কপি
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs text-gray-500 my-2 pt-1 border-t border-gray-100">
+                        <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-gray-400"></i> ${time}</span>
+                        <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5 text-gray-400"></i> ${type}</span>
+                    </div>
+                    <div class="mt-2">
+                        <h4 class="text-xs font-bold text-gray-700">বিবরণ</h4>
+                        <p class="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">${desc}</p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-2 text-right">
+                    <button onclick="showDetailsModal('${name}', '${number}', '${desc}', '${type}', '${time}')" class="px-3.5 py-1.5 rounded-lg border border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs font-semibold inline-flex items-center gap-1 transition-colors">
+                        বিস্তারিত দেখুন <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            `;
+
+            grid.prepend(newCard);
+            lucide.createIcons();
+
+            // Trigger notification
+            copyToClipboard(number);
+            const msg = document.getElementById('toast-message');
+            msg.textContent = `নতুন সেবা '${name}' সফলভাবে যোগ হয়েছে!`;
+
+            // Reset form input
+            resetAdminForm();
+        }
+
+        function resetAdminForm() {
+            document.getElementById('add-service-form').reset();
         }
     </script>
 </body>
