@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="bn" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sponsors & Foundations Portal | Bondhu.org</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Hind Siliguri', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eefef4',
+              100: '#d6fcd8',
+              500: '#00a651',
+              600: '#008a42',
+              700: '#00695c',
+              800: '#004d40',
+              900: '#064e3b'
+            },
+            crimson: {
+              500: '#d32f2f',
+              600: '#b71c1c'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #1e293b;
+      --text-gray: #64748b;
+    }
+
+    * { box-sizing: border-box; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+    body { background-color: var(--bg-light); color: var(--text-dark); }
+
+    /* Custom Scrollbars */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-logo { color: var(--primary-red); font-size: 28px; }
+    .brand-title { font-size: 22px; font-weight: 700; color: #111; line-height: 1.1; }
+    .brand-title span { color: var(--primary-red); }
+    .brand-tagline { font-size: 12px; color: var(--primary-red); font-weight: 600; margin-top: -2px; }
+
+    .date-widgets { display: flex; gap: 12px; flex-wrap: wrap; }
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+    .date-box i { color: var(--primary-red); font-size: 14px; }
+
+    .top-right-actions { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+    .lang-toggle { display: flex; border: 1px solid var(--primary-green); border-radius: 4px; overflow: hidden; }
+    .lang-toggle button { border: none; background: #fff; padding: 4px 10px; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .lang-toggle button.active { background: var(--primary-green); color: white; }
+
+    .emergency-info { display: flex; gap: 15px; font-size: 13px; }
+    .emergency-item { display: flex; align-items: center; gap: 6px; }
+    .emergency-item i { color: var(--primary-red); font-size: 16px; }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .nav-links li.active a, .nav-links li a:hover { background: var(--primary-red); }
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* View Switcher Bar */
+    .view-toolbar {
+      background: #0f172a;
+      padding: 10px 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 2px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .view-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .view-btn.active {
+      background: #00a651;
+      color: white;
+      box-shadow: 0 0 10px rgba(0,166,81,0.4);
+    }
+
+    .view-container { animation: fadeIn 0.25s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800">
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand-box">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>10 August 2026<br>Monday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২৬ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২৫ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <button onclick="switchView(12)" class="btn-login"><i class="fa-regular fa-user"></i> Sponsor Portal</button>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="medicine-info.html"><i class="fa-solid fa-pills"></i> Medi Info</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li class="active"><a href="sponsors.html"><i class="fa-solid fa-hand-holding-heart"></i> Sponsors</a></li>
+      <li><a href="projects.html"><i class="fa-solid fa-rocket"></i> Projects</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <button onclick="switchView(13)" class="nav-right-btn"><i class="fa-solid fa-chart-pie"></i> Sponsor Dashboard</button>
+  </nav>
+
+  <!-- Interactive 13-View Navigation Toolbar -->
+  <div class="view-toolbar custom-scrollbar">
+    <button id="btn-view-1" onclick="switchView(1)" class="view-btn active"><i class="fa-solid fa-building-ngo"></i> 1. Organizations</button>
+    <button id="btn-view-2" onclick="switchView(2)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-id-card-clip"></i> 2. Profile</button>
+    <button id="btn-view-3" onclick="switchView(3)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-newspaper"></i> 3. Posts &amp; News</button>
+    <button id="btn-view-4" onclick="switchView(4)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-hand-holding-heart"></i> 4. Activities</button>
+    <button id="btn-view-5" onclick="switchView(5)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-briefcase"></i> 5. Jobs &amp; Volunteers</button>
+    <button id="btn-view-6" onclick="switchView(6)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-file-lines"></i> 6. Job Details</button>
+    <button id="btn-view-7" onclick="switchView(7)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-file-pen"></i> 7. Apply Job</button>
+    <button id="btn-view-8" onclick="switchView(8)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-certificate"></i> 8. Verification</button>
+    <button id="btn-view-9" onclick="switchView(9)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-user-tie"></i> 9. Chairman</button>
+    <button id="btn-view-10" onclick="switchView(10)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-envelope"></i> 10. Contact</button>
+    <button id="btn-view-11" onclick="switchView(11)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-lock"></i> 11. Login</button>
+    <button id="btn-view-12" onclick="switchView(12)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-user"></i> 12. User Drawer</button>
+    <button id="btn-view-13" onclick="switchView(13)" class="view-btn bg-slate-800 text-slate-300"><i class="fa-solid fa-gauge-high"></i> 13. Dashboard</button>
+  </div>
+
+  <!-- Main View Container Area -->
+  <main class="flex-1 max-w-[1350px] w-full mx-auto p-4 sm:p-6">
+
+    <!-- VIEW 1: Organizations & Sponsors Directory -->
+    <div id="view-1" class="view-container">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+        <h1 class="text-2xl font-bold text-slate-800 mb-2">Search Organizations &amp; Sponsors</h1>
+        <p class="text-slate-500 text-sm mb-6">Explore verified welfare foundations, healthcare sponsors, and humanitarian initiatives.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Search Keyword</label>
+            <div class="relative">
+              <i class="fa-solid fa-search absolute left-3 top-3 text-slate-400"></i>
+              <input type="text" id="org-search-keyword" placeholder="Name, ID, keyword..." class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-brand-500">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Division</label>
+            <select class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-brand-500">
+              <option value="">All Divisions</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Chattogram">Chattogram</option>
+              <option value="Rajshahi">Rajshahi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Category</label>
+            <select class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-brand-500">
+              <option value="">All Categories</option>
+              <option value="Health">Health &amp; Medical</option>
+              <option value="Education">Education</option>
+              <option value="Disaster">Disaster Relief</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Status</label>
+            <select class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-brand-500">
+              <option value="">All Status</option>
+              <option value="verified">Verified Only</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Organizations Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition">
+          <div class="h-28 bg-gradient-to-r from-teal-700 to-emerald-600 relative p-3">
+            <span class="bg-white/90 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 w-max">
+              <i class="fa-solid fa-circle-check text-emerald-600"></i> Verified
+            </span>
+          </div>
+          <div class="p-5 pt-0 relative">
+            <div class="w-14 h-14 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center -mt-7 mb-3 text-brand-500 text-2xl">
+              <i class="fa-solid fa-hands-holding-child"></i>
+            </div>
+            <span class="text-xs text-slate-400 font-bold">BON-0001</span>
+            <h3 class="text-lg font-bold text-slate-800">Bondhu Foundation</h3>
+            <p class="text-xs text-slate-500 flex items-center gap-1 mt-1"><i class="fa-solid fa-location-dot text-brand-500"></i> Dhanmondi, Dhaka</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-center">
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Total Funds</span>
+                <span class="text-sm font-bold text-slate-700">৳ 2.4M+</span>
+              </div>
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Volunteers</span>
+                <span class="text-sm font-bold text-slate-700">450+</span>
+              </div>
+            </div>
+            <button onclick="switchView(2)" class="w-full mt-4 bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition">View Profile</button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition">
+          <div class="h-28 bg-gradient-to-r from-blue-700 to-indigo-600 relative p-3">
+            <span class="bg-white/90 text-blue-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 w-max">
+              <i class="fa-solid fa-circle-check text-blue-600"></i> Verified
+            </span>
+          </div>
+          <div class="p-5 pt-0 relative">
+            <div class="w-14 h-14 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center -mt-7 mb-3 text-blue-600 text-2xl">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <span class="text-xs text-slate-400 font-bold">BON-0002</span>
+            <h3 class="text-lg font-bold text-slate-800">Humanity First BD</h3>
+            <p class="text-xs text-slate-500 flex items-center gap-1 mt-1"><i class="fa-solid fa-location-dot text-blue-500"></i> Panchlaish, Chattogram</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-center">
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Total Funds</span>
+                <span class="text-sm font-bold text-slate-700">৳ 1.8M+</span>
+              </div>
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Volunteers</span>
+                <span class="text-sm font-bold text-slate-700">320+</span>
+              </div>
+            </div>
+            <button onclick="switchView(2)" class="w-full mt-4 bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition">View Profile</button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition">
+          <div class="h-28 bg-gradient-to-r from-red-700 to-rose-600 relative p-3">
+            <span class="bg-white/90 text-rose-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 w-max">
+              <i class="fa-solid fa-circle-check text-rose-600"></i> Verified
+            </span>
+          </div>
+          <div class="p-5 pt-0 relative">
+            <div class="w-14 h-14 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center -mt-7 mb-3 text-rose-600 text-2xl">
+              <i class="fa-solid fa-droplet"></i>
+            </div>
+            <span class="text-xs text-slate-400 font-bold">BON-0003</span>
+            <h3 class="text-lg font-bold text-slate-800">Safe Life Society</h3>
+            <p class="text-xs text-slate-500 flex items-center gap-1 mt-1"><i class="fa-solid fa-location-dot text-rose-500"></i> Boalia, Rajshahi</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-center">
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Total Funds</span>
+                <span class="text-sm font-bold text-slate-700">৳ 950K+</span>
+              </div>
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Volunteers</span>
+                <span class="text-sm font-bold text-slate-700">180+</span>
+              </div>
+            </div>
+            <button onclick="switchView(2)" class="w-full mt-4 bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition">View Profile</button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition">
+          <div class="h-28 bg-gradient-to-r from-amber-700 to-yellow-600 relative p-3">
+            <span class="bg-white/90 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 w-max">
+              <i class="fa-solid fa-circle-check text-amber-600"></i> Verified
+            </span>
+          </div>
+          <div class="p-5 pt-0 relative">
+            <div class="w-14 h-14 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center -mt-7 mb-3 text-amber-600 text-2xl">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="text-xs text-slate-400 font-bold">BON-0004</span>
+            <h3 class="text-lg font-bold text-slate-800">Hope for All</h3>
+            <p class="text-xs text-slate-500 flex items-center gap-1 mt-1"><i class="fa-solid fa-location-dot text-amber-500"></i> Sadar, Sylhet</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-center">
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Total Funds</span>
+                <span class="text-sm font-bold text-slate-700">৳ 1.2M+</span>
+              </div>
+              <div class="bg-slate-50 p-2 rounded">
+                <span class="block text-xs text-slate-400">Volunteers</span>
+                <span class="text-sm font-bold text-slate-700">210+</span>
+              </div>
+            </div>
+            <button onclick="switchView(2)" class="w-full mt-4 bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition">View Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: Organization Profile -->
+    <div id="view-2" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+        <div class="h-44 bg-gradient-to-r from-emerald-800 via-teal-700 to-green-600 relative p-4"></div>
+        <div class="px-6 pb-6 pt-0 relative flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 -mt-12">
+          <div class="flex items-end gap-4">
+            <div class="w-24 h-24 rounded-2xl bg-white border-4 border-white shadow-lg flex items-center justify-center text-brand-500 text-4xl">
+              <i class="fa-solid fa-hands-holding-child"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="text-2xl font-bold text-slate-800">Bondhu Foundation</h1>
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-circle-check text-emerald-600"></i> Verified NGO</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5"><i class="fa-solid fa-location-dot text-brand-500"></i> House 12, Road 5, Dhanmondi, Dhaka • Reg: GOVT-BD-2021-994</p>
+            </div>
+          </div>
+          <div class="flex gap-2 w-full sm:w-auto">
+            <button onclick="switchView(4)" class="flex-1 sm:flex-none px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-hand-holding-dollar"></i> Donate Fund</button>
+            <button onclick="switchView(10)" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 font-bold rounded-lg text-sm"><i class="fa-solid fa-envelope"></i> Contact</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-3">About Organization</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Bondhu Foundation is a nationwide non-profit voluntary organization dedicated to healthcare accessibility, emergency blood donation coordination, disaster relief, and youth skill development across Bangladesh.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-3">Chairman Message</h2>
+            <div class="flex gap-4 items-start bg-slate-50 p-4 rounded-xl">
+              <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xl flex items-center justify-center flex-shrink-0">SH</div>
+              <div>
+                <h4 class="font-bold text-slate-800">MD. Sajjad Hossain</h4>
+                <p class="text-xs text-brand-600 font-bold mb-2">Chairman &amp; Founder</p>
+                <p class="text-xs text-slate-600 italic">"Our mission is to build a modern, transparent emergency support network where no patient suffers due to lack of blood or medicine."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-800 mb-4">Quick Statistics</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between text-sm py-2 border-b border-slate-100">
+                <span class="text-slate-500">Total Blood Requests Served</span>
+                <span class="font-bold text-slate-800">1,240+</span>
+              </div>
+              <div class="flex justify-between text-sm py-2 border-b border-slate-100">
+                <span class="text-slate-500">Active Volunteers</span>
+                <span class="font-bold text-slate-800">450 Members</span>
+              </div>
+              <div class="flex justify-between text-sm py-2 border-b border-slate-100">
+                <span class="text-slate-500">Districts Covered</span>
+                <span class="font-bold text-slate-800">32 Districts</span>
+              </div>
+            </div>
+            <button onclick="switchView(5)" class="w-full mt-5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-lg text-xs">View Open Volunteer Jobs &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: All Posts & News Feed -->
+    <div id="view-3" class="view-container hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">All Posts &amp; News</h1>
+          <p class="text-sm text-slate-500">Official notices, activity reports, and health bulletins.</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 bg-brand-500 text-white rounded-lg text-xs font-bold">All News</button>
+          <button class="px-3 py-1.5 bg-white border border-slate-200 text-slate-600 rounded-lg text-xs font-bold">Activities</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Project Notice</span>
+            <h3 class="font-bold text-slate-800 text-base mt-2">New Project Launched for Education Support</h3>
+            <p class="text-xs text-slate-500 mt-2 line-clamp-3">Free textbook and digital learning materials distribution initiative in remote rural schools.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between text-xs text-slate-400">
+            <span>08 Aug 2026</span>
+            <span class="text-brand-600 font-bold">Read More &rarr;</span>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-bold bg-rose-50 text-rose-700 px-2 py-0.5 rounded">Blood Campaign</span>
+            <h3 class="font-bold text-slate-800 text-base mt-2">Blood Donation Campaign Successfully Completed</h3>
+            <p class="text-xs text-slate-500 mt-2 line-clamp-3">Over 180 bags of blood collected at Dhaka University Central Field in collaboration with Red Crescent.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between text-xs text-slate-400">
+            <span>05 Aug 2026</span>
+            <span class="text-brand-600 font-bold">Read More &rarr;</span>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-bold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Environment</span>
+            <h3 class="font-bold text-slate-800 text-base mt-2">Tree Plantation Program at Rajshahi Region</h3>
+            <p class="text-xs text-slate-500 mt-2 line-clamp-3">Planting 5,000 fruit and herbal trees to combat desertification and support local ecosystem.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between text-xs text-slate-400">
+            <span>02 Aug 2026</span>
+            <span class="text-brand-600 font-bold">Read More &rarr;</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- VIEW 4: Social Activities & Impact Campaigns -->
+    <div id="view-4" class="view-container hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">Social Activities &amp; Campaigns</h1>
+          <p class="text-sm text-slate-500">Ongoing fundraising and voluntary initiatives.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Campaign 1 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="h-32 bg-gradient-to-r from-red-600 to-rose-500 p-4 text-white flex flex-col justify-between">
+            <span class="bg-white/20 px-2 py-0.5 rounded text-[11px] font-bold w-max">Healthcare</span>
+            <h3 class="text-lg font-bold">Emergency Thalassemia Fund</h3>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between text-xs text-slate-500 mb-1">
+              <span>Target: ৳ 500,000</span>
+              <span class="font-bold text-emerald-600">৳ 380,000 Raised</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-4">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 76%;"></div>
+            </div>
+            <p class="text-xs text-slate-600 mb-4">Monthly blood transfusion and iron chelation medication support for 40 child patients.</p>
+            <button onclick="alert('Donation Gateway Redirect: bKash / Nagad / SSLCommerz')" class="w-full bg-crimson-500 hover:bg-crimson-600 text-white font-bold py-2 rounded-lg text-sm"><i class="fa-solid fa-heart"></i> Donate Now</button>
+          </div>
+        </div>
+
+        <!-- Campaign 2 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="h-32 bg-gradient-to-r from-blue-600 to-indigo-500 p-4 text-white flex flex-col justify-between">
+            <span class="bg-white/20 px-2 py-0.5 rounded text-[11px] font-bold w-max">Winter Relief</span>
+            <h3 class="text-lg font-bold">Winter Clothes Distribution 2026</h3>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between text-xs text-slate-500 mb-1">
+              <span>Target: ৳ 300,000</span>
+              <span class="font-bold text-emerald-600">৳ 210,000 Raised</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-4">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 70%;"></div>
+            </div>
+            <p class="text-xs text-slate-600 mb-4">Distributing warm blankets and winter jackets in Kurigram and Panchagarh districts.</p>
+            <button onclick="alert('Donation Gateway Redirect: bKash / Nagad / SSLCommerz')" class="w-full bg-crimson-500 hover:bg-crimson-600 text-white font-bold py-2 rounded-lg text-sm"><i class="fa-solid fa-heart"></i> Donate Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 5: Available Jobs & Volunteer Openings -->
+    <div id="view-5" class="view-container hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">Available Jobs &amp; Volunteer Openings</h1>
+          <p class="text-sm text-slate-500">Join our engineering, medical, or administrative voluntary workforce.</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-bold text-slate-800">Software Developer (Full Stack)</h3>
+              <span class="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded">Full Time</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Bondhu Foundation • Dhaka (Hybrid) • BDT 35,000 - 50,000/mo</p>
+          </div>
+          <button onclick="switchView(6)" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs rounded-lg">View Details &amp; Apply &rarr;</button>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-bold text-slate-800">Medical Coordinator Volunteer</h3>
+              <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">Voluntary</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Bondhu Foundation • Chattogram Medical Ward • Certificate &amp; Stipend</p>
+          </div>
+          <button onclick="switchView(6)" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs rounded-lg">View Details &amp; Apply &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 6: Job Details -->
+    <div id="view-6" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h1 class="text-2xl font-bold text-slate-800">Software Developer (Full Stack)</h1>
+            <p class="text-xs text-slate-500 mt-1">Bondhu Foundation • Department of Technology &amp; Healthcare Dispatch</p>
+          </div>
+          <button onclick="switchView(7)" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm rounded-lg">Apply Now</button>
+        </div>
+        
+        <h3 class="font-bold text-slate-800 mt-6 mb-2">Job Description</h3>
+        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+          We are looking for a passionate developer to maintain and scale our real-time geospatial blood matching engine, hospital telemetry dashboard, and mobile-friendly PWA.
+        </p>
+
+        <h3 class="font-bold text-slate-800 mt-4 mb-2">Requirements</h3>
+        <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+          <li>Strong proficiency in JavaScript (ES6+), Node.js, Express, and PostgreSQL.</li>
+          <li>Experience with REST APIs and WebSocket real-time event broadcasting.</li>
+          <li>Familiarity with responsive mobile-first UI frameworks (Tailwind / CSS3).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VIEW 7: Apply Form -->
+    <div id="view-7" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-xl mx-auto">
+        <h1 class="text-xl font-bold text-slate-800 mb-1">Job Application Form</h1>
+        <p class="text-xs text-slate-500 mb-6">Applying for: Software Developer (Full Stack)</p>
+
+        <form onsubmit="event.preventDefault(); alert('Application submitted successfully! Application Ref: JOB-2026-904'); switchView(5);">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+              <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" value="MD. Riaz Hossain" required>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile Phone</label>
+              <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" value="01712345678" required>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">CV / Resume (PDF)</label>
+              <input type="file" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100" required>
+            </div>
+            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm">Submit Application</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 8: Verification Status -->
+    <div id="view-8" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-2xl mx-auto">
+        <h1 class="text-xl font-bold text-slate-800 mb-2">Organization Verification Status</h1>
+        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3 mb-6">
+          <i class="fa-solid fa-circle-check text-emerald-600 text-2xl"></i>
+          <div>
+            <h4 class="font-bold text-emerald-900">Verified Golden Tier (100% Certified)</h4>
+            <p class="text-xs text-emerald-700">All government registration certificates and tax clearance documents verified.</p>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between py-2 border-b border-slate-100">
+            <span class="text-slate-500">Govt Registration Number</span>
+            <span class="font-bold text-slate-800">NGOAB-2021-9941</span>
+          </div>
+          <div class="flex justify-between py-2 border-b border-slate-100">
+            <span class="text-slate-500">Issuing Authority</span>
+            <span class="font-bold text-slate-800">NGO Affairs Bureau, Bangladesh</span>
+          </div>
+          <div class="flex justify-between py-2 border-b border-slate-100">
+            <span class="text-slate-500">Verification Expiry</span>
+            <span class="font-bold text-slate-800">31 December 2027</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 9: Chairman Profile -->
+    <div id="view-9" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-xl mx-auto text-center">
+        <div class="w-24 h-24 rounded-full bg-emerald-100 text-emerald-800 font-bold text-3xl flex items-center justify-center mx-auto mb-4 border-4 border-emerald-50">SH</div>
+        <h1 class="text-2xl font-bold text-slate-800">MD. Sajjad Hossain</h1>
+        <p class="text-xs text-brand-600 font-bold mb-4">Founder &amp; Chairman, Bondhu Foundation</p>
+        <p class="text-xs text-slate-600 leading-relaxed mb-6">
+          Dedicated social activist and healthcare entrepreneur with 15+ years of experience leading national volunteer blood matching and disaster relief programs.
+        </p>
+        <div class="flex justify-center gap-3">
+          <a href="mailto:sajjad@bondhu.org" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-bold text-slate-700"><i class="fa-solid fa-envelope"></i> Email</a>
+          <button onclick="switchView(10)" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 rounded-lg text-xs font-bold text-white"><i class="fa-solid fa-phone"></i> Contact Office</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 10: Contact Page -->
+    <div id="view-10" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold text-slate-800 mb-2">Get in Touch</h1>
+        <p class="text-xs text-slate-500 mb-6">Send an inquiry to Bondhu Foundation central office.</p>
+
+        <form onsubmit="event.preventDefault(); alert('Message sent! Our coordinator will contact you shortly.');">
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Your Name</label>
+                <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" required>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
+                <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="01XXXXXXXXX" required>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Message</label>
+              <textarea class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 11: Login View -->
+    <div id="view-11" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 max-w-md mx-auto">
+        <h1 class="text-2xl font-bold text-slate-800 text-center mb-1">Welcome Back</h1>
+        <p class="text-xs text-slate-500 text-center mb-6">Sign in to your Sponsor / Foundation Account</p>
+
+        <form onsubmit="event.preventDefault(); switchView(13);">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Email / Phone</label>
+              <input type="text" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" value="sponsor@bondhu.org" required>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+              <input type="password" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" value="••••••••" required>
+            </div>
+            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm">Sign In to Dashboard</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 12: User & Sponsor Drawer View -->
+    <div id="view-12" class="view-container hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-xl mx-auto">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 rounded-full bg-brand-100 text-brand-800 font-bold text-2xl flex items-center justify-center">RH</div>
+          <div>
+            <h2 class="text-xl font-bold text-slate-800">MD. Riaz Hossain</h2>
+            <p class="text-xs text-slate-500">Registered Sponsor &amp; Donor • ID: SPN-2026-0812</p>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between py-2 border-b border-slate-100">
+            <span class="text-slate-500">Total Donated</span>
+            <span class="font-bold text-emerald-600">৳ 50,000</span>
+          </div>
+          <div class="flex justify-between py-2 border-b border-slate-100">
+            <span class="text-slate-500">Supported Campaigns</span>
+            <span class="font-bold text-slate-800">3 Campaigns</span>
+          </div>
+          <div class="flex justify-between py-2 border-b border-slate-100">
+            <span class="text-slate-500">Active Applications</span>
+            <span class="font-bold text-blue-600">1 Job Application</span>
+          </div>
+        </div>
+
+        <button onclick="switchView(13)" class="w-full mt-6 bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm">Open Foundation Dashboard &rarr;</button>
+      </div>
+    </div>
+
+    <!-- VIEW 13: Dashboard Overview -->
+    <div id="view-13" class="view-container hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">Bondhu Foundation Dashboard</h1>
+          <p class="text-sm text-slate-500">Live analytical telemetry, donations, and volunteer management.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs text-slate-400 font-semibold">Total Funds Raised</span>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">৳ 2,450,000</h3>
+          <span class="text-[11px] text-emerald-600 font-bold mt-1 block">↑ 18% this month</span>
+        </div>
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs text-slate-400 font-semibold">Active Volunteers</span>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">450 Members</h3>
+          <span class="text-[11px] text-emerald-600 font-bold mt-1 block">Across 32 Districts</span>
+        </div>
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs text-slate-400 font-semibold">Blood Requests Served</span>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">1,240 Bags</h3>
+          <span class="text-[11px] text-blue-600 font-bold mt-1 block">100% Volunteer matched</span>
+        </div>
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <span class="text-xs text-slate-400 font-semibold">Verification Score</span>
+          <h3 class="text-2xl font-bold text-emerald-600 mt-1">100%</h3>
+          <span class="text-[11px] text-slate-500 font-semibold mt-1 block">Golden Tier Certified</span>
+        </div>
+      </div>
+
+      <!-- Recent Applications Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 overflow-x-auto">
+        <h3 class="font-bold text-slate-800 text-base mb-4">Recent Job &amp; Volunteer Applications</h3>
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-slate-100 text-slate-400 text-xs uppercase">
+              <th class="pb-3">Applicant Name</th>
+              <th class="pb-3">Position</th>
+              <th class="pb-3">Date</th>
+              <th class="pb-3">Status</th>
+              <th class="pb-3 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr>
+              <td class="py-3 font-semibold text-slate-800">MD. Riaz Hossain</td>
+              <td class="py-3 text-slate-600">Software Developer</td>
+              <td class="py-3 text-slate-500 text-xs">10 Aug 2026</td>
+              <td class="py-3"><span class="bg-blue-50 text-blue-700 text-xs font-bold px-2 py-0.5 rounded">In Review</span></td>
+              <td class="py-3 text-right"><button onclick="alert('Viewing CV for Riaz Hossain')" class="text-brand-600 font-bold text-xs hover:underline">View CV</button></td>
+            </tr>
+            <tr>
+              <td class="py-3 font-semibold text-slate-800">Tanvir Hasan</td>
+              <td class="py-3 text-slate-600">Medical Coordinator</td>
+              <td class="py-3 text-slate-500 text-xs">09 Aug 2026</td>
+              <td class="py-3"><span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded">Approved</span></td>
+              <td class="py-3 text-right"><button onclick="alert('Viewing CV for Tanvir Hasan')" class="text-brand-600 font-bold text-xs hover:underline">View CV</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function switchView(viewNumber) {
+      document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
+      const target = document.getElementById(`view-${viewNumber}`);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+
+      const activeBtn = document.getElementById(`btn-view-${viewNumber}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+        activeBtn.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
