@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="bn" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homes & Shelter Portal | Bondhu.org - বাসা খুঁজ</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Hind Siliguri', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: '#00A651',
+            'primary-dark': '#008741',
+            'primary-light': '#E6F6ED',
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#10b981',
+              600: '#00a651',
+              700: '#00695c',
+              800: '#004d40'
+            },
+            crimson: {
+              500: '#d32f2f',
+              600: '#b71c1c'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #1e293b;
+      --text-gray: #64748b;
+    }
+
+    * { box-sizing: border-box; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+    body { background-color: var(--bg-light); color: var(--text-dark); }
+
+    /* Custom Scrollbars */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-logo { color: var(--primary-red); font-size: 28px; }
+    .brand-title { font-size: 22px; font-weight: 700; color: #111; line-height: 1.1; }
+    .brand-title span { color: var(--primary-red); }
+    .brand-tagline { font-size: 12px; color: var(--primary-red); font-weight: 600; margin-top: -2px; }
+
+    .date-widgets { display: flex; gap: 12px; flex-wrap: wrap; }
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+    .date-box i { color: var(--primary-red); font-size: 14px; }
+
+    .top-right-actions { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+    .lang-toggle { display: flex; border: 1px solid var(--primary-green); border-radius: 4px; overflow: hidden; }
+    .lang-toggle button { border: none; background: #fff; padding: 4px 10px; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .lang-toggle button.active { background: var(--primary-green); color: white; }
+
+    .emergency-info { display: flex; gap: 15px; font-size: 13px; }
+    .emergency-item { display: flex; align-items: center; gap: 6px; }
+    .emergency-item i { color: var(--primary-red); font-size: 16px; }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .nav-links li.active a, .nav-links li a:hover { background: var(--primary-red); }
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Mobile Phone Simulator Shell */
+    .mobile-frame {
+      width: 360px;
+      height: 720px;
+      background: #ffffff;
+      border: 8px solid #1e293b;
+      border-radius: 36px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+    .feature-item { display: flex; align-items: center; gap: 10px; }
+    .feature-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: #e0f2f1; color: var(--primary-green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .feature-text h4 { font-size: 13px; color: #222; font-weight: 700; }
+    .feature-text p { font-size: 11px; color: #777; }
+
+    @media (max-width: 1024px) {
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+      .mobile-frame { width: 100%; border-radius: 18px; height: 680px; }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand-box">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>10 August 2026<br>Monday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২৬ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২৫ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="medicine-info.html"><i class="fa-solid fa-pills"></i> Medi Info</a></li>
+      <li class="active"><a href="homes.html"><i class="fa-solid fa-house-chimney"></i> Homes &amp; Shelter</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li><a href="sponsors.html"><i class="fa-solid fa-hand-holding-heart"></i> Sponsors</a></li>
+      <li><a href="projects.html"><i class="fa-solid fa-rocket"></i> Projects</a></li>
+      <li><a href="helpline.html"><i class="fa-solid fa-phone-volume"></i> Helpline</a></li>
+    </ul>
+    <a href="#simulator-section" class="nav-right-btn"><i class="fa-solid fa-mobile-screen"></i> App Simulator</a>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-[1350px] w-full mx-auto p-4 sm:p-6">
+
+    <!-- Top View Switcher Banner -->
+    <div class="bg-white rounded-xl border border-slate-200 p-4 mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-house-chimney text-primary"></i> বাসা খুঁজ Pro — Homes &amp; Shelter Network
+        </h1>
+        <p class="text-xs text-slate-500 mt-1">স্বচ্ছ ও দালালমুক্ত ভাড়াবাসা, মেস, হোস্টেল ও জরুরি আবাসন সেবা।</p>
+      </div>
+
+      <!-- Mode Toggles -->
+      <div class="bg-slate-100 p-1 rounded-xl flex gap-1 border border-slate-200">
+        <button id="btn-mode-interactive" onclick="switchMode('interactive')" class="px-4 py-1.5 rounded-lg bg-white shadow-sm text-primary font-bold text-xs transition flex items-center gap-1.5">
+          <i class="fa-solid fa-mobile-screen"></i> লাইভ অ্যাপ সিমুলেটর
+        </button>
+        <button id="btn-mode-grid" onclick="switchMode('grid')" class="px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 font-bold text-xs transition flex items-center gap-1.5">
+          <i class="fa-solid fa-grid-2"></i> সকল স্ক্রিন ভিউ (১০টি স্ক্রিন)
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Interactive Phone Simulator -->
+    <div id="section-interactive" class="mb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Simulator Controls & Screen Navigation -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-ol text-primary"></i> ১০টি স্ক্রিনের ওয়ার্কফ্লো
+            </h3>
+            <div class="space-y-2 text-xs">
+              <button onclick="goToScreen(1)" id="nav-screen-1" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center bg-primary-light border-primary text-primary">
+                <span>১. হোম স্ক্রিন ও ক্যাটাগরি</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(2)" id="nav-screen-2" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>২. ফিল্টার ও সার্চ ফলাফল</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(3)" id="nav-screen-3" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৩. বাসার বিস্তারিত বিবরণ</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(4)" id="nav-screen-4" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৪. ইউজার লগইন ও অথেন্টিকেশন</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(5)" id="nav-screen-5" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৫. পরিদর্শনের সময় নির্ধারণ</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(6)" id="nav-screen-6" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৬. বুকিং নিশ্চিতকরণ</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(7)" id="nav-screen-7" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৭. আমার বুকিং সমূহ</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(8)" id="nav-screen-8" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৮. টোকেন পেমেন্ট</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(9)" id="nav-screen-9" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>৯. পেমেন্ট রসিদ ও ইনভয়েস</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(10)" id="nav-screen-10" class="w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700">
+                <span>১০. প্রোফাইল ও ড্যাশবোর্ড</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Mobile Device Frame Simulator -->
+        <div class="lg:col-span-7 flex justify-center" id="simulator-section">
+          <div class="mobile-frame">
+            
+            <!-- Mobile Notch / Status Bar -->
+            <div class="h-6 bg-slate-900 text-white text-[10px] px-6 flex justify-between items-center flex-shrink-0">
+              <span>9:41</span>
+              <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full"></i>
+              </div>
+            </div>
+
+            <!-- Screen Content Area (Scrollable inside phone) -->
+            <div id="phone-screen-content" class="flex-1 overflow-y-auto custom-scrollbar p-4 bg-slate-50 text-slate-800">
+              <!-- Dynamically Populated by JavaScript -->
+            </div>
+
+            <!-- Mobile Bottom Bar -->
+            <div class="h-14 bg-white border-t border-slate-200 flex justify-around items-center px-4 flex-shrink-0 text-slate-500 text-xs">
+              <button onclick="goToScreen(1)" class="flex flex-col items-center gap-0.5 text-primary font-bold">
+                <i class="fa-solid fa-house"></i> <span>হোম</span>
+              </button>
+              <button onclick="goToScreen(2)" class="flex flex-col items-center gap-0.5 hover:text-primary">
+                <i class="fa-solid fa-magnifying-glass"></i> <span>সার্চ</span>
+              </button>
+              <button onclick="goToScreen(7)" class="flex flex-col items-center gap-0.5 hover:text-primary">
+                <i class="fa-solid fa-bookmark"></i> <span>বুকিং</span>
+              </button>
+              <button onclick="goToScreen(10)" class="flex flex-col items-center gap-0.5 hover:text-primary">
+                <i class="fa-solid fa-user"></i> <span>প্রোফাইল</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: Grid Overview of All 10 Screens -->
+    <div id="section-grid" class="hidden mb-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="all-screens-grid">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Bottom Features Strip -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="feature-text">
+          <h4>১০০% ভেরিফাইড বাসা</h4>
+          <p>সরাসরি মালিকের সাথে চুক্তি</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-handshake-slash"></i></div>
+        <div class="feature-text">
+          <h4>০% মিডিয়া ফি</h4>
+          <p>দালালমুক্ত নিরাপদ ব্যবস্থা</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#eff6ff; color:#2563eb;"><i class="fa-solid fa-video"></i></div>
+        <div class="feature-text">
+          <h4>ভার্চুয়াল ট্যুর</h4>
+          <p>ভিডিও ও ছবির নিখুঁত বিবরণ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-phone-volume"></i></div>
+        <div class="feature-text">
+          <h4>২৪/৭ সাপোর্ট</h4>
+          <p>জরুরি হেল্পলাইন ১০৬৪৭</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-file-contract"></i></div>
+        <div class="feature-text">
+          <h4>আইনি চুক্তিপত্র</h4>
+          <p>স্ট্যান্ডার্ড রেন্টাল এগ্রিমেন্ট</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#eff6ff; color:#2563eb;"><i class="fa-solid fa-building-shield"></i></div>
+        <div class="feature-text">
+          <h4>অগ্রিম নিরাপত্তা</h4>
+          <p>সুরক্ষিত টোকেন এসক্রো</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // 10 Screen Templates Generator
+    const screensData = {
+      1: {
+        title: "১. হোম স্ক্রিন ও ক্যাটাগরি",
+        html: `
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-[10px] text-slate-400 font-bold block">বর্তমান লোকেশন</span>
+                <span class="text-xs font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-location-dot text-primary"></i> মিরপুর-১০, ঢাকা</span>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-emerald-100 text-primary font-bold text-xs flex items-center justify-center">RH</div>
+            </div>
+
+            <div class="relative">
+              <input type="text" placeholder="বাসা, ফ্ল্যাট বা মেস খুঁজুন..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs pl-9 focus:outline-none focus:border-primary shadow-sm">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+            </div>
+
+            <div>
+              <span class="text-xs font-bold text-slate-800 block mb-2">ক্যাটাগরি</span>
+              <div class="grid grid-cols-4 gap-2 text-center text-[10px]">
+                <button onclick="goToScreen(2)" class="bg-white border border-slate-200 p-2 rounded-xl shadow-xs hover:border-primary">
+                  <div class="w-8 h-8 mx-auto bg-emerald-50 text-primary rounded-lg flex items-center justify-center text-sm mb-1"><i class="fa-solid fa-people-roof"></i></div>
+                  <span>ফ্যামিলি</span>
+                </button>
+                <button onclick="goToScreen(2)" class="bg-white border border-slate-200 p-2 rounded-xl shadow-xs hover:border-primary">
+                  <div class="w-8 h-8 mx-auto bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-sm mb-1"><i class="fa-solid fa-user-group"></i></div>
+                  <span>ব্যাচেলর</span>
+                </button>
+                <button onclick="goToScreen(2)" class="bg-white border border-slate-200 p-2 rounded-xl shadow-xs hover:border-primary">
+                  <div class="w-8 h-8 mx-auto bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center text-sm mb-1"><i class="fa-solid fa-bed"></i></div>
+                  <span>সাবলেট</span>
+                </button>
+                <button onclick="goToScreen(2)" class="bg-white border border-slate-200 p-2 rounded-xl shadow-xs hover:border-primary">
+                  <div class="w-8 h-8 mx-auto bg-rose-50 text-rose-600 rounded-lg flex items-center justify-center text-sm mb-1"><i class="fa-solid fa-building"></i></div>
+                  <span>হোস্টেল</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-xs font-bold text-slate-800">জনপ্রিয় বাসা সমূহ</span>
+                <button onclick="goToScreen(2)" class="text-[10px] text-primary font-bold">সব দেখুন &rarr;</button>
+              </div>
+              
+              <div class="space-y-3">
+                <div onclick="goToScreen(3)" class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs cursor-pointer hover:border-primary transition">
+                  <div class="h-28 bg-gradient-to-r from-teal-700 to-emerald-600 p-3 relative flex justify-between items-start text-white">
+                    <span class="bg-emerald-900/80 text-[9px] font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    <span class="bg-white/90 text-slate-800 text-xs font-extrabold px-2 py-0.5 rounded-md">৳ ১৮,০০০/মাস</span>
+                  </div>
+                  <div class="p-3">
+                    <h4 class="font-bold text-xs text-slate-800">Green Villa (৩ বেড ফ্ল্যাট)</h4>
+                    <p class="text-[10px] text-slate-500 mt-0.5"><i class="fa-solid fa-location-dot text-primary"></i> ব্লক-সি, মিরপুর-১০, ঢাকা</p>
+                    <div class="flex gap-3 text-[10px] text-slate-600 mt-2 pt-2 border-t border-slate-100">
+                      <span><i class="fa-solid fa-bed text-slate-400"></i> ৩ বেড</span>
+                      <span><i class="fa-solid fa-bath text-slate-400"></i> ২ বাথ</span>
+                      <span><i class="fa-solid fa-maximize text-slate-400"></i> ১২৫০ বর্গফুট</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      2: {
+        title: "২. ফিল্টার ও সার্চ ফলাফল",
+        html: `
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <button onclick="goToScreen(1)" class="text-slate-600 text-sm"><i class="fa-solid fa-arrow-left"></i></button>
+              <h3 class="text-xs font-bold text-slate-800">সার্চ ফলাফল (৪টি বাসা পাওয়া গেছে)</h3>
+            </div>
+
+            <div class="flex gap-1.5 overflow-x-auto pb-1 text-[10px]">
+              <span class="bg-primary text-white px-2.5 py-1 rounded-full font-bold whitespace-nowrap">মিরপুর</span>
+              <span class="bg-white border border-slate-200 px-2.5 py-1 rounded-full text-slate-600 font-bold whitespace-nowrap">৳ ১০হাজার - ২০হাজার</span>
+              <span class="bg-white border border-slate-200 px-2.5 py-1 rounded-full text-slate-600 font-bold whitespace-nowrap">৩ বেডরুম</span>
+            </div>
+
+            <div class="space-y-3">
+              <div onclick="goToScreen(3)" class="bg-white border border-slate-200 rounded-xl p-3 shadow-xs cursor-pointer hover:border-primary">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h4 class="font-bold text-xs text-slate-800">Green Villa (ফ্যামিলি ফ্ল্যাট)</h4>
+                    <p class="text-[10px] text-slate-500"><i class="fa-solid fa-location-dot text-primary"></i> মিরপুর-১০, ঢাকা</p>
+                  </div>
+                  <span class="text-xs font-extrabold text-primary">৳ ১৮,০০০</span>
+                </div>
+                <div class="flex gap-3 text-[10px] text-slate-500 mt-2">
+                  <span>৩ বেড</span> • <span>২ বাথ</span> • <span>লিফট ও জেনারেটর</span>
+                </div>
+              </div>
+
+              <div onclick="goToScreen(3)" class="bg-white border border-slate-200 rounded-xl p-3 shadow-xs cursor-pointer hover:border-primary">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h4 class="font-bold text-xs text-slate-800">Sunshine Luxury Home</h4>
+                    <p class="text-[10px] text-slate-500"><i class="fa-solid fa-location-dot text-primary"></i> ধানমন্ডি-৮, ঢাকা</p>
+                  </div>
+                  <span class="text-xs font-extrabold text-primary">৳ ২৫,০০০</span>
+                </div>
+                <div class="flex gap-3 text-[10px] text-slate-500 mt-2">
+                  <span>৩ বেড</span> • <span>৩ বাথ</span> • <span>গ্যাস সিলিন্ডার</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      3: {
+        title: "৩. বাসার বিস্তারিত বিবরণ",
+        html: `
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <button onclick="goToScreen(2)" class="text-slate-600 text-sm"><i class="fa-solid fa-arrow-left"></i></button>
+              <span class="text-xs font-bold text-slate-800">বাসার বিস্তারিত তথ্য</span>
+              <button class="text-rose-500 text-sm"><i class="fa-regular fa-heart"></i></button>
+            </div>
+
+            <div class="h-36 bg-gradient-to-r from-slate-800 to-slate-700 rounded-xl p-4 text-white flex flex-col justify-between">
+              <span class="bg-emerald-600 text-[10px] font-bold px-2 py-0.5 rounded-full w-max">Verified Property</span>
+              <div>
+                <h3 class="text-base font-bold">Green Villa - 4th Floor</h3>
+                <p class="text-xs opacity-90">মিরপুর-১০, ঢাকা • ৳ ১৮,০০০ / মাস</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border border-slate-200">
+              <h4 class="font-bold text-xs text-slate-800 mb-2">সুবিধা সমূহ</h4>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
+                <span><i class="fa-solid fa-check text-primary"></i> ৩টি বেডরুম ও ২ বাথ</span>
+                <span><i class="fa-solid fa-check text-primary"></i> ২৪ ঘণ্টা লিফট ও গার্ড</span>
+                <span><i class="fa-solid fa-check text-primary"></i> জেনারেটর ব্যাকআপ</span>
+                <span><i class="fa-solid fa-check text-primary"></i> তিতাস গ্যাস সংযোগ</span>
+              </div>
+            </div>
+
+            <button onclick="goToScreen(5)" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2.5 rounded-xl text-xs shadow-md">
+              <i class="fa-solid fa-calendar-check mr-1"></i> বাসা পরিদর্শনের সময় বুক করুন
+            </button>
+          </div>
+        `
+      },
+      4: {
+        title: "৪. ইউজার লগইন ও অথেন্টিকেশন",
+        html: `
+          <div class="space-y-4 pt-4">
+            <div class="text-center">
+              <div class="w-12 h-12 rounded-full bg-emerald-50 text-primary mx-auto flex items-center justify-center text-xl mb-2"><i class="fa-solid fa-lock"></i></div>
+              <h3 class="text-base font-bold text-slate-800">লগইন করুন</h3>
+              <p class="text-xs text-slate-500">বুকিং নিশ্চিত করতে একাউন্টে প্রবেশ করুন</p>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">মোবাইল নম্বর</label>
+                <input type="text" value="01712345678" class="w-full border border-slate-300 rounded-lg p-2 text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">পাসওয়ার্ড</label>
+                <input type="password" value="••••••••" class="w-full border border-slate-300 rounded-lg p-2 text-xs">
+              </div>
+              <button onclick="goToScreen(5)" class="w-full bg-primary text-white font-bold py-2 rounded-lg text-xs">লগইন ও এগিয়ে যান &rarr;</button>
+            </div>
+          </div>
+        `
+      },
+      5: {
+        title: "৫. পরিদর্শনের সময় নির্ধারণ",
+        html: `
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <button onclick="goToScreen(3)" class="text-slate-600 text-sm"><i class="fa-solid fa-arrow-left"></i></button>
+              <h3 class="text-xs font-bold text-slate-800">সাক্ষাতের সময় নির্বাচন করুন</h3>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">তারিখ নির্বাচন</label>
+                <input type="date" value="2026-08-12" class="w-full border border-slate-300 rounded-lg p-2 text-xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">সময় স্লট</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <button class="p-2 border border-primary bg-primary-light text-primary font-bold rounded-lg text-[10px]">সকাল ১০:০০ - ১২:০০</button>
+                  <button class="p-2 border border-slate-200 text-slate-600 rounded-lg text-[10px]">বিকাল ০৪:০০ - ০৬:০০</button>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="goToScreen(6)" class="w-full bg-primary text-white font-bold py-2.5 rounded-xl text-xs">
+              বুকিং নিশ্চিত করুন &rarr;
+            </button>
+          </div>
+        `
+      },
+      6: {
+        title: "৬. বুকিং নিশ্চিতকরণ",
+        html: `
+          <div class="text-center space-y-3 pt-6">
+            <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl"><i class="fa-solid fa-circle-check"></i></div>
+            <h3 class="text-base font-bold text-slate-800">Booking Submitted!</h3>
+            <p class="text-xs text-slate-500">আপনার সাক্ষাতের সময় সফলভাবে লিপিবদ্ধ হয়েছে।</p>
+
+            <div class="bg-white p-3 rounded-xl border border-slate-200 text-left text-xs space-y-1.5">
+              <div class="flex justify-between"><span class="text-slate-500">বুকিং আইডি:</span> <span class="font-bold">BK-2026-9912</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">বাসার নাম:</span> <span class="font-bold">Green Villa</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">তারিখ:</span> <span class="font-bold">১২ আগস্ট ২০২৬</span></div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+              <button onclick="goToScreen(7)" class="flex-1 bg-primary text-white font-bold py-2 rounded-lg text-xs">আমার বুকিং তালিকা</button>
+              <button onclick="goToScreen(8)" class="flex-1 bg-slate-800 text-white font-bold py-2 rounded-lg text-xs">টোকেন পেমেন্ট</button>
+            </div>
+          </div>
+        `
+      },
+      7: {
+        title: "৭. আমার বুকিং সমূহ",
+        html: `
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold text-slate-800">আমার সকল বুকিং</h3>
+            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-xs text-slate-800">Green Villa</span>
+                <span class="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded">Confirmed</span>
+              </div>
+              <p class="text-[10px] text-slate-500">১২ আগস্ট ২০২৬ • সকাল ১০:৩০ AM</p>
+              <button onclick="goToScreen(8)" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-1.5 rounded text-[11px]">অগ্রিম টোকেন মানি জমা দিন &rarr;</button>
+            </div>
+          </div>
+        `
+      },
+      8: {
+        title: "৮. টোকেন পেমেন্ট",
+        html: `
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold text-slate-800">টোকেন বুকিং পেমেন্ট (৳ ৫০০)</h3>
+            <p class="text-[11px] text-slate-500">বাসাটি সাময়িকভাবে অন্য কারো জন্য হোল্ড রাখতে টোকেন প্রদান করুন।</p>
+            <div class="space-y-2">
+              <button onclick="goToScreen(9)" class="w-full p-2.5 border rounded-lg flex items-center justify-between text-xs font-bold bg-pink-50 border-pink-300 text-pink-700">
+                <span>bKash Payment</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+              <button onclick="goToScreen(9)" class="w-full p-2.5 border rounded-lg flex items-center justify-between text-xs font-bold bg-orange-50 border-orange-300 text-orange-700">
+                <span>Nagad Payment</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        `
+      },
+      9: {
+        title: "৯. পেমেন্ট রসিদ ও ইনভয়েস",
+        html: `
+          <div class="text-center space-y-3 pt-4">
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-xl"><i class="fa-solid fa-receipt"></i></div>
+            <h3 class="text-base font-bold text-slate-800">Payment Successful!</h3>
+            <div class="bg-white p-3 rounded-xl border border-slate-200 text-left text-xs space-y-1">
+              <div class="flex justify-between"><span class="text-slate-500">Transaction ID:</span> <span class="font-bold text-primary">TRX-9884120</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Amount:</span> <span class="font-bold">৳ ৫০০.০০</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Status:</span> <span class="font-bold text-emerald-600">Paid & Verified</span></div>
+            </div>
+            <button onclick="goToScreen(10)" class="w-full bg-primary text-white font-bold py-2 rounded-lg text-xs">প্রোফাইলে ফিরে যান &rarr;</button>
+          </div>
+        `
+      },
+      10: {
+        title: "১০. প্রোফাইল ও ড্যাশবোর্ড",
+        html: `
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-200">
+              <div class="w-10 h-10 rounded-full bg-emerald-100 text-primary font-bold flex items-center justify-center">RH</div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-800">MD. Riaz Hossain</h4>
+                <p class="text-[10px] text-slate-500">Verified Tenant • 01712345678</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2 text-xs">
+              <button onclick="goToScreen(7)" class="w-full flex justify-between items-center py-1.5 border-b border-slate-100">
+                <span>আমার বুকিং সমূহ</span> <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+              </button>
+              <button onclick="goToScreen(1)" class="w-full flex justify-between items-center py-1.5">
+                <span>নতুন বাসা খুঁজুন</span> <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+              </button>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function goToScreen(screenNumber) {
+      const container = document.getElementById('phone-screen-content');
+      if (screensData[screenNumber]) {
+        container.innerHTML = screensData[screenNumber].html;
+      }
+
+      for (let i = 1; i <= 10; i++) {
+        const btn = document.getElementById(`nav-screen-${i}`);
+        if (btn) {
+          if (i === screenNumber) {
+            btn.className = "w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center bg-primary-light border-primary text-primary";
+          } else {
+            btn.className = "w-full text-left p-2.5 rounded-lg border font-bold flex justify-between items-center border-slate-200 hover:bg-slate-50 text-slate-700";
+          }
+        }
+      }
+      container.scrollTop = 0;
+    }
+
+    function switchMode(mode) {
+      const interactiveSec = document.getElementById('section-interactive');
+      const gridSec = document.getElementById('section-grid');
+      const btnInt = document.getElementById('btn-mode-interactive');
+      const btnGrid = document.getElementById('btn-mode-grid');
+
+      if (mode === 'interactive') {
+        interactiveSec.classList.remove('hidden');
+        gridSec.classList.add('hidden');
+        btnInt.className = "px-4 py-1.5 rounded-lg bg-white shadow-sm text-primary font-bold text-xs transition flex items-center gap-1.5";
+        btnGrid.className = "px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 font-bold text-xs transition flex items-center gap-1.5";
+      } else {
+        interactiveSec.classList.add('hidden');
+        gridSec.classList.remove('hidden');
+        btnGrid.className = "px-4 py-1.5 rounded-lg bg-white shadow-sm text-primary font-bold text-xs transition flex items-center gap-1.5";
+        btnInt.className = "px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 font-bold text-xs transition flex items-center gap-1.5";
+        renderAllGridScreens();
+      }
+    }
+
+    function renderAllGridScreens() {
+      const grid = document.getElementById('all-screens-grid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= 10; i++) {
+        const item = screensData[i];
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center border-b border-slate-100 pb-2 mb-3">
+              <h4 class="font-bold text-xs text-slate-800">${item.title}</h4>
+              <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">Screen ${i}</span>
+            </div>
+            <div class="scale-95 origin-top bg-slate-50 p-3 rounded-xl border border-slate-100">
+              ${item.html}
+            </div>
+          </div>
+          <button onclick="switchMode('interactive'); goToScreen(${i});" class="w-full mt-3 bg-primary hover:bg-primary-dark text-white font-bold py-1.5 rounded-lg text-xs">
+            সিমুলেটরে টেস্ট করুন &rarr;
+          </button>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      goToScreen(1);
+    });
+  </script>
+</body>
+</html>
