@@ -775,7 +775,6 @@
 </div>
 <!-- Mobile & Desktop Language + Login Actions -->
 <div class="mobile-header-right">
-<button aria-controls="main-quick-nav" aria-expanded="false" aria-label="Open menu" class="mobile-menu-btn">☰</button>
 <div aria-label="Language switcher" class="lang-switcher">
 <button class="active" data-lang="bn" type="button">BN</button>
 <button data-lang="en" type="button">EN</button>
@@ -786,16 +785,6 @@
 </a>
 </div>
 </header>
-<!-- QUICK NAVIGATION (Visible on Desktop) -->
-<nav aria-label="Main page links" class="quick-nav" id="main-quick-nav"><button aria-label="Close menu" class="mobile-menu-close" type="button">×</button><strong class="mobile-menu-title">Menu</strong>
-<a href="index.html">Home</a>
-<a href="pages/request-blood.html">Blood</a>
-<a href="pages/donor-register.html">Donor</a>
-<a href="pages/hospitals.html">Hospitals</a>
-<a href="pages/ambulance.html">Ambulance</a>
-<a href="pages/missing-bureau.html">Missing</a>
-<a href="pages/news.html">News</a>
-</nav>
 <!-- HERO SECTION -->
 <section class="hero">
 <div class="hero-inner">
@@ -1017,36 +1006,6 @@
 
   document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
   applyLanguage(getLang());
-
-  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const quickNav = document.querySelector('.quick-nav');
-  const closeMenuBtn = document.querySelector('.mobile-menu-close');
-
-  function openMobileMenu() {
-    quickNav?.classList.add('is-open');
-    document.body.classList.add('menu-open');
-    mobileMenuBtn?.setAttribute('aria-expanded', 'true');
-  }
-  function closeMobileMenu() {
-    quickNav?.classList.remove('is-open');
-    document.body.classList.remove('menu-open');
-    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
-  }
-
-  mobileMenuBtn?.addEventListener('click', () => {
-    if (quickNav?.classList.contains('is-open')) closeMobileMenu();
-    else openMobileMenu();
-  });
-  closeMenuBtn?.addEventListener('click', closeMobileMenu);
-  quickNav?.addEventListener('click', (event) => {
-    if (event.target === quickNav) closeMobileMenu();
-  });
-  quickNav?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMobileMenu);
-  });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeMobileMenu();
-  });
 </script>
 </body>
 </html>
