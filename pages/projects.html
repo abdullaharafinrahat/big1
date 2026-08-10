@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects & Innovation Hub | Bondhu Innovatech</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #1e293b;
+      --text-gray: #64748b;
+      --brand-blue: #2563eb;
+      --dark-blue: #1e40af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1350px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1.3fr 0.85fr 0.85fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .hero-intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #ffffff 60%, #eff6ff 100%);
+      border-left: 4px solid var(--brand-blue);
+    }
+
+    .hero-title {
+      font-size: 26px;
+      color: var(--brand-blue);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin: 8px 0 14px;
+    }
+
+    .search-input-group {
+      display: flex;
+      gap: 0;
+    }
+
+    .search-input-group select {
+      border: 1px solid #ccc;
+      border-right: none;
+      padding: 8px;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      background: #f9f9f9;
+      font-size: 13px;
+    }
+
+    .search-input-group input {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      width: 100%;
+      outline: none;
+      font-size: 13px;
+    }
+
+    .search-input-group button {
+      background: var(--brand-blue);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    /* Stat Cards */
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .stat-badge {
+      background: #eff6ff;
+      color: var(--brand-blue);
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .stat-grid {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .stat-item .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .stat-item.blue .number { color: var(--brand-blue); }
+    .stat-item.green .number { color: var(--primary-green); }
+    .stat-item.red .number { color: var(--primary-red); }
+
+    .stat-item .label {
+      font-size: 12px;
+      color: var(--text-gray);
+    }
+
+    .btn-block-action {
+      width: 100%;
+      padding: 9px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .btn-blue { background: var(--brand-blue); color: white; }
+    .btn-green { background: var(--primary-green); color: white; }
+    .btn-red { background: var(--primary-red); color: white; }
+
+    /* Navigation Sub-Tabs */
+    .subnav-tabs {
+      display: flex;
+      gap: 8px;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border-color);
+      overflow-x: auto;
+    }
+
+    .subnav-btn {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .subnav-btn.active {
+      background: var(--brand-blue);
+      color: white;
+      border-color: var(--brand-blue);
+      box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+    }
+
+    /* Content Views */
+    .view-panel {
+      display: none;
+    }
+
+    .view-panel.active {
+      display: block;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Standard */
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+
+    .card-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand-blue);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 15px;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .project-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .project-card-banner {
+      height: 100px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
+      position: relative;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: white;
+    }
+
+    .status-pill {
+      background: rgba(255,255,255,0.92);
+      color: #166534;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .award-pill {
+      background: #fef08a;
+      color: #854d0e;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .project-card-body {
+      padding: 16px;
+      flex: 1;
+    }
+
+    .project-category {
+      font-size: 11px;
+      color: var(--brand-blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .project-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .project-summary {
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .skill-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .skill-tag {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .project-card-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-apply {
+      background: var(--brand-blue);
+      color: white;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* Blueprint View */
+    .blueprint-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .materials-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      margin-top: 10px;
+    }
+
+    .materials-table th, .materials-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    .materials-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    /* Kanban Board */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 15px;
+    }
+
+    .kanban-col {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .kanban-col-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kanban-count {
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 999px;
+    }
+
+    .kanban-task {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      cursor: grab;
+    }
+
+    .task-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .task-meta {
+      font-size: 11px;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Stepper Form */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      right: 15px;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+
+    .step-item {
+      position: relative;
+      z-index: 2;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 25%;
+      cursor: pointer;
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .step-item.active .step-number {
+      background: var(--brand-blue);
+      color: white;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+    }
+
+    .step-item.completed .step-number {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--text-gray);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #eff6ff;
+      color: var(--brand-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 13px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .feature-text p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-section { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .blueprint-grid { grid-template-columns: 1fr; }
+      .kanban-grid { grid-template-columns: repeat(2, 1fr); }
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .kanban-grid { grid-template-columns: 1fr; }
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>10 August 2026<br>Monday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২৬ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২৫ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="medicine-info.html"><i class="fa-solid fa-pills"></i> Medi Info</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li class="active"><a href="projects.html"><i class="fa-solid fa-rocket"></i> Projects</a></li>
+      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <a href="#apply-view" onclick="switchTab('apply')" class="nav-right-btn"><i class="fa-solid fa-code-fork"></i> Apply Project</a>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-card hero-intro">
+        <div>
+          <h1 class="hero-title">Build Innovation,<br>Change Tomorrow</h1>
+          <p class="hero-subtitle">সারাদেশের তরুণ গবেষক, প্রকৌশলী ও উদ্ভাবকদের একত্রিত করে মানবিক ও প্রযুক্তিনির্ভর প্রকল্প বাস্তবায়ন।</p>
+        </div>
+        <div class="search-input-group">
+          <select id="proj-category">
+            <option>All Projects</option>
+            <option>Robotics</option>
+            <option>Healthcare AI</option>
+            <option>IoT &amp; Embedded</option>
+          </select>
+          <input type="text" placeholder="প্রকল্প বা প্রয়োজনীয় স্কিল খুঁজুন...">
+          <button type="button">খুঁজুন</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-diagram-project" style="color:var(--brand-blue);"></i>
+            <strong>Active Projects</strong>
+          </div>
+          <span class="stat-badge">2026 Batch</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-item blue">
+            <div class="number">24</div>
+            <div class="label">Total Projects</div>
+          </div>
+          <div class="stat-item green">
+            <div class="number">18</div>
+            <div class="label">Running</div>
+          </div>
+          <div class="stat-item red">
+            <div class="number">6</div>
+            <div class="label">Completed</div>
+          </div>
+        </div>
+        <button type="button" onclick="switchTab('directory')" class="btn-block-action btn-blue">সব প্রজেক্ট দেখুন</button>
+      </div>
+
+      <div class="hero-card">
+        <div class="stat-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-trophy" style="color:#eab308;"></i>
+            <strong>Innovation Grants</strong>
+          </div>
+        </div>
+        <div class="stat-grid" style="margin-top:20px;">
+          <div class="stat-item green">
+            <div class="number">$250,000+</div>
+            <div class="label">Total Grants</div>
+          </div>
+          <div class="stat-item blue">
+            <div class="number">120+</div>
+            <div class="label">Innovators</div>
+          </div>
+        </div>
+        <button type="button" onclick="switchTab('blueprint')" class="btn-block-action btn-green" style="margin-top:10px;">রেসকিউ রোবট ব্লুপ্রিন্ট</button>
+      </div>
+    </section>
+
+    <!-- Sub-navigation Tabs -->
+    <div class="subnav-tabs">
+      <button class="subnav-btn active" onclick="switchTab('directory', this)"><i class="fa-solid fa-grid-2"></i> Projects Directory</button>
+      <button class="subnav-btn" onclick="switchTab('blueprint', this)"><i class="fa-solid fa-microchip"></i> Smart Rescue Robot (Blueprint)</button>
+      <button class="subnav-btn" onclick="switchTab('apply', this)"><i class="fa-solid fa-file-signature"></i> Application Wizard</button>
+      <button class="subnav-btn" onclick="switchTab('assessment', this)"><i class="fa-solid fa-clipboard-check"></i> Assessment &amp; Team</button>
+      <button class="subnav-btn" onclick="switchTab('dashboard', this)"><i class="fa-solid fa-kanban"></i> Project Kanban Board</button>
+    </div>
+
+    <!-- VIEW 1: Directory -->
+    <div id="view-directory" class="view-panel active">
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-card-banner">
+            <span class="status-pill">Application Open</span>
+            <span class="award-pill"><i class="fa-solid fa-award"></i> $50,000 Grant</span>
+          </div>
+          <div class="project-card-body">
+            <div class="project-category">Robotics &amp; AI</div>
+            <h3 class="project-name">Smart Rescue Robot</h3>
+            <p class="project-summary">দুর্যোগ পরবর্তী উদ্ধার অভিযানে ধ্বংসস্তূপের ভেতর মানব উপস্থিতি সনাক্তকরণ ও অক্সিজেন সরবরাহকারী রোবট।</p>
+            <div class="skill-tags">
+              <span class="skill-tag">ROS 2</span>
+              <span class="skill-tag">C++ / Python</span>
+              <span class="skill-tag">Computer Vision</span>
+              <span class="skill-tag">LiDAR</span>
+            </div>
+            <div style="font-size:11px; color:#64748b;"><i class="fa-regular fa-clock"></i> Deadline: 25 Aug 2026</div>
+          </div>
+          <div class="project-card-footer">
+            <button class="btn-apply" onclick="switchTab('blueprint')">ব্লুপ্রিন্ট ও আবেদন &rarr;</button>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-card-banner" style="background: linear-gradient(135deg, #065f46, #059669, #34d399);">
+            <span class="status-pill">Application Open</span>
+            <span class="award-pill"><i class="fa-solid fa-award"></i> $35,000 Grant</span>
+          </div>
+          <div class="project-card-body">
+            <div class="project-category">Biomedical AI</div>
+            <h3 class="project-name">Blood Bank Drone Dispatch</h3>
+            <p class="project-summary">জরুরি রক্ত ও অ্যান্টিভেনম দ্রুত প্রত্যন্ত হাসপাতালে পৌঁছানোর জন্য দীর্ঘ দূরত্বের স্বয়ংক্রিয় ড্রোন।</p>
+            <div class="skill-tags">
+              <span class="skill-tag">PX4 Autopilot</span>
+              <span class="skill-tag">GPS Telemetry</span>
+              <span class="skill-tag">Battery BMS</span>
+            </div>
+            <div style="font-size:11px; color:#64748b;"><i class="fa-regular fa-clock"></i> Deadline: 30 Aug 2026</div>
+          </div>
+          <div class="project-card-footer">
+            <button class="btn-apply" onclick="switchTab('apply')">আবেদন করুন &rarr;</button>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-card-banner" style="background: linear-gradient(135deg, #4c1d95, #7c3aed, #a78bfa);">
+            <span class="status-pill">Running</span>
+            <span class="award-pill"><i class="fa-solid fa-award"></i> $40,000 Grant</span>
+          </div>
+          <div class="project-card-body">
+            <div class="project-category">IoT &amp; Hospital Automation</div>
+            <h3 class="project-name">Autonomous Hospital Guide Robot</h3>
+            <p class="project-summary">হাসপাতালের বহির্বিভাগে রোগীদের পথপ্রদর্শন ও প্রেসক্রিপশন স্ক্যানিং অ্যাসিস্ট্যান্ট।</p>
+            <div class="skill-tags">
+              <span class="skill-tag">SLAM Navigation</span>
+              <span class="skill-tag">Voice AI</span>
+              <span class="skill-tag">Raspberry Pi 5</span>
+            </div>
+            <div style="font-size:11px; color:#64748b;"><i class="fa-regular fa-clock"></i> Deadline: 28 Aug 2026</div>
+          </div>
+          <div class="project-card-footer">
+            <button class="btn-apply" onclick="switchTab('dashboard')">ড্যাশবোর্ড দেখুন &rarr;</button>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- VIEW 2: Blueprint Details -->
+    <div id="view-blueprint" class="view-panel">
+      <div class="blueprint-grid">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h2 class="card-header-title" style="font-size:22px;">Smart Rescue Robot — Specification</h2>
+            <span class="status-pill">Active Track</span>
+          </div>
+          <p style="font-size:13px; color:#475569; margin-bottom:16px;">
+            Rescue Autonomous Vehicle Platform designed for urban disaster search &amp; rescue operations.
+          </p>
+
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin:14px 0 6px;">১. প্রকল্পের উদ্দেশ্য ও কর্মপদ্ধতি (Work Idea)</h3>
+          <p style="font-size:13px; color:#555; line-height:1.6;">
+            ভূমিকম্প, ভবন ধস ও অগ্নিকাণ্ডে আটকে পড়া মানুষদের দ্রুত সনাক্তকরণ। রোবটটি থার্মাল ক্যামেরা, CO2 সেন্সর এবং লাইডার (LiDAR) প্রযুক্তি ব্যবহার করে রিয়েল-টাইম ৩ডি মানচিত্র তৈরি করবে এবং উদ্ধারকারী দলের কাছে ভিডিও ও লাইভ স্থানাঙ্ক পাঠাবে।
+          </p>
+
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin:16px 0 6px;">২. আনুমানিক উপকরণ তালিকা (Estimated Bill of Materials)</h3>
+          <table class="materials-table">
+            <thead>
+              <tr>
+                <th>Component / Material</th>
+                <th>Quantity</th>
+                <th>Estimated Cost</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Aluminum Chassis &amp; Tank Treads</td><td>1 Set</td><td>$650</td><td><span style="color:#15803d; font-weight:700;">Approved</span></td></tr>
+              <tr><td>NVIDIA Jetson Orin Nano (AI Processing)</td><td>1 Unit</td><td>$500</td><td><span style="color:#15803d; font-weight:700;">Approved</span></td></tr>
+              <tr><td>RPLiDAR S2 (30m 360° Laser Scanner)</td><td>1 Unit</td><td>$600</td><td><span style="color:#15803d; font-weight:700;">Purchased</span></td></tr>
+              <tr><td>Thermal Imaging FLIR Camera</td><td>1 Unit</td><td>$1,200</td><td><span style="color:#d97706; font-weight:700;">Requested</span></td></tr>
+              <tr><td>Brushless Heavy Duty DC Motors + Encoders</td><td>4 Units</td><td>$800</td><td><span style="color:#15803d; font-weight:700;">Received</span></td></tr>
+              <tr><td>LiPo 24V 20Ah Battery &amp; BMS Safety Unit</td><td>2 Units</td><td>$750</td><td><span style="color:#15803d; font-weight:700;">Received</span></td></tr>
+              <tr><td>CO2 &amp; Gas Sensors, Speakers &amp; Mic Unit</td><td>1 Set</td><td>$400</td><td><span style="color:#15803d; font-weight:700;">In Stock</span></td></tr>
+            </tbody>
+          </table>
+          <div style="text-align:right; font-weight:800; font-size:14px; margin-top:10px; color:#1e3a8a;">
+            Total Estimated Materials Cost: $4,900
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3 style="font-size:16px; font-weight:700; color:#1e3a8a; margin-bottom:10px;">Award &amp; Support</h3>
+            <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:14px; margin-bottom:12px;">
+              <strong style="font-size:18px; color:#1e40af;">$50,000 Research Grant</strong>
+              <p style="font-size:12px; color:#3b82f6; margin-top:4px;">জাতীয় ইনোভেশন অ্যাওয়ার্ড ও আন্তর্জাতিক জার্নালে প্রকাশনার সুযোগ।</p>
+            </div>
+            <button type="button" onclick="switchTab('apply')" class="btn-block-action btn-blue">এই প্রকল্পে আবেদন করুন &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: Application Wizard -->
+    <div id="view-apply" class="view-panel">
+      <div class="card" style="max-width:800px; margin:0 auto;">
+        <h2 class="card-header-title">Apply for: Smart Rescue Robot</h2>
+        <p class="card-subtitle">ইনোভেশন ফেলোশিপ ও রিসার্চ টিমে যুক্ত হতে ফরম পূরণ করুন</p>
+
+        <!-- Stepper -->
+        <div class="stepper" id="proj-stepper">
+          <div class="step-item active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-label">Account</div>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-label">Skills</div>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-label">Motivation</div>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-label">Submit</div>
+          </div>
+        </div>
+
+        <form id="proj-application-form">
+          <div class="wizard-step active" data-step-panel="1">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="form-control" value="Ariful Islam" readonly style="background:#f8fafc;">
+            </div>
+            <div class="form-row">
+              <div class="form-group" style="flex:1;">
+                <label>Email</label>
+                <input type="email" class="form-control" value="ariful.dev@bondhu.org" readonly style="background:#f8fafc;">
+              </div>
+              <div class="form-group" style="flex:1;">
+                <label>Institution / University</label>
+                <input type="text" class="form-control" value="BUET / Robotics Lab" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step-panel="2">
+            <div class="form-group">
+              <label>Primary Robotics &amp; AI Skills</label>
+              <select class="form-control" multiple style="height:90px;">
+                <option selected>ROS 2 (Robot Operating System)</option>
+                <option selected>C++ / Embedded Firmware</option>
+                <option selected>SLAM &amp; 3D LiDAR Mapping</option>
+                <option>PyTorch / Computer Vision</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>GitHub / Portfolio Link</label>
+              <input type="url" class="form-control" placeholder="https://github.com/yourname">
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step-panel="3">
+            <div class="form-group">
+              <label>Why are you suited for this Rescue Robot project?</label>
+              <textarea class="form-control" rows="3" placeholder="পূর্ববর্তী প্রজেক্ট অভিজ্ঞতা এবং আপনার অবদান উল্লেখ করুন..." required></textarea>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step-panel="4">
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <strong style="color:#166534;"><i class="fa-solid fa-circle-check"></i> Application ID: PRJ-2026-00025</strong>
+              <p style="font-size:12px; color:#15803d; margin-top:2px;">সকল তথ্য যাচাই শেষে অনলাইন অ্যাসেসমেন্ট পরীক্ষার লিঙ্ক প্রদান করা হবে।</p>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; margin-top:16px;">
+            <button type="button" class="subnav-btn" id="p-btn-prev">Back</button>
+            <button type="button" class="btn-apply" id="p-btn-next" style="padding:10px 20px;">Next Step &rarr;</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 4: Assessment & Team Formation -->
+    <div id="view-assessment" class="view-panel">
+      <div class="blueprint-grid">
+        <div class="card">
+          <h2 class="card-header-title">Technical Assessment Result</h2>
+          <p class="card-subtitle">রোবোটিক্স ও ন্যাভিগেশন অ্যালগরিদম স্ক্রিনিং</p>
+          <div style="display:flex; align-items:center; gap:16px; background:#f8fafc; padding:16px; border-radius:8px; border:1px solid #e2e8f0;">
+            <div style="width:64px; height:64px; border-radius:50%; background:#22c55e; color:white; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800;">82%</div>
+            <div>
+              <div style="font-size:16px; font-weight:700; color:#0f172a;">Assessment Status: PASSED ✓</div>
+              <div style="font-size:12px; color:#64748b;">Achieved Score: 82 / 100 • Qualified for Final Engineering Squad</div>
+            </div>
+          </div>
+
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin:18px 0 10px;">Formed Engineering Squad</h3>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div style="border:1px solid #e2e8f0; border-radius:6px; padding:10px; background:white;">
+              <strong>Hasan Mahmud</strong> <span class="status-pill" style="font-size:10px;">Team Leader</span>
+              <div style="font-size:11px; color:#64748b;">Mechanical &amp; Frame Architecture</div>
+            </div>
+            <div style="border:1px solid #bfdbfe; border-radius:6px; padding:10px; background:#eff6ff;">
+              <strong>Ariful Islam (You)</strong> <span class="status-pill" style="font-size:10px; background:#dbeafe; color:#1e40af;">Robotics Expert</span>
+              <div style="font-size:11px; color:#3b82f6;">Navigation &amp; SLAM Algorithm</div>
+            </div>
+            <div style="border:1px solid #e2e8f0; border-radius:6px; padding:10px; background:white;">
+              <strong>Nusrat Jahan</strong> <span class="status-pill" style="font-size:10px;">IoT Specialist</span>
+              <div style="font-size:11px; color:#64748b;">Telemetry &amp; Long Range Radio</div>
+            </div>
+            <div style="border:1px solid #e2e8f0; border-radius:6px; padding:10px; background:white;">
+              <strong>Rifat Ahmed</strong> <span class="status-pill" style="font-size:10px;">Software Dev</span>
+              <div style="font-size:11px; color:#64748b;">Motor Control &amp; Jetson Kernel</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:16px; font-weight:700; color:#1e3a8a; margin-bottom:8px;">Project Timeline</h3>
+          <ul style="list-style:none; font-size:12.5px; color:#475569; line-height:2;">
+            <li><i class="fa-solid fa-calendar-check" style="color:#22c55e;"></i> <strong>Start Date:</strong> 01 Sep 2026</li>
+            <li><i class="fa-solid fa-flag-checkered" style="color:#ef4444;"></i> <strong>Deadline:</strong> 31 Dec 2026</li>
+            <li><i class="fa-solid fa-hourglass-half" style="color:#3b82f6;"></i> <strong>Duration:</strong> 4 Months</li>
+            <li><i class="fa-solid fa-award" style="color:#eab308;"></i> <strong>Total Award:</strong> $50,000</li>
+          </ul>
+          <button type="button" onclick="switchTab('dashboard')" class="btn-block-action btn-blue" style="margin-top:10px;">ওপেন কানবান বোর্ড &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 5: Kanban Task Board -->
+    <div id="view-dashboard" class="view-panel">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h2 class="card-header-title">Smart Rescue Robot — Sprint 1 Board</h2>
+          <span class="status-pill" style="background:#dbeafe; color:#1e40af;">Sprint 1: 01 Sep - 15 Sep</span>
+        </div>
+
+        <!-- Kanban Grid -->
+        <div class="kanban-grid">
+          <!-- Column 1 -->
+          <div class="kanban-col">
+            <div class="kanban-col-title">
+              <span>To Do</span>
+              <span class="kanban-count">3</span>
+            </div>
+            <div class="kanban-task">
+              <div class="task-title">Robot Frame 3D Design</div>
+              <div class="task-meta">
+                <span>Hasan Mahmud</span>
+                <span style="color:#ef4444; font-weight:700;">Due: 15 Aug</span>
+              </div>
+            </div>
+            <div class="kanban-task">
+              <div class="task-title">Sensor Calibration</div>
+              <div class="task-meta">
+                <span>Sakib Hasan</span>
+                <span>Due: 18 Aug</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="kanban-col">
+            <div class="kanban-col-title">
+              <span>In Progress</span>
+              <span class="kanban-count">2</span>
+            </div>
+            <div class="kanban-task" style="border-left:3px solid var(--brand-blue);">
+              <div class="task-title">Navigation Algorithm (SLAM)</div>
+              <div class="task-meta">
+                <span>Ariful Islam (You)</span>
+                <span style="color:#2563eb; font-weight:700;">Due: 14 Aug</span>
+              </div>
+            </div>
+            <div class="kanban-task" style="border-left:3px solid var(--brand-blue);">
+              <div class="task-title">Motor Control System</div>
+              <div class="task-meta">
+                <span>Rifat Ahmed</span>
+                <span>Due: 12 Aug</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="kanban-col">
+            <div class="kanban-col-title">
+              <span>In Review</span>
+              <span class="kanban-count">1</span>
+            </div>
+            <div class="kanban-task" style="border-left:3px solid #eab308;">
+              <div class="task-title">IoT Telemetry Radio Link</div>
+              <div class="task-meta">
+                <span>Nusrat Jahan</span>
+                <span>Reviewing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="kanban-col">
+            <div class="kanban-col-title">
+              <span>Completed</span>
+              <span class="kanban-count">2</span>
+            </div>
+            <div class="kanban-task" style="border-left:3px solid #22c55e;">
+              <div class="task-title">Project Planning &amp; BOM</div>
+              <div class="task-meta">
+                <span>Team</span>
+                <span style="color:#22c55e; font-weight:700;">Done ✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Features Strip -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div class="feature-text">
+          <h4>উদ্ভাবন ও গবেষণা</h4>
+          <p>হাতে-কলমে প্রযুক্তি বিকাশ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-sack-dollar"></i></div>
+        <div class="feature-text">
+          <h4>রিসার্চ ফান্ডিং</h4>
+          <p>উপকরণ ও প্রজেক্ট গ্রান্ট</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#fef08a; color:#854d0e;"><i class="fa-solid fa-users"></i></div>
+        <div class="feature-text">
+          <h4>টিম কোলাবোরেশন</h4>
+          <p>জাতীয় প্রকৌশলী নেটওয়ার্ক</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="feature-text">
+          <h4>স্বীকৃতি ও সনদ</h4>
+          <p>গোল্ড ইনোভেশন সার্টিফিকেট</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-book-bookmark"></i></div>
+        <div class="feature-text">
+          <h4>জার্নাল পাবলিকেশন</h4>
+          <p>গবেষণা পত্র প্রকাশে সহায়তা</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#eff6ff; color:#2563eb;"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="feature-text">
+          <h4>আইপি ও পেটেন্ট</h4>
+          <p>উদ্ভাবনের সার্বিক সুরক্ষা</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId, btnElement) {
+      document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.subnav-btn').forEach(b => b.classList.remove('active'));
+      const activeView = document.getElementById('view-' + tabId);
+      if (activeView) activeView.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
+      else {
+        const matchingBtn = Array.from(document.querySelectorAll('.subnav-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+        if (matchingBtn) matchingBtn.classList.add('active');
+      }
+      window.scrollTo({ top: 400, behavior: 'smooth' });
+    }
+
+    // Step wizard in apply tab
+    let pStep = 1;
+    const pTotal = 4;
+    const pItems = document.querySelectorAll('#proj-stepper .step-item');
+    const pPanels = document.querySelectorAll('#proj-application-form .wizard-step');
+    const pNext = document.getElementById('p-btn-next');
+    const pPrev = document.getElementById('p-btn-prev');
+
+    function showPStep(s) {
+      pStep = s;
+      pPanels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.stepPanel, 10) === pStep));
+      pItems.forEach(it => {
+        const idx = parseInt(it.dataset.step, 10);
+        it.classList.toggle('active', idx === pStep);
+        it.classList.toggle('completed', idx < pStep);
+      });
+      pPrev.style.display = pStep === 1 ? 'none' : 'block';
+      pNext.textContent = pStep === pTotal ? 'Submit Application' : 'Next Step →';
+    }
+
+    pNext.addEventListener('click', () => {
+      if (pStep < pTotal) showPStep(pStep + 1);
+      else {
+        alert('আবেদন সফলভাবে গৃহীত হয়েছে! Application ID: PRJ-2026-00025');
+        switchTab('assessment');
+      }
+    });
+
+    pPrev.addEventListener('click', () => {
+      if (pStep > 1) showPStep(pStep - 1);
+    });
+
+    showPStep(1);
+  </script>
+</body>
+</html>

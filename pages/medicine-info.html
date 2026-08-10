@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medi Info | Bondhu Drug & Medicine Directory</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #1e293b;
+      --text-gray: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1350px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+
+    /* Medicine Types Row */
+    .med-type-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .med-type-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .med-type-card:hover, .med-type-card.active {
+      border-color: var(--primary-green);
+      background: #f0fdf4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,105,92,0.1);
+    }
+
+    .med-type-icon {
+      font-size: 22px;
+      color: var(--primary-green);
+      margin-bottom: 6px;
+    }
+
+    .med-type-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .med-type-desc {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    /* Search Bar Card */
+    .search-card {
+      background: linear-gradient(135deg, #00695c, #004d40);
+      color: white;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,77,64,0.15);
+    }
+
+    .search-input-wrap {
+      display: flex;
+      margin-top: 14px;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .search-input-wrap input {
+      border: none;
+      padding: 12px 16px;
+      width: 100%;
+      outline: none;
+      font-size: 14px;
+      color: #1e293b;
+    }
+
+    .search-input-wrap button {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 0 24px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Monograph & Alternatives Layout */
+    .med-detail-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+
+    .med-header-banner {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+    }
+
+    .med-box-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #2563eb;
+      flex-shrink: 0;
+    }
+
+    .med-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .med-generic {
+      font-size: 13px;
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+
+    .med-company {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* Clinical Sections */
+    .clinical-section {
+      margin-bottom: 18px;
+    }
+
+    .clinical-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary-green);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .clinical-text {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    /* Alternatives List */
+    .alt-brand-card {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .alt-brand-card:hover {
+      border-color: var(--primary-green);
+      background: #fcfdfd;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .alt-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .alt-company {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .alt-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: #166534;
+      text-align: right;
+    }
+
+    .alt-unit {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #e0f2f1;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 13px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .feature-text p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    @media (max-width: 1024px) {
+      .med-type-grid { grid-template-columns: repeat(3, 1fr); }
+      .med-detail-grid { grid-template-columns: 1fr; }
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      .med-type-grid { grid-template-columns: repeat(2, 1fr); }
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>10 August 2026<br>Monday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২৬ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২৫ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li class="active"><a href="medicine-info.html"><i class="fa-solid fa-pills"></i> Medi Info</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li><a href="projects.html"><i class="fa-solid fa-rocket"></i> Projects</a></li>
+      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
+      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
+    </ul>
+    <a href="#search-section" class="nav-right-btn"><i class="fa-solid fa-magnifying-glass"></i> Search Medicine</a>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Search Section Banner -->
+    <section class="search-card" id="search-section">
+      <h1 style="font-size:24px; font-weight:800; line-height:1.2;">MEDI INFO — ওষুধ তথ্য ও বিকল্প ব্র্যান্ড অনুসন্ধান</h1>
+      <p style="font-size:13px; opacity:0.9; margin-top:4px;">বাংলাদেশের সকল জেনেরিক, ব্যবহারবিধি, পার্শ্বপ্রতিক্রিয়া ও বিকল্প ব্র্যান্ডের নির্ভরযোগ্য ডিরেক্টরি।</p>
+      
+      <div class="search-input-wrap">
+        <input type="text" id="med-search" placeholder="ওষুধের নাম (ব্র্যান্ড বা জেনেরিক যেমন: Napa, Paracetamol, Seclo, Ciprocin) দিয়ে খুঁজুন..." value="Napa 500mg">
+        <button type="button"><i class="fa-solid fa-search"></i> খুঁজুন</button>
+      </div>
+    </section>
+
+    <!-- Medicine Classification Types -->
+    <div class="med-type-grid">
+      <div class="med-type-card active">
+        <div class="med-type-icon"><i class="fa-solid fa-tablets"></i></div>
+        <div class="med-type-title">Allopathic</div>
+        <div class="med-type-desc">অ্যালোপ্যাথিক ওষুধ</div>
+      </div>
+      <div class="med-type-card">
+        <div class="med-type-icon"><i class="fa-solid fa-flask-vial"></i></div>
+        <div class="med-type-title">Homeopathic</div>
+        <div class="med-type-desc">হোমিওপ্যাথিক</div>
+      </div>
+      <div class="med-type-card">
+        <div class="med-type-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
+        <div class="med-type-title">Unani</div>
+        <div class="med-type-desc">ইউনানী চিকিৎসা</div>
+      </div>
+      <div class="med-type-card">
+        <div class="med-type-icon"><i class="fa-solid fa-leaf"></i></div>
+        <div class="med-type-title">Herbal</div>
+        <div class="med-type-desc">ভেষজ ও হারবাল</div>
+      </div>
+      <div class="med-type-card">
+        <div class="med-type-icon"><i class="fa-solid fa-spa"></i></div>
+        <div class="med-type-title">Ayurvedic</div>
+        <div class="med-type-desc">আয়ুর্বেদিক ওষুধ</div>
+      </div>
+      <div class="med-type-card">
+        <div class="med-type-icon"><i class="fa-solid fa-paw"></i></div>
+        <div class="med-type-title">Veterinary</div>
+        <div class="med-type-desc">প্রাণী চিকিৎসা</div>
+      </div>
+    </div>
+
+    <!-- Medicine Detail & Alternatives Layout -->
+    <div class="med-detail-grid">
+
+      <!-- Left Column: Medicine Monograph -->
+      <div class="card">
+        <div class="med-header-banner">
+          <div class="med-box-img"><i class="fa-solid fa-capsules"></i></div>
+          <div>
+            <h2 class="med-name">Napa 500mg Tablet</h2>
+            <div class="med-generic"><i class="fa-solid fa-dna"></i> Generic: Paracetamol (Acetaminophen) 500mg</div>
+            <div class="med-company"><i class="fa-solid fa-industry"></i> Beximco Pharmaceuticals Ltd. • Allopathic</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Indications -->
+        <div class="clinical-section">
+          <div class="clinical-title"><i class="fa-solid fa-stethoscope"></i> ১. নির্দেশনা ও ব্যবহার (Indications)</div>
+          <p class="clinical-text">
+            জ্বর, সাধারণ সর্দি-কাশি, মাথাব্যথা, দাঁতব্যথা, কানের ব্যথা, শরীর ও পেশির ব্যথা, স্নায়বিক যন্ত্রণা, বাতব্যথা ও অস্ত্রোপচার পরবর্তী হালকা থেকে মাঝারি মাত্রার ব্যথা নিরাময়ে নির্দেশিত।
+          </p>
+        </div>
+
+        <!-- Section 2: Dosage -->
+        <div class="clinical-section">
+          <div class="clinical-title"><i class="fa-solid fa-clock"></i> ২. সেবনমাত্রা ও বিধি (Dosage &amp; Administration)</div>
+          <p class="clinical-text">
+            <strong>প্রাপ্তবয়স্ক:</strong> ৫০০ মিলিগ্রাম থেকে ১ গ্রাম (১-২ টি ট্যাবলেট) প্রতি ৪ থেকে ৬ ঘণ্টা পর পর। দিনে সর্বোচ্চ ৪ গ্রাম (৮ টি ট্যাবলেট)।<br>
+            <strong>শিশু (৬-১২ বছর):</strong> ২৫০ মিলিগ্রাম থেকে ৫০০ মিলিগ্রাম (আধা থেকে ১টি ট্যাবলেট) প্রতি ৬-৮ ঘণ্টা পর পর।<br>
+            <em>*চিকিৎসকের পরামর্শ ছাড়া ৩ দিনের বেশি একটানা উচ্চমাত্রায় সেবন করা অনুচিত।</em>
+          </p>
+        </div>
+
+        <!-- Section 3: Side Effects -->
+        <div class="clinical-section">
+          <div class="clinical-title"><i class="fa-solid fa-triangle-exclamation"></i> ৩. পার্শ্বপ্রতিক্রিয়া (Side Effects)</div>
+          <p class="clinical-text">
+            সাধারণত নিরাপদ ও সুসহনীয়। কদাচিৎ ত্বকে অ্যালার্জি, ফুসকুড়ি, রক্তশূন্যতা অথবা অতিরিক্ত মাত্রায় লিভারের ক্ষতি হতে পারে।
+          </p>
+        </div>
+
+        <!-- Section 4: Precautions & Warnings -->
+        <div class="clinical-section">
+          <div class="clinical-title"><i class="fa-solid fa-shield-halved"></i> ৪. সতর্কতা ও সাবধানতা (Precautions &amp; Warnings)</div>
+          <p class="clinical-text">
+            যকৃত (লিভার) অথবা কিডনি রোগে আক্রান্ত রোগীদের ক্ষেত্রে সতর্কতার সাথে ব্যবহার করতে হবে। অ্যালকোহল সেবনকারীদের ক্ষেত্রে প্যারাসিটামলের হেপাটোটক্সিসিটি বাড়তে পারে।
+          </p>
+        </div>
+
+        <!-- Section 5: Pregnancy & Lactation -->
+        <div class="clinical-section">
+          <div class="clinical-title"><i class="fa-solid fa-person-breastfeeding"></i> ৫. গর্ভাবস্থা ও স্তন্যদানকালে ব্যবহার</div>
+          <p class="clinical-text">
+            গর্ভাবস্থার ক্যাটাগরি B। গর্ভাবস্থায় ও স্তন্যদানকালে সাধারণ মাত্রায় সেবন সম্পূর্ণ নিরাপদ।
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Alternative Generic Brands -->
+      <div class="card">
+        <h3 class="card-header-title" style="font-size:16px;">Alternative Generic Brands</h3>
+        <p class="card-subtitle">একই উপাদানের (Paracetamol 500mg) অন্যান্য বিকল্প ব্র্যান্ড</p>
+
+        <!-- Alt 1 -->
+        <div class="alt-brand-card">
+          <div>
+            <div class="alt-name">Ace 500mg</div>
+            <div class="alt-company">Square Pharmaceuticals PLC</div>
+          </div>
+          <div>
+            <div class="alt-price">৳ 1.20</div>
+            <div class="alt-unit">per tablet</div>
+          </div>
+        </div>
+
+        <!-- Alt 2 -->
+        <div class="alt-brand-card">
+          <div>
+            <div class="alt-name">Fast 500mg</div>
+            <div class="alt-company">Acme Laboratories Ltd.</div>
+          </div>
+          <div>
+            <div class="alt-price">৳ 1.20</div>
+            <div class="alt-unit">per tablet</div>
+          </div>
+        </div>
+
+        <!-- Alt 3 -->
+        <div class="alt-brand-card">
+          <div>
+            <div class="alt-name">Renova 500mg</div>
+            <div class="alt-company">Opsonin Pharma Ltd.</div>
+          </div>
+          <div>
+            <div class="alt-price">৳ 1.15</div>
+            <div class="alt-unit">per tablet</div>
+          </div>
+        </div>
+
+        <!-- Alt 4 -->
+        <div class="alt-brand-card">
+          <div>
+            <div class="alt-name">Pyrigesic 500mg</div>
+            <div class="alt-company">Incepta Pharmaceuticals Ltd.</div>
+          </div>
+          <div>
+            <div class="alt-price">৳ 1.20</div>
+            <div class="alt-unit">per tablet</div>
+          </div>
+        </div>
+
+        <!-- Alt 5 -->
+        <div class="alt-brand-card">
+          <div>
+            <div class="alt-name">Reset 500mg</div>
+            <div class="alt-company">ACI Limited</div>
+          </div>
+          <div>
+            <div class="alt-price">৳ 1.20</div>
+            <div class="alt-unit">per tablet</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Features Strip -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-file-medical"></i></div>
+        <div class="feature-text">
+          <h4>নির্ভরযোগ্য তথ্য</h4>
+          <p>যাচাইকৃত ওষুধ নির্দেশিকা</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-code-compare"></i></div>
+        <div class="feature-text">
+          <h4>বিকল্প ব্র্যান্ড</h4>
+          <p>সাশ্রয়ী মূল্যে ওষুধ খুঁজুন</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#fef08a; color:#854d0e;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="feature-text">
+          <h4>পার্শ্বপ্রতিক্রিয়া</h4>
+          <p>সতর্কতা ও ড্রাগ ইন্টারঅ্যাকশন</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="feature-text">
+          <h4>ফার্মাসিউটিক্যালস</h4>
+          <p>বাংলাদেশের সকল প্রস্তুতকারক</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-shield-heart"></i></div>
+        <div class="feature-text">
+          <h4>চিকিৎসক নির্দেশিকা</h4>
+          <p>সঠিক মাত্রায় ওষুধ সেবন</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#eff6ff; color:#2563eb;"><i class="fa-solid fa-laptop-medical"></i></div>
+        <div class="feature-text">
+          <h4>ডিআইএমএস ডাটাবেজ</h4>
+          <p>সর্বাধুনিক মেডিকেল ইনডেক্স</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('.med-type-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.med-type-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
