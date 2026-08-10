@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpline Directory | Bondhu.org - জাতীয় জরুরি ও সহায়তা সেবা</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --dark-red: #b71c1c;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --light-green: #e0f2f1;
+      --bg-light: #f4f6f8;
+      --border-color: #e0e0e0;
+      --text-dark: #1e293b;
+      --text-gray: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Top Utility Header */
+    .top-header {
+      background: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      color: var(--primary-red);
+      font-size: 28px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--primary-red);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--primary-red);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .date-widgets {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .date-box i {
+      color: var(--primary-red);
+      font-size: 14px;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--primary-green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: #fff;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .emergency-info {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .emergency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .emergency-item i {
+      color: var(--primary-red);
+      font-size: 16px;
+    }
+
+    .btn-login {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    /* Primary Navigation */
+    .main-nav {
+      background: var(--primary-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      background: var(--primary-red);
+    }
+
+    .nav-right-btn {
+      background: #004d40;
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1350px;
+      margin: 15px auto;
+      padding: 0 15px;
+    }
+
+    /* Search Banner */
+    .search-hero {
+      background: linear-gradient(135deg, #00695c, #004d40);
+      color: white;
+      border-radius: 8px;
+      padding: 26px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,77,64,0.15);
+    }
+
+    .search-input-wrap {
+      display: flex;
+      margin-top: 14px;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .search-input-wrap input {
+      border: none;
+      padding: 12px 16px;
+      width: 100%;
+      outline: none;
+      font-size: 14px;
+      color: #1e293b;
+    }
+
+    .search-input-wrap button {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 0 22px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Categories Filter Tabs */
+    .cat-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .cat-btn {
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+    }
+
+    .cat-btn.active {
+      background: var(--primary-green);
+      color: white;
+      border-color: var(--primary-green);
+      box-shadow: 0 2px 6px rgba(0,105,92,0.25);
+    }
+
+    /* Helpline Grid */
+    .helpline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .helpline-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .helpline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      border-color: var(--primary-green);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #e0f2f1;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .service-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .hotline-number-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hotline-number {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-red);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-copy {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      color: #64748b;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .service-desc {
+      font-size: 12.5px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .service-meta {
+      font-size: 11px;
+      color: #64748b;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 12px;
+    }
+
+    .btn-call {
+      background: var(--primary-green);
+      color: white;
+      text-decoration: none;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-call:hover {
+      background: var(--dark-green);
+    }
+
+    .btn-details {
+      background: white;
+      border: 1px solid var(--border-color);
+      color: #334155;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-details:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.6);
+      backdrop-filter: blur(2px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 10px;
+      max-width: 540px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: modalIn 0.2s ease-in-out;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Toast Notification */
+    .toast-popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0f172a;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast-popup.show {
+      display: flex;
+    }
+
+    /* Bottom Features */
+    .bottom-features {
+      margin-top: 25px;
+      background: white;
+      padding: 18px 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #e0f2f1;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 13px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .feature-text p {
+      font-size: 11px;
+      color: #777;
+    }
+
+    @media (max-width: 1024px) {
+      .helpline-grid { grid-template-columns: repeat(2, 1fr); }
+      .bottom-features { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 650px) {
+      .helpline-grid { grid-template-columns: 1fr; }
+      .bottom-features { grid-template-columns: repeat(2, 1fr); }
+      .top-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Header -->
+  <header class="top-header">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div>
+        <div class="brand-title">Bondhu<span>.org</span></div>
+        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
+      </div>
+    </a>
+
+    <div class="date-widgets">
+      <div class="date-box">
+        <i class="fa-regular fa-calendar"></i>
+        <span>10 August 2026<br>Monday</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-sun"></i>
+        <span>২৬ শ্রাবণ ১৪৩৩<br>বাংলা</span>
+      </div>
+      <div class="date-box">
+        <i class="fa-solid fa-moon"></i>
+        <span>২৫ সফর ১৪৪৮<br>Hijri</span>
+      </div>
+    </div>
+
+    <div class="top-right-actions">
+      <div class="lang-toggle">
+        <button class="active">বাংলা</button>
+        <button>English</button>
+      </div>
+      <div class="emergency-info">
+        <div class="emergency-item">
+          <i class="fa-solid fa-phone-volume"></i>
+          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
+        </div>
+        <div class="emergency-item">
+          <i class="fa-solid fa-ambulance"></i>
+          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
+        </div>
+      </div>
+      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
+      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
+      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
+      <li><a href="medicine-info.html"><i class="fa-solid fa-pills"></i> Medi Info</a></li>
+      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
+      <li><a href="sponsors.html"><i class="fa-solid fa-hand-holding-heart"></i> Sponsors</a></li>
+      <li><a href="projects.html"><i class="fa-solid fa-rocket"></i> Projects</a></li>
+      <li class="active"><a href="helpline.html"><i class="fa-solid fa-phone-volume"></i> Helpline</a></li>
+    </ul>
+    <a href="tel:999" class="nav-right-btn"><i class="fa-solid fa-phone"></i> Emergency 999</a>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Search Hero -->
+    <section class="search-hero">
+      <h1 style="font-size:24px; font-weight:800; line-height:1.2;">সেবা সহায়ক — জাতীয় জরুরি ও নাগরিক হেল্পলাইন</h1>
+      <p style="font-size:13px; opacity:0.9; margin-top:4px;">বাংলাদেশের সকল সরকারি ও বেসরকারি জরুরি কল সেন্টার, চিকিৎসা পরামর্শ ও আইনি সহায়তা নম্বর এক ঠিকানায়।</p>
+      
+      <div class="search-input-wrap">
+        <input type="text" id="helpline-search-input" placeholder="সেবার নাম, বিভাগ বা নম্বর (যেমন: পুলিশ, ৯৯৯, ৩৩৩, স্বাস্থ্য, অ্যাম্বুলেন্স) দিয়ে খুঁজুন...">
+        <button type="button"><i class="fa-solid fa-search"></i> খুঁজুন</button>
+      </div>
+    </section>
+
+    <!-- Category Filter Pills -->
+    <div class="cat-tabs">
+      <button class="cat-btn active" data-cat="all"><i class="fa-solid fa-grid-2"></i> সব সেবা</button>
+      <button class="cat-btn" data-cat="emergency"><i class="fa-solid fa-truck-medical"></i> জাতীয় জরুরি</button>
+      <button class="cat-btn" data-cat="health"><i class="fa-solid fa-stethoscope"></i> স্বাস্থ্য ও চিকিৎসা</button>
+      <button class="cat-btn" data-cat="women-child"><i class="fa-solid fa-person-shelter"></i> নারী ও শিশু</button>
+      <button class="cat-btn" data-cat="legal"><i class="fa-solid fa-scale-balanced"></i> আইন ও দুর্নীতি</button>
+      <button class="cat-btn" data-cat="agriculture"><i class="fa-solid fa-seedling"></i> কৃষি ও খাদ্য</button>
+      <button class="cat-btn" data-cat="govt"><i class="fa-solid fa-landmark"></i> সরকারি সেবা</button>
+    </div>
+
+    <!-- Helpline Cards Grid -->
+    <div class="helpline-grid" id="cards-container">
+
+      <!-- Item 1: 999 -->
+      <article class="helpline-card" data-cat="emergency" data-name="জাতীয় জরুরি সেবা" data-number="999" data-desc="পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স জরুরি সহায়তা।">
+        <div>
+          <div class="card-top">
+            <div class="icon-badge"><i class="fa-solid fa-shield-halved"></i></div>
+            <span class="card-tag" style="background:#fee2e2; color:#b91c1c;">টোল ফ্রি • জরুরি</span>
+          </div>
+          <h2 class="service-title">জাতীয় জরুরি সেবা</h2>
+          <div class="hotline-number-box">
+            <span class="hotline-number">999</span>
+            <button class="btn-copy" onclick="copyNumber('999')"><i class="fa-regular fa-copy"></i> কপি</button>
+          </div>
+          <p class="service-desc">পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স জরুরি সহায়তা। যেকোনো জরুরি পরিস্থিতিতে তাৎক্ষণিক উদ্ধার পেতে কল করুন।</p>
+          <div class="service-meta"><i class="fa-regular fa-clock"></i> ২৪ ঘণ্টা সার্ভিস • সম্পূর্ণ ফ্রি</div>
+        </div>
+        <div class="card-actions">
+          <a href="tel:999" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+          <button class="btn-details" onclick="openDetails('জাতীয় জরুরি সেবা (999)', '999', 'পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স জরুরি সহায়তা। যেকোনো জরুরি পরিস্থিতিতে তাৎক্ষণিক উদ্ধার পেতে কল করুন।', 'টোল ফ্রি জরুরি সেবা', '২৪ ঘণ্টা')">বিস্তারিত</button>
+        </div>
+      </article>
+
+      <!-- Item 2: 333 -->
+      <article class="helpline-card" data-cat="govt" data-name="সরকারি তথ্য ও সেবা" data-number="333" data-desc="সরকারি সেবার তথ্য, সামাজিক নিরাপত্তা ও অভিযোগ কেন্দ্র।">
+        <div>
+          <div class="card-top">
+            <div class="icon-badge" style="background:#e0f2fe; color:#0369a1;"><i class="fa-solid fa-landmark"></i></div>
+            <span class="card-tag" style="background:#e0f2fe; color:#0369a1;">সরকারি সেবা</span>
+          </div>
+          <h2 class="service-title">সরকারি তথ্য ও সেবা</h2>
+          <div class="hotline-number-box">
+            <span class="hotline-number" style="color:#0369a1;">333</span>
+            <button class="btn-copy" onclick="copyNumber('333')"><i class="fa-regular fa-copy"></i> কপি</button>
+          </div>
+          <p class="service-desc">সরকারি সেবার তথ্য, বয়স্ক ভাতা, সমাজসেবা অনুদান ও কর্মকর্তা ডিরেক্টরি সংক্রান্ত যাবতীয় তথ্য।</p>
+          <div class="service-meta"><i class="fa-regular fa-clock"></i> ২৪ ঘণ্টা সার্ভিস • সরকারি রেট</div>
+        </div>
+        <div class="card-actions">
+          <a href="tel:333" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+          <button class="btn-details" onclick="openDetails('সরকারি তথ্য ও সেবা (333)', '333', 'সরকারি সেবার তথ্য, বয়স্ক ভাতা, সমাজসেবা অনুদান ও কর্মকর্তা ডিরেক্টরি সংক্রান্ত যাবতীয় তথ্য।', 'সরকারি তথ্য কেন্দ্র', '২৪ ঘণ্টা')">বিস্তারিত</button>
+        </div>
+      </article>
+
+      <!-- Item 3: 16263 -->
+      <article class="helpline-card" data-cat="health" data-name="স্বাস্থ্য বাতায়ন" data-number="16263" data-desc="স্বাস্থ্য অধিদপ্তরের ২৪ ঘণ্টা ফ্রি টেলিমেডিসিন ও ডাক্তার পরামর্শ।">
+        <div>
+          <div class="card-top">
+            <div class="icon-badge" style="background:#f0fdf4; color:#15803d;"><i class="fa-solid fa-stethoscope"></i></div>
+            <span class="card-tag" style="background:#dcfce7; color:#166534;">স্বাস্থ্য ও চিকিৎসা</span>
+          </div>
+          <h2 class="service-title">স্বাস্থ্য বাতায়ন</h2>
+          <div class="hotline-number-box">
+            <span class="hotline-number" style="color:#15803d;">16263</span>
+            <button class="btn-copy" onclick="copyNumber('16263')"><i class="fa-regular fa-copy"></i> কপি</button>
+          </div>
+          <p class="service-desc">স্বাস্থ্য অধিদপ্তরের সার্বক্ষণিক টেলিমেডিসিন সেবা। যেকোনো রোগের প্রাথমিক চিকিৎসা ও ডাক্তারের পরামর্শ।</p>
+          <div class="service-meta"><i class="fa-regular fa-clock"></i> ২৪ ঘণ্টা সার্ভিস • রেজিস্টার্ড ডাক্তার</div>
+        </div>
+        <div class="card-actions">
+          <a href="tel:16263" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+          <button class="btn-details" onclick="openDetails('স্বাস্থ্য বাতায়ন (16263)', '16263', 'স্বাস্থ্য অধিদপ্তরের সার্বক্ষণিক টেলিমেডিসিন সেবা। যেকোনো রোগের প্রাথমিক চিকিৎসা ও ডাক্তারের পরামর্শ।', 'জাতীয় স্বাস্থ্য হেল্পলাইন', '২৪ ঘণ্টা')">বিস্তারিত</button>
+        </div>
+      </article>
+
+      <!-- Item 4: 109 -->
+      <article class="helpline-card" data-cat="women-child" data-name="নারী ও শিশু নির্যাতন প্রতিরোধ" data-number="109" data-desc="নারী ও শিশু নির্যাতন প্রতিরোধে জাতীয় হেল্পলাইন।">
+        <div>
+          <div class="card-top">
+            <div class="icon-badge" style="background:#fdf2f8; color:#be185d;"><i class="fa-solid fa-person-shelter"></i></div>
+            <span class="card-tag" style="background:#fce7f3; color:#9d174d;">টোল ফ্রি • সহায়তা</span>
+          </div>
+          <h2 class="service-title">নারী ও শিশু সহায়তা</h2>
+          <div class="hotline-number-box">
+            <span class="hotline-number" style="color:#be185d;">109</span>
+            <button class="btn-copy" onclick="copyNumber('109')"><i class="fa-regular fa-copy"></i> কপি</button>
+          </div>
+          <p class="service-desc">নারী ও শিশু নির্যাতন প্রতিরোধ, আইনি পরামর্শ, আশ্রয়কেন্দ্র ও জরুরি উদ্ধার সহায়তা প্রদান।</p>
+          <div class="service-meta"><i class="fa-regular fa-clock"></i> ২৪ ঘণ্টা • সম্পূর্ণ ফ্রি</div>
+        </div>
+        <div class="card-actions">
+          <a href="tel:109" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+          <button class="btn-details" onclick="openDetails('নারী ও শিশু নির্যাতন প্রতিরোধ হেল্পলাইন (109)', '109', 'নারী ও শিশু নির্যাতন প্রতিরোধ, আইনি পরামর্শ, আশ্রয়কেন্দ্র ও জরুরি উদ্ধার সহায়তা প্রদান।', 'জাতীয় হেল্পলাইন', '২৪ ঘণ্টা')">বিস্তারিত</button>
+        </div>
+      </article>
+
+      <!-- Item 5: 106 -->
+      <article class="helpline-card" data-cat="legal" data-name="দুর্নীতি দমন কমিশন (দুদক)" data-number="106" data-desc="দুর্নীতি সংক্রান্ত অভিযোগ দায়ের ও তথ্য প্রদান।">
+        <div>
+          <div class="card-top">
+            <div class="icon-badge" style="background:#fef3c7; color:#b45309;"><i class="fa-solid fa-scale-balanced"></i></div>
+            <span class="card-tag" style="background:#fef3c7; color:#92400e;">টোল ফ্রি</span>
+          </div>
+          <h2 class="service-title">দুর্নীতি দমন কমিশন</h2>
+          <div class="hotline-number-box">
+            <span class="hotline-number" style="color:#b45309;">106</span>
+            <button class="btn-copy" onclick="copyNumber('106')"><i class="fa-regular fa-copy"></i> কপি</button>
+          </div>
+          <p class="service-desc">ঘুষ ও দুর্নীতির বিরুদ্ধে তাৎক্ষণিক অভিযোগ দাখিল করুন। অভিযোগকারীর পরিচয় সম্পূর্ণ গোপন রাখা হয়।</p>
+          <div class="service-meta"><i class="fa-regular fa-clock"></i> সকাল ৯টা - বিকাল ৫টা</div>
+        </div>
+        <div class="card-actions">
+          <a href="tel:106" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+          <button class="btn-details" onclick="openDetails('দুর্নীতি দমন কমিশন (106)', '106', 'ঘুষ ও দুর্নীতির বিরুদ্ধে তাৎক্ষণিক অভিযোগ দাখিল করুন। অভিযোগকারীর পরিচয় সম্পূর্ণ গোপন রাখা হয়।', 'দুদক হটলাইন', 'সকাল ৯টা - বিকাল ৫টা')">বিস্তারিত</button>
+        </div>
+      </article>
+
+      <!-- Item 6: 16123 -->
+      <article class="helpline-card" data-cat="agriculture" data-name="কৃষি কল সেন্টার" data-number="16123" data-desc="কৃষি, মৎস্য ও প্রাণিসম্পদ বিষয়ক বিশেষজ্ঞ পরামর্শ।">
+        <div>
+          <div class="card-top">
+            <div class="icon-badge" style="background:#ecfdf5; color:#047857;"><i class="fa-solid fa-seedling"></i></div>
+            <span class="card-tag" style="background:#d1fae5; color:#065f46;">কৃষি ও খাদ্য</span>
+          </div>
+          <h2 class="service-title">কৃষি কল সেন্টার</h2>
+          <div class="hotline-number-box">
+            <span class="hotline-number" style="color:#047857;">16123</span>
+            <button class="btn-copy" onclick="copyNumber('16123')"><i class="fa-regular fa-copy"></i> কপি</button>
+          </div>
+          <p class="service-desc">ফসল চাষ, পোকা দমন, রোগবালাই ও গবাদিপশু পালন সম্পর্কিত কৃষি বিজ্ঞানীদের সরাসরি পরামর্শ।</p>
+          <div class="service-meta"><i class="fa-regular fa-clock"></i> সকাল ৭টা - রাত ৯টা</div>
+        </div>
+        <div class="card-actions">
+          <a href="tel:16123" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+          <button class="btn-details" onclick="openDetails('কৃষি কল সেন্টার (16123)', '16123', 'ফসল চাষ, পোকা দমন, রোগবালাই ও গবাদিপশু পালন সম্পর্কিত কৃষি বিজ্ঞানীদের সরাসরি পরামর্শ।', 'কৃষি মন্ত্রণালয়', 'সকাল ৭টা - রাত ৯টা')">বিস্তারিত</button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Bottom Features Strip -->
+    <div class="bottom-features">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-phone-volume"></i></div>
+        <div class="feature-text">
+          <h4>টোল ফ্রি সেবা</h4>
+          <p>বিনামূল্যে জরুরি কল</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-shield-heart"></i></div>
+        <div class="feature-text">
+          <h4>তথ্য গোপনীয়তা</h4>
+          <p>১০০% সুরক্ষিত যোগাযোগ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-headset"></i></div>
+        <div class="feature-text">
+          <h4>সার্বক্ষণিক হেল্পডেস্ক</h4>
+          <p>২৪ ঘণ্টা তাৎক্ষণিক সাড়া</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-hospital-user"></i></div>
+        <div class="feature-text">
+          <h4>টেলিমেডিসিন</h4>
+          <p>রেজিস্টার্ড ডাক্তার পরামর্শ</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-scale-unbalanced-flip"></i></div>
+        <div class="feature-text">
+          <h4>আইনি সহায়তা</h4>
+          <p>সরকারি লিগ্যাল এইড</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-people-roof"></i></div>
+        <div class="feature-text">
+          <h4>দুর্যোগ ব্যবস্থাপনা</h4>
+          <p>উদ্ধার ও পুনর্বাসন সাপোর্ট</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal-overlay" id="details-modal">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+        <div>
+          <h3 id="m-title" style="font-size:18px; font-weight:800; color:#0f172a;">জাতীয় জরুরি সেবা (999)</h3>
+          <span id="m-type" style="font-size:11px; font-weight:700; color:var(--primary-green);">টোল ফ্রি জরুরি সেবা</span>
+        </div>
+        <button onclick="closeModal()" style="background:none; border:none; font-size:20px; cursor:pointer; color:#64748b;">&times;</button>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px 16px; border-radius:6px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:11px; color:#64748b;">হটলাইন নম্বর:</span>
+          <div id="m-num" style="font-size:22px; font-weight:800; color:var(--primary-red);">999</div>
+        </div>
+        <a id="m-call-btn" href="tel:999" class="btn-call" style="padding:8px 16px;"><i class="fa-solid fa-phone"></i> এখনই কল করুন</a>
+      </div>
+
+      <div style="font-size:13px; color:#475569; line-height:1.6; margin-bottom:14px;" id="m-desc">
+        পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স জরুরি সহায়তা। যেকোনো জরুরি পরিস্থিতিতে তাৎক্ষণিক উদ্ধার পেতে কল করুন।
+      </div>
+
+      <div style="font-size:11px; color:#64748b; margin-bottom:16px;">
+        <i class="fa-regular fa-clock"></i> অপারেটিং সময়: <strong id="m-time">২৪ ঘণ্টা</strong>
+      </div>
+
+      <button onclick="closeModal()" style="width:100%; background:#f1f5f9; border:none; padding:10px; border-radius:6px; font-weight:700; font-size:13px; color:#334155; cursor:pointer;">বন্ধ করুন</button>
+    </div>
+  </div>
+
+  <!-- Toast Popup -->
+  <div class="toast-popup" id="toast">
+    <i class="fa-solid fa-circle-check" style="color:#22c55e;"></i>
+    <span id="toast-text">নম্বর কপি করা হয়েছে!</span>
+  </div>
+
+  <script>
+    function copyNumber(num) {
+      navigator.clipboard.writeText(num).then(() => {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-text').textContent = `হটলাইন নম্বর '${num}' কপি করা হয়েছে!`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    function openDetails(title, num, desc, type, time) {
+      document.getElementById('m-title').textContent = title;
+      document.getElementById('m-num').textContent = num;
+      document.getElementById('m-desc').textContent = desc;
+      document.getElementById('m-type').textContent = type;
+      document.getElementById('m-time').textContent = time;
+      document.getElementById('m-call-btn').href = 'tel:' + num;
+      document.getElementById('details-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('details-modal').classList.remove('active');
+    }
+
+    // Category Filter
+    const catBtns = document.querySelectorAll('.cat-btn');
+    const cards = document.querySelectorAll('.helpline-card');
+    const searchInput = document.getElementById('helpline-search-input');
+
+    function filterCards() {
+      const q = (searchInput.value || '').toLowerCase();
+      const activeCatBtn = document.querySelector('.cat-btn.active');
+      const cat = activeCatBtn ? activeCatBtn.dataset.cat : 'all';
+
+      cards.forEach(c => {
+        const name = (c.dataset.name || '').toLowerCase();
+        const num = (c.dataset.number || '').toLowerCase();
+        const desc = (c.dataset.desc || '').toLowerCase();
+        const cCat = c.dataset.cat || '';
+
+        const matchSearch = !q || name.includes(q) || num.includes(q) || desc.includes(q);
+        const matchCat = (cat === 'all') || (cCat === cat);
+
+        c.style.display = (matchSearch && matchCat) ? 'flex' : 'none';
+      });
+    }
+
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterCards();
+      });
+    });
+
+    searchInput.addEventListener('input', filterCards);
+  </script>
+</body>
+</html>
