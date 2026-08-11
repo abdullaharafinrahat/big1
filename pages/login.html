@@ -11,7 +11,6 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-  
   /* === Shared Header & Footer System === */
   :root {
     --green-dark: #0b5a35;
@@ -26,6 +25,22 @@
     --radius: 14px;
   }
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+  }
+
+  body {
+    background-color: #f5f6f8;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header Topbar */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -142,11 +157,377 @@
   .login-btn:hover { background: var(--green); }
   .login-btn img { width: 15px; height: 15px; object-fit: contain; border-radius: 50%; }
 
+  /* Main Wrapper - Centered Login Card */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 36px 16px;
+  }
+
+  .login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eef0f3;
+    padding: 28px 32px 24px 32px;
+    position: relative;
+  }
+
+  /* Card Header Logo */
+  .header-logo {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .logo-icon {
+    width: 46px;
+    height: 46px;
+    background-color: #d32f2f;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25);
+  }
+
+  .logo-icon i {
+    color: white;
+    font-size: 20px;
+  }
+
+  .card-brand-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0b5a35;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .card-brand-title span { color: #d32f2f; }
+
+  .brand-subtitle {
+    font-size: 13px;
+    color: #666666;
+    margin-top: 2px;
+  }
+
+  .divider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 14px 0 16px;
+    position: relative;
+  }
+
+  .divider-line {
+    height: 1px;
+    background-color: #e5e7eb;
+    width: 100%;
+  }
+
+  .divider-drop {
+    position: absolute;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #d32f2f;
+    font-size: 12px;
+  }
+
+  .welcome-text {
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2px;
+  }
+
+  .sub-welcome-text {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+
+  /* Form Inputs */
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-icon-left {
+    position: absolute;
+    left: 12px;
+    color: #888888;
+    font-size: 14px;
+  }
+
+  .input-icon-right {
+    position: absolute;
+    right: 12px;
+    color: #888888;
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .form-input {
+    width: 100%;
+    height: 42px;
+    padding: 8px 38px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .form-input:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .checkbox-container input {
+    margin-right: 8px;
+    accent-color: #d32f2f;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .checkbox-label {
+    font-size: 13px;
+    color: #333333;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .btn-submit {
+    width: 100%;
+    height: 44px;
+    background-color: #cc1d1d;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 4px 12px rgba(204, 29, 29, 0.2);
+  }
+
+  .btn-submit:hover {
+    background-color: #b31919;
+    transform: translateY(-1px);
+  }
+
+  .text-divider {
+    text-align: center;
+    position: relative;
+    margin: 18px 0;
+  }
+
+  .text-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #eeeeee;
+    z-index: 1;
+  }
+
+  .text-divider span {
+    background-color: #ffffff;
+    padding: 0 12px;
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    color: #777777;
+  }
+
+  .forgot-password {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .forgot-password a {
+    color: #0b5c9e;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+
+  /* Dual Action Cards */
+  .action-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .card-box {
+    border-radius: 10px;
+    padding: 16px 12px 12px 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .card-box:hover {
+    transform: translateY(-2px);
+  }
+
+  .card-box.green {
+    background-color: #f6fcf8;
+    border: 1px solid #e1f2e6;
+  }
+
+  .card-box.blue {
+    background-color: #f5f9ff;
+    border: 1px solid #e1edfd;
+  }
+
+  .card-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .card-box.green .card-icon-wrapper {
+    background-color: #e2f3e7;
+    color: #1b8e43;
+  }
+
+  .card-box.blue .card-icon-wrapper {
+    background-color: #e0edfd;
+    color: #0b5c9e;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .card-box.green .card-title { color: #116830; }
+  .card-box.blue .card-title { color: #0b5c9e; }
+
+  .card-desc {
+    font-size: 11px;
+    color: #666666;
+    margin-bottom: 12px;
+  }
+
+  .card-btn {
+    width: 100%;
+    height: 34px;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .card-btn:hover {
+    opacity: 0.9;
+  }
+
+  .card-box.green .card-btn { background-color: #116830; }
+  .card-box.blue .card-btn { background-color: #0b5c9e; }
+
+  /* Security Footer Panel */
+  .footer-info {
+    background-color: #fff5f5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border: 1px solid #fee2e2;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #444444;
+  }
+
+  .info-item i {
+    color: #d32f2f;
+    font-size: 14px;
+  }
+
+  .info-item.right {
+    text-align: right;
+  }
+
+  .phone-number {
+    font-weight: 800;
+    color: #d32f2f;
+    font-size: 12px;
+    display: block;
+  }
+
   /* Shared Footer */
   footer {
     background: var(--green-dark);
     color: #eaf3ee;
-    margin-top: 30px;
+    margin-top: auto;
     width: 100%;
   }
 
@@ -241,6 +622,10 @@
       padding: 4px 10px;
       font-size: 11px;
     }
+    .login-card { padding: 20px 16px; }
+    .action-cards { grid-template-columns: 1fr; }
+    .footer-info { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .info-item.right { text-align: left; }
     .footer-top { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 14px; }
     .footer-links { gap: 12px; font-size: 11.5px; }
     .footer-bottom { padding: 10px 14px; font-size: 10px; }
@@ -254,7 +639,7 @@
     .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
     .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
   }
-</style>
+  </style>
 </head>
 <body>
 
