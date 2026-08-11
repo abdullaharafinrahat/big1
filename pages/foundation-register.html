@@ -26,7 +26,16 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
-  body { background-color: #f5f6f8; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+  html, body {
+    background-color: #f5f6f8;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
 
   /* Header Topbar */
   header.topbar {
@@ -41,6 +50,7 @@
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 14px rgba(0,0,0,.06);
+    width: 100%;
   }
 
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0; }
@@ -93,6 +103,7 @@
     justify-content: center;
     align-items: center;
     padding: 36px 16px;
+    width: 100%;
   }
 
   .register-card {
@@ -121,7 +132,7 @@
   .divider-line { height: 1px; background-color: #e5e7eb; width: 100%; }
   .divider-drop { position: absolute; background: #ffffff; padding: 0 8px; color: #d32f2f; font-size: 12px; }
 
-  .welcome-text { text-align: center; font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
+  .welcome-text { text-align: center; font-size: 19px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
   .sub-welcome-text { text-align: center; font-size: 13px; color: #64748b; margin-bottom: 20px; }
 
   .form-group { margin-bottom: 14px; }
@@ -134,7 +145,7 @@
   .form-input { width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1px solid #dcdfe6; border-radius: 8px; font-size: 13px; outline: none; transition: all 0.2s; }
   .form-input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.1); }
 
-  .phone-input-group { display: flex; gap: 6px; }
+  .contact-input-group { display: flex; gap: 6px; }
   .btn-send-otp {
     background: var(--primary-green); color: white; border: none; padding: 0 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.2s;
   }
@@ -153,7 +164,6 @@
   .otp-digit:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.15); }
 
   .btn-verify-code { width: 100%; background: var(--primary-green); color: white; border: none; padding: 8px; border-radius: 6px; font-size: 12.5px; font-weight: 700; cursor: pointer; margin-top: 4px; }
-  .btn-verify-code:hover { background: #004d40; }
 
   .btn-submit {
     width: 100%; height: 44px; background-color: var(--primary-green); color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
@@ -181,11 +191,13 @@
   .dev-by { display: flex; align-items: center; gap: 6px; }
   .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
-  .dev-by a:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .topbar-meta { display: none; }
+  }
 
   @media (max-width: 768px) {
     header.topbar { padding: 8px 12px; }
-    .topbar-meta { display: none; }
     .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
     .brand-text h1 { font-size: 16px; }
     .brand-text p { display: none; }
@@ -235,7 +247,7 @@
           <i class="fa-solid fa-city"></i>
         </div>
         <div class="card-brand-title">Bondhu<span>.</span></div>
-        <div class="brand-subtitle">ফাউন্ডেশন ও প্রতিষ্ঠান নিবন্ধন পোর্টাল</div>
+        <div class="brand-subtitle">ফাউন্ডেশন ও প্রতিষ্ঠান নিবন্ধন</div>
       </div>
 
       <div class="divider-container">
@@ -245,54 +257,54 @@
 
       <!-- Welcome Heading -->
       <div class="welcome-text">প্রতিষ্ঠান নিবন্ধন</div>
-      <div class="sub-welcome-text">ইমেইল বা মোবাইল নম্বর দিয়ে প্রতিষ্ঠান যুক্ত করুন</div>
+      <div class="sub-welcome-text">ইমেইল বা মোবাইল নম্বর দিয়ে সহজ নিবন্ধন</div>
 
-      <!-- Simple Single Form -->
-      <form id="auth-foundation-register-form">
+      <!-- Single-Step Foundation Registration Form -->
+      <form id="auth-foundation-form">
         <!-- Foundation Name -->
         <div class="form-group">
           <label class="form-label">ফাউন্ডেশন / প্রতিষ্ঠানের নাম <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-solid fa-building-ngo input-icon-left"></i>
-            <input type="text" id="found-name" class="form-input" placeholder="যেমন: গ্রিন লাইফ ফাউন্ডেশন" required>
+            <input type="text" id="f-name" class="form-input" placeholder="যেমন: গ্রিন লাইফ ফাউন্ডেশন" required>
           </div>
         </div>
 
-        <!-- Phone / Email Field with Send OTP Button -->
+        <!-- Email or Mobile Number Field with OTP -->
         <div class="form-group">
-          <label class="form-label">মোবাইল নম্বর অথবা ইমেইল <span>*</span></label>
-          <div class="phone-input-group">
+          <label class="form-label">ইমেইল অথবা মোবাইল নম্বর <span>*</span></label>
+          <div class="contact-input-group">
             <div class="input-wrapper" style="flex: 1;">
-              <i class="fa-solid fa-address-card input-icon-left"></i>
-              <input type="text" id="found-contact" class="form-input" placeholder="01XXXXXXXXX অথবা email@domain.com" value="01712111111" required>
+              <i class="fa-regular fa-envelope input-icon-left"></i>
+              <input type="text" id="f-contact" class="form-input" placeholder="ইমেইল বা 01XXXXXXXXX লিখুন" value="01712345678" required>
             </div>
-            <button type="button" id="btn-trigger-found-otp" onclick="handleSendFoundOtp()" class="btn-send-otp">
+            <button type="button" id="btn-trigger-otp" onclick="handleSendOtp()" class="btn-send-otp">
               <i class="fa-solid fa-paper-plane mr-1"></i> ওটিপি পাঠান
             </button>
           </div>
         </div>
 
-        <!-- OTP Verification Drawer -->
-        <div class="otp-box" id="found-otp-box">
+        <!-- Dynamic OTP Verification Box -->
+        <div class="otp-box" id="otp-verification-box">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 12px; font-weight: 700; color: #166534;"><i class="fa-solid fa-shield-halved"></i> ওটিপি কোড যাচাই</span>
-            <span id="found-otp-timer" style="font-size: 11px; font-weight: 600; color: #64748b;">০০:৫৯</span>
+            <span id="otp-timer" style="font-size: 11px; font-weight: 600; color: #64748b;">০০:৫৯</span>
           </div>
-          <p style="font-size: 11px; color: #475569; margin-top: 2px;">আপনার নাম্বারে প্রেরিত ৪-সংখ্যার ওটিপি কোড লিখুন:</p>
+          <p style="font-size: 11px; color: #475569; margin-top: 2px;">আপনার ইমেইল বা মোবাইলে পাঠানো ৪-সংখ্যার ওটিপি কোডটি লিখুন:</p>
           
           <div class="otp-inputs">
-            <input type="text" maxlength="1" class="otp-digit" value="1" id="f-otp-1">
-            <input type="text" maxlength="1" class="otp-digit" value="2" id="f-otp-2">
-            <input type="text" maxlength="1" class="otp-digit" value="3" id="f-otp-3">
-            <input type="text" maxlength="1" class="otp-digit" value="4" id="f-otp-4">
+            <input type="text" maxlength="1" class="otp-digit" value="1">
+            <input type="text" maxlength="1" class="otp-digit" value="2">
+            <input type="text" maxlength="1" class="otp-digit" value="3">
+            <input type="text" maxlength="1" class="otp-digit" value="4">
           </div>
 
-          <button type="button" onclick="verifyFoundOtpCode()" class="btn-verify-code">
+          <button type="button" onclick="verifyOtpCode()" class="btn-verify-code">
             <i class="fa-solid fa-check"></i> কোড যাচাই করুন
           </button>
           
           <div style="text-align: center; margin-top: 6px;">
-            <button type="button" onclick="handleSendFoundOtp()" style="background: none; border: none; font-size: 11px; color: var(--primary-green); font-weight: 700; cursor: pointer;">কোড পাননি? পুনরায় পাঠান</button>
+            <button type="button" onclick="handleSendOtp()" style="background: none; border: none; font-size: 11px; color: var(--primary-green); font-weight: 700; cursor: pointer;">কোড পাননি? পুনরায় পাঠান</button>
           </div>
         </div>
 
@@ -301,30 +313,29 @@
           <label class="form-label">পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৬ অক্ষর) <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-solid fa-lock input-icon-left"></i>
-            <input type="password" id="found-password" class="form-input" placeholder="••••••••" minlength="6" value="123456" required>
+            <input type="password" id="f-password" class="form-input" placeholder="••••••••" minlength="6" value="123456" required>
           </div>
         </div>
 
         <!-- Terms Checkbox -->
         <div style="display: flex; align-items: center; gap: 8px; margin: 16px 0;">
-          <input type="checkbox" id="found-terms" checked required style="accent-color: var(--primary-green); width: 16px; height: 16px;">
-          <label for="found-terms" style="font-size: 12px; color: #475569; cursor: pointer;">আমি বন্ধু নেটওয়ার্কের প্রাতিষ্ঠানিক নিয়ম ও নীতিমালা মেনে নিচ্ছি।</label>
+          <input type="checkbox" id="f-terms" checked required style="accent-color: var(--primary-green); width: 16px; height: 16px;">
+          <label for="f-terms" style="font-size: 12px; color: #475569; cursor: pointer;">আমি বন্ধু নেটওয়ার্কের সকল নিয়ম ও শর্তাবলী মেনে নিচ্ছি।</label>
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn-submit">
-          <i class="fa-solid fa-city"></i> প্রতিষ্ঠান নিবন্ধন সম্পন্ন করুন
+          <i class="fa-solid fa-circle-check"></i> প্রতিষ্ঠান নিবন্ধন সম্পন্ন করুন
         </button>
 
         <div class="auth-links">
-          <span>ইতিমধ্যে নিবন্ধিত?</span>
+          <span>ইতিমধ্যে অ্যাকাউন্ট আছে?</span>
           <a href="login.html">লগইন করুন</a>
         </div>
 
         <div style="margin-top: 14px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 12px;">
-          <span style="font-size: 12px; color: #64748b;">ব্যক্তিগত রক্তদাতা / সদস্য হিসেবে যুক্ত হতে চান?</span>
-          <a href="register.html" style="font-size: 12px; font-weight: 800; color: #0b5a35; display: block; margin-top: 3px;">
-            সদস্য হিসেবে নিবন্ধন করুন &rarr;
+          <a href="foundations.html" style="font-size: 12px; font-weight: 800; color: var(--primary-green);">
+            &larr; সকল ফাউন্ডেশন তালিকায় ফিরে যান
           </a>
         </div>
       </form>
@@ -356,21 +367,19 @@
   </footer>
 
   <script>
-    let isFoundVerified = false;
-
-    function handleSendFoundOtp() {
-      const contact = document.getElementById('found-contact').value;
-      if (!contact || contact.length < 5) {
-        alert('অনুগ্রহ করে সঠিক মোবাইল নম্বর অথবা ইমেইল দিন।');
+    function handleSendOtp() {
+      const contact = document.getElementById('f-contact').value;
+      if (!contact) {
+        alert('অনুগ্রহ করে ইমেইল অথবা মোবাইল নম্বর দিন।');
         return;
       }
-      document.getElementById('found-otp-box').classList.add('show');
-      startFoundOtpTimer();
+      document.getElementById('otp-verification-box').classList.add('show');
+      startOtpTimer();
     }
 
-    function startFoundOtpTimer() {
+    function startOtpTimer() {
       let seconds = 59;
-      const timerElem = document.getElementById('found-otp-timer');
+      const timerElem = document.getElementById('otp-timer');
       const interval = setInterval(() => {
         if (seconds <= 0) {
           clearInterval(interval);
@@ -382,19 +391,18 @@
       }, 1000);
     }
 
-    function verifyFoundOtpCode() {
-      isFoundVerified = true;
-      const otpBox = document.getElementById('found-otp-box');
-      const btn = document.getElementById('btn-trigger-found-otp');
+    function verifyOtpCode() {
+      const otpBox = document.getElementById('otp-verification-box');
+      const btn = document.getElementById('btn-trigger-otp');
       btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> যাচাইকৃত ✓';
       btn.classList.add('verified');
       otpBox.classList.remove('show');
-      alert('যাচাইকরণ সফল হয়েছে!');
+      alert('ওটিপি সফলভাবে যাচাই হয়েছে!');
     }
 
-    document.getElementById('auth-foundation-register-form').addEventListener('submit', (e) => {
+    document.getElementById('auth-foundation-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('প্রতিষ্ঠান সফলভাবে নিবন্ধিত হয়েছে! Application ID: BON-2026-0007');
+      alert('প্রতিষ্ঠান নিবন্ধন সফল হয়েছে! Application ID: BON-2026-0007');
       window.location.href = 'foundations.html';
     });
 
