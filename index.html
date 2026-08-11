@@ -74,9 +74,17 @@
   .meta-item { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
   .meta-item .dot { width: 18px; height: 18px; object-fit: contain; border-radius: 50%; }
 
+  .mobile-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+
   .lang-switcher {
     display: inline-flex; background: #f3f4f6; border-radius: 8px;
     padding: 2px; font-size: 12px; font-weight: 700;
+    align-items: center;
   }
   .lang-switcher button {
     border: 0; background: transparent; color: #667085;
@@ -91,8 +99,12 @@
     background: var(--green-dark); color: #fff;
     padding: 8px 18px; border-radius: 8px;
     font-size: 13px; font-weight: 600;
-    display: flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 36px;
+    text-decoration: none;
+    transition: background 0.2s;
   }
+  .login-btn:hover { background: var(--green); }
   .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
   /* Quick Navigation Bar */
@@ -368,15 +380,10 @@
     .brand-text p{font-size:10px;line-height:1.2;}
     .mobile-header-right{
       grid-column:2;
-      grid-row:1 / span 2;
-      display:grid;
-      grid-template-columns:auto auto;
-      grid-template-areas:
-        "menu login"
-        "lang lang";
-      justify-items:end;
+      display:flex;
       align-items:center;
-      gap:6px;
+      gap:8px;
+      margin-left:auto;
     }
     .mobile-menu-btn{
       grid-area:menu;
@@ -671,12 +678,10 @@
     .mobile-header-right{
       grid-column:2;
       grid-row:1;
-      display:grid;
-      grid-template-columns:auto auto auto;
-      grid-template-areas:"lang login menu";
+      display:flex;
       align-items:center;
-      justify-items:end;
-      gap:5px;
+      gap:6px;
+      margin-left:auto;
     }
     .lang-switcher{
       grid-area:lang;
