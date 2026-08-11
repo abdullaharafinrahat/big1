@@ -175,6 +175,110 @@
   .auth-links a { color: var(--primary-green); font-weight: 700; text-decoration: none; margin-left: 5px; }
   .auth-links a:hover { text-decoration: underline; }
 
+  /* Success Modal Popup */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .modal-backdrop.active {
+    display: flex;
+  }
+
+  .modal-card {
+    background: #ffffff;
+    border-radius: 16px;
+    max-width: 480px;
+    width: 100%;
+    padding: 28px 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: modalScale 0.25s ease-in-out;
+  }
+
+  @keyframes modalScale {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 12px;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.2);
+  }
+
+  .modal-title { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+  .modal-desc { font-size: 13px; color: #64748b; margin-bottom: 16px; }
+
+  .modal-summary-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: left;
+    font-size: 12.5px;
+    margin-bottom: 20px;
+    space-y: 6px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    color: #475569;
+  }
+
+  .summary-row strong {
+    color: #0f172a;
+  }
+
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-modal-primary {
+    flex: 1;
+    background: var(--primary-green);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-modal-primary:hover { background: #004d40; }
+
+  .btn-modal-secondary {
+    flex: 1;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
   /* Shared Footer */
   footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
   .footer-top { max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
@@ -192,10 +296,7 @@
   .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
 
-  @media (max-width: 900px) {
-    .topbar-meta { display: none; }
-  }
-
+  @media (max-width: 900px) { .topbar-meta { display: none; } }
   @media (max-width: 768px) {
     header.topbar { padding: 8px 12px; }
     .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
@@ -212,32 +313,30 @@
 <body>
 
   <!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
 
   <!-- Main Center Wrapper -->
   <main class="main-wrapper">
@@ -259,7 +358,7 @@
 
       <!-- Welcome Heading -->
       <div class="welcome-text">প্রতিষ্ঠান নিবন্ধন</div>
-      <div class="sub-welcome-text">ইমেইল বা মোবাইল নম্বর দিয়ে সহজ নিবন্ধন</div>
+      <div class="sub-welcome-text">ইমেইল বা মোবাইল নম্বর দিয়ে সহজ ও দ্রুত নিবন্ধন</div>
 
       <!-- Single-Step Foundation Registration Form -->
       <form id="auth-foundation-form">
@@ -269,6 +368,22 @@
           <div class="input-wrapper">
             <i class="fa-solid fa-building-ngo input-icon-left"></i>
             <input type="text" id="f-name" class="form-input" placeholder="যেমন: গ্রিন লাইফ ফাউন্ডেশন" required>
+          </div>
+        </div>
+
+        <!-- Foundation Type Selection (Added as requested) -->
+        <div class="form-group">
+          <label class="form-label">প্রতিষ্ঠানের ধরন / ক্ষেত্র <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-list-check input-icon-left"></i>
+            <select id="f-type" class="form-input" style="padding-left: 36px;" required>
+              <option value="Social Welfare">Social Welfare (সমাজকল্যাণ)</option>
+              <option value="Blood Service" selected>Blood Service (রক্তদান নেটওয়ার্ক)</option>
+              <option value="Education & Research">Education & Research (শিক্ষা ও গবেষণা)</option>
+              <option value="Health & Medical">Health & Medical (স্বাস্থ্যসেবা ও চিকিৎসা)</option>
+              <option value="Disaster Relief & Humanitarian">Disaster Relief (দুর্যোগ ও মানবিক সহায়তা)</option>
+              <option value="Youth & Volunteer Welfare">Youth & Volunteer (যুব ও স্বেচ্ছাসেবক কল্যাণ)</option>
+            </select>
           </div>
         </div>
 
@@ -345,6 +460,28 @@
     </div>
   </main>
 
+  <!-- Success Popup Modal (No browser alerts) -->
+  <div class="modal-backdrop" id="foundation-success-modal">
+    <div class="modal-card">
+      <div class="modal-icon-wrap"><i class="fa-solid fa-circle-check"></i></div>
+      <h3 class="modal-title">নিবন্ধন সফলভাবে সম্পন্ন হয়েছে!</h3>
+      <p class="modal-desc">বন্ধু প্ল্যাটফর্মে আপনার প্রতিষ্ঠান তালিকাভুক্তির আবেদন গৃহীত হয়েছে।</p>
+
+      <div class="modal-summary-box">
+        <div class="summary-row"><span>অ্যাপ্লিকেশন আইডি:</span> <strong id="pop-app-id">BON-2026-0007</strong></div>
+        <div class="summary-row"><span>প্রতিষ্ঠানের নাম:</span> <strong id="pop-org-name">গ্রিন লাইফ ফাউন্ডেশন</strong></div>
+        <div class="summary-row"><span>প্রতিষ্ঠানের ধরন:</span> <strong id="pop-org-type">Blood Service</strong></div>
+        <div class="summary-row"><span>যোগাযোগ:</span> <strong id="pop-org-contact">01712-345678</strong></div>
+        <div class="summary-row"><span>স্ট্যাটাস:</span> <span style="color: #16a34a; font-weight: 700;">Pending Verification ✓</span></div>
+      </div>
+
+      <div class="modal-buttons">
+        <a href="foundations.html" class="btn-modal-primary"><i class="fa-solid fa-building-ngo mr-1"></i> ফাউন্ডেশন তালিকা দেখুন</a>
+        <a href="login.html" class="btn-modal-secondary"><i class="fa-solid fa-right-to-bracket mr-1"></i> লগইন করুন</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Shared Footer -->
   <footer>
     <div class="footer-top">
@@ -399,13 +536,21 @@
       btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> যাচাইকৃত ✓';
       btn.classList.add('verified');
       otpBox.classList.remove('show');
-      alert('ওটিপি সফলভাবে যাচাই হয়েছে!');
     }
 
+    // Submit handler - Open Success Modal Popup instead of alert
     document.getElementById('auth-foundation-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('প্রতিষ্ঠান নিবন্ধন সফল হয়েছে! Application ID: BON-2026-0007');
-      window.location.href = 'foundations.html';
+      const orgName = document.getElementById('f-name').value || 'আপনার প্রতিষ্ঠান';
+      const orgType = document.getElementById('f-type').value || 'Social Welfare';
+      const orgContact = document.getElementById('f-contact').value || '01XXXXXXXXX';
+
+      document.getElementById('pop-org-name').textContent = orgName;
+      document.getElementById('pop-org-type').textContent = orgType;
+      document.getElementById('pop-org-contact').textContent = orgContact;
+
+      // Show Popup Modal
+      document.getElementById('foundation-success-modal').classList.add('active');
     });
 
     document.querySelectorAll('.otp-digit').forEach((input, idx, inputs) => {

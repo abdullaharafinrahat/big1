@@ -26,7 +26,16 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
-  body { background-color: #f5f6f8; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+  html, body {
+    background-color: #f5f6f8;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
 
   /* Header Topbar */
   header.topbar {
@@ -41,6 +50,7 @@
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 14px rgba(0,0,0,.06);
+    width: 100%;
   }
 
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0; }
@@ -93,6 +103,7 @@
     justify-content: center;
     align-items: center;
     padding: 36px 16px;
+    width: 100%;
   }
 
   .register-card {
@@ -163,6 +174,34 @@
   .auth-links a { color: #0b5a35; font-weight: 700; text-decoration: none; margin-left: 5px; }
   .auth-links a:hover { text-decoration: underline; }
 
+  /* Success Popup Modal */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .modal-backdrop.active { display: flex; }
+  .modal-card {
+    background: #ffffff; border-radius: 16px; max-width: 460px; width: 100%; padding: 28px 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center; animation: modalScale 0.25s ease-in-out;
+  }
+  @keyframes modalScale { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+  .modal-icon-wrap { width: 64px; height: 64px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 12px; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.2); }
+  .modal-title { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+  .modal-desc { font-size: 13px; color: #64748b; margin-bottom: 16px; }
+  .modal-summary-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; text-align: left; font-size: 12.5px; margin-bottom: 20px; }
+  .summary-row { display: flex; justify-content: space-between; padding: 3px 0; color: #475569; }
+  .summary-row strong { color: #0f172a; }
+  .modal-buttons { display: flex; gap: 10px; }
+  .btn-modal-primary { flex: 1; background: #0b5a35; color: white; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-modal-primary:hover { background: #084327; }
+  .btn-modal-secondary { flex: 1; background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block; }
+
   /* Shared Footer */
   footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
   .footer-top { max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
@@ -181,9 +220,9 @@
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
   .dev-by a:hover { text-decoration: underline; }
 
+  @media (max-width: 900px) { .topbar-meta { display: none; } }
   @media (max-width: 768px) {
     header.topbar { padding: 8px 12px; }
-    .topbar-meta { display: none; }
     .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
     .brand-text h1 { font-size: 16px; }
     .brand-text p { display: none; }
@@ -198,32 +237,30 @@
 <body>
 
   <!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
 
   <!-- Main Center Wrapper -->
   <main class="main-wrapper">
@@ -272,7 +309,7 @@
           </div>
         </div>
 
-        <!-- OTP Verification Box (Dynamic Drawer) -->
+        <!-- OTP Verification Box -->
         <div class="otp-box" id="otp-verification-box">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 12px; font-weight: 700; color: #166534;"><i class="fa-solid fa-shield-halved"></i> ওটিপি কোড যাচাই</span>
@@ -281,10 +318,10 @@
           <p style="font-size: 11px; color: #475569; margin-top: 2px;">আপনার মোবাইল নম্বরে পাঠানো ৪-সংখ্যার ওটিপি কোডটি লিখুন:</p>
           
           <div class="otp-inputs">
-            <input type="text" maxlength="1" class="otp-digit" value="1" id="otp-1">
-            <input type="text" maxlength="1" class="otp-digit" value="2" id="otp-2">
-            <input type="text" maxlength="1" class="otp-digit" value="3" id="otp-3">
-            <input type="text" maxlength="1" class="otp-digit" value="4" id="otp-4">
+            <input type="text" maxlength="1" class="otp-digit" value="1">
+            <input type="text" maxlength="1" class="otp-digit" value="2">
+            <input type="text" maxlength="1" class="otp-digit" value="3">
+            <input type="text" maxlength="1" class="otp-digit" value="4">
           </div>
 
           <button type="button" onclick="verifyOtpCode()" class="btn-verify-code">
@@ -332,6 +369,27 @@
     </div>
   </main>
 
+  <!-- Success Popup Modal -->
+  <div class="modal-backdrop" id="user-success-modal">
+    <div class="modal-card">
+      <div class="modal-icon-wrap"><i class="fa-solid fa-circle-check"></i></div>
+      <h3 class="modal-title">নিবন্ধন সফলভাবে সম্পন্ন হয়েছে!</h3>
+      <p class="modal-desc">বন্ধু পরিবারে আপনাকে আন্তরিক স্বাগতম।</p>
+
+      <div class="modal-summary-box">
+        <div class="summary-row"><span>মেম্বার আইডি:</span> <strong id="pop-user-id">BON-2026-08819</strong></div>
+        <div class="summary-row"><span>নাম:</span> <strong id="pop-user-name">মো: আরিফুল ইসলাম</strong></div>
+        <div class="summary-row"><span>মোবাইল:</span> <strong id="pop-user-phone">01712-345678</strong></div>
+        <div class="summary-row"><span>স্ট্যাটাস:</span> <span style="color: #16a34a; font-weight: 700;">Active Member ✓</span></div>
+      </div>
+
+      <div class="modal-buttons">
+        <a href="dashboard.html" class="btn-modal-primary"><i class="fa-solid fa-gauge mr-1"></i> ড্যাশবোর্ডে প্রবেশ করুন</a>
+        <a href="login.html" class="btn-modal-secondary"><i class="fa-solid fa-right-to-bracket mr-1"></i> লগইন করুন</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Shared Footer -->
   <footer>
     <div class="footer-top">
@@ -356,8 +414,6 @@
   </footer>
 
   <script>
-    let isPhoneVerified = false;
-
     function handleSendOtp() {
       const phone = document.getElementById('reg-phone').value;
       if (!phone || phone.length < 11) {
@@ -383,19 +439,24 @@
     }
 
     function verifyOtpCode() {
-      isPhoneVerified = true;
       const otpBox = document.getElementById('otp-verification-box');
       const btn = document.getElementById('btn-trigger-otp');
       btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> যাচাইকৃত ✓';
       btn.classList.add('verified');
       otpBox.classList.remove('show');
-      alert('মোবাইল নম্বর সফলভাবে যাচাই হয়েছে!');
     }
 
+    // Submit handler - show popup modal instead of alert
     document.getElementById('auth-register-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে! ড্যাশবোর্ডে আপনাকে স্বাগতম।');
-      window.location.href = 'dashboard.html';
+      const name = document.getElementById('reg-name').value || 'নতুন সদস্য';
+      const phone = document.getElementById('reg-phone').value || '01XXXXXXXXX';
+
+      document.getElementById('pop-user-name').textContent = name;
+      document.getElementById('pop-user-phone').textContent = phone;
+
+      // Show Popup Modal
+      document.getElementById('user-success-modal').classList.add('active');
     });
 
     document.querySelectorAll('.otp-digit').forEach((input, idx, inputs) => {
