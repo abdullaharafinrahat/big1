@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-
 <html lang="bn">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Bondhu Healthcare - Registration</title>
-
-<link href="../css/base.css" rel="stylesheet"/><link href="../css/components.css" rel="stylesheet"/><link href="../css/pages/register.css" rel="stylesheet"/><link href="../css/layout.css" rel="stylesheet"/><style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Bondhu.org - নতুন অ্যাকাউন্ট তৈরি</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
   /* === Shared Header & Footer System Cloned from index.html === */
   :root {
     --green-dark: #0b5a35;
@@ -22,6 +25,22 @@
     --radius: 14px;
   }
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+  }
+
+  body {
+    background-color: #f5f6f8;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -114,8 +133,202 @@
     margin-right: 3px;
   }
 
+  /* Main Wrapper - Pushes Footer to bottom */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 16px;
+  }
+
+  .register-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eef0f3;
+    padding: 28px 32px 24px 32px;
+    position: relative;
+  }
+
+  /* Card Logo & Header */
+  .header-logo {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #d32f2f;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.25);
+  }
+
+  .logo-icon i {
+    color: white;
+    font-size: 20px;
+  }
+
+  .card-brand-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0b5a35;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .card-brand-title span { color: #d32f2f; }
+
+  .brand-subtitle {
+    font-size: 13px;
+    color: #666666;
+    margin-top: 2px;
+  }
+
+  .divider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 14px 0 18px;
+    position: relative;
+  }
+
+  .divider-line {
+    height: 1px;
+    background-color: #e5e7eb;
+    width: 100%;
+  }
+
+  .divider-drop {
+    position: absolute;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #d32f2f;
+    font-size: 12px;
+  }
+
+  .welcome-text {
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2px;
+  }
+
+  .sub-welcome-text {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+
+  /* Form Inputs */
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+
+  .form-label span { color: var(--red); }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-icon-left {
+    position: absolute;
+    left: 12px;
+    color: #888888;
+    font-size: 14px;
+  }
+
+  .form-input {
+    width: 100%;
+    height: 42px;
+    padding: 8px 12px 8px 36px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .form-input:focus {
+    border-color: #0b5a35;
+    box-shadow: 0 0 0 3px rgba(11, 90, 53, 0.1);
+  }
+
+  .form-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  /* Primary Button */
+  .btn-submit {
+    width: 100%;
+    height: 44px;
+    background-color: #0b5a35;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 4px 12px rgba(11, 90, 53, 0.2);
+    margin-top: 10px;
+  }
+
+  .btn-submit:hover {
+    background-color: #084327;
+    transform: translateY(-1px);
+  }
+
+  .auth-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .auth-links a {
+    color: #0b5a35;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 5px;
+  }
+
+  .auth-links a:hover {
+    text-decoration: underline;
+  }
+
   /* Shared Footer */
-  footer { background: var(--green-dark); color: #eaf3ee; margin-top: 30px; }
+  footer {
+    background: var(--green-dark);
+    color: #eaf3ee;
+    margin-top: auto;
+    width: 100%;
+  }
+
   .footer-top {
     max-width: 1200px; margin: 0 auto; padding: 20px 24px;
     display: flex; align-items: center; justify-content: space-between;
@@ -156,221 +369,235 @@
     .brand-text p { font-size: 9.5px; }
     .login-btn { min-height: 32px; height: 32px; padding: 4px 10px; font-size: 11.5px; }
     .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
+    .register-card { padding: 20px 16px; }
+    .form-row { flex-direction: column; gap: 0; }
     .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
   }
-
-</style>
+  </style>
 </head>
-<body><!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
-<div class="sim-shell">
-<main class="sim-main">
-<section aria-label="Registration type" class="account-type-section">
-<article class="account-type-card" data-account-type="user">
-<div class="account-type-icon"><img alt="New user" src="../assets/images/service-icons/people-group.png"/></div>
-<div>
-<h3>New User</h3>
-<p>Register as a new user</p>
-<a href="register.html?type=user">Register<span>→</span></a>
-</div>
-</article>
-<article class="account-type-card" data-account-type="institution">
-<div class="account-type-icon"><img alt="Institution" src="../assets/images/service-icons/hospital-building.png"/></div>
-<div>
-<h3>Institution</h3>
-<p>Register your institution</p>
-<a href="register.html?type=institution">Register<span>→</span></a>
-</div>
-</article>
-</section>
-<section class="sim-card choose-section" hidden="" id="choose-section"><button class="btn soft account-type-back" id="back-account-type-btn" type="button">← Back</button>
-<div class="section-heading">
-<div>
-<h3>Choose registration method</h3>
-<p>Select how you want to create your Bondhu Healthcare account.</p>
-</div>
-</div>
-<div class="method-grid">
-<button class="method-card" data-method="mobile" type="button">
-<img alt="Mobile registration" src="../assets/images/service-icons/emergency-call.png"/>
-<span>
-<strong>Mobile Registration</strong>
-<small>Bangladesh number</small>
-<em>OTP verification</em>
-</span>
-</button>
-<button class="method-card" data-method="email" type="button">
-<img alt="Email registration" src="../assets/images/service-icons/news.png"/>
-<span>
-<strong>Email Registration</strong>
-<small>International / expatriate user</small>
-<em>Email verification</em>
-</span>
-</button>
-</div>
-</section>
-<section class="sim-card registration-section" hidden="" id="registration-section">
-<div class="section-toolbar">
-<div>
-<p class="eyebrow" id="selected-method-label">Mobile Registration</p>
-<h2>Registration Form</h2>
-</div>
-<button class="btn outline" id="change-method-btn" type="button">Change Method</button>
-</div>
-<div class="step-panels">
-<form class="step-panel is-active" data-step="form" id="identity-form">
-<div class="panel-title"><span>2</span><strong>Enter Information</strong></div>
-<div class="form-grid">
-<label>নাম *<input name="name" placeholder="আপনার পূর্ণ নাম লিখুন" required="" type="text"/></label>
-<label class="mobile-field">মোবাইল নম্বর *<span class="phone-row"><b>🇧🇩 +880</b><input name="phone" placeholder="1XXXXXXXXX" type="tel"/></span></label>
-<label class="email-field" hidden="">ইমেইল ঠিকানা *<input name="email" placeholder="name@example.com" type="email"/></label>
-<label>রেফারেল আইডি (ঐচ্ছিক)<input name="referralId" placeholder="REF123" type="text"/></label>
-</div>
-<div class="action-row">
-<button class="btn green" type="submit">Send Code</button>
-<p class="hint" id="identity-hint">Choose method and fill up required information.</p>
-</div>
-</form>
-<form class="step-panel" data-step="verify" hidden="" id="otp-form">
-<div class="panel-title"><span>3</span><strong>Verify OTP / Code</strong></div>
-<p class="notice-box" id="code-message">Enter the verification code sent to you.</p>
-<div aria-label="Verification code" class="otp-row" id="otp-row"></div>
-<div class="action-row">
-<button class="btn green" type="submit">Verify Code</button>
-<button class="btn soft" id="resend-code" type="button">Resend Code</button>
-</div>
-</form>
-<form class="step-panel" data-step="password" hidden="" id="password-form">
-<div class="panel-title"><span>4</span><strong>Set Password</strong></div>
-<div class="form-grid two">
-<label>পাসওয়ার্ড তৈরি করুন *<input minlength="6" name="password" placeholder="Minimum 6 characters" required="" type="password"/></label>
-<label>পাসওয়ার্ড নিশ্চিত করুন *<input minlength="6" name="passwordConfirm" placeholder="Confirm password" required="" type="password"/></label>
-</div>
-<label class="check-line"><input name="terms" required="" type="checkbox"/> I agree to the Terms &amp; Conditions</label>
-<div class="action-row">
-<button class="btn red" type="submit">Create Account</button>
-</div>
-</form>
-<article class="step-panel success-panel" data-step="dashboard" hidden="" id="success-panel">
-<div class="success-icon">✓</div>
-<h2>Account Created Successfully</h2>
-<p id="success-summary">Your account is ready.</p>
-<button class="btn red" id="open-dashboard-btn" type="button">Go to Dashboard</button>
-</article>
-</div>
-</section>
-</main><!-- FOOTER -->
-<footer>
-<div class="footer-top">
-<div class="footer-brand">
-<div class="logo-badge">B</div>
-<div>
-<h2>Bondhu<span>.</span></h2>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</div>
-<div class="footer-links">
-<a href="mailto:help@bondhu.local">Contact</a>
-<a href="../pages/donor-register.html">Donation</a>
-<a href="../pages/news.html">Privacy Policy</a>
-<a href="../pages/news.html">Terms &amp; Conditions</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2026 Bondhu. All Rights Reserved.</span>
-<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
-</div>
-</footer>
-</div>
-<div aria-live="polite" class="toast-region" id="toast-region"></div>
-<script src="../js/main.js" type="module"></script><script src="../js/pages/register.page.js"></script>
+<body>
 
-<script>
-  // Shared Dynamic Language & Calendar Scripting
-  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
-  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
-  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+  <!-- TOP HEADER -->
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <!-- PC Topbar Meta Items (Date/Calendar) -->
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <!-- Mobile & Desktop Language + Login Actions -->
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
 
-  function getBanglaDate(date = new Date(), lang = getLang()) {
-    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
-    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
-    const year = date.getFullYear();
-    const startThisYear = new Date(year, 3, 14);
-    const startYear = date >= startThisYear ? year : year - 1;
-    const banglaYear = startYear - 593;
-    const startDate = new Date(startYear, 3, 14);
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    let dayIndex = Math.floor((today - startDate) / 86400000);
-    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
-    let month = 0;
-    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
-      dayIndex -= monthLengths[month];
-      month += 1;
+  <!-- Main Center Wrapper (Flex: 1 pushes footer to bottom) -->
+  <main class="main-wrapper">
+    <div class="register-card">
+
+      <!-- Header & Logo Section inside Card -->
+      <div class="header-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <div class="card-brand-title">Bondhu<span>.</span></div>
+        <div class="brand-subtitle">এক প্ল্যাটফর্ম, সকল সেবা</div>
+      </div>
+
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <div class="divider-drop"><i class="fa-solid fa-droplet"></i></div>
+      </div>
+
+      <!-- Welcome Heading -->
+      <div class="welcome-text">নতুন অ্যাকাউন্ট খুলুন</div>
+      <div class="sub-welcome-text">বন্ধু নেটওয়ার্কে যুক্ত হয়ে মানবতার সেবা করুন</div>
+
+      <!-- Form Section -->
+      <form id="auth-register-form">
+        <!-- Name Field -->
+        <div class="form-group">
+          <label class="form-label">আপনার পূর্ণ নাম <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user input-icon-left"></i>
+            <input type="text" class="form-input" placeholder="যেমন: মো: আরিফুল ইসলাম" required>
+          </div>
+        </div>
+
+        <!-- Phone Field -->
+        <div class="form-group">
+          <label class="form-label">মোবাইল নম্বর <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone input-icon-left"></i>
+            <input type="text" class="form-input" placeholder="01XXXXXXXXX" required>
+          </div>
+        </div>
+
+        <!-- Blood Group & Role Row -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">রক্তের গ্রুপ <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-droplet input-icon-left"></i>
+              <select class="form-input" style="padding-left: 36px;" required>
+                <option value="A+">A+ (Positive)</option>
+                <option value="A-">A- (Negative)</option>
+                <option value="B+">B+ (Positive)</option>
+                <option value="B-">B- (Negative)</option>
+                <option value="O+" selected>O+ (Positive)</option>
+                <option value="O-">O- (Negative)</option>
+                <option value="AB+">AB+ (Positive)</option>
+                <option value="AB-">AB- (Negative)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">ভূমিকা / ধরন <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-id-badge input-icon-left"></i>
+              <select class="form-input" style="padding-left: 36px;" required>
+                <option value="donor">রক্তদাতা (Volunteer Donor)</option>
+                <option value="user">সাধারণ ব্যবহারকারী (User)</option>
+                <option value="volunteer">সংগঠক (Volunteer)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৬ অক্ষর) <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon-left"></i>
+            <input type="password" class="form-input" placeholder="••••••••" minlength="6" required>
+          </div>
+        </div>
+
+        <!-- Terms Checkbox -->
+        <div style="display: flex; align-items: center; gap: 8px; margin: 16px 0;">
+          <input type="checkbox" id="reg-terms" checked required style="accent-color: #0b5a35; width: 16px; height: 16px;">
+          <label for="reg-terms" style="font-size: 12px; color: #475569; cursor: pointer;">আমি বন্ধু নেটওয়ার্কের নিয়ম ও গোপনীয়তা নীতি মেনে নিচ্ছি।</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-user-plus"></i> সাইন আপ ও অ্যাকাউন্ট তৈরি
+        </button>
+
+        <div class="auth-links">
+          <span>ইতিমধ্যে অ্যাকাউন্ট আছে?</span>
+          <a href="login.html">লগইন করুন</a>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- FOOTER (Always at bottom) -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="donor-register.html">Donation</a>
+        <a href="news.html">Privacy Policy</a>
+        <a href="news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('auth-register-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! ড্যাশবোর্ডে আপনাকে স্বাগতম।');
+      window.location.href = 'dashboard.html';
+    });
+
+    // Shared Dynamic Language & Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
     }
-    const day = dayIndex + 1;
-    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
-    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
-  }
 
-  function getArabicDate(date = new Date(), lang = getLang()) {
-    try {
-      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
-      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
-    } catch (error) {
-      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
     }
-  }
 
-  function applyLanguage(lang = getLang()) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
-    const date = new Date();
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
 
-    const gregElem = document.getElementById('gregorian-date');
-    const banglaElem = document.getElementById('bangla-calendar');
-    const arabicElem = document.getElementById('arabic-calendar');
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
 
-    if (gregElem) {
-      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
-      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
     }
-    if (banglaElem) {
-      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
-    }
-    if (arabicElem) {
-      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
-    }
-  }
 
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  applyLanguage(getLang());
-</script>
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
+  </script>
 </body>
 </html>
