@@ -31,7 +31,6 @@
     </script>
     <style>
 
-  
   /* === Shared Header & Footer System === */
   :root {
     --green-dark: #0b5a35;
@@ -274,7 +273,53 @@
     .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
     .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
   }
-</style>
+
+
+  /* === Page Specific Styles === */
+body {
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            background-color: #f1f5f9;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Mobile Menu Animations */
+        .sidebar-overlay {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .sidebar-panel {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Table responsive */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Active state indicator */
+        .nav-active {
+            background-color: #ecfdf5;
+            color: #0f5233;
+            font-weight: 600;
+        }
+        .nav-active .nav-dot {
+            background-color: #16a34a;
+        }
+        
+        /* Mobile card styles */
+        @media (max-width: 768px) {
+            .mobile-card {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+        }
+  </style>
 </head>
 <body class="bg-slate-100 text-slate-800 text-sm antialiased flex flex-col min-h-screen">
   
