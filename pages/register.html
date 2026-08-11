@@ -145,11 +145,11 @@
   .register-card {
     background: #ffffff;
     width: 100%;
-    max-width: 520px;
+    max-width: 500px;
     border-radius: 16px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
     border: 1px solid #eef0f3;
-    padding: 28px 32px 24px 32px;
+    padding: 28px 30px 24px 30px;
     position: relative;
   }
 
@@ -254,6 +254,7 @@
     left: 12px;
     color: #888888;
     font-size: 14px;
+    z-index: 2;
   }
 
   .form-input {
@@ -272,9 +273,94 @@
     box-shadow: 0 0 0 3px rgba(11, 90, 53, 0.1);
   }
 
-  .form-row {
+  /* Phone Verify Input Group */
+  .phone-input-group {
     display: flex;
-    gap: 12px;
+    gap: 6px;
+  }
+
+  .btn-send-otp {
+    background: #0b5a35;
+    color: white;
+    border: none;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .btn-send-otp:hover {
+    background: #084327;
+  }
+
+  .btn-send-otp.verified {
+    background: #2e7d32;
+    cursor: default;
+  }
+
+  /* OTP Verification Box */
+  .otp-box {
+    display: none;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 14px;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  .otp-box.show {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .otp-inputs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .otp-digit {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    outline: none;
+  }
+
+  .otp-digit:focus {
+    border-color: #0b5a35;
+    box-shadow: 0 0 0 3px rgba(11, 90, 53, 0.15);
+  }
+
+  .btn-verify-code {
+    width: 100%;
+    background: #0b5a35;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  .btn-verify-code:hover {
+    background: #084327;
   }
 
   /* Primary Button */
@@ -370,7 +456,6 @@
     .login-btn { min-height: 32px; height: 32px; padding: 4px 10px; font-size: 11.5px; }
     .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
     .register-card { padding: 20px 16px; }
-    .form-row { flex-direction: column; gap: 0; }
     .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
   }
@@ -435,48 +520,45 @@
           <label class="form-label">আপনার পূর্ণ নাম <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-regular fa-user input-icon-left"></i>
-            <input type="text" class="form-input" placeholder="যেমন: মো: আরিফুল ইসলাম" required>
+            <input type="text" id="reg-name" class="form-input" placeholder="আপনার পূর্ণ নাম লিখুন" required>
           </div>
         </div>
 
-        <!-- Phone Field -->
+        <!-- Phone Field with Send OTP Button -->
         <div class="form-group">
           <label class="form-label">মোবাইল নম্বর <span>*</span></label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-phone input-icon-left"></i>
-            <input type="text" class="form-input" placeholder="01XXXXXXXXX" required>
+          <div class="phone-input-group">
+            <div class="input-wrapper" style="flex: 1;">
+              <i class="fa-solid fa-phone input-icon-left"></i>
+              <input type="tel" id="reg-phone" class="form-input" placeholder="01XXXXXXXXX" value="01712345678" required>
+            </div>
+            <button type="button" id="btn-trigger-otp" onclick="handleSendOtp()" class="btn-send-otp">
+              <i class="fa-solid fa-paper-plane mr-1"></i> ওটিপি পাঠান
+            </button>
           </div>
         </div>
 
-        <!-- Blood Group & Role Row -->
-        <div class="form-row">
-          <div class="form-group" style="flex: 1;">
-            <label class="form-label">রক্তের গ্রুপ <span>*</span></label>
-            <div class="input-wrapper">
-              <i class="fa-solid fa-droplet input-icon-left"></i>
-              <select class="form-input" style="padding-left: 36px;" required>
-                <option value="A+">A+ (Positive)</option>
-                <option value="A-">A- (Negative)</option>
-                <option value="B+">B+ (Positive)</option>
-                <option value="B-">B- (Negative)</option>
-                <option value="O+" selected>O+ (Positive)</option>
-                <option value="O-">O- (Negative)</option>
-                <option value="AB+">AB+ (Positive)</option>
-                <option value="AB-">AB- (Negative)</option>
-              </select>
-            </div>
+        <!-- OTP Verification Box (Dynamic Drawer) -->
+        <div class="otp-box" id="otp-verification-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 12px; font-weight: 700; color: #166534;"><i class="fa-solid fa-shield-halved"></i> ওটিপি কোড যাচাই</span>
+            <span id="otp-timer" style="font-size: 11px; font-weight: 600; color: #64748b;">০০:৫৯</span>
+          </div>
+          <p style="font-size: 11px; color: #475569; margin-top: 2px;">আপনার মোবাইল নম্বরে পাঠানো ৪-সংখ্যার ওটিপি কোডটি লিখুন:</p>
+          
+          <div class="otp-inputs">
+            <input type="text" maxlength="1" class="otp-digit" value="1" id="otp-1">
+            <input type="text" maxlength="1" class="otp-digit" value="2" id="otp-2">
+            <input type="text" maxlength="1" class="otp-digit" value="3" id="otp-3">
+            <input type="text" maxlength="1" class="otp-digit" value="4" id="otp-4">
           </div>
 
-          <div class="form-group" style="flex: 1;">
-            <label class="form-label">ভূমিকা / ধরন <span>*</span></label>
-            <div class="input-wrapper">
-              <i class="fa-solid fa-id-badge input-icon-left"></i>
-              <select class="form-input" style="padding-left: 36px;" required>
-                <option value="donor">রক্তদাতা (Volunteer Donor)</option>
-                <option value="user">সাধারণ ব্যবহারকারী (User)</option>
-                <option value="volunteer">সংগঠক (Volunteer)</option>
-              </select>
-            </div>
+          <button type="button" onclick="verifyOtpCode()" class="btn-verify-code">
+            <i class="fa-solid fa-check"></i> কোড যাচাই করুন
+          </button>
+          
+          <div style="text-align: center; margin-top: 6px;">
+            <button type="button" onclick="handleSendOtp()" style="background: none; border: none; font-size: 11px; color: #0b5a35; font-weight: 700; cursor: pointer;">কোড পাননি? পুনরায় পাঠান</button>
           </div>
         </div>
 
@@ -485,7 +567,7 @@
           <label class="form-label">পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৬ অক্ষর) <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-solid fa-lock input-icon-left"></i>
-            <input type="password" class="form-input" placeholder="••••••••" minlength="6" required>
+            <input type="password" id="reg-password" class="form-input" placeholder="••••••••" minlength="6" value="123456" required>
           </div>
         </div>
 
@@ -533,10 +615,56 @@
   </footer>
 
   <script>
+    let isPhoneVerified = false;
+
+    function handleSendOtp() {
+      const phone = document.getElementById('reg-phone').value;
+      if (!phone || phone.length < 11) {
+        alert('অনুগ্রহ করে সঠিক ১১-সংখ্যার মোবাইল নম্বর দিন।');
+        return;
+      }
+      document.getElementById('otp-verification-box').classList.add('show');
+      startOtpTimer();
+    }
+
+    function startOtpTimer() {
+      let seconds = 59;
+      const timerElem = document.getElementById('otp-timer');
+      const interval = setInterval(() => {
+        if (seconds <= 0) {
+          clearInterval(interval);
+          timerElem.textContent = "সময় শেষ";
+        } else {
+          timerElem.textContent = `০০:${seconds < 10 ? '০' + seconds : seconds}`;
+          seconds--;
+        }
+      }, 1000);
+    }
+
+    function verifyOtpCode() {
+      isPhoneVerified = true;
+      const otpBox = document.getElementById('otp-verification-box');
+      const btn = document.getElementById('btn-trigger-otp');
+      
+      btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> যাচাইকৃত ✓';
+      btn.classList.add('verified');
+      otpBox.classList.remove('show');
+      alert('মোবাইল নম্বর সফলভাবে যাচাই হয়েছে!');
+    }
+
     document.getElementById('auth-register-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! ড্যাশবোর্ডে আপনাকে স্বাগতম।');
+      alert('রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে! ড্যাশবোর্ডে আপনাকে স্বাগতম।');
       window.location.href = 'dashboard.html';
+    });
+
+    // Auto focus next OTP digit
+    document.querySelectorAll('.otp-digit').forEach((input, idx, inputs) => {
+      input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && idx < inputs.length - 1) {
+          inputs[idx + 1].focus();
+        }
+      });
     });
 
     // Shared Dynamic Language & Calendar Scripting
