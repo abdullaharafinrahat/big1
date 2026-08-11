@@ -191,14 +191,7 @@
 </div>
 </header>
 
-<header class="app-header">
-<div class="app-header-inner">
-<button aria-label="Open menu" class="mobile-menu" id="mobile-menu" type="button">☰</button>
-<a class="app-brand" href="../../index.html"><div class="app-brand-icon"><i class="fa-solid fa-heart"></i></div><span><strong>Bondhu<span>.org</span></strong><small>Together for Humanity</small></span></a>
-<div class="date-chip" id="date-chip"></div>
-<div class="header-actions"><div class="lang-switcher"><button data-lang="bn" type="button">বাংলা</button><button data-lang="en" type="button">English</button></div><button class="notification" type="button"><i class="fa-regular fa-bell"></i><b>2</b></button><div class="user-chip"><div class="user-avatar"></div><strong class="app-user-name">Bondhu User</strong></div></div>
-</div>
-</header>
+
 <div class="app-layout">
 <aside class="sidebar" id="app-sidebar"><button class="drawer-close" id="drawer-close" type="button">×</button><nav><a data-page="dashboard" href="../dashboard.html"><span><i class="fa-solid fa-gauge w-4 text-center"></i></span>Dashboard</a>
 <a data-page="profile" href="../profile.html"><span><i class="fa-solid fa-user w-4 text-center"></i></span>Profile</a>
@@ -220,7 +213,7 @@
 <section class="grid" style="grid-template-columns:2fr 1fr"><article class="card"><div class="button-row" style="margin-top:0"><input id="verification-search" placeholder="Search by name or mobile"/><select id="verification-filter"><option value="all">All Status</option><option value="pending">Pending</option><option value="verified">Verified</option><option value="revision">Needs Correction</option></select></div><div class="table-wrap"><table class="data-table"><thead><tr><th>ID</th><th>Name</th><th>Mobile</th><th>Blood</th><th>Status</th><th>Action</th></tr></thead><tbody id="verification-body"></tbody></table></div></article><aside class="card"><h2>Review Note System</h2><div class="review-list" id="selected-user"><p><span>Select a user</span><strong>—</strong></p></div><label>Review Note<textarea id="review-note" maxlength="200" placeholder="Type review note here..."></textarea></label><div style="text-align:right;color:var(--muted);font-size:.75rem"><span id="note-count">0</span>/200</div><div class="review-list" id="note-history"><p><span>No notes yet</span></p></div><div class="button-row"><button class="btn primary" id="approve-user">Approve &amp; Verify</button><button class="btn soft" id="send-note">Send Review Note</button></div></aside></section>
 </main>
 </div>
-<footer class="footer"><span>📍 House #12, Road #05, Dhanmondi, Dhaka-1205</span><span>☎ +880 1712-345678 · ✉ info@bondhu.org</span><span>© 2026 Bondhu.org</span></footer>
+
 <div class="toast-region" id="toast-region"></div>
 <script src="../../js/pages/app-shell.js"></script>
 <script src="../../js/pages/admin-verification.page.js"></script>

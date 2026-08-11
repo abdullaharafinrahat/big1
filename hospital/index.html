@@ -173,78 +173,35 @@
   <!-- ========================================== -->
   <!-- PUBLIC WEBSITE INTERFACE FRONT             -->
   <!-- ========================================== -->
-  <div class="bg-white border-t-8 border-gray-300">
-
-    <!-- Header Top Bar -->
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between border-b text-xs">
-      <!-- Brand Logo -->
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center font-bold text-2xl">
-          <i class="fa-solid fa-heart-pulse text-red-400"></i>
-        </div>
-        <div>
-          <h1 class="font-bold text-gray-800 text-lg leading-tight">Bondhu</h1>
-          <p class="text-xs text-emerald-600 font-bold -mt-1">General Hospital</p>
-          <p class="text-[10px] text-gray-500">সবাই আমাদের অঙ্গীকার</p>
-        </div>
+  <!-- TOP HEADER -->
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
       </div>
-
-      <!-- Header Widgets & Contact Info -->
-      <div class="flex flex-wrap items-center gap-4 lg:gap-6">
-        <!-- Date Badges -->
-        <div class="hidden lg:flex items-center space-x-2">
-          <div class="border rounded px-2.5 py-1 bg-gray-50 text-gray-700 flex items-center space-x-2">
-            <i class="fa-regular fa-calendar text-gray-400"></i>
-            <div>
-              <p class="font-bold">08 July 2026</p>
-              <p class="text-[9px] text-gray-400 -mt-1">Tuesday</p>
-            </div>
-          </div>
-          <div class="border rounded px-2.5 py-1 bg-gray-50 text-gray-700 flex items-center space-x-2">
-            <i class="fa-solid fa-sun text-amber-500"></i>
-            <div>
-              <p class="font-bold">২৪ আষাঢ় ১৪৩৩</p>
-              <p class="text-[9px] text-gray-400 -mt-1">বাংলা</p>
-            </div>
-          </div>
-          <div class="border rounded px-2.5 py-1 bg-gray-50 text-gray-700 flex items-center space-x-2">
-            <i class="fa-solid fa-moon text-emerald-600"></i>
-            <div>
-              <p class="font-bold">২৩ মহররম ১৪৪৮</p>
-              <p class="text-[9px] text-gray-400 -mt-1">Hijri</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Language Switcher -->
-        <div class="flex border rounded overflow-hidden text-xs">
-          <button class="bg-emerald-600 text-white px-2.5 py-1 font-semibold">বাংলা</button>
-          <button class="bg-gray-100 text-gray-700 px-2.5 py-1 hover:bg-gray-200">English</button>
-        </div>
-
-        <!-- Emergency Contact & Login -->
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-          <div class="flex items-center space-x-2 text-red-600">
-            <i class="fa-solid fa-phone-volume text-xl"></i>
-            <div>
-              <p class="text-[10px] text-gray-500 uppercase font-semibold">Emergency</p>
-              <p class="font-bold text-sm leading-tight text-gray-900">10647</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-2 text-emerald-600">
-            <i class="fa-solid fa-ambulance text-xl"></i>
-            <div>
-              <p class="text-[10px] text-gray-500 uppercase font-semibold">Ambulance</p>
-              <p class="font-bold text-sm leading-tight text-gray-900">01712-345678</p>
-            </div>
-          </div>
-          <a href="admin.html" class="bg-blue-900 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-800 transition flex items-center space-x-1.5">
-            <i class="fa-regular fa-user"></i>
-            <span>Login</span>
-          </a>
-        </div>
-      </div>
+    </a>
+    <!-- PC Topbar Meta Items (Date/Calendar) -->
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
     </div>
+    <!-- Mobile & Desktop Language + Login Actions -->
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="../pages/login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="bg-white">
 
     <!-- Public Navigation Bar -->
     <nav class="bg-[#0B1E3D] text-white">
