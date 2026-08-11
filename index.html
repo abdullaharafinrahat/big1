@@ -68,17 +68,31 @@
   .mobile-menu-btn { display: none; } /* Hidden on PC */
 
   .topbar-meta {
-    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-    font-size: 12.5px; color: #3a463f;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #3a463f;
+    margin-left: auto;
+    margin-right: 16px;
   }
-  .meta-item { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .meta-item .dot { width: 18px; height: 18px; object-fit: contain; border-radius: 50%; }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    background: #f8f9fa;
+    border: 1px solid #e5e9e6;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .meta-item .dot { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
   .mobile-header-right {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-left: auto;
   }
 
   .lang-switcher {
