@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Bondhu.org - সাইন ইন</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-
   /* === Shared Header & Footer System Cloned from index.html === */
   :root {
     --green-dark: #0b5a35;
@@ -24,6 +25,22 @@
     --radius: 14px;
   }
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+  }
+
+  body {
+    background-color: #f5f6f8;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -116,8 +133,378 @@
     margin-right: 3px;
   }
 
+  /* Main Container */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+  }
+
+  .login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eef0f3;
+    padding: 28px 30px 20px 30px;
+    position: relative;
+  }
+
+  /* Header Logo Section inside Card */
+  .header-logo {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #d32f2f;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.25);
+  }
+
+  .logo-icon i {
+    color: white;
+    font-size: 20px;
+  }
+
+  .card-brand-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0b5a35;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .card-brand-title span { color: #d32f2f; }
+
+  .brand-subtitle {
+    font-size: 13px;
+    color: #666666;
+    margin-top: 2px;
+  }
+
+  .divider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 14px 0 16px;
+    position: relative;
+  }
+
+  .divider-line {
+    height: 1px;
+    background-color: #e5e7eb;
+    width: 100%;
+  }
+
+  .divider-drop {
+    position: absolute;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #d32f2f;
+    font-size: 12px;
+  }
+
+  /* Welcome Section */
+  .welcome-text {
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2px;
+  }
+
+  .sub-welcome-text {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+
+  /* Form Inputs */
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-icon-left {
+    position: absolute;
+    left: 12px;
+    color: #888888;
+    font-size: 14px;
+  }
+
+  .input-icon-right {
+    position: absolute;
+    right: 12px;
+    color: #888888;
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .form-input {
+    width: 100%;
+    height: 42px;
+    padding: 8px 36px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .form-input::placeholder {
+    color: #a0a5ba;
+  }
+
+  .form-input:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+  }
+
+  /* Remember Checkbox */
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .checkbox-container input {
+    margin-right: 8px;
+    accent-color: #d32f2f;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .checkbox-label {
+    font-size: 13px;
+    color: #333333;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  /* Primary Button */
+  .btn-submit {
+    width: 100%;
+    height: 44px;
+    background-color: #cc1d1d;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 4px 12px rgba(204, 29, 29, 0.2);
+  }
+
+  .btn-submit:hover {
+    background-color: #b31919;
+    transform: translateY(-1px);
+  }
+
+  /* Middle Section Lines */
+  .text-divider {
+    text-align: center;
+    position: relative;
+    margin: 18px 0;
+  }
+
+  .text-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #eeeeee;
+    z-index: 1;
+  }
+
+  .text-divider span {
+    background-color: #ffffff;
+    padding: 0 12px;
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    color: #777777;
+  }
+
+  .forgot-password {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .forgot-password a {
+    color: #0b5c9e;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+
+  /* Action Cards */
+  .action-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .card-box {
+    border-radius: 10px;
+    padding: 16px 12px 12px 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  .card-box:hover {
+    transform: translateY(-2px);
+  }
+
+  .card-box.green {
+    background-color: #f6fcf8;
+    border: 1px solid #e1f2e6;
+  }
+
+  .card-box.blue {
+    background-color: #f5f9ff;
+    border: 1px solid #e1edfd;
+  }
+
+  .card-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .card-box.green .card-icon-wrapper {
+    background-color: #e2f3e7;
+    color: #1b8e43;
+  }
+
+  .card-box.blue .card-icon-wrapper {
+    background-color: #e0edfd;
+    color: #0b5c9e;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .card-box.green .card-title { color: #116830; }
+  .card-box.blue .card-title { color: #0b5c9e; }
+
+  .card-desc {
+    font-size: 11px;
+    color: #666666;
+    margin-bottom: 12px;
+  }
+
+  .card-btn {
+    width: 100%;
+    height: 34px;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .card-btn:hover {
+    opacity: 0.9;
+  }
+
+  .card-box.green .card-btn { background-color: #116830; }
+  .card-box.blue .card-btn { background-color: #0b5c9e; }
+
+  /* Footer Info Panel */
+  .footer-info {
+    background-color: #fff5f5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border: 1px solid #fee2e2;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #444444;
+  }
+
+  .info-item i {
+    color: #d32f2f;
+    font-size: 14px;
+  }
+
+  .info-item.right {
+    text-align: right;
+  }
+
+  .phone-number {
+    font-weight: 800;
+    color: #d32f2f;
+    font-size: 12px;
+    display: block;
+  }
+
   /* Shared Footer */
-  footer { background: var(--green-dark); color: #eaf3ee; margin-top: 30px; }
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; }
   .footer-top {
     max-width: 1200px; margin: 0 auto; padding: 20px 24px;
     display: flex; align-items: center; justify-content: space-between;
@@ -158,463 +545,257 @@
     .brand-text p { font-size: 9.5px; }
     .login-btn { min-height: 32px; height: 32px; padding: 4px 10px; font-size: 11.5px; }
     .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
+    .login-card { padding: 20px 16px; }
+    .action-cards { grid-template-columns: 1fr; }
+    .footer-info { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .info-item.right { text-align: left; }
     .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
   }
-
-
-    :root {
-      --primary-red: #d32f2f;
-      --dark-red: #b71c1c;
-      --primary-green: #00695c;
-      --dark-green: #004d40;
-      --light-green: #e0f2f1;
-      --bg-light: #f4f6f8;
-      --border-color: #e0e0e0;
-      --text-dark: #333333;
-      --text-gray: #666666;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* Top Utility Header */
-    .top-header {
-      background: #ffffff;
-      padding: 8px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .brand-logo {
-      color: var(--primary-red);
-      font-size: 28px;
-    }
-
-    .brand-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #111;
-      line-height: 1.1;
-    }
-
-    .brand-title span {
-      color: var(--primary-red);
-    }
-
-    .brand-tagline {
-      font-size: 12px;
-      color: var(--primary-red);
-      font-weight: 600;
-      margin-top: -2px;
-    }
-
-    .date-widgets {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .date-box {
-      background: #f8f9fa;
-      border: 1px solid var(--border-color);
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      line-height: 1.2;
-    }
-
-    .date-box i {
-      color: var(--primary-red);
-      font-size: 14px;
-    }
-
-    .top-right-actions {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .lang-toggle {
-      display: flex;
-      border: 1px solid var(--primary-green);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .lang-toggle button {
-      border: none;
-      background: #fff;
-      padding: 4px 10px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .lang-toggle button.active {
-      background: var(--primary-green);
-      color: white;
-    }
-
-    .emergency-info {
-      display: flex;
-      gap: 15px;
-      font-size: 13px;
-    }
-
-    .emergency-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .emergency-item i {
-      color: var(--primary-red);
-      font-size: 16px;
-    }
-
-    .btn-login {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 6px 16px;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    /* Primary Navigation */
-    .main-nav {
-      background: var(--primary-green);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      overflow-x: auto;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-    }
-
-    .nav-links li a {
-      color: white;
-      text-decoration: none;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      white-space: nowrap;
-      transition: background 0.2s;
-    }
-
-    .nav-links li a:hover {
-      background: var(--primary-red);
-    }
-
-    .nav-right-btn {
-      background: #004d40;
-      color: white;
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      white-space: nowrap;
-      font-weight: 600;
-    }
-
-    /* Auth Card Container */
-    .auth-container {
-      max-width: 440px;
-      margin: 40px auto;
-      padding: 0 15px;
-    }
-
-    .auth-card {
-      background: white;
-      border-radius: 8px;
-      padding: 28px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-      border: 1px solid var(--border-color);
-    }
-
-    .auth-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-green);
-      text-align: center;
-      margin-bottom: 4px;
-    }
-
-    .auth-subtitle {
-      font-size: 12px;
-      color: var(--text-gray);
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #444;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary-green);
-    }
-
-    .btn-auth-submit {
-      width: 100%;
-      background: var(--primary-green);
-      color: white;
-      border: none;
-      padding: 11px;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s;
-    }
-
-    .btn-auth-submit:hover {
-      background: var(--dark-green);
-    }
-
-    .auth-links {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 16px;
-      font-size: 12px;
-    }
-
-    .auth-links a {
-      color: var(--primary-green);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .auth-links a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Top Utility Header -->
   <!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
-
-  <!-- Main Navigation Bar -->
-  <nav class="main-nav">
-    <ul class="nav-links">
-      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-      <li><a href="request-blood.html"><i class="fa-solid fa-droplet"></i> Blood Center</a></li>
-      <li><a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals</a></li>
-      <li><a href="ambulance.html"><i class="fa-solid fa-ambulance"></i> Ambulance</a></li>
-      <li><a href="donor-register.html"><i class="fa-solid fa-pills"></i> Donor Portal</a></li>
-      <li><a href="blood-tracking.html"><i class="fa-solid fa-microscope"></i> Tracking</a></li>
-      <li><a href="foundations.html"><i class="fa-solid fa-users"></i> Foundations</a></li>
-      <li><a href="missing-bureau.html"><i class="fa-solid fa-person-circle-question"></i> Missing Bureau</a></li>
-      <li><a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a></li>
-    </ul>
-    <a href="register.html" class="nav-right-btn"><i class="fa-solid fa-user-plus"></i> Create Account</a>
-  </nav>
-
-  <!-- Auth Card -->
-  <div class="auth-container">
-    <div class="auth-card">
-      <h1 class="auth-title">স্বাগতম ফিরে আসার জন্য</h1>
-      <p class="auth-subtitle">আপনার বন্ধু অ্যাকাউন্টে লগইন করুন</p>
-
-      <form id="login-form">
-        <div class="form-group">
-          <label>মোবাইল নম্বর অথবা ইমেইল</label>
-          <input type="text" class="form-control" placeholder="01XXXXXXXXX" value="01712345678" required>
-        </div>
-
-        <div class="form-group">
-          <label>পাসওয়ার্ড</label>
-          <input type="password" class="form-control" placeholder="••••••••" value="123456" required>
-        </div>
-
-        <button type="submit" class="btn-auth-submit"><i class="fa-solid fa-right-to-bracket"></i> সাইন ইন করুন</button>
-
-        <div class="auth-links">
-          <a href="forgot-password.html">পাসওয়ার্ড ভুলে গেছেন?</a>
-          <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>
-        </div>
-      </form>
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <!-- PC Topbar Meta Items (Date/Calendar) -->
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
     </div>
-  </div>
+    <!-- Mobile & Desktop Language + Login Actions -->
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Center Wrapper -->
+  <main class="main-wrapper">
+    <div class="login-card">
+
+      <!-- Header & Logo Section inside Card -->
+      <div class="header-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <div class="card-brand-title">Bondhu<span>.</span></div>
+        <div class="brand-subtitle">এক প্ল্যাটফর্ম, সকল সেবা</div>
+      </div>
+
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <div class="divider-drop"><i class="fa-solid fa-droplet"></i></div>
+      </div>
+
+      <!-- Welcome Heading -->
+      <div class="welcome-text">স্বাগতম ফিরে আসার জন্য</div>
+      <div class="sub-welcome-text">আপনার অ্যাকাউন্ট লগইন করুন</div>
+
+      <!-- Form Section -->
+      <form id="auth-login-form">
+        <!-- User ID / Phone Field -->
+        <div class="form-group">
+          <label class="form-label">ইউজার আইডি / মোবাইল নম্বর</label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user input-icon-left"></i>
+            <input type="text" id="login-phone" class="form-input" placeholder="ইউজার আইডি অথবা মোবাইল নম্বর লিখুন" value="01712345678" required>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon-left"></i>
+            <input type="password" id="login-password" class="form-input" placeholder="পাসওয়ার্ড লিখুন" value="123456" required>
+            <button type="button" class="input-icon-right" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eye-icon"></i></button>
+          </div>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="checkbox-container">
+          <input type="checkbox" id="remember" checked>
+          <label for="remember" class="checkbox-label">আমাকে মনে রাখুন</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> লগইন করুন
+        </button>
+      </form>
+
+      <!-- Separator -->
+      <div class="text-divider">
+        <span>অথবা</span>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="forgot-password">
+        <a href="forgot-password.html"><i class="fa-solid fa-lock"></i> পাসওয়ার্ড ভুলে গেছেন?</a>
+      </div>
+
+      <!-- Registration Grid -->
+      <div class="action-cards">
+        <!-- New User Box -->
+        <div class="card-box green">
+          <div class="card-icon-wrapper">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <div class="card-title">নতুন ব্যবহারকারী</div>
+          <div class="card-desc">নতুন হিসাবে নিবন্ধন করুন</div>
+          <a href="register.html" class="card-btn">
+            নিবন্ধন করুন <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Institution Box -->
+        <div class="card-box blue">
+          <div class="card-icon-wrapper">
+            <i class="fa-solid fa-city"></i>
+          </div>
+          <div class="card-title">প্রতিষ্ঠান</div>
+          <div class="card-desc">আপনার প্রতিষ্ঠান নিবন্ধন করুন</div>
+          <a href="foundations.html" class="card-btn">
+            নিবন্ধন করুন <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Security Footbar -->
+      <div class="footer-info">
+        <div class="info-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>আপনার তথ্য নিরাপদ এবং গোপন রাখা হবে।</span>
+        </div>
+        <div class="info-item right">
+          <i class="fa-solid fa-headset"></i>
+          <div>
+            <span>সহায়তার জন্য কল করুন</span>
+            <span class="phone-number">১০৬৪৭ / ০১৭১২-৩৪৫৬৭৮</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="donor-register.html">Donation</a>
+        <a href="news.html">Privacy Policy</a>
+        <a href="news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
 
   <script>
-    document.getElementById('login-form').addEventListener('submit', (e) => {
+    function togglePasswordVisibility() {
+      const input = document.getElementById('login-password');
+      const icon = document.getElementById('eye-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    document.getElementById('auth-login-form').addEventListener('submit', (e) => {
       e.preventDefault();
       window.location.href = 'dashboard.html';
     });
+
+    // Shared Dynamic Language & Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+    }
+
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
+    }
+
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
+
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
+
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
+    }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
   </script>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-top">
-<div class="footer-brand">
-<div class="logo-badge">B</div>
-<div>
-<h2>Bondhu<span>.</span></h2>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</div>
-<div class="footer-links">
-<a href="mailto:help@bondhu.local">Contact</a>
-<a href="../pages/donor-register.html">Donation</a>
-<a href="../pages/news.html">Privacy Policy</a>
-<a href="../pages/news.html">Terms &amp; Conditions</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2026 Bondhu. All Rights Reserved.</span>
-<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
-</div>
-</footer>
-
-<script>
-  // Shared Dynamic Language & Calendar Scripting
-  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
-  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
-  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
-
-  function getBanglaDate(date = new Date(), lang = getLang()) {
-    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
-    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
-    const year = date.getFullYear();
-    const startThisYear = new Date(year, 3, 14);
-    const startYear = date >= startThisYear ? year : year - 1;
-    const banglaYear = startYear - 593;
-    const startDate = new Date(startYear, 3, 14);
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    let dayIndex = Math.floor((today - startDate) / 86400000);
-    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
-    let month = 0;
-    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
-      dayIndex -= monthLengths[month];
-      month += 1;
-    }
-    const day = dayIndex + 1;
-    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
-    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
-  }
-
-  function getArabicDate(date = new Date(), lang = getLang()) {
-    try {
-      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
-      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
-    } catch (error) {
-      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
-    }
-  }
-
-  function applyLanguage(lang = getLang()) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
-    const date = new Date();
-
-    const gregElem = document.getElementById('gregorian-date');
-    const banglaElem = document.getElementById('bangla-calendar');
-    const arabicElem = document.getElementById('arabic-calendar');
-
-    if (gregElem) {
-      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
-      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
-    }
-    if (banglaElem) {
-      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
-    }
-    if (arabicElem) {
-      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
-    }
-  }
-
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  applyLanguage(getLang());
-</script>
 </body>
 </html>
