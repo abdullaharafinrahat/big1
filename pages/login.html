@@ -9,6 +9,160 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+
+  /* === Shared Header & Footer System Cloned from index.html === */
+  :root {
+    --green-dark: #0b5a35;
+    --green: #0e6e42;
+    --green-light: #e9f5ee;
+    --red: #e31e24;
+    --red-dark: #c81419;
+    --pink: #f7d9dc;
+    --ink: #1c2b24;
+    --muted: #6b7a72;
+    --border: #e5e9e6;
+    --radius: 14px;
+  }
+
+  header.topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 14px rgba(0,0,0,.06);
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .brand .logo-badge {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 18px;
+    border: 2px solid var(--red);
+    flex-shrink: 0;
+  }
+
+  .brand-text h1 {
+    margin: 0; font-size: 22px; letter-spacing: .3px;
+    color: var(--green-dark); line-height: 1.1; font-weight: 800;
+  }
+  .brand-text h1 span { color: var(--red); }
+  .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
+
+  .topbar-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #3a463f;
+    margin-left: auto;
+    margin-right: 16px;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    background: #f8f9fa;
+    border: 1px solid #e5e9e6;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+  }
+
+  .mobile-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lang-switcher {
+    display: inline-flex; background: #f3f4f6; border-radius: 8px;
+    padding: 2px; font-size: 12px; font-weight: 700;
+    align-items: center;
+  }
+  .lang-switcher button {
+    border: 0; background: transparent; color: #667085;
+    padding: 6px 12px; border-radius: 7px; font-weight: 800;
+    cursor: pointer; min-height: 36px; font-size: 11.5px;
+  }
+  .lang-switcher button.active {
+    background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18);
+  }
+
+  .login-btn {
+    background: var(--green-dark); color: #fff;
+    padding: 8px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 36px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .login-btn:hover { background: var(--green); }
+  .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
+
+  .calendar-label {
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-right: 3px;
+  }
+
+  /* Shared Footer */
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: 30px; }
+  .footer-top {
+    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .logo-badge {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #fff; color: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; border: 2px solid var(--red);
+  }
+  .footer-brand h2 { margin: 0; font-size: 18px; font-weight: 800; }
+  .footer-brand h2 span { color: #ff8b8e; }
+  .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
+  .footer-links { display: flex; gap: 26px; flex-wrap: wrap; font-size: 12.5px; }
+  .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; text-decoration: none; }
+  .footer-links a:hover { text-decoration: underline; }
+
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px;
+  }
+  .dev-by { display: flex; align-items: center; gap: 6px; }
+  .dev-by .dot-badge {
+    width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark);
+    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800;
+  }
+  .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
+  .dev-by a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    header.topbar { padding: 8px 12px; }
+    .topbar-meta { display: none; }
+    .brand .logo-badge { width: 34px; height: 34px; font-size: 15px; }
+    .brand-text h1 { font-size: 18px; }
+    .brand-text p { font-size: 9.5px; }
+    .login-btn { min-height: 32px; height: 32px; padding: 4px 10px; font-size: 11.5px; }
+    .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .footer-links { gap: 12px; font-size: 11.5px; }
+  }
+
+
     :root {
       --primary-red: #d32f2f;
       --dark-red: #b71c1c;
@@ -300,48 +454,33 @@
 <body>
 
   <!-- Top Utility Header -->
-  <header class="top-header">
-    <a href="../index.html" class="brand">
-      <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
-      <div>
-        <div class="brand-title">Bondhu<span>.org</span></div>
-        <div class="brand-tagline">রক্ত দিন, জীবন বাঁচান</div>
-      </div>
-    </a>
-
-    <div class="date-widgets">
-      <div class="date-box">
-        <i class="fa-regular fa-calendar"></i>
-        <span>06 August 2026<br>Thursday</span>
-      </div>
-      <div class="date-box">
-        <i class="fa-solid fa-sun"></i>
-        <span>২২ শ্রাবণ ১৪৩৩<br>বাংলা</span>
-      </div>
-      <div class="date-box">
-        <i class="fa-solid fa-moon"></i>
-        <span>২১ সফর ১৪৪৮<br>Hijri</span>
-      </div>
-    </div>
-
-    <div class="top-right-actions">
-      <div class="lang-toggle">
-        <button class="active">বাংলা</button>
-        <button>English</button>
-      </div>
-      <div class="emergency-info">
-        <div class="emergency-item">
-          <i class="fa-solid fa-phone-volume"></i>
-          <div><div style="font-size:10px; color:#777;">Emergency</div><strong>10647</strong></div>
-        </div>
-        <div class="emergency-item">
-          <i class="fa-solid fa-ambulance"></i>
-          <div><div style="font-size:10px; color:#777;">Ambulance</div><strong>01712-345678</strong></div>
-        </div>
-      </div>
-      <a href="login.html" class="btn-login"><i class="fa-regular fa-user"></i> Login / Register</a>
-    </div>
-  </header>
+  <!-- TOP HEADER -->
+<header class="topbar">
+<a class="brand" href="../index.html">
+<div class="logo-badge">B</div>
+<div class="brand-text">
+<h1>Bondhu<span>.</span></h1>
+<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+</div>
+</a>
+<!-- PC Topbar Meta Items (Date/Calendar) -->
+<div class="topbar-meta">
+<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+</div>
+<!-- Mobile & Desktop Language + Login Actions -->
+<div class="mobile-header-right">
+<div aria-label="Language switcher" class="lang-switcher">
+<button class="active" data-lang="bn" type="button">BN</button>
+<button data-lang="en" type="button">EN</button>
+</div>
+<a class="login-btn" href="../pages/login.html">
+<img alt="" src="../assets/images/service-icons/person-search.png"/>
+<span>Login</span>
+</a>
+</div>
+</header>
 
   <!-- Main Navigation Bar -->
   <nav class="main-nav">
@@ -392,5 +531,90 @@
       window.location.href = 'dashboard.html';
     });
   </script>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-top">
+<div class="footer-brand">
+<div class="logo-badge">B</div>
+<div>
+<h2>Bondhu<span>.</span></h2>
+<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+</div>
+</div>
+<div class="footer-links">
+<a href="mailto:help@bondhu.local">Contact</a>
+<a href="../pages/donor-register.html">Donation</a>
+<a href="../pages/news.html">Privacy Policy</a>
+<a href="../pages/news.html">Terms &amp; Conditions</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Bondhu. All Rights Reserved.</span>
+<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+</div>
+</footer>
+
+<script>
+  // Shared Dynamic Language & Calendar Scripting
+  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
+  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+  function getBanglaDate(date = new Date(), lang = getLang()) {
+    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+    const year = date.getFullYear();
+    const startThisYear = new Date(year, 3, 14);
+    const startYear = date >= startThisYear ? year : year - 1;
+    const banglaYear = startYear - 593;
+    const startDate = new Date(startYear, 3, 14);
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    let dayIndex = Math.floor((today - startDate) / 86400000);
+    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+    let month = 0;
+    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+      dayIndex -= monthLengths[month];
+      month += 1;
+    }
+    const day = dayIndex + 1;
+    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+  }
+
+  function getArabicDate(date = new Date(), lang = getLang()) {
+    try {
+      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+    } catch (error) {
+      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+    }
+  }
+
+  function applyLanguage(lang = getLang()) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+    const date = new Date();
+
+    const gregElem = document.getElementById('gregorian-date');
+    const banglaElem = document.getElementById('bangla-calendar');
+    const arabicElem = document.getElementById('arabic-calendar');
+
+    if (gregElem) {
+      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+    }
+    if (banglaElem) {
+      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+    }
+    if (arabicElem) {
+      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+    }
+  }
+
+  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+  applyLanguage(getLang());
+</script>
 </body>
 </html>
