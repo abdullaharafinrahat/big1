@@ -95,10 +95,10 @@
     padding: 36px 16px;
   }
 
-  .wizard-card {
+  .register-card {
     background: #ffffff;
     width: 100%;
-    max-width: 580px;
+    max-width: 500px;
     border-radius: 16px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
     border: 1px solid #eef0f3;
@@ -124,39 +124,46 @@
   .welcome-text { text-align: center; font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
   .sub-welcome-text { text-align: center; font-size: 13px; color: #64748b; margin-bottom: 20px; }
 
-  /* 5-Step Stepper */
-  .stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 24px; }
-  .stepper::before { content: ''; position: absolute; top: 13px; left: 15px; right: 15px; height: 2px; background: #e2e8f0; z-index: 1; }
-  .step-item { position: relative; z-index: 2; background: white; display: flex; flex-direction: column; align-items: center; width: 20%; cursor: pointer; }
-  .step-number { width: 26px; height: 26px; border-radius: 50%; background: #e2e8f0; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; margin-bottom: 4px; transition: all 0.2s; }
-  .step-item.active .step-number { background: var(--primary-green); color: white; box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.2); }
-  .step-item.completed .step-number { background: #2e7d32; color: white; }
-  .step-label { font-size: 10.5px; color: #64748b; text-align: center; font-weight: 600; }
-  .step-item.active .step-label { color: var(--primary-green); font-weight: 700; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+  .form-label span { color: var(--red); }
 
-  /* Form Controls */
-  .wizard-panel { display: none; }
-  .wizard-panel.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+  .input-wrapper { position: relative; display: flex; align-items: center; }
+  .input-icon-left { position: absolute; left: 12px; color: #888888; font-size: 14px; z-index: 2; }
+
+  .form-input { width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1px solid #dcdfe6; border-radius: 8px; font-size: 13px; outline: none; transition: all 0.2s; }
+  .form-input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.1); }
+
+  .phone-input-group { display: flex; gap: 6px; }
+  .btn-send-otp {
+    background: var(--primary-green); color: white; border: none; padding: 0 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+  }
+  .btn-send-otp:hover { background: #004d40; }
+  .btn-send-otp.verified { background: #2e7d32; cursor: default; }
+
+  /* OTP Verification Box */
+  .otp-box {
+    display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px; margin-bottom: 14px; animation: fadeIn 0.2s ease-in-out;
+  }
+  .otp-box.show { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
-  .form-group { margin-bottom: 14px; }
-  .form-label { display: block; font-size: 12.5px; font-weight: 600; color: #334155; margin-bottom: 5px; }
-  .form-label span { color: var(--red); }
-  .form-input { width: 100%; height: 42px; padding: 8px 12px; border: 1px solid #dcdfe6; border-radius: 8px; font-size: 13px; outline: none; transition: all 0.2s; }
-  .form-input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.1); }
-  .form-row { display: flex; gap: 10px; }
+  .otp-inputs { display: flex; gap: 8px; justify-content: center; margin: 10px 0; }
+  .otp-digit { width: 44px; height: 44px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; text-align: center; font-size: 18px; font-weight: 800; color: #0f172a; outline: none; }
+  .otp-digit:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.15); }
 
-  .file-upload-box { border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px; text-align: center; color: #64748b; font-size: 11.5px; cursor: pointer; background: #fafafa; transition: border-color 0.2s; }
-  .file-upload-box:hover { border-color: var(--primary-green); background: #f0fdf4; }
-  .file-upload-box i { font-size: 20px; color: var(--primary-green); margin-bottom: 4px; display: block; }
+  .btn-verify-code { width: 100%; background: var(--primary-green); color: white; border: none; padding: 8px; border-radius: 6px; font-size: 12.5px; font-weight: 700; cursor: pointer; margin-top: 4px; }
+  .btn-verify-code:hover { background: #004d40; }
 
-  .btn-action-row { display: flex; justify-content: space-between; margin-top: 22px; gap: 10px; }
-  .btn-prev { background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
-  .btn-next { background: var(--primary-green); border: none; color: white; padding: 9px 24px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; margin-left: auto; transition: background 0.2s; }
-  .btn-next:hover { background: #004d40; }
+  .btn-submit {
+    width: 100%; height: 44px; background-color: var(--primary-green); color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: background-color 0.2s, transform 0.1s; box-shadow: 0 4px 12px rgba(0, 105, 92, 0.2); margin-top: 10px;
+  }
+  .btn-submit:hover { background-color: #004d40; transform: translateY(-1px); }
 
-  .auth-links { display: flex; justify-content: center; margin-top: 18px; font-size: 12.5px; color: #64748b; }
+  .auth-links { display: flex; justify-content: center; margin-top: 18px; font-size: 13px; color: #64748b; }
   .auth-links a { color: var(--primary-green); font-weight: 700; text-decoration: none; margin-left: 5px; }
+  .auth-links a:hover { text-decoration: underline; }
 
   /* Shared Footer */
   footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
@@ -174,6 +181,7 @@
   .dev-by { display: flex; align-items: center; gap: 6px; }
   .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
+  .dev-by a:hover { text-decoration: underline; }
 
   @media (max-width: 768px) {
     header.topbar { padding: 8px 12px; }
@@ -183,8 +191,7 @@
     .brand-text p { display: none; }
     .login-btn { min-height: 30px; height: 30px; padding: 4px 10px; font-size: 11px; }
     .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
-    .wizard-card { padding: 20px 16px; }
-    .form-row { flex-direction: column; gap: 0; }
+    .register-card { padding: 20px 16px; }
     .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
   }
@@ -220,7 +227,7 @@
 
   <!-- Main Center Wrapper -->
   <main class="main-wrapper">
-    <div class="wizard-card">
+    <div class="register-card">
 
       <!-- Header & Logo -->
       <div class="header-logo">
@@ -236,161 +243,89 @@
         <div class="divider-drop"><i class="fa-solid fa-droplet"></i></div>
       </div>
 
-      <!-- Heading -->
-      <div class="welcome-text">প্রতিষ্ঠান নিবন্ধন ফরম</div>
-      <div class="sub-welcome-text">সামাজিক ও স্বেচ্ছাসেবী সংগঠন যুক্ত করুন</div>
+      <!-- Welcome Heading -->
+      <div class="welcome-text">প্রতিষ্ঠান নিবন্ধন</div>
+      <div class="sub-welcome-text">ইমেইল বা মোবাইল নম্বর দিয়ে প্রতিষ্ঠান যুক্ত করুন</div>
 
-      <!-- Stepper -->
-      <div class="stepper" id="found-stepper">
-        <div class="step-item active" data-step="1">
-          <div class="step-number">1</div>
-          <div class="step-label">Basic</div>
+      <!-- Simple Single Form -->
+      <form id="auth-foundation-register-form">
+        <!-- Foundation Name -->
+        <div class="form-group">
+          <label class="form-label">ফাউন্ডেশন / প্রতিষ্ঠানের নাম <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-building-ngo input-icon-left"></i>
+            <input type="text" id="found-name" class="form-input" placeholder="যেমন: গ্রিন লাইফ ফাউন্ডেশন" required>
+          </div>
         </div>
-        <div class="step-item" data-step="2">
-          <div class="step-number">2</div>
-          <div class="step-label">Chairman</div>
-        </div>
-        <div class="step-item" data-step="3">
-          <div class="step-number">3</div>
-          <div class="step-label">Profile</div>
-        </div>
-        <div class="step-item" data-step="4">
-          <div class="step-number">4</div>
-          <div class="step-label">Documents</div>
-        </div>
-        <div class="step-item" data-step="5">
-          <div class="step-number">5</div>
-          <div class="step-label">Submit</div>
-        </div>
-      </div>
 
-      <!-- 5 Panels -->
-      <form id="foundation-form">
-        <!-- Step 1: Basic Info -->
-        <div class="wizard-panel active" data-panel="1">
-          <div class="form-row">
-            <div class="form-group" style="flex: 1;">
-              <label class="form-label">ফাউন্ডেশন / প্রতিষ্ঠানের নাম <span>*</span></label>
-              <input type="text" class="form-input" placeholder="প্রতিষ্ঠানের পূর্ণ নাম" required>
+        <!-- Phone / Email Field with Send OTP Button -->
+        <div class="form-group">
+          <label class="form-label">মোবাইল নম্বর অথবা ইমেইল <span>*</span></label>
+          <div class="phone-input-group">
+            <div class="input-wrapper" style="flex: 1;">
+              <i class="fa-solid fa-address-card input-icon-left"></i>
+              <input type="text" id="found-contact" class="form-input" placeholder="01XXXXXXXXX অথবা email@domain.com" value="01712111111" required>
             </div>
-            <div class="form-group" style="width: 110px;">
-              <label class="form-label">লোগো</label>
-              <label class="file-upload-box" for="f-logo" style="padding: 7px 4px;">
-                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 16px;"></i>
-                <span id="logo-text">Upload</span>
-                <input type="file" id="f-logo" accept="image/*" style="display:none;" onchange="document.getElementById('logo-text').textContent='Selected ✓'">
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">মোবাইল নম্বর <span>*</span></label>
-            <input type="tel" class="form-input" placeholder="01XXXXXXXXX" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">প্রতিষ্ঠানের ধরন <span>*</span></label>
-            <select class="form-input">
-              <option>Social Welfare (সমাজকল্যাণ)</option>
-              <option>Blood Service (রক্তদান নেটওয়ার্ক)</option>
-              <option>Education (শিক্ষা ও মানবসম্পদ)</option>
-              <option>Health & Medical (স্বাস্থ্যসেবা)</option>
-              <option>Disaster Relief (দুর্যোগ সহায়তা)</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group" style="flex: 1;">
-              <label class="form-label">জেলা <span>*</span></label>
-              <select class="form-input">
-                <option>Dhaka</option>
-                <option>Chattogram</option>
-                <option>Rajshahi</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Barishal</option>
-              </select>
-            </div>
-            <div class="form-group" style="flex: 1;">
-              <label class="form-label">উপজেলা / থানা</label>
-              <input type="text" class="form-input" placeholder="উপজেলা / এলাকা">
-            </div>
+            <button type="button" id="btn-trigger-found-otp" onclick="handleSendFoundOtp()" class="btn-send-otp">
+              <i class="fa-solid fa-paper-plane mr-1"></i> ওটিপি পাঠান
+            </button>
           </div>
         </div>
 
-        <!-- Step 2: Chairman -->
-        <div class="wizard-panel" data-panel="2">
-          <div class="form-group">
-            <label class="form-label">চেয়ারম্যান / সভাপতির পূর্ণ নাম <span>*</span></label>
-            <input type="text" class="form-input" placeholder="চেয়ারম্যান বা প্রতিনিধির নাম" required>
+        <!-- OTP Verification Drawer -->
+        <div class="otp-box" id="found-otp-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 12px; font-weight: 700; color: #166534;"><i class="fa-solid fa-shield-halved"></i> ওটিপি কোড যাচাই</span>
+            <span id="found-otp-timer" style="font-size: 11px; font-weight: 600; color: #64748b;">০০:৫৯</span>
           </div>
-          <div class="form-group">
-            <label class="form-label">জাতীয় পরিচয়পত্র (NID) নম্বর <span>*</span></label>
-            <input type="text" class="form-input" placeholder="NID Number" required>
+          <p style="font-size: 11px; color: #475569; margin-top: 2px;">আপনার নাম্বারে প্রেরিত ৪-সংখ্যার ওটিপি কোড লিখুন:</p>
+          
+          <div class="otp-inputs">
+            <input type="text" maxlength="1" class="otp-digit" value="1" id="f-otp-1">
+            <input type="text" maxlength="1" class="otp-digit" value="2" id="f-otp-2">
+            <input type="text" maxlength="1" class="otp-digit" value="3" id="f-otp-3">
+            <input type="text" maxlength="1" class="otp-digit" value="4" id="f-otp-4">
           </div>
-          <div class="form-group">
-            <label class="form-label">ব্যক্তিগত মোবাইল নম্বর <span>*</span></label>
-            <input type="tel" class="form-input" placeholder="01XXXXXXXXX" required>
+
+          <button type="button" onclick="verifyFoundOtpCode()" class="btn-verify-code">
+            <i class="fa-solid fa-check"></i> কোড যাচাই করুন
+          </button>
+          
+          <div style="text-align: center; margin-top: 6px;">
+            <button type="button" onclick="handleSendFoundOtp()" style="background: none; border: none; font-size: 11px; color: var(--primary-green); font-weight: 700; cursor: pointer;">কোড পাননি? পুনরায় পাঠান</button>
           </div>
         </div>
 
-        <!-- Step 3: Profile & Mission -->
-        <div class="wizard-panel" data-panel="3">
-          <div class="form-row">
-            <div class="form-group" style="flex: 1;">
-              <label class="form-label">প্রতিষ্ঠার সন</label>
-              <input type="number" class="form-input" placeholder="e.g. 2020" min="1950" max="2026">
-            </div>
-            <div class="form-group" style="flex: 1;">
-              <label class="form-label">সদস্য / ভলান্টিয়ার সংখ্যা</label>
-              <input type="number" class="form-input" placeholder="e.g. 50">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">সংগঠনের মূল লক্ষ্য ও কার্যক্রম <span>*</span></label>
-            <textarea class="form-input" style="height: 80px; padding-top: 8px;" placeholder="সংগঠনের প্রধান কার্যক্রমসমূহ সংক্ষেপে লিখুন..." required></textarea>
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৬ অক্ষর) <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon-left"></i>
+            <input type="password" id="found-password" class="form-input" placeholder="••••••••" minlength="6" value="123456" required>
           </div>
         </div>
 
-        <!-- Step 4: Documents -->
-        <div class="wizard-panel" data-panel="4">
-          <div class="form-group">
-            <label class="form-label">সরকারি নিবন্ধন সনদ (Social Welfare / Govt Certificate)</label>
-            <div class="file-upload-box">
-              <i class="fa-solid fa-file-pdf"></i>
-              <div>রেজিস্ট্রেশন সনদ আপলোড করুন (PDF/Image)</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">চেয়ারম্যানের NID কপি</label>
-            <div class="file-upload-box">
-              <i class="fa-solid fa-id-card"></i>
-              <div>NID কার্ডের স্ক্যান কপি আপলোড করুন</div>
-            </div>
-          </div>
+        <!-- Terms Checkbox -->
+        <div style="display: flex; align-items: center; gap: 8px; margin: 16px 0;">
+          <input type="checkbox" id="found-terms" checked required style="accent-color: var(--primary-green); width: 16px; height: 16px;">
+          <label for="found-terms" style="font-size: 12px; color: #475569; cursor: pointer;">আমি বন্ধু নেটওয়ার্কের প্রাতিষ্ঠানিক নিয়ম ও নীতিমালা মেনে নিচ্ছি।</label>
         </div>
 
-        <!-- Step 5: Submit -->
-        <div class="wizard-panel" data-panel="5">
-          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 14px; border-radius: 10px; margin-bottom: 14px;">
-            <strong style="color: #166534; font-size: 13px;"><i class="fa-solid fa-circle-check"></i> আবেদন জমা দেওয়ার জন্য প্রস্তুত</strong>
-            <p style="font-size: 11.5px; color: #15803d; margin-top: 4px;">আপনার প্রদত্ত সকল তথ্য যাচাই করে ২৪ ঘণ্টার মধ্যে বন্ধু ভেরিফিকেশন টিম অনুমোদন নিশ্চিত করবে।</p>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px; margin: 14px 0;">
-            <input type="checkbox" id="f-terms" checked required style="accent-color: var(--primary-green); width: 16px; height: 16px;">
-            <label for="f-terms" style="font-size: 12px; color: #475569; cursor: pointer;">আমি বন্ধু নেটওয়ার্কের সকল নিয়ম ও শর্তাবলী মেনে নিচ্ছি।</label>
-          </div>
-        </div>
-
-        <!-- Buttons -->
-        <div class="btn-action-row">
-          <button type="button" class="btn-prev" id="f-btn-prev" style="display: none;">Back</button>
-          <button type="button" class="btn-next" id="f-btn-next">Next Step &rarr;</button>
-        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-city"></i> প্রতিষ্ঠান নিবন্ধন সম্পন্ন করুন
+        </button>
 
         <div class="auth-links">
           <span>ইতিমধ্যে নিবন্ধিত?</span>
           <a href="login.html">লগইন করুন</a>
+        </div>
+
+        <div style="margin-top: 14px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 12px;">
+          <span style="font-size: 12px; color: #64748b;">ব্যক্তিগত রক্তদাতা / সদস্য হিসেবে যুক্ত হতে চান?</span>
+          <a href="register.html" style="font-size: 12px; font-weight: 800; color: #0b5a35; display: block; margin-top: 3px;">
+            সদস্য হিসেবে নিবন্ধন করুন &rarr;
+          </a>
         </div>
       </form>
 
@@ -421,47 +356,57 @@
   </footer>
 
   <script>
-    let curStep = 1;
-    const totalStep = 5;
-    const stepItems = document.querySelectorAll('#found-stepper .step-item');
-    const panels = document.querySelectorAll('.wizard-panel');
-    const nextBtn = document.getElementById('f-btn-next');
-    const prevBtn = document.getElementById('f-btn-prev');
+    let isFoundVerified = false;
 
-    function renderStep(s) {
-      curStep = s;
-      panels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.panel, 10) === curStep));
-      stepItems.forEach(it => {
-        const idx = parseInt(it.dataset.step, 10);
-        it.classList.toggle('active', idx === curStep);
-        it.classList.toggle('completed', idx < curStep);
-      });
-      prevBtn.style.display = curStep === 1 ? 'none' : 'block';
-      nextBtn.textContent = curStep === totalStep ? 'Submit Registration' : 'Next Step →';
-      if (curStep === totalStep) nextBtn.style.background = '#d32f2f';
-      else nextBtn.style.background = '#00695c';
+    function handleSendFoundOtp() {
+      const contact = document.getElementById('found-contact').value;
+      if (!contact || contact.length < 5) {
+        alert('অনুগ্রহ করে সঠিক মোবাইল নম্বর অথবা ইমেইল দিন।');
+        return;
+      }
+      document.getElementById('found-otp-box').classList.add('show');
+      startFoundOtpTimer();
     }
 
-    nextBtn.addEventListener('click', () => {
-      if (curStep < totalStep) renderStep(curStep + 1);
-      else {
-        alert('প্রতিষ্ঠান নিবন্ধন আবেদন সফলভাবে জমা হয়েছে! Application ID: BON-2026-0007');
-        window.location.href = 'foundations.html';
-      }
+    function startFoundOtpTimer() {
+      let seconds = 59;
+      const timerElem = document.getElementById('found-otp-timer');
+      const interval = setInterval(() => {
+        if (seconds <= 0) {
+          clearInterval(interval);
+          timerElem.textContent = "সময় শেষ";
+        } else {
+          timerElem.textContent = `০০:${seconds < 10 ? '০' + seconds : seconds}`;
+          seconds--;
+        }
+      }, 1000);
+    }
+
+    function verifyFoundOtpCode() {
+      isFoundVerified = true;
+      const otpBox = document.getElementById('found-otp-box');
+      const btn = document.getElementById('btn-trigger-found-otp');
+      btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> যাচাইকৃত ✓';
+      btn.classList.add('verified');
+      otpBox.classList.remove('show');
+      alert('যাচাইকরণ সফল হয়েছে!');
+    }
+
+    document.getElementById('auth-foundation-register-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('প্রতিষ্ঠান সফলভাবে নিবন্ধিত হয়েছে! Application ID: BON-2026-0007');
+      window.location.href = 'foundations.html';
     });
 
-    prevBtn.addEventListener('click', () => {
-      if (curStep > 1) renderStep(curStep - 1);
-    });
-
-    stepItems.forEach(it => {
-      it.addEventListener('click', () => {
-        const target = parseInt(it.dataset.step, 10);
-        if (target <= curStep || target === curStep + 1) renderStep(target);
+    document.querySelectorAll('.otp-digit').forEach((input, idx, inputs) => {
+      input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && idx < inputs.length - 1) {
+          inputs[idx + 1].focus();
+        }
       });
     });
 
-    // Shared Calendar Scripting
+    // Shared Dynamic Calendar Scripting
     const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
     const toBnNumber = (value) => String(value).replace(/\\d/g, (d) => BN_DIGITS[d]);
     const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
