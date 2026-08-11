@@ -11,7 +11,8 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-  /* === Shared Header & Footer System Cloned from index.html === */
+  
+  /* === Shared Header & Footer System === */
   :root {
     --green-dark: #0b5a35;
     --green: #0e6e42;
@@ -25,40 +26,23 @@
     --radius: 14px;
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Hind Siliguri', 'Inter', sans-serif;
-  }
-
-  body {
-    background-color: #f5f6f8;
-    color: #1e293b;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Header */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
-    padding: 10px 24px;
+    padding: 8px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 14px rgba(0,0,0,.06);
   }
 
-  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0; }
   .brand .logo-badge {
-    width: 42px; height: 42px; border-radius: 50%;
+    width: 40px; height: 40px; border-radius: 50%;
     background: var(--green-dark);
     display: flex; align-items: center; justify-content: center;
     color: #fff; font-weight: 700; font-size: 18px;
@@ -67,22 +51,23 @@
   }
 
   .brand-text h1 {
-    margin: 0; font-size: 22px; letter-spacing: .3px;
+    margin: 0; font-size: 20px; letter-spacing: .3px;
     color: var(--green-dark); line-height: 1.1; font-weight: 800;
   }
   .brand-text h1 span { color: var(--red); }
-  .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
+  .brand-text p { margin: 0; font-size: 10.5px; color: var(--muted); }
 
   .topbar-meta {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
     font-size: 12px;
     color: #3a463f;
     margin-left: auto;
-    margin-right: 16px;
+    margin-right: 14px;
   }
+
   .meta-item {
     display: flex;
     align-items: center;
@@ -95,464 +80,181 @@
     font-size: 11.5px;
   }
 
-  .mobile-header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .lang-switcher {
-    display: inline-flex; background: #f3f4f6; border-radius: 8px;
-    padding: 2px; font-size: 12px; font-weight: 700;
-    align-items: center;
-  }
-  .lang-switcher button {
-    border: 0; background: transparent; color: #667085;
-    padding: 6px 12px; border-radius: 7px; font-weight: 800;
-    cursor: pointer; min-height: 36px; font-size: 11.5px;
-  }
-  .lang-switcher button.active {
-    background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18);
-  }
-
-  .login-btn {
-    background: var(--green-dark); color: #fff;
-    padding: 8px 18px; border-radius: 8px;
-    font-size: 13px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 6px;
-    min-height: 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .login-btn:hover { background: var(--green); }
-  .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
-
   .calendar-label {
     font-weight: 800;
     color: var(--green-dark);
     margin-right: 3px;
   }
 
-  /* Main Container */
-  .main-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 16px;
-  }
-
-  .login-card {
-    background: #ffffff;
-    width: 100%;
-    max-width: 480px;
-    border-radius: 16px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
-    border: 1px solid #eef0f3;
-    padding: 28px 30px 20px 30px;
-    position: relative;
-  }
-
-  /* Header Logo Section inside Card */
-  .header-logo {
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .logo-icon {
-    width: 48px;
-    height: 48px;
-    background-color: #d32f2f;
-    border-radius: 50%;
-    margin: 0 auto 8px;
+  .mobile-header-right {
     display: flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.25);
+    gap: 10px;
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
-  .logo-icon i {
-    color: white;
-    font-size: 20px;
-  }
-
-  .card-brand-title {
-    font-size: 30px;
-    font-weight: 800;
-    color: #0b5a35;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-  .card-brand-title span { color: #d32f2f; }
-
-  .brand-subtitle {
-    font-size: 13px;
-    color: #666666;
-    margin-top: 2px;
-  }
-
-  .divider-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 14px 0 16px;
-    position: relative;
-  }
-
-  .divider-line {
-    height: 1px;
-    background-color: #e5e7eb;
-    width: 100%;
-  }
-
-  .divider-drop {
-    position: absolute;
-    background: #ffffff;
-    padding: 0 8px;
-    color: #d32f2f;
-    font-size: 12px;
-  }
-
-  /* Welcome Section */
-  .welcome-text {
-    text-align: center;
-    font-size: 19px;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 2px;
-  }
-
-  .sub-welcome-text {
-    text-align: center;
-    font-size: 13px;
-    color: #64748b;
-    margin-bottom: 20px;
-  }
-
-  /* Form Inputs */
-  .form-group {
-    margin-bottom: 14px;
-  }
-
-  .form-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #334155;
-    margin-bottom: 6px;
-  }
-
-  .input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .input-icon-left {
-    position: absolute;
-    left: 12px;
-    color: #888888;
-    font-size: 14px;
-  }
-
-  .input-icon-right {
-    position: absolute;
-    right: 12px;
-    color: #888888;
-    font-size: 14px;
-    cursor: pointer;
-    background: none;
-    border: none;
-  }
-
-  .form-input {
-    width: 100%;
-    height: 42px;
-    padding: 8px 36px;
-    border: 1px solid #dcdfe6;
-    border-radius: 8px;
-    font-size: 13px;
-    outline: none;
-    transition: all 0.2s;
-  }
-
-  .form-input::placeholder {
-    color: #a0a5ba;
-  }
-
-  .form-input:focus {
-    border-color: #d32f2f;
-    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
-  }
-
-  /* Remember Checkbox */
-  .checkbox-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 18px;
-  }
-
-  .checkbox-container input {
-    margin-right: 8px;
-    accent-color: #d32f2f;
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .checkbox-label {
-    font-size: 13px;
-    color: #333333;
-    font-weight: 500;
-    cursor: pointer;
-  }
-
-  /* Primary Button */
-  .btn-submit {
-    width: 100%;
-    height: 44px;
-    background-color: #cc1d1d;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    box-shadow: 0 4px 12px rgba(204, 29, 29, 0.2);
-  }
-
-  .btn-submit:hover {
-    background-color: #b31919;
-    transform: translateY(-1px);
-  }
-
-  /* Middle Section Lines */
-  .text-divider {
-    text-align: center;
-    position: relative;
-    margin: 18px 0;
-  }
-
-  .text-divider::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #eeeeee;
-    z-index: 1;
-  }
-
-  .text-divider span {
-    background-color: #ffffff;
-    padding: 0 12px;
-    position: relative;
-    z-index: 2;
-    font-size: 12px;
-    color: #777777;
-  }
-
-  .forgot-password {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .forgot-password a {
-    color: #0b5c9e;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
+  .lang-switcher {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-  }
-  .forgot-password a:hover {
-    text-decoration: underline;
-  }
-
-  /* Action Cards */
-  .action-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .card-box {
-    border-radius: 10px;
-    padding: 16px 12px 12px 12px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s;
-  }
-  .card-box:hover {
-    transform: translateY(-2px);
-  }
-
-  .card-box.green {
-    background-color: #f6fcf8;
-    border: 1px solid #e1f2e6;
-  }
-
-  .card-box.blue {
-    background-color: #f5f9ff;
-    border: 1px solid #e1edfd;
-  }
-
-  .card-icon-wrapper {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    font-size: 18px;
-  }
-
-  .card-box.green .card-icon-wrapper {
-    background-color: #e2f3e7;
-    color: #1b8e43;
-  }
-
-  .card-box.blue .card-icon-wrapper {
-    background-color: #e0edfd;
-    color: #0b5c9e;
-  }
-
-  .card-title {
-    font-size: 14px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 2px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 2px;
   }
 
-  .card-box.green .card-title { color: #116830; }
-  .card-box.blue .card-title { color: #0b5c9e; }
-
-  .card-desc {
-    font-size: 11px;
-    color: #666666;
-    margin-bottom: 12px;
-  }
-
-  .card-btn {
-    width: 100%;
-    height: 34px;
-    border: none;
+  .lang-switcher button {
+    border: 0;
+    background: transparent;
+    color: #667085;
+    padding: 5px 10px;
     border-radius: 6px;
-    color: #ffffff;
+    font-weight: 800;
+    cursor: pointer;
+    min-height: 32px;
+    font-size: 11.5px;
+  }
+
+  .lang-switcher button.active {
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(227,30,36,.18);
+  }
+
+  .login-btn {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 8px;
     font-size: 12.5px;
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 34px;
+    height: 34px;
+    text-decoration: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .login-btn:hover { background: var(--green); }
+  .login-btn img { width: 15px; height: 15px; object-fit: contain; border-radius: 50%; }
+
+  /* Shared Footer */
+  footer {
+    background: var(--green-dark);
+    color: #eaf3ee;
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  .footer-top {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .logo-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--green-dark);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .card-btn:hover {
-    opacity: 0.9;
-  }
-
-  .card-box.green .card-btn { background-color: #116830; }
-  .card-box.blue .card-btn { background-color: #0b5c9e; }
-
-  /* Footer Info Panel */
-  .footer-info {
-    background-color: #fff5f5;
-    border-radius: 8px;
-    padding: 10px 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    border: 1px solid #fee2e2;
-  }
-
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: #444444;
-  }
-
-  .info-item i {
-    color: #d32f2f;
-    font-size: 14px;
-  }
-
-  .info-item.right {
-    text-align: right;
-  }
-
-  .phone-number {
-    font-weight: 800;
-    color: #d32f2f;
-    font-size: 12px;
-    display: block;
-  }
-
-  /* Shared Footer */
-  footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; }
-  .footer-top {
-    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12);
-  }
-  .footer-brand { display: flex; align-items: center; gap: 10px; }
-  .footer-brand .logo-badge {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; border: 2px solid var(--red);
+    font-weight: 700;
+    border: 2px solid var(--red);
   }
   .footer-brand h2 { margin: 0; font-size: 18px; font-weight: 800; }
   .footer-brand h2 span { color: #ff8b8e; }
   .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
-  .footer-links { display: flex; gap: 26px; flex-wrap: wrap; font-size: 12.5px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; font-size: 12.5px; }
   .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; text-decoration: none; }
   .footer-links a:hover { text-decoration: underline; }
 
   .footer-bottom {
-    max-width: 1200px; margin: 0 auto; padding: 12px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: #b7ccc0;
+    flex-wrap: wrap;
+    gap: 8px;
   }
   .dev-by { display: flex; align-items: center; gap: 6px; }
   .dev-by .dot-badge {
-    width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background: #fff;
+    color: var(--green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
   }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
   .dev-by a:hover { text-decoration: underline; }
 
   @media (max-width: 768px) {
-    header.topbar { padding: 8px 12px; }
+    header.topbar {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
     .topbar-meta { display: none; }
-    .brand .logo-badge { width: 34px; height: 34px; font-size: 15px; }
-    .brand-text h1 { font-size: 18px; }
-    .brand-text p { font-size: 9.5px; }
-    .login-btn { min-height: 32px; height: 32px; padding: 4px 10px; font-size: 11.5px; }
-    .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
-    .login-card { padding: 20px 16px; }
-    .action-cards { grid-template-columns: 1fr; }
-    .footer-info { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .info-item.right { text-align: left; }
-    .footer-top { flex-direction: column; align-items: flex-start; }
+    .brand { gap: 6px; }
+    .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
+    .brand-text h1 { font-size: 16px; }
+    .brand-text p { display: none; }
+    .mobile-header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+    }
+    .lang-switcher { padding: 1px; }
+    .lang-switcher button {
+      min-height: 28px;
+      padding: 3px 7px;
+      font-size: 10.5px;
+    }
+    .login-btn {
+      min-height: 30px;
+      height: 30px;
+      padding: 4px 10px;
+      font-size: 11px;
+    }
+    .footer-top { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 14px; }
     .footer-links { gap: 12px; font-size: 11.5px; }
+    .footer-bottom { padding: 10px 14px; font-size: 10px; }
   }
-  </style>
+
+  @media (max-width: 380px) {
+    header.topbar { padding: 6px 8px; }
+    .brand .logo-badge { width: 28px; height: 28px; font-size: 12px; }
+    .brand-text h1 { font-size: 14px; }
+    .mobile-header-right { gap: 4px; }
+    .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
+    .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
+  }
+</style>
 </head>
 <body>
 
