@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request Blood | Bondhu.org - জরুরি রক্তের অনুরোধ</title>
+  <title>Emergency Blood Requests | Bondhu.org - রক্তের অনুরোধ</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-
-  /* === Shared Header & Footer System Cloned from index.html === */
   :root {
     --green-dark: #0b5a35;
     --green: #0e6e42;
@@ -28,6 +28,19 @@
     --bg-light: #f4f6f8;
   }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+  html, body {
+    background-color: var(--bg-light);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Header Topbar */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -53,824 +66,698 @@
     flex-shrink: 0;
   }
 
-  .brand-text h1 {
-    margin: 0; font-size: 22px; letter-spacing: .3px;
-    color: var(--green-dark); line-height: 1.1; font-weight: 800;
-  }
+  .brand-text h1 { margin: 0; font-size: 22px; letter-spacing: .3px; color: var(--green-dark); line-height: 1.1; font-weight: 800; }
   .brand-text h1 span { color: var(--red); }
   .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
 
-  .mobile-menu-btn { display: none; }
-
   .topbar-meta {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: #3a463f;
-    margin-left: auto;
-    margin-right: 16px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 12px; color: #3a463f; margin-left: auto; margin-right: 16px;
   }
+
   .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    background: #f8f9fa;
-    border: 1px solid #e5e9e6;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 11.5px;
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    background: #f8f9fa; border: 1px solid #e5e9e6; padding: 4px 10px; border-radius: 6px; font-size: 11.5px;
   }
   .meta-item .dot { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
-  .mobile-header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
+  .calendar-label { font-weight: 800; color: var(--green-dark); margin-right: 3px; }
+
+  .mobile-header-right { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0; }
 
   .lang-switcher {
-    display: inline-flex; background: #f3f4f6; border-radius: 8px;
-    padding: 2px; font-size: 12px; font-weight: 700;
-    align-items: center;
+    display: inline-flex; background: #f3f4f6; border-radius: 8px; padding: 2px; font-size: 12px; font-weight: 700;
   }
   .lang-switcher button {
-    border: 0; background: transparent; color: #667085;
-    padding: 6px 12px; border-radius: 7px; font-weight: 800;
-    cursor: pointer; min-height: 36px; font-size: 11.5px;
+    border: 0; background: transparent; color: #667085; padding: 6px 12px; border-radius: 7px; font-weight: 800; cursor: pointer; min-height: 36px; font-size: 11.5px;
   }
-  .lang-switcher button.active {
-    background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18);
-  }
+  .lang-switcher button.active { background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18); }
 
   .login-btn {
-    background: var(--green-dark); color: #fff;
-    padding: 8px 18px; border-radius: 8px;
-    font-size: 13px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 6px;
-    min-height: 36px; height: 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-    white-space: nowrap;
+    background: var(--green-dark); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 36px; height: 36px; text-decoration: none; transition: background 0.2s; white-space: nowrap;
   }
   .login-btn:hover { background: var(--green); }
   .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
-  .calendar-label {
-    font-weight: 800;
-    color: var(--green-dark);
-    margin-right: 3px;
+  .container { max-width: 1350px; margin: 15px auto; padding: 0 15px; width: 100%; flex: 1; }
+
+  /* Search Hero Section */
+  .search-hero {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f);
+    color: white; border-radius: 12px; padding: 28px 24px;
+    margin-bottom: 22px; box-shadow: 0 4px 14px rgba(211,47,47,0.15); width: 100%;
+  }
+
+  .search-input-wrap {
+    display: flex; margin-top: 14px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .search-input-wrap input { border: none; padding: 12px 16px; width: 100%; outline: none; font-size: 14px; color: #1e293b; }
+  .search-input-wrap button { background: #0b5a35; color: white; border: none; padding: 0 24px; font-weight: 700; font-size: 14px; cursor: pointer; }
+
+  /* Multi-Filter Bar */
+  .filter-bar-card {
+    background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+    margin-bottom: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 100%;
+  }
+
+  .filter-grid {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; align-items: end;
+  }
+
+  .filter-label { display: block; font-size: 11.5px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+  .filter-input {
+    width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 7px 10px; font-size: 12px; outline: none; background: white;
+  }
+
+  /* Blood Request Cards Grid */
+  .requests-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-bottom: 30px; width: 100%;
+  }
+
+  .req-card {
+    background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; min-width: 0;
+  }
+  .req-card:hover {
+    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(211,47,47,0.09); border-color: var(--primary-red);
+  }
+
+  .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .patient-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .patient-pic {
+    width: 52px; height: 52px; border-radius: 50%; background: #fee2e2; color: #d32f2f;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; flex-shrink: 0;
+    border: 2px solid #fca5a5;
+  }
+
+  .patient-name { font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.2; }
+  .published-time { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+  .blood-type-badge {
+    background: #d32f2f; color: white; font-size: 17px; font-weight: 900;
+    padding: 6px 14px; border-radius: 8px; box-shadow: 0 2px 8px rgba(211,47,47,0.25); flex-shrink: 0;
+  }
+
+  .req-details-box {
+    background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; font-size: 12.5px; line-height: 1.6;
+  }
+  .detail-line { margin: 3px 0; color: #334155; display: flex; align-items: flex-start; gap: 6px; }
+  .detail-line strong { color: #0f172a; flex-shrink: 0; }
+  .detail-line i { width: 16px; margin-top: 3px; color: #d32f2f; flex-shrink: 0; }
+
+  .card-footer-action {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; border-top: 1px solid #f1f5f9; padding-top: 12px;
+  }
+
+  .btn-donate {
+    flex: 1; background: #00a651; color: white; border: none; padding: 10px; border-radius: 8px;
+    font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    gap: 6px; transition: background 0.2s; text-decoration: none;
+  }
+  .btn-donate:hover { background: #008741; }
+
+  .btn-call {
+    background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 10px 14px; border-radius: 8px;
+    font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;
+  }
+
+  /* Donate Response Modal */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.65);
+    backdrop-filter: blur(3px); z-index: 2000; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-backdrop.active { display: flex; }
+  .modal-card {
+    background: white; border-radius: 16px; max-width: 520px; width: 100%; padding: 26px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
   }
 
   /* Shared Footer */
-  footer {
-    background: var(--green-dark);
-    color: #eaf3ee;
-    margin-top: 30px;
-    width: 100%;
-  }
-
-  .footer-top {
-    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12);
-  }
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
+  .footer-top { max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
   .footer-brand { display: flex; align-items: center; gap: 10px; }
-  .footer-brand .logo-badge {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; border: 2px solid var(--red);
-  }
+  .footer-brand .logo-badge { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid var(--red); }
   .footer-brand h2 { margin: 0; font-size: 18px; font-weight: 800; }
   .footer-brand h2 span { color: #ff8b8e; }
   .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
-  .footer-links { display: flex; gap: 26px; flex-wrap: wrap; font-size: 12.5px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; font-size: 12.5px; }
   .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; text-decoration: none; }
-  .footer-links a:hover { text-decoration: underline; }
 
-  .footer-bottom {
-    max-width: 1200px; margin: 0 auto; padding: 12px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px;
-  }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px; }
   .dev-by { display: flex; align-items: center; gap: 6px; }
-  .dev-by .dot-badge {
-    width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800;
-  }
+  .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
-  .dev-by a:hover { text-decoration: underline; }
 
-  @media (max-width: 900px) {
-    .topbar-meta { display: none; }
+  @media (max-width: 1024px) {
+    .filter-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .requests-grid { grid-template-columns: 1fr; }
   }
-
-  @media (max-width: 768px) {
+  @media (max-width: 900px) { .topbar-meta { display: none; } }
+  @media (max-width: 640px) {
     header.topbar { padding: 8px 12px; }
-    .brand { gap: 6px; }
-    .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
-    .brand-text h1 { font-size: 16px; }
-    .brand-text p { display: none; }
-    .login-btn { min-height: 30px; height: 30px; padding: 4px 10px; font-size: 11px; }
-    .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
-    .footer-top { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 14px; }
+    .filter-grid { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
-    .footer-bottom { padding: 10px 14px; font-size: 10px; }
   }
-
-  @media (max-width: 380px) {
-    header.topbar { padding: 6px 8px; }
-    .brand .logo-badge { width: 28px; height: 28px; font-size: 12px; }
-    .brand-text h1 { font-size: 14px; }
-    .mobile-header-right { gap: 4px; }
-    .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
-    .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
-  }
-
-/* === Page Specific Styles === */
-:root {
-      --primary-red: #d32f2f;
-      --dark-red: #b71c1c;
-      --primary-green: #00695c;
-      --dark-green: #004d40;
-      --light-green: #e0f2f1;
-      --bg-light: #f4f6f8;
-      --border-color: #e0e0e0;
-      --text-dark: #333333;
-      --text-gray: #666666;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* Page Content */
- Container */
-    .container {
-      max-width: 1350px;
-      margin: 15px auto;
-      padding: 0 15px;
-    }
-
-    /* Hero Banner Grid */
-    .hero-section {
-      display: grid;
-      grid-template-columns: 1.2fr 0.9fr 0.9fr;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .hero-card {
-      background: white;
-      border-radius: 8px;
-      padding: 18px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      position: relative;
-    }
-
-    .hero-intro {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(135deg, #ffffff 60%, #ffebee 100%);
-      border-left: 4px solid var(--primary-red);
-    }
-
-    .hero-title {
-      font-size: 26px;
-      color: var(--primary-red);
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .hero-subtitle {
-      font-size: 13px;
-      color: var(--text-gray);
-      margin: 10px 0 15px;
-    }
-
-    /* Stats Cards */
-    .stat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .stat-badge {
-      background: #ffebee;
-      color: var(--primary-red);
-      font-weight: bold;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-    }
-
-    .stat-grid {
-      display: flex;
-      justify-content: space-between;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .stat-item .number {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .stat-item.red .number { color: var(--primary-red); }
-    .stat-item.green .number { color: var(--primary-green); }
-
-    .stat-item .label {
-      font-size: 12px;
-      color: var(--text-gray);
-    }
-
-    .btn-block-action {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      display: block;
-      text-decoration: none;
-      font-size: 13px;
-      transition: opacity 0.2s;
-    }
-
-    .btn-green { background: var(--primary-green); color: white; }
-    .btn-red { background: var(--primary-red); color: white; }
-
-    /* Content Layout */
-    .main-content {
-      display: grid;
-      grid-template-columns: 460px 1fr;
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    .card-header-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary-green);
-      margin-bottom: 4px;
-    }
-
-    .card-subtitle {
-      font-size: 12px;
-      color: var(--text-gray);
-      margin-bottom: 15px;
-    }
-
-    /* Blood Group Tiles */
-    .blood-group-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .blood-tile {
-      border: 2px solid var(--border-color);
-      border-radius: 6px;
-      padding: 10px 4px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 15px;
-      color: #333;
-      transition: all 0.2s;
-      background: #fafafa;
-    }
-
-    .blood-tile:hover {
-      border-color: var(--primary-red);
-      color: var(--primary-red);
-    }
-
-    .blood-tile.active {
-      background: var(--primary-red);
-      color: white;
-      border-color: var(--primary-red);
-      box-shadow: 0 2px 6px rgba(211,47,47,0.25);
-    }
-
-    /* Form Styles */
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #444;
-    }
-
-    .form-group label span {
-      color: var(--primary-red);
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary-green);
-    }
-
-    .form-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 10px;
-    }
-
-    .btn-submit:hover {
-      background: var(--dark-red);
-    }
-
-    /* Compatibility & Live Matching */
-    .compatibility-box {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 16px;
-    }
-
-    .compatibility-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #166534;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .compat-pills {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .compat-pill {
-      background: #dcfce7;
-      color: #15803d;
-      font-weight: 700;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-    }
-
-    /* Live Requests Feed */
-    .request-list-item {
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
-      background: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.2s;
-    }
-
-    .request-list-item:hover {
-      border-color: var(--primary-red);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .req-blood-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      background: #ffebee;
-      color: var(--primary-red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    .req-info {
-      flex: 1;
-      margin-left: 12px;
-    }
-
-    .req-hospital {
-      font-size: 13px;
-      font-weight: 700;
-      color: #222;
-    }
-
-    .req-meta {
-      font-size: 11px;
-      color: #666;
-    }
-
-    .btn-respond {
-      background: var(--primary-green);
-      color: white;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    /* Bottom Features */
-    .bottom-features {
-      margin-top: 25px;
-      background: white;
-      padding: 18px 20px;
-      border-radius: 8px;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .feature-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: #ffebee;
-      color: var(--primary-red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .feature-text h4 {
-      font-size: 13px;
-      color: #222;
-      font-weight: 700;
-    }
-
-    .feature-text p {
-      font-size: 11px;
-      color: #777;
-    }
-
-    @media (max-width: 1100px) {
-      .hero-section { grid-template-columns: 1fr; }
-      .main-content { grid-template-columns: 1fr; }
-      .bottom-features { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    @media (max-width: 650px) {
-      .bottom-features { grid-template-columns: repeat(2, 1fr); }
-      .top-header { flex-direction: column; align-items: flex-start; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Top Utility Header -->
   <!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
 
   <!-- Main Container -->
-  <div class="container" style="padding-top: 15px;">
+  <main class="container">
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-
-      <!-- Left Column: Request Form -->
-      <div class="card" id="request-form">
-        <h2 class="card-header-title">Create Emergency Request</h2>
-        <p class="card-subtitle">রক্তের অনুরোধের বিবরণ পূরণ করুন</p>
-
-        <form id="blood-request-form">
-          <div class="form-group">
-            <label>রক্তের গ্রুপ নির্বাচন করুন <span>*</span></label>
-            <div class="blood-group-grid" id="blood-picker">
-              <div class="blood-tile active" data-bg="A+">A+</div>
-              <div class="blood-tile" data-bg="A-">A-</div>
-              <div class="blood-tile" data-bg="B+">B+</div>
-              <div class="blood-tile" data-bg="B-">B-</div>
-              <div class="blood-tile" data-bg="O+">O+</div>
-              <div class="blood-tile" data-bg="O-">O-</div>
-              <div class="blood-tile" data-bg="AB+">AB+</div>
-              <div class="blood-tile" data-bg="AB-">AB-</div>
-            </div>
-          </div>
-
-          <!-- Compatibility Helper -->
-          <div class="compatibility-box">
-            <div class="compatibility-title"><i class="fa-solid fa-circle-info"></i> গ্রহণ করতে পারবে:</div>
-            <div class="compat-pills" id="compat-pills">
-              <span class="compat-pill">A+</span>
-              <span class="compat-pill">A-</span>
-              <span class="compat-pill">O+</span>
-              <span class="compat-pill">O-</span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>রোগীর নাম <span>*</span></label>
-            <input type="text" class="form-control" id="req-patient" placeholder="রোগীর পূর্ণ নাম" required>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group" style="flex:1;">
-              <label>রক্তের পরিমাণ (ব্যাগ) <span>*</span></label>
-              <input type="number" class="form-control" value="1" min="1" max="10" required>
-            </div>
-            <div class="form-group" style="flex:1;">
-              <label>জরুরিতা <span>*</span></label>
-              <select class="form-control">
-                <option value="immediate">তাৎক্ষণিক (Immediate)</option>
-                <option value="urgent" selected>জরুরি (Urgent)</option>
-                <option value="scheduled">পরিকল্পিত (Scheduled)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>হাসপাতাল / ক্লিনিকের নাম <span>*</span></label>
-            <input type="text" class="form-control" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group" style="flex:1;">
-              <label>জেলা <span>*</span></label>
-              <select class="form-control">
-                <option>Dhaka</option>
-                <option>Chattogram</option>
-                <option>Rajshahi</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Barishal</option>
-              </select>
-            </div>
-            <div class="form-group" style="flex:1;">
-              <label>উপজেলা / এলাকা <span>*</span></label>
-              <input type="text" class="form-control" placeholder="যেমন: শাহবাগ">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>যোগাযোগের মোবাইল নম্বর <span>*</span></label>
-            <input type="text" class="form-control" placeholder="01XXXXXXXXX" required>
-          </div>
-
-          <div class="form-group">
-            <label>রোগীর সমস্যা / কারণ</label>
-            <textarea class="form-control" rows="2" placeholder="অপারেশন / সিজার / থ্যালাসেমিয়া ইত্যাদি"></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> রক্তের অনুরোধ পোস্ট করুন</button>
-        </form>
+    <!-- Search Hero -->
+    <section class="search-hero">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <span style="background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-transform: uppercase;">
+            <i class="fa-solid fa-droplet mr-1"></i> জরুরি রক্তের লাইভ ফিড
+          </span>
+          <h1 style="font-size: 28px; font-weight: 800; margin: 8px 0 4px;">জরুরি রক্তের প্রয়োজনীয়তা ও ডোনার পোর্টাল</h1>
+          <p style="font-size: 13.5px; opacity: 0.9;">মুহূর্তের মধ্যে রোগীর জন্য রক্তদাতা খুঁজে নিন অথবা সরাসরি রক্তদানে সাড়া দিন।</p>
+        </div>
+        <a href="dashboard.html?tab=blood-request" style="background: #0b5a35; color: white; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+          <i class="fa-solid fa-plus mr-1"></i> রক্তের অনুরোধ পোস্ট করুন
+        </a>
       </div>
 
-      <!-- Right Column: Live Urgent Feed -->
-      <div class="card">
-        <h2 class="card-header-title">Live Urgent Blood Requests</h2>
-        <p class="card-subtitle">চলমান জরুরি রক্তের আবেদন তালিকা</p>
+      <!-- Quick Search Bar with Button -->
+      <div class="search-input-wrap">
+        <input type="text" id="req-search-keyword" placeholder="রোগীর নাম, হাসপাতাল, রক্তের গ্রুপ বা এলাকা দিয়ে খুঁজুন...">
+        <button type="button" onclick="applyBloodFilters()"><i class="fa-solid fa-search mr-1"></i> অনুসন্ধান</button>
+      </div>
+    </section>
 
-        <div id="live-requests-feed">
-          <!-- Item 1 -->
-          <div class="request-list-item">
-            <div class="req-blood-badge">B+</div>
-            <div class="req-info">
-              <div class="req-hospital">Dhaka Medical College Hospital</div>
-              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Shahbagh, Dhaka • 2 Bags needed • 10m ago</div>
-            </div>
-            <a href="blood-tracking.html?id=REQ-2026-08101" class="btn-respond">রক্ত দিন &rarr;</a>
-          </div>
+    <!-- Multi-Filter Card (Hospital, Division, District, Upazila, Blood Group) -->
+    <section class="filter-bar-card">
+      <div class="filter-grid">
+        <!-- Division -->
+        <div>
+          <label class="filter-label">বিভাগ (Division)</label>
+          <select id="filter-division" class="filter-input" onchange="applyBloodFilters()">
+            <option value="all">সকল বিভাগ</option>
+            <option value="Dhaka">ঢাকা (Dhaka)</option>
+            <option value="Chattogram">চট্টগ্রাম (Chattogram)</option>
+            <option value="Rajshahi">রাজশাহী (Rajshahi)</option>
+            <option value="Khulna">খুলনা (Khulna)</option>
+            <option value="Sylhet">সিলেট (Sylhet)</option>
+            <option value="Barishal">বরিশাল (Barishal)</option>
+            <option value="Rangpur">রংপুর (Rangpur)</option>
+            <option value="Mymensingh">ময়মনসিংহ (Mymensingh)</option>
+          </select>
+        </div>
 
-          <!-- Item 2 -->
-          <div class="request-list-item">
-            <div class="req-blood-badge">O+</div>
-            <div class="req-info">
-              <div class="req-hospital">Square Hospital</div>
-              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Panthapath, Dhaka • 1 Bag needed • 25m ago</div>
-            </div>
-            <a href="blood-tracking.html?id=REQ-2026-08102" class="btn-respond">রক্ত দিন &rarr;</a>
-          </div>
+        <!-- District -->
+        <div>
+          <label class="filter-label">জেলা (District)</label>
+          <input type="text" id="filter-district" placeholder="যেমন: ঢাকা, চট্টগ্রাম, কুমিল্লা" class="filter-input" oninput="applyBloodFilters()">
+        </div>
 
-          <!-- Item 3 -->
-          <div class="request-list-item">
-            <div class="req-blood-badge">AB-</div>
-            <div class="req-info">
-              <div class="req-hospital">Chattogram Medical College</div>
-              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Panchlaish, CTG • 2 Bags needed • 40m ago</div>
-            </div>
-            <a href="blood-tracking.html?id=REQ-2026-08103" class="btn-respond">রক্ত দিন &rarr;</a>
-          </div>
+        <!-- Upazila -->
+        <div>
+          <label class="filter-label">উপজেলা / থানা (Upazila)</label>
+          <input type="text" id="filter-upazila" placeholder="যেমন: শাহবাগ, ধানমন্ডি, মিরপুর" class="filter-input" oninput="applyBloodFilters()">
+        </div>
 
-          <!-- Item 4 -->
-          <div class="request-list-item">
-            <div class="req-blood-badge">A+</div>
-            <div class="req-info">
-              <div class="req-hospital">Ibn Sina Specialized Hospital</div>
-              <div class="req-meta"><i class="fa-solid fa-location-dot"></i> Dhanmondi, Dhaka • 1 Bag needed • 1h ago</div>
-            </div>
-            <a href="blood-tracking.html?id=REQ-2026-08104" class="btn-respond">রক্ত দিন &rarr;</a>
-          </div>
+        <!-- Hospital -->
+        <div>
+          <label class="filter-label">হাসপাতাল (Hospital)</label>
+          <input type="text" id="filter-hospital" placeholder="যেমন: ঢাকা মেডিকেল, স্কয়ার..." class="filter-input" oninput="applyBloodFilters()">
+        </div>
+
+        <!-- Blood Group -->
+        <div>
+          <label class="filter-label">রক্তের গ্রুপ (Blood Type)</label>
+          <select id="filter-blood" class="filter-input" onchange="applyBloodFilters()">
+            <option value="all">সকল রক্তের গ্রুপ</option>
+            <option value="A+">A+ (Positive)</option>
+            <option value="A-">A- (Negative)</option>
+            <option value="B+">B+ (Positive)</option>
+            <option value="B-">B- (Negative)</option>
+            <option value="O+">O+ (Positive)</option>
+            <option value="O-">O- (Negative)</option>
+            <option value="AB+">AB+ (Positive)</option>
+            <option value="AB-">AB- (Negative)</option>
+          </select>
         </div>
       </div>
+    </section>
+
+    <!-- Requests Count Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <h2 style="font-size: 18px; font-weight: 800; color: #0f172a;">জরুরি রক্তের চাহিদাসমূহ (Live Requests)</h2>
+      <span style="font-size: 12px; font-weight: 700; color: #d32f2f;" id="req-count-badge">৪টি জরুরি রক্তের আবেদন</span>
+    </div>
+
+    <!-- Blood Request Cards Grid -->
+    <div class="requests-grid" id="requests-cards-container">
+
+      <!-- Card 1: Karim Uddin -->
+      <article class="req-card" data-blood="B+" data-division="Dhaka" data-district="ঢাকা" data-upazila="শাহবাগ" data-hospital="ঢাকা মেডিকেল কলেজ হাসপাতাল" data-name="করিম উদ্দিন">
+        <div>
+          <div class="card-header-row">
+            <div class="patient-info">
+              <div class="patient-pic">ক</div>
+              <div>
+                <h3 class="patient-name">করিম উদ্দিন (Karim Uddin)</h3>
+                <p class="published-time"><i class="fa-regular fa-clock mr-1"></i> ১০ মিনিট আগে • প্রকাশিত: ১০ আগস্ট ২০২৬, সকাল ১০:১৫</p>
+              </div>
+            </div>
+            <div class="blood-type-badge">B+</div>
+          </div>
+
+          <div class="req-details-box">
+            <div class="detail-line">
+              <i class="fa-solid fa-droplet"></i>
+              <span><strong>রক্তের পরিমাণ:</strong> ২ ব্যাগ (2 Bags Needed)</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-heart-pulse"></i>
+              <span><strong>প্রয়োজনের কারণ:</strong> জরুরি ব্রেন সার্জারি ও রক্তপাত নিয়ন্ত্রণ</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-hospital"></i>
+              <span><strong>হাসপাতাল ও ঠিকানা:</strong> ঢাকা মেডিকেল কলেজ হাসপাতাল, নতুন ভবন, ৪নং সার্জারি ওয়ার্ড, শাহবাগ, ঢাকা</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-clock"></i>
+              <span><strong>প্রয়োজনের সময়:</strong> আজ দুপুর ১২:০০ টার মধ্যে</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-action">
+          <button onclick="openDonateModal('করিম উদ্দিন', 'B+', '২ ব্যাগ', 'ঢাকা মেডিকেল কলেজ হাসপাতাল', 'শাহবাগ, ঢাকা', '01312345678', 'REQ-2026-08101')" class="btn-donate">
+            <i class="fa-solid fa-heart-pulse"></i> রক্তদান করুন (Donate)
+          </button>
+          <a href="tel:01312345678" class="btn-call"><i class="fa-solid fa-phone"></i> ০১৩১২-৩৪৫৬৭৮</a>
+        </div>
+      </article>
+
+      <!-- Card 2: Fatima Begum -->
+      <article class="req-card" data-blood="O+" data-division="Dhaka" data-district="ঢাকা" data-upazila="পান্থপথ" data-hospital="স্কয়ার হাসপাতাল" data-name="ফাতিমা বেগম">
+        <div>
+          <div class="card-header-row">
+            <div class="patient-info">
+              <div class="patient-pic" style="background:#dcfce7; color:#166534; border-color:#86efac;">ফ</div>
+              <div>
+                <h3 class="patient-name">ফাতিমা বেগম (Fatima Begum)</h3>
+                <p class="published-time"><i class="fa-regular fa-clock mr-1"></i> ২৫ মিনিট আগে • প্রকাশিত: ১০ আগস্ট ২০২৬, সকাল ১০:০০</p>
+              </div>
+            </div>
+            <div class="blood-type-badge" style="background:#166534;">O+</div>
+          </div>
+
+          <div class="req-details-box">
+            <div class="detail-line">
+              <i class="fa-solid fa-droplet"></i>
+              <span><strong>রক্তের পরিমাণ:</strong> ১ ব্যাগ (1 Bag Needed)</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-heart-pulse"></i>
+              <span><strong>প্রয়োজনের কারণ:</strong> সিজারিয়ান ডেলিভারি ও প্রসূতি মায়ের রক্তস্বল্পতা</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-hospital"></i>
+              <span><strong>হাসপাতাল ও ঠিকানা:</strong> স্কয়ার হাসপাতাল লিমিটেড, ৭ম তলা, আইসিইউ-২, পান্থপথ, ঢাকা</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-clock"></i>
+              <span><strong>প্রয়োজনের সময়:</strong> আজ বিকাল ০৩:০০ টার মধ্যে</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-action">
+          <button onclick="openDonateModal('ফাতিমা বেগম', 'O+', '১ ব্যাগ', 'স্কয়ার হাসপাতাল', 'পান্থপথ, ঢাকা', '01712000000', 'REQ-2026-08102')" class="btn-donate">
+            <i class="fa-solid fa-heart-pulse"></i> রক্তদান করুন (Donate)
+          </button>
+          <a href="tel:01712000000" class="btn-call"><i class="fa-solid fa-phone"></i> ০১৭১২-০০০০০০</a>
+        </div>
+      </article>
+
+      <!-- Card 3: Tanvir Ahmed -->
+      <article class="req-card" data-blood="AB-" data-division="Chattogram" data-district="চট্টগ্রাম" data-upazila="পাঁচলাইশ" data-hospital="চট্টগ্রাম মেডিকেল কলেজ হাসপাতাল" data-name="তানভীর আহমেদ">
+        <div>
+          <div class="card-header-row">
+            <div class="patient-info">
+              <div class="patient-pic" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">ত</div>
+              <div>
+                <h3 class="patient-name">তানভীর আহমেদ (Tanvir Ahmed)</h3>
+                <p class="published-time"><i class="fa-regular fa-clock mr-1"></i> ৪০ মিনিট আগে • প্রকাশিত: ১০ আগস্ট ২০২৬, সকাল ০৯:৪৫</p>
+              </div>
+            </div>
+            <div class="blood-type-badge" style="background:#6b21a8;">AB-</div>
+          </div>
+
+          <div class="req-details-box">
+            <div class="detail-line">
+              <i class="fa-solid fa-droplet"></i>
+              <span><strong>রক্তের পরিমাণ:</strong> ২ ব্যাগ (2 Bags Rare Blood)</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-heart-pulse"></i>
+              <span><strong>প্রয়োজনের কারণ:</strong> সড়ক দুর্ঘটনা পরবর্তী মেজর অর্থোপেডিক সার্জারি</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-hospital"></i>
+              <span><strong>হাসপাতাল ও ঠিকানা:</strong> চট্টগ্রাম মেডিকেল কলেজ হাসপাতাল (চমেক), ট্রমা ইউনিট, পাঁচলাইশ, চট্টগ্রাম</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-clock"></i>
+              <span><strong>প্রয়োজনের সময়:</strong> জরুরি ও তাৎক্ষণিক</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-action">
+          <button onclick="openDonateModal('তানভীর আহমেদ', 'AB-', '২ ব্যাগ', 'চট্টগ্রাম মেডিকেল কলেজ হাসপাতাল', 'পাঁচলাইশ, চট্টগ্রাম', '01811223344', 'REQ-2026-08103')" class="btn-donate">
+            <i class="fa-solid fa-heart-pulse"></i> রক্তদান করুন (Donate)
+          </button>
+          <a href="tel:01811223344" class="btn-call"><i class="fa-solid fa-phone"></i> ০১৮১১-২২৩৩৪৪</a>
+        </div>
+      </article>
+
+      <!-- Card 4: Saima Akter -->
+      <article class="req-card" data-blood="A+" data-division="Dhaka" data-district="ঢাকা" data-upazila="ধানমন্ডি" data-hospital="ইবনে সিনা স্পেশালাইজড হাসপাতাল" data-name="সায়মা আক্তার">
+        <div>
+          <div class="card-header-row">
+            <div class="patient-info">
+              <div class="patient-pic" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">স</div>
+              <div>
+                <h3 class="patient-name">সায়মা আক্তার (Saima Akter)</h3>
+                <p class="published-time"><i class="fa-regular fa-clock mr-1"></i> ১ ঘণ্টা আগে • প্রকাশিত: ১০ আগস্ট ২০২৬, সকাল ০৯:১৫</p>
+              </div>
+            </div>
+            <div class="blood-type-badge" style="background:#1d4ed8;">A+</div>
+          </div>
+
+          <div class="req-details-box">
+            <div class="detail-line">
+              <i class="fa-solid fa-droplet"></i>
+              <span><strong>রক্তের পরিমাণ:</strong> ১ ব্যাগ (1 Bag Needed)</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-heart-pulse"></i>
+              <span><strong>প্রয়োজনের কারণ:</strong> থ্যালাসেমিয়া রোগীর নিয়মিত রক্ত সঞ্চালন</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-hospital"></i>
+              <span><strong>হাসপাতাল ও ঠিকানা:</strong> ইবনে সিনা স্পেশালাইজড হাসপাতাল, হাউস ৬৮, রোড ১৫/এ, ধানমন্ডি, ঢাকা</span>
+            </div>
+            <div class="detail-line">
+              <i class="fa-solid fa-clock"></i>
+              <span><strong>প্রয়োজনের সময়:</strong> আজ সন্ধ্যা ০৭:০০ টার মধ্যে</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-action">
+          <button onclick="openDonateModal('সায়মা আক্তার', 'A+', '১ ব্যাগ', 'ইবনে সিনা হাসপাতাল', 'ধানমন্ডি, ঢাকা', '01911334455', 'REQ-2026-08104')" class="btn-donate">
+            <i class="fa-solid fa-heart-pulse"></i> রক্তদান করুন (Donate)
+          </button>
+          <a href="tel:01911334455" class="btn-call"><i class="fa-solid fa-phone"></i> ০১৯১১-৩৩৪৪৫৫</a>
+        </div>
+      </article>
 
     </div>
 
+  </main>
+
+  <!-- Interactive Donate Response Modal -->
+  <div class="modal-backdrop" id="donate-modal">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; color: #d32f2f; text-transform: uppercase;">রক্তদানের প্রতিশ্রুতি নিশ্চিতকরণ</span>
+          <h3 style="font-size: 18px; font-weight: 800; color: #0f172a;" id="m-patient-name">রোগী: করিম উদ্দিন</h3>
+        </div>
+        <button onclick="closeDonateModal()" style="background: none; border: none; font-size: 22px; color: #94a3b8; cursor: pointer;">&times;</button>
+      </div>
+
+      <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 14px; margin-bottom: 16px; line-height: 1.6; font-size: 12.5px;">
+        <div style="display: flex; justify-content: space-between;"><span>রক্তের গ্রুপ:</span> <strong style="color: #d32f2f; font-size: 15px;" id="m-blood-type">B+</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span>প্রয়োজন:</span> <strong id="m-units">২ ব্যাগ</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span>হাসপাতাল:</span> <strong id="m-hospital">ঢাকা মেডিকেল কলেজ হাসপাতাল</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span>ঠিকানা:</span> <strong id="m-address">শাহবাগ, ঢাকা</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span>ট্র্যাকিং আইডি:</span> <strong style="color: #0b5a35;" id="m-tracking-id">REQ-2026-08101</strong></div>
+      </div>
+
+      <div style="font-size: 12px; color: #475569; margin-bottom: 18px;">
+        <i class="fa-solid fa-circle-info text-primary mr-1"></i> আপনার রক্তদানের নিশ্চয়তা সরাসরি রোগীর পরিবারের কাছে পাঠানো হবে। অনুগ্রহ করে নিশ্চিত হয়ে বোতামে চাপ দিন।
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button onclick="confirmDonation()" style="flex: 1; background: #00a651; color: white; border: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;">
+          <i class="fa-solid fa-check mr-1"></i> রক্তদানে সম্মতি দিন
+        </button>
+        <a id="m-call-link" href="tel:01312345678" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;">
+          <i class="fa-solid fa-phone"></i> কল করুন
+        </a>
+      </div>
+    </div>
   </div>
 
+  <!-- Shared Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="donor-register.html">Donation</a>
+        <a href="news.html">Privacy Policy</a>
+        <a href="news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
+
   <script>
-    const compatMatrix = {
-      'A+': ['A+', 'A-', 'O+', 'O-'],
-      'A-': ['A-', 'O-'],
-      'B+': ['B+', 'B-', 'O+', 'O-'],
-      'B-': ['B-', 'O-'],
-      'AB+': ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-      'AB-': ['AB-', 'A-', 'B-', 'O-'],
-      'O+': ['O+', 'O-'],
-      'O-': ['O-']
-    };
+    let activeTrackingId = 'REQ-2026-08101';
 
-    const tiles = document.querySelectorAll('#blood-picker .blood-tile');
-    const compatContainer = document.getElementById('compat-pills');
+    function openDonateModal(name, blood, units, hospital, address, phone, trackingId) {
+      document.getElementById('m-patient-name').textContent = `রোগী: ${name}`;
+      document.getElementById('m-blood-type').textContent = blood;
+      document.getElementById('m-units').textContent = units;
+      document.getElementById('m-hospital').textContent = hospital;
+      document.getElementById('m-address').textContent = address;
+      document.getElementById('m-tracking-id').textContent = trackingId;
+      document.getElementById('m-call-link').href = 'tel:' + phone;
+      activeTrackingId = trackingId;
+      document.getElementById('donate-modal').classList.add('active');
+    }
 
-    tiles.forEach(t => {
-      t.addEventListener('click', () => {
-        tiles.forEach(x => x.classList.remove('active'));
-        t.classList.add('active');
-        const bg = t.dataset.bg;
-        const allowed = compatMatrix[bg] || [bg];
-        compatContainer.innerHTML = allowed.map(g => `<span class="compat-pill">${g}</span>`).join('');
+    function closeDonateModal() {
+      document.getElementById('donate-modal').classList.remove('active');
+    }
+
+    function confirmDonation() {
+      closeDonateModal();
+      alert('রক্তদানে সম্মতি জানানোর জন্য ধন্যবাদ! লাইভ ট্র্যাকিং পাতায় আপনাকে নিয়ে যাওয়া হচ্ছে।');
+      window.location.href = `blood-tracking.html?id=${activeTrackingId}`;
+    }
+
+    // Filter Logic
+    function applyBloodFilters() {
+      const q = (document.getElementById('req-search-keyword').value || '').toLowerCase();
+      const div = document.getElementById('filter-division').value;
+      const dist = (document.getElementById('filter-district').value || '').toLowerCase();
+      const upazila = (document.getElementById('filter-upazila').value || '').toLowerCase();
+      const hosp = (document.getElementById('filter-hospital').value || '').toLowerCase();
+      const blood = document.getElementById('filter-blood').value;
+
+      const cards = document.querySelectorAll('#requests-cards-container .req-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const name = (card.dataset.name || '').toLowerCase();
+        const cBlood = card.dataset.blood || '';
+        const cDiv = card.dataset.division || '';
+        const cDist = (card.dataset.district || '').toLowerCase();
+        const cUpazila = (card.dataset.upazila || '').toLowerCase();
+        const cHosp = (card.dataset.hospital || '').toLowerCase();
+
+        const matchSearch = !q || name.includes(q) || cHosp.includes(q) || cDist.includes(q) || cBlood.toLowerCase().includes(q);
+        const matchDiv = (div === 'all') || (cDiv === div);
+        const matchDist = !dist || cDist.includes(dist);
+        const matchUpazila = !upazila || cUpazila.includes(upazila);
+        const matchHosp = !hosp || cHosp.includes(hosp);
+        const matchBlood = (blood === 'all') || (cBlood === blood);
+
+        if (matchSearch && matchDiv && matchDist && matchUpazila && matchHosp && matchBlood) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
       });
+
+      document.getElementById('req-count-badge').textContent = `${visible}টি জরুরি রক্তের আবেদন`;
+    }
+
+    // Load User submitted requests from localStorage
+    function loadUserSubmittedRequests() {
+      try {
+        const userReqs = JSON.parse(localStorage.getItem('bondhu.userBloodRequests') || '[]');
+        const container = document.getElementById('requests-cards-container');
+        userReqs.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'req-card';
+          card.dataset.blood = item.bloodGroup;
+          card.dataset.division = item.division || 'Dhaka';
+          card.dataset.district = item.district || 'ঢাকা';
+          card.dataset.upazila = item.upazila || '';
+          card.dataset.hospital = item.hospitalName || '';
+          card.dataset.name = item.patientName;
+
+          card.innerHTML = `
+            <div>
+              <div class="card-header-row">
+                <div class="patient-info">
+                  <div class="patient-pic" style="background:#fee2e2; color:#d32f2f; border-color:#fca5a5;">${item.patientName[0]}</div>
+                  <div>
+                    <h3 class="patient-name">${item.patientName}</h3>
+                    <p class="published-time"><i class="fa-regular fa-clock mr-1"></i> এইমাত্র প্রকাশিত • ${item.publishedAt || 'আজ'}</p>
+                  </div>
+                </div>
+                <div class="blood-type-badge">${item.bloodGroup}</div>
+              </div>
+
+              <div class="req-details-box">
+                <div class="detail-line">
+                  <i class="fa-solid fa-droplet"></i>
+                  <span><strong>রক্তের পরিমাণ:</strong> ${item.unitsCount} ব্যাগ (${item.unitsCount} Bags Needed)</span>
+                </div>
+                <div class="detail-line">
+                  <i class="fa-solid fa-heart-pulse"></i>
+                  <span><strong>প্রয়োজনের কারণ:</strong> ${item.reason || 'জরুরি চিকিৎসা'}</span>
+                </div>
+                <div class="detail-line">
+                  <i class="fa-solid fa-hospital"></i>
+                  <span><strong>হাসপাতাল ও ঠিকানা:</strong> ${item.hospitalName}, ${item.address || item.district}</span>
+                </div>
+                <div class="detail-line">
+                  <i class="fa-solid fa-clock"></i>
+                  <span><strong>জরুরিতা:</strong> ${item.urgency === 'immediate' ? 'তাৎক্ষণিক' : 'জরুরি'}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer-action">
+              <button onclick="openDonateModal('${item.patientName}', '${item.bloodGroup}', '${item.unitsCount} ব্যাগ', '${item.hospitalName}', '${item.district}', '${item.phone}', '${item.id}')" class="btn-donate">
+                <i class="fa-solid fa-heart-pulse"></i> রক্তদান করুন (Donate)
+              </button>
+              <a href="tel:${item.phone}" class="btn-call"><i class="fa-solid fa-phone"></i> ${item.phone}</a>
+            </div>
+          `;
+          container.prepend(card);
+        });
+        applyBloodFilters();
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUserSubmittedRequests();
     });
 
-    document.getElementById('blood-request-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('রক্তের অনুরোধ সফলভাবে গ্রহণ করা হয়েছে! নিকটস্থ রক্তদাতাদের সতর্কবার্তা পাঠানো হচ্ছে।');
-      window.location.href = 'blood-tracking.html?id=REQ-2026-' + Math.floor(10000 + Math.random() * 90000);
-    });
+    // Shared Dynamic Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+    }
+
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
+    }
+
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
+
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
+
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
+    }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
   </script>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-top">
-<div class="footer-brand">
-<div class="logo-badge">B</div>
-<div>
-<h2>Bondhu<span>.</span></h2>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</div>
-<div class="footer-links">
-<a href="mailto:help@bondhu.local">Contact</a>
-<a href="../pages/donor-register.html">Donation</a>
-<a href="../pages/news.html">Privacy Policy</a>
-<a href="../pages/news.html">Terms &amp; Conditions</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2026 Bondhu. All Rights Reserved.</span>
-<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
-</div>
-</footer>
-
-<script>
-  // Shared Dynamic Language & Calendar Scripting
-  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
-  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
-  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
-
-  function getBanglaDate(date = new Date(), lang = getLang()) {
-    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
-    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
-    const year = date.getFullYear();
-    const startThisYear = new Date(year, 3, 14);
-    const startYear = date >= startThisYear ? year : year - 1;
-    const banglaYear = startYear - 593;
-    const startDate = new Date(startYear, 3, 14);
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    let dayIndex = Math.floor((today - startDate) / 86400000);
-    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
-    let month = 0;
-    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
-      dayIndex -= monthLengths[month];
-      month += 1;
-    }
-    const day = dayIndex + 1;
-    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
-    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
-  }
-
-  function getArabicDate(date = new Date(), lang = getLang()) {
-    try {
-      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
-      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
-    } catch (error) {
-      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
-    }
-  }
-
-  function applyLanguage(lang = getLang()) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
-    const date = new Date();
-
-    const gregElem = document.getElementById('gregorian-date');
-    const banglaElem = document.getElementById('bangla-calendar');
-    const arabicElem = document.getElementById('arabic-calendar');
-
-    if (gregElem) {
-      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
-      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
-    }
-    if (banglaElem) {
-      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
-    }
-    if (arabicElem) {
-      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
-    }
-  }
-
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  applyLanguage(getLang());
-</script>
 </body>
 </html>

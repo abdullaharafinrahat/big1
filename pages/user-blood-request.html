@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Blood Request | Bondhu.org - রক্তের অনুরোধ ফরম</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  :root {
+    --green-dark: #0b5a35;
+    --green: #0e6e42;
+    --green-light: #e9f5ee;
+    --red: #e31e24;
+    --red-dark: #c81419;
+    --pink: #f7d9dc;
+    --ink: #1c2b24;
+    --muted: #6b7a72;
+    --border: #e5e9e6;
+    --radius: 14px;
+    --primary-red: #d32f2f;
+    --primary-green: #00695c;
+    --dark-green: #004d40;
+    --bg-light: #f4f6f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+  html, body {
+    background-color: var(--bg-light);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Header Topbar */
+  header.topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 14px rgba(0,0,0,.06);
+    width: 100%;
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0; }
+  .brand .logo-badge {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 18px;
+    border: 2px solid var(--red);
+    flex-shrink: 0;
+  }
+
+  .brand-text h1 { margin: 0; font-size: 22px; letter-spacing: .3px; color: var(--green-dark); line-height: 1.1; font-weight: 800; }
+  .brand-text h1 span { color: var(--red); }
+  .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
+
+  .topbar-meta {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 12px; color: #3a463f; margin-left: auto; margin-right: 16px;
+  }
+
+  .meta-item {
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    background: #f8f9fa; border: 1px solid #e5e9e6; padding: 4px 10px; border-radius: 6px; font-size: 11.5px;
+  }
+  .meta-item .dot { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
+
+  .calendar-label { font-weight: 800; color: var(--green-dark); margin-right: 3px; }
+
+  .mobile-header-right { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0; }
+
+  .lang-switcher {
+    display: inline-flex; background: #f3f4f6; border-radius: 8px; padding: 2px; font-size: 12px; font-weight: 700;
+  }
+  .lang-switcher button {
+    border: 0; background: transparent; color: #667085; padding: 6px 12px; border-radius: 7px; font-weight: 800; cursor: pointer; min-height: 36px; font-size: 11.5px;
+  }
+  .lang-switcher button.active { background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18); }
+
+  .login-btn {
+    background: var(--green-dark); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 36px; height: 36px; text-decoration: none; transition: background 0.2s; white-space: nowrap;
+  }
+  .login-btn:hover { background: var(--green); }
+  .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
+
+  /* Main Wrapper */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 36px 16px;
+    width: 100%;
+  }
+
+  .form-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 580px;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eef0f3;
+    padding: 28px 32px 24px 32px;
+    position: relative;
+  }
+
+  .header-logo { text-align: center; margin-bottom: 12px; }
+  .logo-icon {
+    width: 48px; height: 48px; background-color: #d32f2f; border-radius: 50%; margin: 0 auto 8px;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25);
+  }
+  .logo-icon i { color: white; font-size: 20px; }
+
+  .card-brand-title { font-size: 28px; font-weight: 800; color: #0b5a35; letter-spacing: -0.5px; line-height: 1.1; }
+  .card-brand-title span { color: #d32f2f; }
+  .brand-subtitle { font-size: 13px; color: #666666; margin-top: 2px; }
+
+  .divider-container { display: flex; align-items: center; justify-content: center; margin: 14px 0 18px; position: relative; }
+  .divider-line { height: 1px; background-color: #e5e7eb; width: 100%; }
+  .divider-drop { position: absolute; background: #ffffff; padding: 0 8px; color: #d32f2f; font-size: 12px; }
+
+  .welcome-text { text-align: center; font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 2px; }
+  .sub-welcome-text { text-align: center; font-size: 13px; color: #64748b; margin-bottom: 20px; }
+
+  /* Form Elements */
+  .form-group { margin-bottom: 14px; }
+  .form-label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 5px; }
+  .form-label span { color: var(--red); }
+
+  .input-wrapper { position: relative; display: flex; align-items: center; }
+  .input-icon-left { position: absolute; left: 12px; color: #888888; font-size: 14px; z-index: 2; }
+
+  .form-input {
+    width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none; transition: all 0.2s; background: white;
+  }
+  .form-input:focus { border-color: #d32f2f; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1); }
+
+  .form-row { display: flex; gap: 10px; }
+
+  .btn-submit {
+    width: 100%; height: 46px; background-color: #d32f2f; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: background-color 0.2s, transform 0.1s; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25); margin-top: 14px;
+  }
+  .btn-submit:hover { background-color: #b71c1c; transform: translateY(-1px); }
+
+  /* Success Modal */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px); z-index: 3000; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-backdrop.active { display: flex; }
+  .modal-card {
+    background: #ffffff; border-radius: 16px; max-width: 480px; width: 100%; padding: 28px 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;
+  }
+
+  /* Shared Footer */
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
+  .footer-top { max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .logo-badge { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid var(--red); }
+  .footer-brand h2 { margin: 0; font-size: 18px; font-weight: 800; }
+  .footer-brand h2 span { color: #ff8b8e; }
+  .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; font-size: 12.5px; }
+  .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; text-decoration: none; }
+
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px; }
+  .dev-by { display: flex; align-items: center; gap: 6px; }
+  .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
+  .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
+
+  @media (max-width: 900px) { .topbar-meta { display: none; } }
+  @media (max-width: 768px) {
+    header.topbar { padding: 8px 12px; }
+    .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
+    .brand-text h1 { font-size: 16px; }
+    .brand-text p { display: none; }
+    .login-btn { min-height: 30px; height: 30px; padding: 4px 10px; font-size: 11px; }
+    .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
+    .form-card { padding: 20px 16px; }
+    .form-row { flex-direction: column; gap: 0; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .footer-links { gap: 12px; font-size: 11.5px; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Center Wrapper -->
+  <main class="main-wrapper">
+    <div class="form-card">
+
+      <!-- Header & Logo -->
+      <div class="header-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
+        <div class="card-brand-title">Bondhu<span>.</span></div>
+        <div class="brand-subtitle">ইউজার রক্তের অনুরোধ পোর্টাল</div>
+      </div>
+
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <div class="divider-drop"><i class="fa-solid fa-heart-pulse"></i></div>
+      </div>
+
+      <!-- Welcome Heading -->
+      <div class="welcome-text">User Blood Request (রক্তের অনুরোধ)</div>
+      <div class="sub-welcome-text">জরুরি রক্তের জন্য রোগীর তথ্য পূরণ করুন</div>
+
+      <!-- Form Section with Blood Type Dropdown Button -->
+      <form id="user-blood-form" onsubmit="submitUserBloodRequest(event)">
+        <!-- Patient Name -->
+        <div class="form-group">
+          <label class="form-label">রোগীর নাম (Patient Name) <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user input-icon-left"></i>
+            <input type="text" id="u-patient-name" class="form-input" placeholder="যেমন: মো: করিম উদ্দিন" required>
+          </div>
+        </div>
+
+        <!-- Blood Type Dropdown Button & Units Needed Row -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">রক্তের গ্রুপ (Blood Type) <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-droplet input-icon-left" style="color: var(--primary-red);"></i>
+              <select id="u-blood-type" class="form-input" required>
+                <option value="A+">A+ (Positive)</option>
+                <option value="A-">A- (Negative)</option>
+                <option value="B+">B+ (Positive)</option>
+                <option value="B-">B- (Negative)</option>
+                <option value="O+" selected>O+ (Positive)</option>
+                <option value="O-">O- (Negative)</option>
+                <option value="AB+">AB+ (Positive)</option>
+                <option value="AB-">AB- (Negative)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">রক্তের পরিমাণ (ব্যাগ) <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-flask-vial input-icon-left"></i>
+              <input type="number" id="u-units" class="form-input" value="1" min="1" max="10" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reason / Why Need -->
+        <div class="form-group">
+          <label class="form-label">প্রয়োজনের কারণ (Why Needed) <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-heart-pulse input-icon-left"></i>
+            <input type="text" id="u-reason" class="form-input" placeholder="যেমন: ব্রেন সার্জারি / সিজার / থ্যালাসেমিয়া / দুর্ঘটনা" required>
+          </div>
+        </div>
+
+        <!-- Hospital Name -->
+        <div class="form-group">
+          <label class="form-label">হাসপাতাল / ক্লিনিকের নাম <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-hospital input-user input-icon-left"></i>
+            <input type="text" id="u-hospital" class="form-input" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required>
+          </div>
+        </div>
+
+        <!-- Location Fields -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">বিভাগ <span>*</span></label>
+            <select id="u-division" class="form-input" required>
+              <option value="Dhaka">ঢাকা (Dhaka)</option>
+              <option value="Chattogram">চট্টগ্রাম (Chattogram)</option>
+              <option value="Rajshahi">রাজশাহী (Rajshahi)</option>
+              <option value="Khulna">খুলনা (Khulna)</option>
+              <option value="Sylhet">সিলেট (Sylhet)</option>
+              <option value="Barishal">বরিশাল (Barishal)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">জেলা ও উপজেলা <span>*</span></label>
+            <input type="text" id="u-location" class="form-input" placeholder="যেমন: শাহবাগ, ঢাকা" required style="padding-left: 12px;">
+          </div>
+        </div>
+
+        <!-- Contact Phone & Urgency Row -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">যোগাযোগের মোবাইল <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-phone input-icon-left"></i>
+              <input type="tel" id="u-phone" class="form-input" placeholder="01XXXXXXXXX" value="01712345678" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">জরুরিতা (Urgency) <span>*</span></label>
+            <select id="u-urgency" class="form-input" style="padding-left: 12px;" required>
+              <option value="immediate">তাৎক্ষণিক (Immediate)</option>
+              <option value="urgent" selected>জরুরি (Urgent)</option>
+              <option value="scheduled">পরিকল্পিত (Scheduled)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-paper-plane mr-1"></i> রক্তের অনুরোধ পোস্ট করুন
+        </button>
+
+        <div style="margin-top: 14px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 12px;">
+          <a href="request-blood.html" style="font-size: 12px; font-weight: 800; color: var(--primary-red); text-decoration: none;">
+            &larr; সকল রক্তের লাইভ ফিড দেখুন
+          </a>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Success Popup Modal -->
+  <div class="modal-backdrop" id="request-success-modal">
+    <div class="modal-card">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background: #fee2e2; color: #d32f2f; font-size: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 style="font-size: 19px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">রক্তের অনুরোধ পোস্ট হয়েছে!</h3>
+      <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">নিকটস্থ রক্তদাতাদের অ্যালার্ট পাঠানো হচ্ছে এবং লাইভ ফিডে যুক্ত করা হয়েছে।</p>
+      
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; text-align: left; font-size: 12px; margin-bottom: 18px; line-height: 1.6;">
+        <div>ট্র্যাকিং কোড: <strong style="color: #0b5a35;" id="pop-track-id">REQ-2026-0899</strong></div>
+        <div>রোগীর নাম: <strong id="pop-patient-name">করিম উদ্দিন</strong></div>
+        <div>রক্তের গ্রুপ: <strong style="color: #d32f2f;" id="pop-blood-type">O+</strong></div>
+        <div>হাসপাতাল: <strong id="pop-hospital-name">ঢাকা মেডিকেল কলেজ</strong></div>
+        <div>স্ট্যাটাস: <span style="color: #16a34a; font-weight: 700;">Live Searching 🔴</span></div>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <a id="pop-track-btn" href="blood-tracking.html" style="flex: 1; background: #00a651; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;">
+          লাইভ ট্র্যাকিং দেখুন &rarr;
+        </a>
+        <a href="request-blood.html" style="flex: 1; background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;">
+          লাইভ ফিড
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="donor-register.html">Donation</a>
+        <a href="news.html">Privacy Policy</a>
+        <a href="news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
+
+  <script>
+    function submitUserBloodRequest(e) {
+      e.preventDefault();
+      const patientName = document.getElementById('u-patient-name').value;
+      const bloodGroup = document.getElementById('u-blood-type').value;
+      const unitsCount = document.getElementById('u-units').value;
+      const reason = document.getElementById('u-reason').value;
+      const hospitalName = document.getElementById('u-hospital').value;
+      const division = document.getElementById('u-division').value;
+      const location = document.getElementById('u-location').value;
+      const phone = document.getElementById('u-phone').value;
+      const urgency = document.getElementById('u-urgency').value;
+
+      const trackId = 'REQ-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      const requestObj = {
+        id: trackId,
+        patientName,
+        bloodGroup,
+        unitsCount,
+        reason,
+        hospitalName,
+        division,
+        district: location,
+        phone,
+        urgency,
+        publishedAt: '১০ আগস্ট ২০২৬'
+      };
+
+      // Save to localStorage for public request-blood feed
+      const list = JSON.parse(localStorage.getItem('bondhu.userBloodRequests') || '[]');
+      list.unshift(requestObj);
+      localStorage.setItem('bondhu.userBloodRequests', JSON.stringify(list));
+
+      // Fill modal
+      document.getElementById('pop-track-id').textContent = trackId;
+      document.getElementById('pop-patient-name').textContent = patientName;
+      document.getElementById('pop-blood-type').textContent = bloodGroup;
+      document.getElementById('pop-hospital-name').textContent = hospitalName;
+      document.getElementById('pop-track-btn').href = `blood-tracking.html?id=${trackId}`;
+
+      // Show popup
+      document.getElementById('request-success-modal').classList.add('active');
+    }
+
+    // Shared Dynamic Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+    }
+
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
+    }
+
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
+
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
+
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
+    }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
+  </script>
+</body>
+</html>
