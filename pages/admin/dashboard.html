@@ -218,7 +218,71 @@
 <span>Login</span>
 </a>
 </div>
-</header><div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div><main id="main" class="page page-admin-dashboard"><section class="container"><h1>Admin Dashboard</h1><div class="stats-grid"><article class="card"><b id="stat-requests">0</b><span>Open requests</span></article><article class="card"><b id="stat-donors">0</b><span>Donors</span></article><article class="card"><b id="stat-moderation">0</b><span>Moderation</span></article></div></section></main><!-- FOOTER -->
+</header>
+<div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div>
+<main id="main" class="page page-admin-dashboard" style="flex: 1; padding: 20px 0;">
+<section class="container">
+<h1 style="font-size: 24px; font-weight: 800; color: #0b5a35; margin-bottom: 18px;">Admin Dashboard</h1>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+  <!-- Blood Matrix Card -->
+  <div style="background: white; border: 1px solid #e5e9e6; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-droplet" style="color: #d32f2f; font-size: 18px;"></i>
+        <strong style="font-size: 15px; color: #0f172a;">Blood Request Matrix</strong>
+      </div>
+      <span style="background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;">Live</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; text-align: center;">
+      <div>
+        <div style="font-size: 22px; font-weight: 800; color: #d32f2f;">1,248</div>
+        <div style="font-size: 11.5px; color: #64748b;">Total Reqs</div>
+      </div>
+      <div>
+        <div style="font-size: 22px; font-weight: 800; color: #16a34a;">1,052</div>
+        <div style="font-size: 11.5px; color: #64748b;">Fulfilled</div>
+      </div>
+      <div>
+        <div style="font-size: 22px; font-weight: 800; color: #d32f2f;">196</div>
+        <div style="font-size: 11.5px; color: #64748b;">Searching</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Donors Card -->
+  <div style="background: white; border: 1px solid #e5e9e6; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-user-check" style="color: #16a34a; font-size: 18px;"></i>
+        <strong style="font-size: 15px; color: #0f172a;">Active Donors Community</strong>
+      </div>
+      <span style="background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;">Verified</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; text-align: center;">
+      <div>
+        <div style="font-size: 22px; font-weight: 800; color: #16a34a;">18,400+</div>
+        <div style="font-size: 11.5px; color: #64748b;">Registered</div>
+      </div>
+      <div>
+        <div style="font-size: 22px; font-weight: 800; color: #16a34a;">14,200+</div>
+        <div style="font-size: 11.5px; color: #64748b;">Verified</div>
+      </div>
+      <div>
+        <div style="font-size: 22px; font-weight: 800; color: #00695c;">9,850</div>
+        <div style="font-size: 11.5px; color: #64748b;">Available</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <article class="card"><b id="stat-requests">1,248</b><span>Open requests</span></article>
+  <article class="card"><b id="stat-donors">18,400</b><span>Donors</span></article>
+  <article class="card"><b id="stat-moderation">14</b><span>Moderation Queue</span></article>
+</div>
+</section>
+</main><!-- FOOTER -->
 <footer>
 <div class="footer-top">
 <div class="footer-brand">
