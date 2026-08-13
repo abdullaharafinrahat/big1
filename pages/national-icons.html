@@ -1,46 +1,16 @@
 <!DOCTYPE html>
-<html lang="bn" class="h-full">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>জ্ঞান ভান্ডার | Bondhu.org - জাতীয় ব্যক্তিত্ব ও ইতিহাস</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Hind Siliguri', 'Inter', 'sans-serif'],
-          },
-          colors: {
-            primary: '#00695c',
-            'primary-dark': '#004d40',
-            'primary-light': '#e0f2f1',
-            brand: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#10b981',
-              600: '#00a651',
-              700: '#00695c',
-              800: '#004d40'
-            },
-            crimson: {
-              500: '#d32f2f',
-              600: '#b71c1c'
-            }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-
-  /* === Shared Header & Footer System Cloned from index.html === */
   :root {
     --green-dark: #0b5a35;
     --green: #0e6e42;
@@ -58,6 +28,19 @@
     --bg-light: #f4f6f8;
   }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+  html, body {
+    background-color: var(--bg-light);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Header Topbar */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -83,99 +66,221 @@
     flex-shrink: 0;
   }
 
-  .brand-text h1 {
-    margin: 0; font-size: 22px; letter-spacing: .3px;
-    color: var(--green-dark); line-height: 1.1; font-weight: 800;
-  }
+  .brand-text h1 { margin: 0; font-size: 22px; letter-spacing: .3px; color: var(--green-dark); line-height: 1.1; font-weight: 800; }
   .brand-text h1 span { color: var(--red); }
   .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
 
-  .mobile-menu-btn { display: none; }
-
   .topbar-meta {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: #3a463f;
-    margin-left: auto;
-    margin-right: 16px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 12px; color: #3a463f; margin-left: auto; margin-right: 16px;
   }
+
   .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    background: #f8f9fa;
-    border: 1px solid #e5e9e6;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 11.5px;
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    background: #f8f9fa; border: 1px solid #e5e9e6; padding: 4px 10px; border-radius: 6px; font-size: 11.5px;
   }
   .meta-item .dot { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
-  .mobile-header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
+  .calendar-label { font-weight: 800; color: var(--green-dark); margin-right: 3px; }
+
+  .mobile-header-right { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0; }
 
   .lang-switcher {
-    display: inline-flex; background: #f3f4f6; border-radius: 8px;
-    padding: 2px; font-size: 12px; font-weight: 700;
-    align-items: center;
+    display: inline-flex; align-items: center; background: #f3f4f6; border-radius: 8px; padding: 2px; font-size: 12px; font-weight: 700;
   }
   .lang-switcher button {
-    border: 0; background: transparent; color: #667085;
-    padding: 6px 12px; border-radius: 7px; font-weight: 800;
-    cursor: pointer; min-height: 36px; font-size: 11.5px;
+    border: 0; background: transparent; color: #667085; padding: 6px 12px; border-radius: 7px; font-weight: 800; cursor: pointer; min-height: 36px; font-size: 11.5px;
   }
-  .lang-switcher button.active {
-    background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18);
-  }
+  .lang-switcher button.active { background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18); }
 
   .login-btn {
-    background: var(--green-dark); color: #fff;
-    padding: 8px 18px; border-radius: 8px;
-    font-size: 13px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 6px;
-    min-height: 36px; height: 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-    white-space: nowrap;
+    background: var(--green-dark); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 36px; height: 36px; text-decoration: none; transition: background 0.2s; white-space: nowrap;
   }
   .login-btn:hover { background: var(--green); }
   .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
-  .calendar-label {
-    font-weight: 800;
-    color: var(--green-dark);
-    margin-right: 3px;
+  /* Container */
+  .container { max-width: 1350px; margin: 15px auto; padding: 0 15px; flex: 1; width: 100%; }
+
+  /* Hero Banner */
+  .hero-banner {
+    background: linear-gradient(135deg, #004d40, #00695c, #0d9488);
+    color: white;
+    border-radius: 12px;
+    padding: 30px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0,77,64,0.15);
   }
 
-  /* Shared Footer */
-  footer {
-    background: var(--green-dark);
-    color: #eaf3ee;
-    margin-top: 30px;
+  .search-input-wrap {
+    display: flex;
+    margin-top: 16px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .search-input-wrap input {
+    border: none;
+    padding: 12px 16px;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    color: #1e293b;
+  }
+
+  .search-input-wrap button {
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 0 24px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* Filters */
+  .filters-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    padding: 8px 14px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    background: white;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    outline: none;
+  }
+
+  /* Icons Grid (Full-Width Responsive 4 Columns) */
+  .icons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+
+  .icon-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px 16px 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .icon-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-color: var(--primary-green);
+  }
+
+  .icon-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .icon-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .icon-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 10px;
+  }
+
+  .icon-facts {
+    width: 100%;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: left;
+    font-size: 11px;
+    color: #475569;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .icon-facts p { margin: 2px 0; display: flex; align-items: center; gap: 6px; }
+
+  .btn-view-profile {
+    width: 100%;
+    background: #004d40;
+    color: white;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: auto;
+    transition: background 0.2s;
+  }
+
+  .btn-view-profile:hover {
+    background: var(--primary-green);
+  }
+
+  /* Bottom Features Strip */
+  .bottom-features {
+    margin-top: 25px;
+    background: white;
+    padding: 18px 20px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
     width: 100%;
   }
 
-  .footer-top {
-    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12);
-  }
-  .footer-brand { display: flex; align-items: center; gap: 10px; }
-  .footer-brand .logo-badge {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: #fff; color: var(--green-dark);
+  .feature-item { display: flex; align-items: center; gap: 10px; }
+  .feature-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: #e0f2f1; color: var(--primary-green);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; border: 2px solid var(--red);
+    font-size: 16px; flex-shrink: 0;
   }
+  .feature-text h4 { font-size: 13px; color: #222; font-weight: 700; }
+  .feature-text p { font-size: 11px; color: #777; }
+
+  /* Shared Footer */
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
+  .footer-top { max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .logo-badge { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid var(--red); }
   .footer-brand h2 { margin: 0; font-size: 18px; font-weight: 800; }
   .footer-brand h2 span { color: #ff8b8e; }
   .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
@@ -183,420 +288,223 @@
   .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; text-decoration: none; }
   .footer-links a:hover { text-decoration: underline; }
 
-  .footer-bottom {
-    max-width: 1200px; margin: 0 auto; padding: 12px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px;
-  }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px; }
   .dev-by { display: flex; align-items: center; gap: 6px; }
-  .dev-by .dot-badge {
-    width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800;
-  }
+  .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
-  .dev-by a:hover { text-decoration: underline; }
+
+  @media (max-width: 1100px) {
+    .icons-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bottom-features { grid-template-columns: repeat(3, 1fr); }
+  }
 
   @media (max-width: 900px) {
     .topbar-meta { display: none; }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     header.topbar { padding: 8px 12px; }
-    .brand { gap: 6px; }
-    .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
-    .brand-text h1 { font-size: 16px; }
-    .brand-text p { display: none; }
-    .login-btn { min-height: 30px; height: 30px; padding: 4px 10px; font-size: 11px; }
-    .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
-    .footer-top { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 14px; }
+    .icons-grid { grid-template-columns: 1fr; }
+    .bottom-features { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
-    .footer-bottom { padding: 10px 14px; font-size: 10px; }
   }
-
-  @media (max-width: 380px) {
-    header.topbar { padding: 6px 8px; }
-    .brand .logo-badge { width: 28px; height: 28px; font-size: 12px; }
-    .brand-text h1 { font-size: 14px; }
-    .mobile-header-right { gap: 4px; }
-    .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
-    .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
-  }
-
-/* === Page Specific Styles === */
-:root {
-      --primary-red: #d32f2f;
-      --dark-red: #b71c1c;
-      --primary-green: #00695c;
-      --dark-green: #004d40;
-      --light-green: #e0f2f1;
-      --bg-light: #f4f6f8;
-      --border-color: #e0e0e0;
-      --text-dark: #1e293b;
-      --text-gray: #64748b;
-    }
-
-    * { box-sizing: border-box; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
-    body { background-color: var(--bg-light); color: var(--text-dark); }
-
-    /* Custom Scrollbars */
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-    /* Top Utility Header */
-    .top-header {
-      background: #ffffff;
-      padding: 8px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .brand-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .brand-logo { color: var(--primary-red); font-size: 28px; }
-    .brand-title { font-size: 22px; font-weight: 700; color: #111; line-height: 1.1; }
-    .brand-title span { color: var(--primary-red); }
-    .brand-tagline { font-size: 12px; color: var(--primary-red); font-weight: 600; margin-top: -2px; }
-
-    .date-widgets { display: flex; gap: 12px; flex-wrap: wrap; }
-    .date-box {
-      background: #f8f9fa;
-      border: 1px solid var(--border-color);
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      line-height: 1.2;
-    }
-    .date-box i { color: var(--primary-red); font-size: 14px; }
-
-    .top-right-actions { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
-    .lang-toggle { display: flex; border: 1px solid var(--primary-green); border-radius: 4px; overflow: hidden; }
-    .lang-toggle button { border: none; background: #fff; padding: 4px 10px; cursor: pointer; font-size: 12px; font-weight: 600; }
-    .lang-toggle button.active { background: var(--primary-green); color: white; }
-
-    .emergency-info { display: flex; gap: 15px; font-size: 13px; }
-    .emergency-item { display: flex; align-items: center; gap: 6px; }
-    .emergency-item i { color: var(--primary-red); font-size: 16px; }
-
-    .btn-login {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 6px 16px;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    /* Primary Navigation */
-    .main-nav {
-      background: var(--primary-green);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      overflow-x: auto;
-    }
-    .nav-links { display: flex; list-style: none; }
-    .nav-links li a {
-      color: white;
-      text-decoration: none;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      white-space: nowrap;
-      transition: background 0.2s;
-    }
-    .nav-links li.active a, .nav-links li a:hover { background: var(--primary-red); }
-    .nav-right-btn {
-      background: #004d40;
-      color: white;
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      white-space: nowrap;
-      font-weight: 600;
-    }
-
-    /* Bottom Features */
-    .bottom-features {
-      margin-top: 25px;
-      background: white;
-      padding: 18px 20px;
-      border-radius: 8px;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      border: 1px solid var(--border-color);
-    }
-    .feature-item { display: flex; align-items: center; gap: 10px; }
-    .feature-icon {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: #e0f2f1; color: var(--primary-green);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
-    }
-    .feature-text h4 { font-size: 13px; color: #222; font-weight: 700; }
-    .feature-text p { font-size: 11px; color: #777; }
-
-    @media (max-width: 1024px) {
-      .bottom-features { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 650px) {
-      .bottom-features { grid-template-columns: repeat(2, 1fr); }
-      .top-header { flex-direction: column; align-items: flex-start; }
-    }
   </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-  <!-- Top Utility Header -->
   <!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
 
-  <!-- Main Container Layout -->
-  <main class="flex-1 max-w-[1400px] w-full mx-auto p-4 sm:p-6">
+  <!-- Main Container -->
+  <div class="container">
 
-    <!-- Top Banner Intro -->
-    <div class="bg-gradient-to-r from-teal-900 via-teal-800 to-emerald-800 text-white rounded-2xl p-6 mb-6 shadow-md flex flex-col md:flex-row justify-between items-center gap-4" id="search-section">
-      <div>
-        <div class="inline-flex items-center gap-2 bg-emerald-700/60 px-3 py-1 rounded-full text-xs font-bold mb-2">
-          <i class="fa-solid fa-book-open text-yellow-300"></i> জ্ঞান ভান্ডার — জাতীয় ব্যক্তিত্ব ও অবদান
-        </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold">বাংলার কীর্তিমান ব্যক্তিত্বদের জীবনকথা</h1>
-        <p class="text-xs sm:text-sm text-emerald-100 mt-1">ইতিহাস, সাহিত্য, বিজ্ঞান, শিল্পকলা ও সমাজে অবিস্মরণীয় অবদান রাখা মনীষীদের পূর্ণাঙ্গ পরিচিতি।</p>
+    <!-- Search Hero -->
+    <section class="hero-banner">
+      <div style="max-width: 800px;">
+        <span style="background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-transform: uppercase;">
+          <i class="fa-solid fa-book-open mr-1"></i> জ্ঞান ভান্ডার • জাতীয় ঐতিহ্য
+        </span>
+        <h1 style="font-size: 28px; font-weight: 800; margin: 10px 0 6px;">বাংলার অবিস্মরণীয় কীর্তিমান ব্যক্তিত্ব</h1>
+        <p style="font-size: 13.5px; opacity: 0.9;">ইতিহাস, সাহিত্য, বিজ্ঞান, শিল্পকলা ও সমাজে অনন্য অবদান রাখা মনীষীদের পূর্ণাঙ্গ জীবন ও কীর্তিগাথা।</p>
       </div>
 
-      <div class="w-full md:w-auto flex gap-2">
-        <a href="#grid-section" class="px-5 py-2.5 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold rounded-xl text-xs transition shadow flex items-center gap-2">
-          <i class="fa-solid fa-users"></i> সকল ব্যক্তিত্ব দেখুন
-        </a>
+      <div class="search-input-wrap">
+        <input type="text" id="icon-search-input" placeholder="সার্চ করুন যেকোনো কীওয়ার্ড (যেমন: নজরুল, ভাসানী, রোকেয়া, বিজ্ঞান, সঙ্গীত)...">
+        <button type="button" onclick="applyFilters()"><i class="fa-solid fa-search mr-1"></i> খুঁজুন</button>
       </div>
+    </section>
+
+    <!-- Filters Row -->
+    <div class="filters-row">
+      <select id="filter-field" onchange="applyFilters()" class="filter-select">
+        <option value="all">সব ক্ষেত্র (All Categories)</option>
+        <option value="সাহিত্য">সাহিত্য ও সঙ্গীত</option>
+        <option value="রাজনীতি">রাজনীতি ও সমাজসংস্কার</option>
+        <option value="বিজ্ঞান">বিজ্ঞান ও শিক্ষা</option>
+        <option value="শিল্পকলা">শিল্পকলা ও সংস্কৃতি</option>
+      </select>
+
+      <select id="filter-era" onchange="applyFilters()" class="filter-select">
+        <option value="all">সব সময়কাল (All Eras)</option>
+        <option value="19th">১৯শ শতক</option>
+        <option value="20th">২০শ শতক</option>
+      </select>
     </div>
 
-    <!-- Two-Panel Split Layout on Desktop / Stacked on Mobile -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="grid-section">
+    <!-- National Icons Cards Grid (8 Prominent Personalities) -->
+    <div class="icons-grid" id="icons-container">
 
-      <!-- ================= LEFT PANEL: SEARCH & GRID DIRECTORY (Col 7) ================= -->
-      <div class="lg:col-span-7 bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-        
-        <!-- Search Box -->
-        <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200">
-          <h2 class="text-lg font-bold text-slate-800 mb-1">সার্চ করুন যেকোনো কীওয়ার্ড</h2>
-          <p class="text-xs text-slate-500 mb-3">নাম, জেলা, অবদান, পেশা বা জন্মস্থান দিয়ে সহজেই তথ্য খুঁজুন</p>
-          <div class="relative">
-            <input type="text" id="icon-search-input" placeholder="Search any keyword (e.g. নজরুল, ভাসানী, রোকেয়া, কবি, সঙ্গীত)..." class="w-full py-2.5 pl-10 pr-12 rounded-full border border-slate-300 text-xs font-medium focus:outline-none focus:border-primary shadow-xs">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-            <button onclick="applyIconFilter()" class="absolute right-1 top-1 bg-primary hover:bg-primary-dark text-white w-8 h-8 rounded-full flex items-center justify-center transition">
-              <i class="fa-solid fa-magnifying-glass text-xs"></i>
-            </button>
-          </div>
+      <!-- Card 1: Maulana Bhashani -->
+      <article class="icon-card" data-name="মওলানা আব্দুল হামিদ খান ভাসানী" data-field="রাজনীতি" data-era="20th">
+        <div class="icon-avatar" style="background: #e8f5e9; color: #1b5e20;">মভ</div>
+        <h3 class="icon-name">মওলানা আব্দুল হামিদ খান ভাসানী</h3>
+        <p class="icon-tag">মজলুম জননেতা • রাজনীতিবিদ</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ১২ ডিসেম্বর ১৮৮০</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ১৭ নভেম্বর ১৯৭৬</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> সিরাজগঞ্জ, বাংলাদেশ</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> স্বাধীনতা পুরস্কার (মরণোত্তর)</p>
         </div>
+        <a href="national-icon-detail.html?id=bhashani" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-        <!-- Filter Dropdowns -->
-        <div class="flex flex-wrap gap-2 text-xs">
-          <select id="filter-field" onchange="applyIconFilter()" class="bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium focus:outline-none focus:border-primary">
-            <option value="all">সব ক্ষেত্র (All Fields)</option>
-            <option value="সাহিত্য">সাহিত্য ও সঙ্গীত</option>
-            <option value="রাজনীতি">রাজনীতি ও সমাজসংস্কার</option>
-            <option value="বিজ্ঞান">বিজ্ঞান ও শিক্ষা</option>
-            <option value="শিল্পকলা">শিল্পকলা ও সংস্কৃতি</option>
-          </select>
-
-          <select id="filter-era" onchange="applyIconFilter()" class="bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium focus:outline-none focus:border-primary">
-            <option value="all">সব সময়কাল (All Eras)</option>
-            <option value="19th">১৯শ শতক</option>
-            <option value="20th">২০শ শতক</option>
-          </select>
+      <!-- Card 2: Kazi Nazrul Islam -->
+      <article class="icon-card" data-name="কাজী নজরুল ইসলাম" data-field="সাহিত্য" data-era="20th">
+        <div class="icon-avatar" style="background: #eff6ff; color: #1e40af;">কন</div>
+        <h3 class="icon-name">কাজী নজরুল ইসলাম</h3>
+        <p class="icon-tag">জাতীয় কবি • বিদ্রোহী কবি</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ২৪ মে ১৮৯৯</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ২৯ আগস্ট ১৯৭৬</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> চুরুলিয়া, বর্ধমান</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> স্বাধীনতা পুরস্কার, একুশে পদক</p>
         </div>
+        <a href="national-icon-detail.html?id=nazrul" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-        <!-- Cards Grid (2 Col on Tablet/Mobile, 2 Col inside panel) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="icons-grid-container">
-
-          <!-- Personality 1: Maulana Bhashani -->
-          <article class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-primary transition shadow-xs" data-name="মওলানা আব্দুল হামিদ খান ভাসানী" data-field="রাজনীতি" data-era="20th">
-            <div class="text-center mb-3">
-              <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 text-xl font-extrabold flex items-center justify-center mx-auto mb-2 border-2 border-emerald-200">মভ</div>
-              <h3 class="text-sm font-bold text-slate-900">মওলানা আব্দুল হামিদ খান ভাসানী</h3>
-              <p class="text-[11px] text-primary font-bold">মজলুম জননেতা • রাজনীতিবিদ</p>
-            </div>
-            <div class="text-[11px] text-slate-600 space-y-1.5 bg-white p-3 rounded-lg border border-slate-100 mb-3">
-              <p><i class="fa-regular fa-calendar text-rose-500 w-4"></i> জন্ম: ১২ ডিসেম্বর ১৮৮০</p>
-              <p><i class="fa-solid fa-monument text-slate-400 w-4"></i> মৃত্যু: ১৭ নভেম্বর ১৯৭৬ (৯৬ বছর)</p>
-              <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> সিরাজগঞ্জ, বাংলাদেশ</p>
-            </div>
-            <button onclick="loadIconProfile('bhashani')" class="w-full bg-primary hover:bg-primary-dark text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 transition">
-              <span>বিস্তারিত দেখুন</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </article>
-
-          <!-- Personality 2: Kazi Nazrul Islam -->
-          <article class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-primary transition shadow-xs" data-name="কাজী নজরুল ইসলাম" data-field="সাহিত্য" data-era="20th">
-            <div class="text-center mb-3">
-              <div class="w-16 h-16 rounded-full bg-blue-100 text-blue-800 text-xl font-extrabold flex items-center justify-center mx-auto mb-2 border-2 border-blue-200">কন</div>
-              <h3 class="text-sm font-bold text-slate-900">কাজী নজরুল ইসলাম</h3>
-              <p class="text-[11px] text-blue-700 font-bold">জাতীয় কবি • বিদ্রোহী কবি</p>
-            </div>
-            <div class="text-[11px] text-slate-600 space-y-1.5 bg-white p-3 rounded-lg border border-slate-100 mb-3">
-              <p><i class="fa-regular fa-calendar text-rose-500 w-4"></i> জন্ম: ২৪ মে ১৮৯৯</p>
-              <p><i class="fa-solid fa-monument text-slate-400 w-4"></i> মৃত্যু: ২৯ আগস্ট ১৯৭৬ (৭৭ বছর)</p>
-              <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> চুরুলিয়া, বর্ধমান</p>
-            </div>
-            <button onclick="loadIconProfile('nazrul')" class="w-full bg-primary hover:bg-primary-dark text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 transition">
-              <span>বিস্তারিত দেখুন</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </article>
-
-          <!-- Personality 3: Begum Rokeya -->
-          <article class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-primary transition shadow-xs" data-name="বেগম রোকেয়া সাখাওয়াত হোসেন" data-field="রাজনীতি" data-era="20th">
-            <div class="text-center mb-3">
-              <div class="w-16 h-16 rounded-full bg-purple-100 text-purple-800 text-xl font-extrabold flex items-center justify-center mx-auto mb-2 border-2 border-purple-200">বর</div>
-              <h3 class="text-sm font-bold text-slate-900">বেগম রোকেয়া সাখাওয়াত হোসেন</h3>
-              <p class="text-[11px] text-purple-700 font-bold">নারী জাগরণের অগ্রদূত • শিক্ষাবিদ</p>
-            </div>
-            <div class="text-[11px] text-slate-600 space-y-1.5 bg-white p-3 rounded-lg border border-slate-100 mb-3">
-              <p><i class="fa-regular fa-calendar text-rose-500 w-4"></i> জন্ম: ৯ ডিসেম্বর ১৮৮০</p>
-              <p><i class="fa-solid fa-monument text-slate-400 w-4"></i> মৃত্যু: ৯ ডিসেম্বর ১৯৩২ (৫২ বছর)</p>
-              <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> পায়রাবন্দ, রংপুর</p>
-            </div>
-            <button onclick="loadIconProfile('rokeya')" class="w-full bg-primary hover:bg-primary-dark text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 transition">
-              <span>বিস্তারিত দেখুন</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </article>
-
-          <!-- Personality 4: Abbasuddin Ahmed -->
-          <article class="bg-slate-50/70 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-primary transition shadow-xs" data-name="আব্বাসউদ্দীন আহমদ" data-field="সাহিত্য" data-era="20th">
-            <div class="text-center mb-3">
-              <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-800 text-xl font-extrabold flex items-center justify-center mx-auto mb-2 border-2 border-amber-200">আআ</div>
-              <h3 class="text-sm font-bold text-slate-900">আব্বাসউদ্দীন আহমদ</h3>
-              <p class="text-[11px] text-amber-700 font-bold">লোকসঙ্গীত সম্রাট • গায়ক</p>
-            </div>
-            <div class="text-[11px] text-slate-600 space-y-1.5 bg-white p-3 rounded-lg border border-slate-100 mb-3">
-              <p><i class="fa-regular fa-calendar text-rose-500 w-4"></i> জন্ম: ১ জানুয়ারি ১৯০১</p>
-              <p><i class="fa-solid fa-monument text-slate-400 w-4"></i> মৃত্যু: ৩০ ডিসেম্বর ১৯৫৮ (৫৭ বছর)</p>
-              <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> তুফানগঞ্জ, কোচবিহার</p>
-            </div>
-            <button onclick="loadIconProfile('abbasuddin')" class="w-full bg-primary hover:bg-primary-dark text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 transition">
-              <span>বিস্তারিত দেখুন</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </article>
-
+      <!-- Card 3: Begum Rokeya -->
+      <article class="icon-card" data-name="বেগম রোকেয়া সাখাওয়াত হোসেন" data-field="রাজনীতি" data-era="20th">
+        <div class="icon-avatar" style="background: #fdf2f8; color: #9d174d;">বর</div>
+        <h3 class="icon-name">বেগম রোকেয়া সাখাওয়াত হোসেন</h3>
+        <p class="icon-tag">নারী জাগরণের অগ্রদূত • শিক্ষাবিদ</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ৯ ডিসেম্বর ১৮৮০</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ৯ ডিসেম্বর ১৯৩২</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> পায়রাবন্দ, রংপুর</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> সাখাওয়াত মেমোরিয়াল স্কুল প্রতিষ্ঠাতা</p>
         </div>
-      </div>
+        <a href="national-icon-detail.html?id=rokeya" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-      <!-- ================= RIGHT PANEL: PROFILE DETAILS VIEW (Col 5) ================= -->
-      <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6" id="profile-detail-panel">
-        
-        <!-- Profile Header Bar -->
-        <div class="flex justify-between items-center pb-3 border-b border-slate-100">
-          <span class="text-xs font-bold text-primary flex items-center gap-1"><i class="fa-solid fa-id-badge"></i> বিস্তারিত জীবনী পরিচিতি</span>
-          <div class="flex gap-2">
-            <button onclick="shareProfile()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" title="শেয়ার করুন"><i class="fa-solid fa-share-nodes"></i></button>
-            <button onclick="printProfile()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" title="প্রিন্ট / পিডিএফ"><i class="fa-regular fa-file-pdf"></i></button>
-          </div>
+      <!-- Card 4: Abbasuddin Ahmed -->
+      <article class="icon-card" data-name="আব্বাসউদ্দীন আহমদ" data-field="সাহিত্য" data-era="20th">
+        <div class="icon-avatar" style="background: #fffbeb; color: #b45309;">আআ</div>
+        <h3 class="icon-name">আব্বাসউদ্দীন আহমদ</h3>
+        <p class="icon-tag">লোকসঙ্গীত সম্রাট • বাউল সাধক</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ১ জানুয়ারি ১৯০১</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ৩০ ডিসেম্বর ১৯৫৮</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> তুফানগঞ্জ, কোচবিহার</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> প্রাইড অব পারফরম্যান্স, স্বাধীনতা পদক</p>
         </div>
+        <a href="national-icon-detail.html?id=abbasuddin" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-        <!-- Profile Head -->
-        <div class="flex items-start gap-4">
-          <div class="w-20 h-20 rounded-2xl bg-emerald-100 text-emerald-800 font-extrabold text-2xl flex items-center justify-center flex-shrink-0 border-2 border-emerald-300 shadow-sm" id="prof-avatar">
-            আআ
-          </div>
-          <div>
-            <h2 class="text-xl font-bold text-slate-900" id="prof-name">আব্বাসউদ্দীন আহমদ</h2>
-            <p class="text-xs text-primary font-bold" id="prof-title">লোকসঙ্গীত সম্রাট ও সুরসাধক</p>
-            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-600 mt-2">
-              <span class="bg-slate-100 px-2 py-0.5 rounded font-semibold" id="prof-life"><i class="fa-regular fa-calendar text-rose-500"></i> ১৯০১ - ১৯৫৮</span>
-              <span class="bg-slate-100 px-2 py-0.5 rounded font-semibold" id="prof-origin"><i class="fa-solid fa-location-dot text-emerald-600"></i> কোচবিহার</span>
-            </div>
-          </div>
+      <!-- Card 5: Zainul Abedin -->
+      <article class="icon-card" data-name="শিল্পাচার্য জয়নুল আবেদিন" data-field="শিল্পকলা" data-era="20th">
+        <div class="icon-avatar" style="background: #f0fdf4; color: #166534;">জা</div>
+        <h3 class="icon-name">শিল্পাচার্য জয়নul আবেদিন</h3>
+        <p class="icon-tag">আধুনিক চারুকলার জনক • চিত্রশিল্পী</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ২৯ ডিসেম্বর ১৯১৪</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ২৮ মে ১৯৭৬</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> কিশোরগঞ্জ, ময়মনসিংহ</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> চারুকলা ইনস্টিটিউট প্রতিষ্ঠাতা</p>
         </div>
+        <a href="national-icon-detail.html?id=zainul" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-        <!-- Summary Bio -->
-        <p class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100" id="prof-bio">
-          আব্বাসউদ্দীন আহমদ ছিলেন বাংলাদেশের লোকসঙ্গীতের এক অবিসংবাদিত সম্রাট। তিনি তাঁর সুমধুর কণ্ঠ দিয়ে ভাওয়াইয়া, চটকা, জারি ও সারি গানকে জাতীয় ও আন্তর্জাতিক অঙ্গনে অমর করে তুলেছেন।
-        </p>
-
-        <!-- Quick Specs Table -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2">
-          <h4 class="font-bold text-slate-800 border-b border-slate-200 pb-2 mb-2">সংক্ষিপ্ত তথ্যপঞ্জিকা</h4>
-          <div class="flex justify-between text-slate-600"><span>পূর্ণ নাম:</span> <strong class="text-slate-800" id="spec-fullname">আব্বাসউদ্দীন আহমদ</strong></div>
-          <div class="flex justify-between text-slate-600"><span>প্রধান পেশা:</span> <strong class="text-slate-800" id="spec-profession">লোকসঙ্গীত শিল্পী</strong></div>
-          <div class="flex justify-between text-slate-600"><span>সক্রিয় সময়কাল:</span> <strong class="text-slate-800" id="spec-era">১৯২০ - ১৯৫৮</strong></div>
-          <div class="flex justify-between text-slate-600"><span>বিশেষ খেতাব:</span> <strong class="text-primary font-bold" id="spec-title">বাউল সম্রাট / লোকসঙ্গীত সম্রাট</strong></div>
-          <div class="flex justify-between text-slate-600"><span>পুরস্কার ও স্বীকৃতি:</span> <strong class="text-slate-800" id="spec-award">প্রাইড অব পারফরম্যান্স, মরণোত্তর স্বাধীনতা পদক</strong></div>
+      <!-- Card 6: Dr. Muhammad Shahidullah -->
+      <article class="icon-card" data-name="ড. মুহম্মদ শহীদুল্লাহ" data-field="বিজ্ঞান" data-era="20th">
+        <div class="icon-avatar" style="background: #f5f3ff; color: #5b21b6;">মশ</div>
+        <h3 class="icon-name">ড. মুহম্মদ শহীদুল্লাহ</h3>
+        <p class="icon-tag">বহুভাষাবিদ • বিশিষ্ট ভাষাতত্ত্ববিদ</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ১০ জুলাই ১৮৮৫</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ১৩ জুলাই ১৯৬৯</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> ২৪ পরগনা, পশ্চিমবঙ্গ</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> বাংলা একাডেমী আঞ্চলিক অভিধান</p>
         </div>
+        <a href="national-icon-detail.html?id=shahidullah" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-        <!-- Chapter Interactive Grid -->
-        <div>
-          <h4 class="font-bold text-xs text-slate-800 mb-2.5">জীবনী অধ্যায় ও অবদানসমূহ</h4>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <button onclick="showChapter('পরিচিতি ও সূচনা')" class="p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-left transition flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-user-check"></i></div>
-              <div><strong class="block text-[11px] text-slate-800">পরিচিতি</strong><span class="text-[9px] text-slate-500">জীবনদর্শন</span></div>
-            </button>
-
-            <button onclick="showChapter('শৈশব ও শিক্ষাজীবন')" class="p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-left transition flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-graduation-cap"></i></div>
-              <div><strong class="block text-[11px] text-slate-800">শিক্ষাজীবন</strong><span class="text-[9px] text-slate-500">প্রারম্ভিক পড়াশোনা</span></div>
-            </button>
-
-            <button onclick="showChapter('সঙ্গীত ও কর্মজীবন')" class="p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-left transition flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-music"></i></div>
-              <div><strong class="block text-[11px] text-slate-800">কর্মজীবন</strong><span class="text-[9px] text-slate-500">রেকর্ড ও গান</span></div>
-            </button>
-
-            <button onclick="showChapter('পুরস্কার ও জাতীয় সম্মাননা')" class="p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-left transition flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-trophy"></i></div>
-              <div><strong class="block text-[11px] text-slate-800">পুরস্কার</strong><span class="text-[9px] text-slate-500">রাষ্ট্রীয় স্বীকৃতি</span></div>
-            </button>
-          </div>
+      <!-- Card 7: Sir Jagadish Chandra Bose -->
+      <article class="icon-card" data-name="স্যার জগদীশ চন্দ্র বসু" data-field="বিজ্ঞান" data-era="19th">
+        <div class="icon-avatar" style="background: #eff6ff; color: #1d4ed8;">জব</div>
+        <h3 class="icon-name">স্যার জগদীশ চন্দ্র বসু</h3>
+        <p class="icon-tag">বিজ্ঞানী • উদ্ভিদের প্রাণ আবিষ্কারক</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ৩০ নভেম্বর ১৮৫৮</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ২৩ নভেম্বর ১৯৩৭</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> মুন্সীগঞ্জ, বিক্রমপুর</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> ক্রিসকোগ্রাফ ও রেডিও তরঙ্গ আবিষ্কার</p>
         </div>
+        <a href="national-icon-detail.html?id=bose" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
-      </div>
+      <!-- Card 8: Michael Madhusudan Dutt -->
+      <article class="icon-card" data-name="মাইকেল মধুসূদন দত্ত" data-field="সাহিত্য" data-era="19th">
+        <div class="icon-avatar" style="background: #fdf4ff; color: #86198f;">মদ</div>
+        <h3 class="icon-name">মাইকেল মধুসূদন দত্ত</h3>
+        <p class="icon-tag">মহাকবি • অমিত্রাক্ষর ছন্দের জনক</p>
+        <div class="icon-facts">
+          <p><i class="fa-regular fa-calendar text-rose-500"></i> জন্ম: ২৫ জানুয়ারি ১৮২৪</p>
+          <p><i class="fa-solid fa-monument text-slate-400"></i> মৃত্যু: ২৯ জুন ১৮৭৩</p>
+          <p><i class="fa-solid fa-location-dot text-emerald-600"></i> সাগরদাঁড়ী, যশোর</p>
+          <p><i class="fa-solid fa-award text-amber-500"></i> মেঘনাদবধ কাব্য ও সনেট প্রবর্তক</p>
+        </div>
+        <a href="national-icon-detail.html?id=madhusudan" class="btn-view-profile">
+          সম্পূর্ণ জীবনী ও তথ্য &rarr;
+        </a>
+      </article>
 
     </div>
 
@@ -646,91 +554,37 @@
       </div>
     </section>
 
-  </main>
+  </div>
+
+  <!-- Shared Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="donor-register.html">Donation</a>
+        <a href="news.html">Privacy Policy</a>
+        <a href="news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
 
   <script>
-    const iconsDatabase = {
-      abbasuddin: {
-        avatar: 'আআ',
-        name: 'আব্বাসউদ্দীন আহমদ',
-        title: 'লোকসঙ্গীত সম্রাট ও সুরসাধক',
-        life: '১৯০১ - ১৯৫৮',
-        origin: 'তুফানগঞ্জ, কোচবিহার',
-        bio: 'আব্বাসউদ্দীন আহমদ ছিলেন বাংলাদেশের লোকসঙ্গীতের এক অবিসংবাদিত সম্রাট। তিনি তাঁর সুমধুর কণ্ঠ দিয়ে ভাওয়াইয়া, চটকা, জারি ও সারি গানকে জাতীয় ও আন্তর্জাতিক অঙ্গনে অমর করে তুলেছেন।',
-        fullname: 'আব্বাসউদ্দীন আহমদ',
-        profession: 'লোকসঙ্গীত শিল্পী ও সুরকার',
-        era: '১৯২০ - ১৯৫৮',
-        specialTitle: 'বাউল সম্রাট / লোকসঙ্গীত সম্রাট',
-        award: 'প্রাইড অব পারফরম্যান্স, স্বাধীনতা পুরস্কার'
-      },
-      bhashani: {
-        avatar: 'মভ',
-        name: 'মওলানা আব্দুল হামিদ খান ভাসানী',
-        title: 'মজলুম জননেতা ও রাজনীতিবিদ',
-        life: '১৮৮০ - ১৯৭৬',
-        origin: 'ধানগড়া, সিরাজগঞ্জ',
-        bio: 'মওলানা ভাসানী ছিলেন আজীবন শোষিত মেহনতী মানুষের অধিকার আদায়ের আপসহীন নেতা। তিনি আওয়ামী মুসলিম লীগ এবং ন্যাশনাল আওয়ামী পার্টির (ন্যাপ) প্রতিষ্ঠাতা।',
-        fullname: 'মওলানা আব্দুল হামিদ খান ভাসানী',
-        profession: 'রাজনীতিবিদ ও কৃষক নেতা',
-        era: '১৯০৬ - ১৯৭৬',
-        specialTitle: 'মজলুম জননেতা',
-        award: 'স্বাধীনতা পুরস্কার (মরণোত্তর)'
-      },
-      nazrul: {
-        avatar: 'কন',
-        name: 'কাজী নজরুল ইসলাম',
-        title: 'বাংলাদেশের জাতীয় কবি ও বিপ্লবী সাহিত্যিক',
-        life: '১৮৯৯ - ১৯৭৬',
-        origin: 'চুরুলিয়া, বর্ধমান',
-        bio: 'কাজী নজরুল ইসলাম বাংলা সাহিত্যের অন্যতম শ্রেষ্ঠ কবি, সঙ্গীতজ্ঞ ও ঔপন্যাসিক। তাঁর সাম্যবাদী ও বিদ্রোহমূলক কবিতা উপমহাদেশের স্বাধীনতা সংগ্রামে অবিস্মরণীয় প্রেরণা জুগিয়েছে।',
-        fullname: 'কাজী নজরুল ইসলাম',
-        profession: 'কবি, গীতিকার, সুরকার ও সম্পাদক',
-        era: '১৯১৯ - ১৯৭৬',
-        specialTitle: 'বিদ্রোহী কবি / জাতীয় কবি',
-        award: 'একুশে পদক, স্বাধীনতা পুরস্কার, পদ্মভূষণ'
-      },
-      rokeya: {
-        avatar: 'বর',
-        name: 'বেগম রোকেয়া সাখাওয়াত হোসেন',
-        title: 'বাঙালি নারী জাগরণের অগ্রদূত ও শিক্ষাবিদ',
-        life: '১৮৮০ - ১৯৩২',
-        origin: 'পায়রাবন্দ, রংপুর',
-        bio: 'বেগম রোকেয়া ছিলেন অবিভক্ত বাংলার নারী শিক্ষার পথিকৃত এবং সমাজ সংস্কারক। তিনি সাখাওয়াত মেমোরিয়াল গার্লস স্কুল ও আঞ্জুমানে খাওয়াতিনে ইসলাম প্রতিষ্ঠা করেন।',
-        fullname: 'রোকেয়া খাতুন (বেগম রোকেয়া)',
-        profession: 'সাহিত্যিক ও সমাজ সংস্কারক',
-        era: '১৯০২ - ১৯৩২',
-        specialTitle: 'নারী জাগরণের অগ্রদূত',
-        award: 'জাতীয় রোকেয়া পদক (স্মারক হিসেবে প্রবর্তিত)'
-      }
-    };
-
-    function loadIconProfile(key) {
-      const data = iconsDatabase[key];
-      if (!data) return;
-
-      document.getElementById('prof-avatar').textContent = data.avatar;
-      document.getElementById('prof-name').textContent = data.name;
-      document.getElementById('prof-title').textContent = data.title;
-      document.getElementById('prof-life').innerHTML = `<i class="fa-regular fa-calendar text-rose-500"></i> ${data.life}`;
-      document.getElementById('prof-origin').innerHTML = `<i class="fa-solid fa-location-dot text-emerald-600"></i> ${data.origin}`;
-      document.getElementById('prof-bio').textContent = data.bio;
-      document.getElementById('spec-fullname').textContent = data.fullname;
-      document.getElementById('spec-profession').textContent = data.profession;
-      document.getElementById('spec-era').textContent = data.era;
-      document.getElementById('spec-title').textContent = data.specialTitle;
-      document.getElementById('spec-award').textContent = data.award;
-
-      // Smooth scroll to profile on mobile
-      if (window.innerWidth < 1024) {
-        document.getElementById('profile-detail-panel').scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function applyIconFilter() {
+    function applyFilters() {
       const q = (document.getElementById('icon-search-input').value || '').toLowerCase();
       const field = document.getElementById('filter-field').value;
       const era = document.getElementById('filter-era').value;
-      const cards = document.querySelectorAll('#icons-grid-container article');
+      const cards = document.querySelectorAll('#icons-container .icon-card');
 
       cards.forEach(card => {
         const name = (card.dataset.name || '').toLowerCase();
@@ -741,113 +595,71 @@
         const matchField = (field === 'all') || (cField === field);
         const matchEra = (era === 'all') || (cEra === era);
 
-        if (matchQ && matchField && matchEra) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = (matchQ && matchField && matchEra) ? 'flex' : 'none';
       });
     }
 
-    document.getElementById('icon-search-input').addEventListener('input', applyIconFilter);
+    document.getElementById('icon-search-input').addEventListener('input', applyFilters);
 
-    function showChapter(chapterName) {
-      alert(`'${chapterName}' অধ্যায়ের পূর্ণ বিবরণ শীঘ্রই লোড হচ্ছে।`);
+    // Shared Dynamic Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
     }
 
-    function shareProfile() {
-      navigator.clipboard.writeText(window.location.href);
-      alert('লিঙ্ক কপি করা হয়েছে! সবার মাঝে শেয়ার করুন।');
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
     }
 
-    function printProfile() {
-      window.print();
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
+
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
+
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
     }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
   </script>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-top">
-<div class="footer-brand">
-<div class="logo-badge">B</div>
-<div>
-<h2>Bondhu<span>.</span></h2>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</div>
-<div class="footer-links">
-<a href="mailto:help@bondhu.local">Contact</a>
-<a href="../pages/donor-register.html">Donation</a>
-<a href="../pages/news.html">Privacy Policy</a>
-<a href="../pages/news.html">Terms &amp; Conditions</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2026 Bondhu. All Rights Reserved.</span>
-<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
-</div>
-</footer>
-
-<script>
-  // Shared Dynamic Language & Calendar Scripting
-  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
-  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
-  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
-
-  function getBanglaDate(date = new Date(), lang = getLang()) {
-    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
-    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
-    const year = date.getFullYear();
-    const startThisYear = new Date(year, 3, 14);
-    const startYear = date >= startThisYear ? year : year - 1;
-    const banglaYear = startYear - 593;
-    const startDate = new Date(startYear, 3, 14);
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    let dayIndex = Math.floor((today - startDate) / 86400000);
-    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
-    let month = 0;
-    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
-      dayIndex -= monthLengths[month];
-      month += 1;
-    }
-    const day = dayIndex + 1;
-    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
-    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
-  }
-
-  function getArabicDate(date = new Date(), lang = getLang()) {
-    try {
-      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
-      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
-    } catch (error) {
-      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
-    }
-  }
-
-  function applyLanguage(lang = getLang()) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
-    const date = new Date();
-
-    const gregElem = document.getElementById('gregorian-date');
-    const banglaElem = document.getElementById('bangla-calendar');
-    const arabicElem = document.getElementById('arabic-calendar');
-
-    if (gregElem) {
-      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
-      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
-    }
-    if (banglaElem) {
-      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
-    }
-    if (arabicElem) {
-      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
-    }
-  }
-
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  applyLanguage(getLang());
-</script>
 </body>
 </html>
