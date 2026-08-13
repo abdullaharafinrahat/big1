@@ -1,14 +1,16 @@
-<!doctype html>
-<html lang="bn" data-page="admin-dashboard">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#d62828"><title>Admin Dashboard | Bondhu</title>
-  <link rel="manifest" href="../../manifest.json">
-  <link rel="stylesheet" href="../../css/base.css"><link rel="stylesheet" href="../../css/layout.css"><link rel="stylesheet" href="../../css/components.css">
-<style>
-
-  
-  /* === Shared Header & Footer System Cloned from index.html === */
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Admin Dashboard | Bondhu.org</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
   :root {
     --green-dark: #0b5a35;
     --green: #0e6e42;
@@ -26,6 +28,19 @@
     --bg-light: #f4f6f8;
   }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+  html, body {
+    background-color: var(--bg-light);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Header Topbar */
   header.topbar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -51,319 +66,392 @@
     flex-shrink: 0;
   }
 
-  .brand-text h1 {
-    margin: 0; font-size: 22px; letter-spacing: .3px;
-    color: var(--green-dark); line-height: 1.1; font-weight: 800;
-  }
+  .brand-text h1 { margin: 0; font-size: 22px; letter-spacing: .3px; color: var(--green-dark); line-height: 1.1; font-weight: 800; }
   .brand-text h1 span { color: var(--red); }
   .brand-text p { margin: 0; font-size: 11px; color: var(--muted); }
 
-  .mobile-menu-btn { display: none; }
-
   .topbar-meta {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: #3a463f;
-    margin-left: auto;
-    margin-right: 16px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 12px; color: #3a463f; margin-left: auto; margin-right: 16px;
   }
+
   .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    background: #f8f9fa;
-    border: 1px solid #e5e9e6;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 11.5px;
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    background: #f8f9fa; border: 1px solid #e5e9e6; padding: 4px 10px; border-radius: 6px; font-size: 11.5px;
   }
   .meta-item .dot { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
-  .mobile-header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
+  .calendar-label { font-weight: 800; color: var(--green-dark); margin-right: 3px; }
+
+  .mobile-header-right { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-shrink: 0; }
 
   .lang-switcher {
-    display: inline-flex; background: #f3f4f6; border-radius: 8px;
-    padding: 2px; font-size: 12px; font-weight: 700;
-    align-items: center;
+    display: inline-flex; background: #f3f4f6; border-radius: 8px; padding: 2px; font-size: 12px; font-weight: 700;
   }
   .lang-switcher button {
-    border: 0; background: transparent; color: #667085;
-    padding: 6px 12px; border-radius: 7px; font-weight: 800;
-    cursor: pointer; min-height: 36px; font-size: 11.5px;
+    border: 0; background: transparent; color: #667085; padding: 6px 12px; border-radius: 7px; font-weight: 800; cursor: pointer; min-height: 36px; font-size: 11.5px;
   }
-  .lang-switcher button.active {
-    background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18);
-  }
+  .lang-switcher button.active { background: var(--red); color: #fff; box-shadow: 0 2px 6px rgba(227,30,36,.18); }
 
   .login-btn {
-    background: var(--green-dark); color: #fff;
-    padding: 8px 18px; border-radius: 8px;
-    font-size: 13px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 6px;
-    min-height: 36px; height: 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-    white-space: nowrap;
+    background: var(--green-dark); color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 36px; height: 36px; text-decoration: none; transition: background 0.2s; white-space: nowrap;
   }
   .login-btn:hover { background: var(--green); }
   .login-btn img { width: 16px; height: 16px; object-fit: contain; border-radius: 50%; }
 
-  .calendar-label {
-    font-weight: 800;
-    color: var(--green-dark);
-    margin-right: 3px;
+  .container { max-width: 1350px; margin: 15px auto; padding: 0 15px; width: 100%; flex: 1; }
+
+  /* Dashboard Cards */
+  .card-box {
+    background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .table-responsive { width: 100%; overflow-x: auto; }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; }
+  .admin-table th { background: #f8fafc; padding: 10px 12px; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0; }
+  .admin-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b; vertical-align: middle; }
+
+  .btn-approve {
+    background: #00a651; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 11.5px; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-approve:hover { background: #008741; }
+
+  .btn-reject {
+    background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 11.5px; cursor: pointer;
   }
 
   /* Shared Footer */
-  footer {
-    background: var(--green-dark);
-    color: #eaf3ee;
-    margin-top: 30px;
-    width: 100%;
-  }
-
-  .footer-top {
-    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12);
-  }
+  footer { background: var(--green-dark); color: #eaf3ee; margin-top: auto; width: 100%; }
+  .footer-top { max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
   .footer-brand { display: flex; align-items: center; gap: 10px; }
-  .footer-brand .logo-badge {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; border: 2px solid var(--red);
-  }
+  .footer-brand .logo-badge { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid var(--red); }
   .footer-brand h2 { margin: 0; font-size: 18px; font-weight: 800; }
   .footer-brand h2 span { color: #ff8b8e; }
   .footer-brand p { margin: 0; font-size: 10.5px; color: #c7dcd1; }
   .footer-links { display: flex; gap: 26px; flex-wrap: wrap; font-size: 12.5px; }
   .footer-links a { display: flex; align-items: center; gap: 6px; color: #eaf3ee; text-decoration: none; }
-  .footer-links a:hover { text-decoration: underline; }
 
-  .footer-bottom {
-    max-width: 1200px; margin: 0 auto; padding: 12px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px;
-  }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: #b7ccc0; flex-wrap: wrap; gap: 8px; }
   .dev-by { display: flex; align-items: center; gap: 6px; }
-  .dev-by .dot-badge {
-    width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark);
-    display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800;
-  }
+  .dev-by .dot-badge { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
   .dev-by a { color: #fff; font-weight: 800; text-decoration: none; }
-  .dev-by a:hover { text-decoration: underline; }
 
-  @media (max-width: 900px) {
-    .topbar-meta { display: none; }
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 900px) { .topbar-meta { display: none; } }
+  @media (max-width: 640px) {
     header.topbar { padding: 8px 12px; }
-    .brand { gap: 6px; }
-    .brand .logo-badge { width: 32px; height: 32px; font-size: 14px; }
-    .brand-text h1 { font-size: 16px; }
-    .brand-text p { display: none; }
-    .login-btn { min-height: 30px; height: 30px; padding: 4px 10px; font-size: 11px; }
-    .lang-switcher button { min-height: 28px; padding: 2px 8px; font-size: 10.5px; }
-    .footer-top { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 14px; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
     .footer-links { gap: 12px; font-size: 11.5px; }
-    .footer-bottom { padding: 10px 14px; font-size: 10px; }
   }
-
-  @media (max-width: 380px) {
-    header.topbar { padding: 6px 8px; }
-    .brand .logo-badge { width: 28px; height: 28px; font-size: 12px; }
-    .brand-text h1 { font-size: 14px; }
-    .mobile-header-right { gap: 4px; }
-    .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
-    .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
-  }
-
-</style>
+  </style>
 </head>
-<body><!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../../pages/login.html">
-<img alt="" src="../../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
-<div class="notice-bar" data-ticker><span>জরুরি তথ্য যাচাই করে প্রকাশ করুন</span><span>Bondhu emergency support network</span></div>
-<main id="main" class="page page-admin-dashboard" style="flex: 1; padding: 20px 0;">
-<section class="container">
-<h1 style="font-size: 24px; font-weight: 800; color: #0b5a35; margin-bottom: 18px;">Admin Dashboard</h1>
+<body>
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
-  <!-- Blood Matrix Card -->
-  <div style="background: white; border: 1px solid #e5e9e6; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-droplet" style="color: #d32f2f; font-size: 18px;"></i>
-        <strong style="font-size: 15px; color: #0f172a;">Blood Request Matrix</strong>
+  <!-- TOP HEADER -->
+  <header class="topbar">
+    <a class="brand" href="../../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
       </div>
-      <span style="background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;">Live</span>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
     </div>
-    <div style="display: flex; justify-content: space-between; text-align: center;">
-      <div>
-        <div style="font-size: 22px; font-weight: 800; color: #d32f2f;">1,248</div>
-        <div style="font-size: 11.5px; color: #64748b;">Total Reqs</div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
       </div>
+      <a class="login-btn" href="../../pages/login.html">
+        <img alt="" src="../../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container" style="padding-top: 20px; padding-bottom: 30px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
       <div>
-        <div style="font-size: 22px; font-weight: 800; color: #16a34a;">1,052</div>
-        <div style="font-size: 11.5px; color: #64748b;">Fulfilled</div>
+        <h1 style="font-size: 24px; font-weight: 800; color: #0b5a35;">Admin Control &amp; Moderation Dashboard</h1>
+        <p style="font-size: 13px; color: #64748b;">রক্তের চাহিদা, সক্রিয় ডোনার এবং আবাসন ভেরিফিকেশন কিউ</p>
       </div>
-      <div>
-        <div style="font-size: 22px; font-weight: 800; color: #d32f2f;">196</div>
-        <div style="font-size: 11.5px; color: #64748b;">Searching</div>
+      <div style="display: flex; gap: 8px;">
+        <a href="../../pages/homes.html" style="background: white; border: 1px solid #cbd5e1; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; color: #334155; text-decoration: none;">
+          <i class="fa-solid fa-house-chimney mr-1"></i> লাইভ হোম পেজ
+        </a>
       </div>
     </div>
-  </div>
 
-  <!-- Active Donors Card -->
-  <div style="background: white; border: 1px solid #e5e9e6; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-user-check" style="color: #16a34a; font-size: 18px;"></i>
-        <strong style="font-size: 15px; color: #0f172a;">Active Donors Community</strong>
+    <!-- Blood Matrix & Active Donors (Moved here as requested) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;">
+      
+      <!-- Blood Matrix Card -->
+      <div class="card-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-droplet" style="color: #d32f2f; font-size: 20px;"></i>
+            <strong style="font-size: 16px; color: #0f172a;">Blood Request Matrix</strong>
+          </div>
+          <span style="background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px;">Live Telemetry</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; text-align: center; background: #f8fafc; padding: 12px; border-radius: 10px;">
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: #d32f2f;">1,248</div>
+            <div style="font-size: 11.5px; color: #64748b; font-weight: 600;">Total Reqs</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: #16a34a;">1,052</div>
+            <div style="font-size: 11.5px; color: #64748b; font-weight: 600;">Fulfilled</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: #d32f2f;">196</div>
+            <div style="font-size: 11.5px; color: #64748b; font-weight: 600;">Searching</div>
+          </div>
+        </div>
       </div>
-      <span style="background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;">Verified</span>
+
+      <!-- Active Donors Card -->
+      <div class="card-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-user-check" style="color: #16a34a; font-size: 20px;"></i>
+            <strong style="font-size: 16px; color: #0f172a;">Active Donors Community</strong>
+          </div>
+          <span style="background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px;">Verified</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; text-align: center; background: #f8fafc; padding: 12px; border-radius: 10px;">
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: #16a34a;">18,400+</div>
+            <div style="font-size: 11.5px; color: #64748b; font-weight: 600;">Registered</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: #16a34a;">14,200+</div>
+            <div style="font-size: 11.5px; color: #64748b; font-weight: 600;">Verified</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: #00695c;">9,850</div>
+            <div style="font-size: 11.5px; color: #64748b; font-weight: 600;">Available Now</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div style="display: flex; justify-content: space-between; text-align: center;">
-      <div>
-        <div style="font-size: 22px; font-weight: 800; color: #16a34a;">18,400+</div>
-        <div style="font-size: 11.5px; color: #64748b;">Registered</div>
+
+    <!-- Home & Hotel Rental Verification Queue Section -->
+    <div class="card-box" style="margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; color: #0f172a;">
+            <i class="fa-solid fa-house-circle-check text-primary mr-1"></i> Home &amp; Hotel Rental Verification Queue
+          </h2>
+          <p style="font-size: 12px; color: #64748b;">ব্যবহারকারীদের জমা দেওয়া নতুন আবাসন তালিকা যাচাই ও লাইভ অনুমোদন করুন</p>
+        </div>
+        <span style="background: #e0f2f1; color: #00695c; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px;" id="pending-count-badge">১টি আবেদন অপেক্ষমাণ</span>
       </div>
-      <div>
-        <div style="font-size: 22px; font-weight: 800; color: #16a34a;">14,200+</div>
-        <div style="font-size: 11.5px; color: #64748b;">Verified</div>
-      </div>
-      <div>
-        <div style="font-size: 22px; font-weight: 800; color: #00695c;">9,850</div>
-        <div style="font-size: 11.5px; color: #64748b;">Available</div>
+
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID &amp; Property</th>
+              <th>Category</th>
+              <th>Rent</th>
+              <th>Location</th>
+              <th>Applicant User</th>
+              <th>Phone</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="pending-homes-tbody">
+            <!-- Dynamically Loaded by JS -->
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="stats-grid">
-  <article class="card"><b id="stat-requests">1,248</b><span>Open requests</span></article>
-  <article class="card"><b id="stat-donors">18,400</b><span>Donors</span></article>
-  <article class="card"><b id="stat-moderation">14</b><span>Moderation Queue</span></article>
-</div>
-</section>
-</main><!-- FOOTER -->
-<footer>
-<div class="footer-top">
-<div class="footer-brand">
-<div class="logo-badge">B</div>
-<div>
-<h2>Bondhu<span>.</span></h2>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</div>
-<div class="footer-links">
-<a href="mailto:help@bondhu.local">Contact</a>
-<a href="../../pages/donor-register.html">Donation</a>
-<a href="../../pages/news.html">Privacy Policy</a>
-<a href="../../pages/news.html">Terms &amp; Conditions</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2026 Bondhu. All Rights Reserved.</span>
-<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
-</div>
-</footer><script type="module" src="../../js/main.js"></script>
+  </main>
 
-<script>
-  // Shared Dynamic Language & Calendar Scripting
-  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
-  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
-  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+  <!-- Shared Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="../../pages/donor-register.html">Donation</a>
+        <a href="../../pages/news.html">Privacy Policy</a>
+        <a href="../../pages/news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
 
-  function getBanglaDate(date = new Date(), lang = getLang()) {
-    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
-    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
-    const year = date.getFullYear();
-    const startThisYear = new Date(year, 3, 14);
-    const startYear = date >= startThisYear ? year : year - 1;
-    const banglaYear = startYear - 593;
-    const startDate = new Date(startYear, 3, 14);
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    let dayIndex = Math.floor((today - startDate) / 86400000);
-    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
-    let month = 0;
-    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
-      dayIndex -= monthLengths[month];
-      month += 1;
+  <script>
+    // Default sample pending home if queue is empty
+    const defaultPending = [
+      {
+        id: 'HOM-2026-8812',
+        name: 'ধানমন্ডি লেক ভিউ অ্যাপার্টমেন্ট',
+        category: 'family',
+        categoryTitle: 'ফ্যামিলি ফ্ল্যাট',
+        rent: '22000',
+        bedrooms: 3,
+        bathrooms: 2,
+        sqft: 1350,
+        district: 'Dhaka',
+        location: 'রোড-৭, ধানমন্ডি লেক সংলগ্ন, ঢাকা',
+        ownerName: 'MD. Shariful Islam',
+        phone: '01712345678',
+        applicantUser: 'MD. Shariful Islam',
+        applicantPhone: '01712345678',
+        submittedAt: '১০ আগস্ট ২০২৬',
+        status: 'pending_verification'
+      }
+    ];
+
+    function renderPendingHomes() {
+      let pendingList = JSON.parse(localStorage.getItem('bondhu.pendingHomes') || 'null');
+      if (!pendingList || pendingList.length === 0) {
+        pendingList = defaultPending;
+        localStorage.setItem('bondhu.pendingHomes', JSON.stringify(pendingList));
+      }
+
+      const tbody = document.getElementById('pending-homes-tbody');
+      tbody.innerHTML = '';
+
+      if (pendingList.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:24px; color:#94a3b8; font-weight:700;">কোনো অপেক্ষমাণ রেন্টাল আবেদন নেই।</td></tr>';
+        document.getElementById('pending-count-badge').textContent = '০টি আবেদন';
+        return;
+      }
+
+      document.getElementById('pending-count-badge').textContent = `${pendingList.length}টি আবেদন অপেক্ষমাণ`;
+
+      pendingList.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <strong style="color:#0f172a; display:block;">${item.name}</strong>
+            <span style="font-size:10px; color:#64748b;">${item.id}</span>
+          </td>
+          <td><span style="background:#f1f5f9; padding:2px 8px; border-radius:4px; font-weight:700; font-size:11px;">${item.categoryTitle || item.category}</span></td>
+          <td><strong style="color:#0b5a35;">৳ ${item.rent}</strong></td>
+          <td><span style="font-size:11.5px; color:#475569;">${item.location}</span></td>
+          <td><strong>${item.applicantUser}</strong></td>
+          <td><a href="tel:${item.applicantPhone}" style="color:#00695c; font-weight:700; text-decoration:none;">${item.applicantPhone}</a></td>
+          <td style="text-align:right;">
+            <button onclick="approveHome(${index})" class="btn-approve"><i class="fa-solid fa-check mr-1"></i> অনুমোদন</button>
+            <button onclick="rejectHome(${index})" class="btn-reject" style="margin-left:4px;"><i class="fa-solid fa-xmark"></i></button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
-    const day = dayIndex + 1;
-    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
-    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
-  }
 
-  function getArabicDate(date = new Date(), lang = getLang()) {
-    try {
-      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
-      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
-    } catch (error) {
-      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+    function approveHome(index) {
+      let pendingList = JSON.parse(localStorage.getItem('bondhu.pendingHomes') || '[]');
+      const item = pendingList[index];
+      if (!item) return;
+
+      // Add to publishedHomes
+      let published = JSON.parse(localStorage.getItem('bondhu.publishedHomes') || '[]');
+      published.unshift(item);
+      localStorage.setItem('bondhu.publishedHomes', JSON.stringify(published));
+
+      // Remove from pending
+      pendingList.splice(index, 1);
+      localStorage.setItem('bondhu.pendingHomes', JSON.stringify(pendingList));
+
+      alert(`'${item.name}' সফলভাবে অনুমোদিত হয়েছে এবং লাইভ হোমস পেইজে প্রকাশিত হয়েছে!`);
+      renderPendingHomes();
     }
-  }
 
-  function applyLanguage(lang = getLang()) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
-    const date = new Date();
+    function rejectHome(index) {
+      let pendingList = JSON.parse(localStorage.getItem('bondhu.pendingHomes') || '[]');
+      const item = pendingList[index];
+      if (!item) return;
 
-    const gregElem = document.getElementById('gregorian-date');
-    const banglaElem = document.getElementById('bangla-calendar');
-    const arabicElem = document.getElementById('arabic-calendar');
-
-    if (gregElem) {
-      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
-      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      pendingList.splice(index, 1);
+      localStorage.setItem('bondhu.pendingHomes', JSON.stringify(pendingList));
+      alert(`'${item.name}' আবেদনটি বাতিল করা হয়েছে।`);
+      renderPendingHomes();
     }
-    if (banglaElem) {
-      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
-    }
-    if (arabicElem) {
-      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
-    }
-  }
 
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  applyLanguage(getLang());
-</script>
-</body></html>
+    document.addEventListener('DOMContentLoaded', renderPendingHomes);
+
+    // Shared Dynamic Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+    }
+
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
+    }
+
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
+
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
+
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
+    }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
+  </script>
+</body>
+</html>
