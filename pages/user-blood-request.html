@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Blood Request | Bondhu.org - রক্তের অনুরোধ ফরম</title>
+  <title>User Blood Request | Bondhu.org</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,14 +106,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 36px 16px;
+    padding: 30px 16px;
     width: 100%;
   }
 
   .form-card {
     background: #ffffff;
     width: 100%;
-    max-width: 580px;
+    max-width: 600px;
     border-radius: 16px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
     border: 1px solid #eef0f3;
@@ -121,42 +121,58 @@
     position: relative;
   }
 
-  .header-logo { text-align: center; margin-bottom: 12px; }
+  .header-logo { text-align: center; margin-bottom: 8px; }
   .logo-icon {
     width: 48px; height: 48px; background-color: #d32f2f; border-radius: 50%; margin: 0 auto 8px;
     display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25);
   }
   .logo-icon i { color: white; font-size: 20px; }
 
-  .card-brand-title { font-size: 28px; font-weight: 800; color: #0b5a35; letter-spacing: -0.5px; line-height: 1.1; }
+  .card-brand-title { font-size: 26px; font-weight: 800; color: #0b5a35; letter-spacing: -0.5px; line-height: 1.1; }
   .card-brand-title span { color: #d32f2f; }
-  .brand-subtitle { font-size: 13px; color: #666666; margin-top: 2px; }
 
-  .divider-container { display: flex; align-items: center; justify-content: center; margin: 14px 0 18px; position: relative; }
+  .badge-tag-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .live-badge-tag {
+    background: #fee2e2;
+    color: #d32f2f;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .divider-container { display: flex; align-items: center; justify-content: center; margin: 14px 0 16px; position: relative; }
   .divider-line { height: 1px; background-color: #e5e7eb; width: 100%; }
   .divider-drop { position: absolute; background: #ffffff; padding: 0 8px; color: #d32f2f; font-size: 12px; }
 
-  .welcome-text { text-align: center; font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 2px; }
-  .sub-welcome-text { text-align: center; font-size: 13px; color: #64748b; margin-bottom: 20px; }
+  .welcome-text { text-align: center; font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+  .sub-welcome-text { text-align: center; font-size: 12.5px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
 
   /* Form Elements */
   .form-group { margin-bottom: 14px; }
-  .form-label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 5px; }
+  .form-label { display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 5px; }
   .form-label span { color: var(--red); }
 
   .input-wrapper { position: relative; display: flex; align-items: center; }
   .input-icon-left { position: absolute; left: 12px; color: #888888; font-size: 14px; z-index: 2; }
 
   .form-input {
-    width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none; transition: all 0.2s; background: white;
+    width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none; transition: all 0.2s; background: white; color: #1e293b;
   }
   .form-input:focus { border-color: #d32f2f; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1); }
 
   .form-row { display: flex; gap: 10px; }
 
   .btn-submit {
-    width: 100%; height: 46px; background-color: #d32f2f; color: #ffffff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: background-color 0.2s, transform 0.1s; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25); margin-top: 14px;
+    width: 100%; height: 46px; background-color: #d32f2f; color: #ffffff; border: none; border-radius: 8px; font-size: 14.5px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: background-color 0.2s, transform 0.1s; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25); margin-top: 16px;
   }
   .btn-submit:hover { background-color: #b71c1c; transform: translateY(-1px); }
 
@@ -210,7 +226,7 @@
       <div class="logo-badge">B</div>
       <div class="brand-text">
         <h1>Bondhu<span>.</span></h1>
-        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        <p data-bn="একসাথে গড়ি এক নতুন বাংলাদেশ" data-en="Building a New Bangladesh Together">একসাথে গড়ি এক নতুন বাংলাদেশ</p>
       </div>
     </a>
     <div class="topbar-meta">
@@ -225,7 +241,7 @@
       </div>
       <a class="login-btn" href="login.html">
         <img alt="" src="../assets/images/service-icons/person-search.png"/>
-        <span>Login</span>
+        <span data-bn="লগইন" data-en="Login">Login</span>
       </a>
     </div>
   </header>
@@ -240,7 +256,12 @@
           <i class="fa-solid fa-droplet"></i>
         </div>
         <div class="card-brand-title">Bondhu<span>.</span></div>
-        <div class="brand-subtitle">ইউজার রক্তের অনুরোধ পোর্টাল</div>
+        <div class="badge-tag-wrap">
+          <span class="live-badge-tag">
+            <i class="fa-solid fa-droplet"></i>
+            <span data-bn="জরুরি রক্তের লাইভ ফিড" data-en="Emergency Blood Live Feed">জরুরি রক্তের লাইভ ফিড</span>
+          </span>
+        </div>
       </div>
 
       <div class="divider-container">
@@ -248,25 +269,25 @@
         <div class="divider-drop"><i class="fa-solid fa-heart-pulse"></i></div>
       </div>
 
-      <!-- Welcome Heading -->
-      <div class="welcome-text">User Blood Request (রক্তের অনুরোধ)</div>
-      <div class="sub-welcome-text">জরুরি রক্তের জন্য রোগীর তথ্য পূরণ করুন</div>
+      <!-- Welcome Heading (Moved text from request-blood as requested) -->
+      <h2 class="welcome-text" data-bn="জরুরি রক্তের প্রয়োজনীয়তা ও ডোনার পোর্টাল" data-en="Emergency Blood Requirements & Donor Portal">জরুরি রক্তের প্রয়োজনীয়তা ও ডোনার পোর্টাল</h2>
+      <p class="sub-welcome-text" data-bn="মুহূর্তের মধ্যে রোগীর জন্য রক্তদাতা খুঁজে নিন অথবা সরাসরি রক্তদানে সাড়া দিন।" data-en="Find blood donors for patients instantly or respond to blood donation requests.">মুহূর্তের মধ্যে রোগীর জন্য রক্তদাতা খুঁজে নিন অথবা সরাসরি রক্তদানে সাড়া দিন।</p>
 
       <!-- Form Section with Blood Type Dropdown Button -->
       <form id="user-blood-form" onsubmit="submitUserBloodRequest(event)">
-        <!-- Patient Name -->
+        <!-- Patient Name (Single Font / Language) -->
         <div class="form-group">
-          <label class="form-label">রোগীর নাম (Patient Name) <span>*</span></label>
+          <label class="form-label"><span class="lbl-txt" data-bn="রোগীর নাম" data-en="Patient Name">রোগীর নাম</span> <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-regular fa-user input-icon-left"></i>
-            <input type="text" id="u-patient-name" class="form-input" placeholder="যেমন: মো: করিম উদ্দিন" required>
+            <input type="text" id="u-patient-name" class="form-input" data-bn="যেমন: মো: করিম উদ্দিন" data-en="e.g. Karim Uddin" placeholder="যেমন: মো: করিম উদ্দিন" required>
           </div>
         </div>
 
         <!-- Blood Type Dropdown Button & Units Needed Row -->
         <div class="form-row">
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">রক্তের গ্রুপ (Blood Type) <span>*</span></label>
+            <label class="form-label"><span class="lbl-txt" data-bn="রক্তের গ্রুপ" data-en="Blood Group">রক্তের গ্রুপ</span> <span>*</span></label>
             <div class="input-wrapper">
               <i class="fa-solid fa-droplet input-icon-left" style="color: var(--primary-red);"></i>
               <select id="u-blood-type" class="form-input" required>
@@ -283,7 +304,7 @@
           </div>
 
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">রক্তের পরিমাণ (ব্যাগ) <span>*</span></label>
+            <label class="form-label"><span class="lbl-txt" data-bn="রক্তের পরিমাণ (ব্যাগ)" data-en="Units Needed (Bags)">রক্তের পরিমাণ (ব্যাগ)</span> <span>*</span></label>
             <div class="input-wrapper">
               <i class="fa-solid fa-flask-vial input-icon-left"></i>
               <input type="number" id="u-units" class="form-input" value="1" min="1" max="10" required>
@@ -293,46 +314,48 @@
 
         <!-- Reason / Why Need -->
         <div class="form-group">
-          <label class="form-label">প্রয়োজনের কারণ (Why Needed) <span>*</span></label>
+          <label class="form-label"><span class="lbl-txt" data-bn="প্রয়োজনের কারণ" data-en="Reason for Blood">প্রয়োজনের কারণ</span> <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-solid fa-heart-pulse input-icon-left"></i>
-            <input type="text" id="u-reason" class="form-input" placeholder="যেমন: ব্রেন সার্জারি / সিজার / থ্যালাসেমিয়া / দুর্ঘটনা" required>
+            <input type="text" id="u-reason" class="form-input" data-bn="যেমন: ব্রেন সার্জারি / সিজার / থ্যালাসেমিয়া / দুর্ঘটনা" data-en="e.g. Brain Surgery / Cesarean / Thalassemia" placeholder="যেমন: ব্রেন সার্জারি / সিজার / থ্যালাসেমিয়া / দুর্ঘটনা" required>
           </div>
         </div>
 
         <!-- Hospital Name -->
         <div class="form-group">
-          <label class="form-label">হাসপাতাল / ক্লিনিকের নাম <span>*</span></label>
+          <label class="form-label"><span class="lbl-txt" data-bn="হাসপাতাল / ক্লিনিকের নাম" data-en="Hospital / Clinic Name">হাসপাতাল / ক্লিনিকের নাম</span> <span>*</span></label>
           <div class="input-wrapper">
-            <i class="fa-solid fa-hospital input-user input-icon-left"></i>
-            <input type="text" id="u-hospital" class="form-input" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required>
+            <i class="fa-solid fa-hospital input-icon-left"></i>
+            <input type="text" id="u-hospital" class="form-input" data-bn="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" data-en="e.g. Dhaka Medical College Hospital" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required>
           </div>
         </div>
 
         <!-- Location Fields -->
         <div class="form-row">
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">বিভাগ <span>*</span></label>
+            <label class="form-label"><span class="lbl-txt" data-bn="বিভাগ" data-en="Division">বিভাগ</span> <span>*</span></label>
             <select id="u-division" class="form-input" required>
-              <option value="Dhaka">ঢাকা (Dhaka)</option>
-              <option value="Chattogram">চট্টগ্রাম (Chattogram)</option>
-              <option value="Rajshahi">রাজশাহী (Rajshahi)</option>
-              <option value="Khulna">খুলনা (Khulna)</option>
-              <option value="Sylhet">সিলেট (Sylhet)</option>
-              <option value="Barishal">বরিশাল (Barishal)</option>
+              <option value="Dhaka" data-bn="ঢাকা" data-en="Dhaka">ঢাকা</option>
+              <option value="Chattogram" data-bn="চট্টগ্রাম" data-en="Chattogram">চট্টগ্রাম</option>
+              <option value="Rajshahi" data-bn="রাজশাহী" data-en="Rajshahi">রাজশাহী</option>
+              <option value="Khulna" data-bn="খুলনা" data-en="Khulna">খুলনা</option>
+              <option value="Sylhet" data-bn="সিলেট" data-en="Sylhet">সিলেট</option>
+              <option value="Barishal" data-bn="বরিশাল" data-en="Barishal">বরিশাল</option>
+              <option value="Rangpur" data-bn="রংপুর" data-en="Rangpur">রংপুর</option>
+              <option value="Mymensingh" data-bn="ময়মনসিংহ" data-en="Mymensingh">ময়মনসিংহ</option>
             </select>
           </div>
 
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">জেলা ও উপজেলা <span>*</span></label>
-            <input type="text" id="u-location" class="form-input" placeholder="যেমন: শাহবাগ, ঢাকা" required style="padding-left: 12px;">
+            <label class="form-label"><span class="lbl-txt" data-bn="জেলা ও এলাকা" data-en="District & Area">জেলা ও এলাকা</span> <span>*</span></label>
+            <input type="text" id="u-location" class="form-input" data-bn="যেমন: শাহবাগ, ঢাকা" data-en="e.g. Shahbag, Dhaka" placeholder="যেমন: শাহবাগ, ঢাকা" required style="padding-left: 12px;">
           </div>
         </div>
 
         <!-- Contact Phone & Urgency Row -->
         <div class="form-row">
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">যোগাযোগের মোবাইল <span>*</span></label>
+            <label class="form-label"><span class="lbl-txt" data-bn="যোগাযোগের মোবাইল" data-en="Contact Mobile">যোগাযোগের মোবাইল</span> <span>*</span></label>
             <div class="input-wrapper">
               <i class="fa-solid fa-phone input-icon-left"></i>
               <input type="tel" id="u-phone" class="form-input" placeholder="01XXXXXXXXX" value="01712345678" required>
@@ -340,22 +363,23 @@
           </div>
 
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">জরুরিতা (Urgency) <span>*</span></label>
+            <label class="form-label"><span class="lbl-txt" data-bn="জরুরিতা" data-en="Urgency">জরুরিতা</span> <span>*</span></label>
             <select id="u-urgency" class="form-input" style="padding-left: 12px;" required>
-              <option value="immediate">তাৎক্ষণিক (Immediate)</option>
-              <option value="urgent" selected>জরুরি (Urgent)</option>
-              <option value="scheduled">পরিকল্পিত (Scheduled)</option>
+              <option value="immediate" data-bn="তাৎক্ষণিক" data-en="Immediate">তাৎক্ষণিক</option>
+              <option value="urgent" selected data-bn="জরুরি" data-en="Urgent">জরুরি</option>
+              <option value="scheduled" data-bn="পরিকল্পিত" data-en="Scheduled">পরিকল্পিত</option>
             </select>
           </div>
         </div>
 
         <button type="submit" class="btn-submit">
-          <i class="fa-solid fa-paper-plane mr-1"></i> রক্তের অনুরোধ পোস্ট করুন
+          <i class="fa-solid fa-paper-plane mr-1"></i>
+          <span data-bn="রক্তের অনুরোধ পোস্ট করুন" data-en="Submit Blood Request">রক্তের অনুরোধ পোস্ট করুন</span>
         </button>
 
         <div style="margin-top: 14px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 12px;">
           <a href="request-blood.html" style="font-size: 12px; font-weight: 800; color: var(--primary-red); text-decoration: none;">
-            &larr; সকল রক্তের লাইভ ফিড দেখুন
+            &larr; <span data-bn="সকল রক্তের লাইভ ফিড দেখুন" data-en="View All Blood Requests">সকল রক্তের লাইভ ফিড দেখুন</span>
           </a>
         </div>
       </form>
@@ -369,23 +393,23 @@
       <div style="width: 60px; height: 60px; border-radius: 50%; background: #fee2e2; color: #d32f2f; font-size: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
         <i class="fa-solid fa-circle-check"></i>
       </div>
-      <h3 style="font-size: 19px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">রক্তের অনুরোধ পোস্ট হয়েছে!</h3>
-      <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">নিকটস্থ রক্তদাতাদের অ্যালার্ট পাঠানো হচ্ছে এবং লাইভ ফিডে যুক্ত করা হয়েছে।</p>
+      <h3 style="font-size: 19px; font-weight: 800; color: #0f172a; margin-bottom: 4px;" data-bn="রক্তের অনুরোধ পোস্ট হয়েছে!" data-en="Blood Request Posted!">রক্তের অনুরোধ পোস্ট হয়েছে!</h3>
+      <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;" data-bn="নিকটস্থ রক্তদাতাদের অ্যালার্ট পাঠানো হচ্ছে এবং লাইভ ফিডে যুক্ত করা হয়েছে।" data-en="Nearby donors are being alerted and your request is live in the feed.">নিকটস্থ রক্তদাতাদের অ্যালার্ট পাঠানো হচ্ছে এবং লাইভ ফিডে যুক্ত করা হয়েছে।</p>
       
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; text-align: left; font-size: 12px; margin-bottom: 18px; line-height: 1.6;">
-        <div>ট্র্যাকিং কোড: <strong style="color: #0b5a35;" id="pop-track-id">REQ-2026-0899</strong></div>
-        <div>রোগীর নাম: <strong id="pop-patient-name">করিম উদ্দিন</strong></div>
-        <div>রক্তের গ্রুপ: <strong style="color: #d32f2f;" id="pop-blood-type">O+</strong></div>
-        <div>হাসপাতাল: <strong id="pop-hospital-name">ঢাকা মেডিকেল কলেজ</strong></div>
-        <div>স্ট্যাটাস: <span style="color: #16a34a; font-weight: 700;">Live Searching 🔴</span></div>
+        <div><span data-bn="ট্র্যাকিং কোড:" data-en="Tracking Code:">ট্র্যাকিং কোড:</span> <strong style="color: #0b5a35;" id="pop-track-id">REQ-2026-0899</strong></div>
+        <div><span data-bn="রোগীর নাম:" data-en="Patient Name:">রোগীর নাম:</span> <strong id="pop-patient-name">করিম উদ্দিন</strong></div>
+        <div><span data-bn="রক্তের গ্রুপ:" data-en="Blood Group:">রক্তের গ্রুপ:</span> <strong style="color: #d32f2f;" id="pop-blood-type">O+</strong></div>
+        <div><span data-bn="হাসপাতাল:" data-en="Hospital:">হাসপাতাল:</span> <strong id="pop-hospital-name">ঢাকা মেডিকেল কলেজ</strong></div>
+        <div><span data-bn="স্ট্যাটাস:" data-en="Status:">স্ট্যাটাস:</span> <span style="color: #16a34a; font-weight: 700;">Live Searching 🔴</span></div>
       </div>
 
       <div style="display: flex; gap: 10px;">
         <a id="pop-track-btn" href="blood-tracking.html" style="flex: 1; background: #00a651; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;">
-          লাইভ ট্র্যাকিং দেখুন &rarr;
+          <span data-bn="লাইভ ট্র্যাকিং দেখুন" data-en="Live Tracking">লাইভ ট্র্যাকিং দেখুন</span> &rarr;
         </a>
         <a href="request-blood.html" style="flex: 1; background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;">
-          লাইভ ফিড
+          <span data-bn="লাইভ ফিড" data-en="Live Feed">লাইভ ফিড</span>
         </a>
       </div>
     </div>
@@ -398,7 +422,7 @@
         <div class="logo-badge">B</div>
         <div>
           <h2>Bondhu<span>.</span></h2>
-          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+          <p data-bn="একসাথে গড়ি এক নতুন বাংলাদেশ" data-en="Building a New Bangladesh Together">একসাথে গড়ি এক নতুন বাংলাদেশ</p>
         </div>
       </div>
       <div class="footer-links">
@@ -514,6 +538,16 @@
       if (arabicElem) {
         arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
       }
+
+      // Update Single-Language Labels & Placeholders
+      document.querySelectorAll('[data-bn][data-en]').forEach(el => {
+        const val = lang === 'bn' ? el.dataset.bn : el.dataset.en;
+        if (el.tagName === 'INPUT') {
+          el.placeholder = val;
+        } else {
+          el.textContent = val;
+        }
+      });
     }
 
     document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));

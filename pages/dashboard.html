@@ -326,20 +326,23 @@
     <!-- Tab 2: User Blood Request (Added as requested) -->
     <div id="tab-user-blood-request" style="display: none;">
       <section class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
           <div>
-            <h2 style="font-size: 18px; font-weight: 800; color: #d32f2f;"><i class="fa-solid fa-droplet mr-1"></i> User Blood Request (রক্তের অনুরোধ)</h2>
-            <p style="font-size: 12px; color: #64748b;">রোগীর রক্তের প্রয়োজনে প্রয়োজনীয় তথ্য দিন। সরাসরি লাইভ সিস্টেমে যুক্ত হবে।</p>
+            <span style="background: #fee2e2; color: #d32f2f; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 6px;">
+              <i class="fa-solid fa-droplet"></i> জরুরি রক্তের লাইভ ফিড
+            </span>
+            <h2 style="font-size: 18px; font-weight: 800; color: #d32f2f; margin-bottom: 2px;">জরুরি রক্তের প্রয়োজনীয়তা ও ডোনার পোর্টাল</h2>
+            <p style="font-size: 12px; color: #64748b;">মুহূর্তের মধ্যে রোগীর জন্য রক্তদাতা খুঁজে নিন অথবা সরাসরি রক্তদানে সাড়া দিন।</p>
           </div>
           <button onclick="hideUserBloodRequestTab()" class="btn soft" style="font-size: 11px;">&larr; Back</button>
         </div>
 
         <form id="dash-blood-request-form" onsubmit="handleDashBloodSubmit(event)">
           <div class="form-grid">
-            <label>রোগীর নাম (Patient Name) *<input id="db-patient" placeholder="যেমন: মো: করিম উদ্দিন" required="" type="text"/></label>
+            <label>রোগীর নাম *<input id="db-patient" placeholder="যেমন: মো: করিম উদ্দিন" required="" type="text"/></label>
             
             <!-- Blood Type Dropdown Button -->
-            <label>রক্তের গ্রুপ (Blood Type) *
+            <label>রক্তের গ্রুপ *
               <select id="db-blood-type" required="">
                 <option value="A+">A+ (Positive)</option>
                 <option value="A-">A- (Negative)</option>
@@ -354,15 +357,15 @@
 
             <label>রক্তের পরিমাণ (ব্যাগ) *<input id="db-units" min="1" max="10" type="number" value="1" required=""/></label>
             
-            <label>জরুরিতা (Urgency) *
+            <label>জরুরিতা *
               <select id="db-urgency" required="">
-                <option value="immediate">তাৎক্ষণিক (Immediate)</option>
-                <option value="urgent" selected="">জরুরি (Urgent)</option>
-                <option value="scheduled">পরিকল্পিত (Scheduled)</option>
+                <option value="immediate">তাৎক্ষণিক</option>
+                <option value="urgent" selected="">জরুরি</option>
+                <option value="scheduled">পরিকল্পিত</option>
               </select>
             </label>
 
-            <label style="grid-column: 1 / -1;">প্রয়োজনের কারণ (Why Needed) *
+            <label style="grid-column: 1 / -1;">প্রয়োজনের কারণ *
               <input id="db-reason" placeholder="যেমন: ব্রেন সার্জারি / সিজার / থ্যালাসেমিয়া / দুর্ঘটনা" required="" type="text"/>
             </label>
 
@@ -370,12 +373,14 @@
             
             <label>বিভাগ *
               <select id="db-division" required="">
-                <option value="Dhaka">ঢাকা (Dhaka)</option>
-                <option value="Chattogram">চট্টগ্রাম (Chattogram)</option>
-                <option value="Rajshahi">রাজশাহী (Rajshahi)</option>
-                <option value="Khulna">খুলনা (Khulna)</option>
-                <option value="Sylhet">সিলেট (Sylhet)</option>
-                <option value="Barishal">বরিশাল (Barishal)</option>
+                <option value="Dhaka">ঢাকা</option>
+                <option value="Chattogram">চট্টগ্রাম</option>
+                <option value="Rajshahi">রাজশাহী</option>
+                <option value="Khulna">খুলনা</option>
+                <option value="Sylhet">সিলেট</option>
+                <option value="Barishal">বরিশাল</option>
+                <option value="Rangpur">রংপুর</option>
+                <option value="Mymensingh">ময়মনসিংহ</option>
               </select>
             </label>
 
