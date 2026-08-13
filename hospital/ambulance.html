@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bondhu General Hospital - Ambulance Management Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-
-  
   /* === Shared Header & Footer System Cloned from index.html === */
   :root {
     --green-dark: #0b5a35;
@@ -182,430 +184,430 @@
     .footer-bottom { padding: 10px 14px; font-size: 10px; }
   }
 
-  @media (max-width: 380px) {
-    header.topbar { padding: 6px 8px; }
-    .brand .logo-badge { width: 28px; height: 28px; font-size: 12px; }
-    .brand-text h1 { font-size: 14px; }
-    .mobile-header-right { gap: 4px; }
-    .lang-switcher button { padding: 2px 5px; font-size: 9.5px; min-height: 25px; }
-    .login-btn { height: 27px; min-height: 27px; padding: 3px 7px; font-size: 10px; }
-  }
+  /* === Custom Page Specific Styles for hospital/ambulance.html === */
+  * { font-family: 'Inter', 'Hind Siliguri', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f1f5f9; }
+  .f { display: flex; }
+  .fc { display: flex; flex-direction: column; }
+  .g { gap: 8px; }
+  .g2 { gap: 12px; }
+  .p8 { padding: 8px; }
+  .p12 { padding: 12px; }
+  .p16 { padding: 16px; }
+  .br6 { border-radius: 6px; }
+  .br8 { border-radius: 8px; }
+  .bgw { background: white; }
+  .bdr { border: 1px solid #e2e8f0; }
+  .fs9 { font-size: 9px; }
+  .fs10 { font-size: 10px; }
+  .fs11 { font-size: 11px; }
+  .fs12 { font-size: 12px; }
+  .fs13 { font-size: 13px; }
+  .fs14 { font-size: 14px; }
+  .fw5 { font-weight: 500; }
+  .fw6 { font-weight: 600; }
+  .fw7 { font-weight: 700; }
+  .c1 { color: #1e293b; }
+  .c2 { color: #334155; }
+  .c3 { color: #475569; }
+  .c4 { color: #64748b; }
+  .c5 { color: #94a3b8; }
+  .cg { color: #16a34a; }
+  .cr { color: #ef4444; }
+  .cb { color: #2563eb; }
+  .co { color: #ea580c; }
+  .sb { background: #0f172a; }
+  .inp { width: 100%; padding: 6px 8px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 11px; color: #334155; }
+  .inp:focus { outline: none; border-color: #3b82f6; }
+  .lbl { font-size: 10px; font-weight: 600; color: #475569; margin-bottom: 3px; display: block; }
+  .req { color: #ef4444; }
+  .bdg { padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 500; display: inline-block; }
+  .bdg-g { background: #dcfce7; color: #166534; }
+  .bdg-o { background: #ffedd5; color: #9a3412; }
+  .bdg-b { background: #dbeafe; color: #1e40af; }
+  .bdg-r { background: #fee2e2; color: #991b1b; }
+  .btn { padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 500; cursor: pointer; border: none; }
+  .btn-p { background: #2563eb; color: white; }
+  .btn-s { background: #16a34a; color: white; }
+  .btn-o { background: white; border: 1px solid #e2e8f0; color: #64748b; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .tbl th { background: #f8fafc; padding: 8px; text-align: left; font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0; font-size: 10px; text-transform: uppercase; }
+  .tbl td { padding: 8px; border-bottom: 1px solid #f1f5f9; color: #334155; vertical-align: middle; }
+  .tbl tr:hover { background: #f8fafc; }
+  .sc { background: white; border-radius: 8px; padding: 10px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
+  .sci { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .si { display: flex; align-items: center; gap: 10px; padding: 8px 14px; color: #94a3b8; font-size: 12px; cursor: pointer; border-radius: 6px; margin: 1px 6px; text-decoration: none; }
+  .si:hover { color: #fff; background: rgba(255,255,255,0.05); }
+  .si.a { color: #fff; background: rgba(59,130,246,0.15); border-left: 3px solid #3b82f6; }
+  .dash { border: 2px dashed #cbd5e1; border-radius: 6px; padding: 10px; text-align: center; cursor: pointer; }
 
-</style>
+  .app { min-height: 100vh; }
+  .sidebar { width: 210px; flex-shrink: 0; overflow: auto; position: sticky; top: 0; height: 100vh; }
+  .backing { display: none; }
+  .dashboard-header { flex-wrap: wrap; height: auto !important; min-height: 52px; }
+  #menuBtn { display: none; }
+  .content-grid { display: grid; grid-template-columns: 320px 1fr 300px; gap: 12px; }
+  .form2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stats5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+  .stats4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+  @media (max-width: 1280px) { .content-grid { grid-template-columns: 300px 1fr 280px; } }
+  @media (max-width: 1100px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: fixed; z-index: 50; left: 0; top: 0; transform: translateX(-100%); transition: transform .25s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .backing.show { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(15, 23, 42, .5); }
+    #menuBtn { display: block; }
+    .hdates { display: none; }
+    .stats5 { grid-template-columns: repeat(3, 1fr); }
+    .p12 { overflow-x: auto; }
+    .tbl { min-width: 560px; }
+  }
+  @media (max-width: 640px) {
+    .hphones { display: none; }
+    .stats5, .stats4, .cards3 { grid-template-columns: repeat(2, 1fr); }
+    .form2 { grid-template-columns: 1fr; }
+    .form2 > * { grid-column: auto !important; }
+  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  </style>
 </head>
 <body>
-<!-- TOP HEADER -->
-<header class="topbar">
-<a class="brand" href="../index.html">
-<div class="logo-badge">B</div>
-<div class="brand-text">
-<h1>Bondhu<span>.</span></h1>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</a>
-<!-- PC Topbar Meta Items (Date/Calendar) -->
-<div class="topbar-meta">
-<div class="meta-item"><span id="gregorian-date">English calendar</span></div>
-<div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
-<div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
-</div>
-<!-- Mobile & Desktop Language + Login Actions -->
-<div class="mobile-header-right">
-<div aria-label="Language switcher" class="lang-switcher">
-<button class="active" data-lang="bn" type="button">BN</button>
-<button data-lang="en" type="button">EN</button>
-</div>
-<a class="login-btn" href="../pages/login.html">
-<img alt="" src="../assets/images/service-icons/person-search.png"/>
-<span>Login</span>
-</a>
-</div>
-</header>
 
-
-  <div class="f app" style="background: #f1f5f9;">
-    <div class="backing" id="backing"></div>
-
-    <!-- Sidebar -->
-    <div class="sb fc sidebar" id="sidebar">
-      <a href="index.html" class="f" style="padding: 14px; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-decoration: none;">
-        <div style="width: 30px; height: 30px; background: linear-gradient(135deg,#ef4444,#dc2626); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">&#10084;</div>
-        <div>
-          <div style="color: white; font-size: 13px; font-weight: 700;">Bondhu</div>
-          <div style="color: #94a3b8; font-size: 9px;">General Hospital</div>
-          <div style="color: #64748b; font-size: 8px;">সবাই আমাদের অঙ্গীকার</div>
-        </div>
+  <!-- TOP HEADER -->
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <div class="logo-badge">B</div>
+      <div class="brand-text">
+        <h1>Bondhu<span>.</span></h1>
+        <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+      </div>
+    </a>
+    <div class="topbar-meta">
+      <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+      <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+      <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+    </div>
+    <div class="mobile-header-right">
+      <div aria-label="Language switcher" class="lang-switcher">
+        <button class="active" data-lang="bn" type="button">BN</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <a class="login-btn" href="../pages/login.html">
+        <img alt="" src="../assets/images/service-icons/person-search.png"/>
+        <span>Login</span>
       </a>
+    </div>
+  </header>
 
-      <div style="padding: 6px 0;">
-        <div style="color: #64748b; font-size: 9px; font-weight: 600; padding: 6px 14px; text-transform: uppercase;">Main</div>
-        <div class="si"><span>&#128202;</span> Dashboard</div>
-        <div class="si"><span>&#128200;</span> Analytics</div>
-        <div class="si"><span>&#127973;</span> Hospital Profile</div>
-        <div class="si"><span>&#127963;</span> Departments</div>
-        <div class="si"><span>&#128104;&#8205;&#9877;&#65039;</span> Doctors</div>
-        <div class="si"><span>&#128101;</span> Staff Management</div>
-        <div class="si"><span>&#129333;</span> Patients</div>
-        <div class="si"><span>&#128197;</span> Appointments</div>
-        <div class="si"><span>&#128719;</span> IPO Management</div>
-        <div class="si"><span>&#128658;</span> OPD Management</div>
-        <div class="si"><span>&#128719;&#65039;</span> Bed Management</div>
-
-        <div style="color: #64748b; font-size: 9px; font-weight: 600; padding: 6px 14px; text-transform: uppercase; margin-top: 4px;">Ambulance</div>
-        <div class="si"><span>&#128657;</span> All Ambulances</div>
-        <div class="si a"><span>&#10133;</span> Add New Ambulance</div>
-        <div class="si"><span>&#128203;</span> Bookings</div>
-
-        <div style="color: #64748b; font-size: 9px; font-weight: 600; padding: 6px 14px; text-transform: uppercase; margin-top: 4px;">Others</div>
-        <div class="si"><span>&#127775;</span> Blood Center</div>
-        <div class="si"><span>&#128138;</span> Pharmacy</div>
-        <div class="si"><span>&#128300;</span> Laboratory</div>
-        <div class="si"><span>&#128176;</span> Billing &amp; Invoice</div>
-        <div class="si"><span>&#128196;</span> Reports</div>
-        <a class="si" href="admin.html"><span>&#127760;</span> CMS Management</a>
-        <div class="si"><span>&#9881;&#65039;</span> Settings</div>
+  <!-- Hospital Ambulance Management Dashboard -->
+  <div class="app f">
+    <div class="backing" id="backing" onclick="toggleSidebar()"></div>
+    <!-- Sidebar -->
+    <div class="sidebar sb fc" id="sidebar">
+      <div class="p12 f g" style="align-items: center; border-bottom: 1px solid #1e293b;">
+        <span style="font-size: 20px;">&#127973;</span>
+        <div>
+          <div class="fs12 fw7" style="color: #fff;">Bondhu Hospital</div>
+          <div class="fs9 c5">Ambulance Portal</div>
+        </div>
+      </div>
+      <div style="flex: 1; padding: 6px 0;">
+        <div class="fs9 c5 fw6 p8" style="text-transform: uppercase; letter-spacing: 0.5px;">Navigation</div>
+        <a class="si a" href="#"><span style="width: 16px; text-align: center;">&#128652;</span> Fleet Management</a>
+        <a class="si" href="admin.html"><span style="width: 16px; text-align: center;">&#128240;</span> News &amp; Notices</a>
+        <a class="si" href="index.html"><span style="width: 16px; text-align: center;">&#127760;</span> Public Website</a>
+        <div class="fs9 c5 fw6 p8" style="text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px;">Quick Actions</div>
+        <a class="si" href="#add-form"><span style="width: 16px; text-align: center;">&#10133;</span> Add Ambulance</a>
+        <a class="si" href="#booking-form"><span style="width: 16px; text-align: center;">&#128203;</span> Book Trip</a>
+        <a class="si" href="#fleet-list"><span style="width: 16px; text-align: center;">&#128202;</span> Live Fleet Status</a>
+      </div>
+      <div class="p8" style="border-top: 1px solid #1e293b;">
+        <div class="f g" style="align-items: center;">
+          <img alt="User" class="br6" src="../assets/images/hospital/user-avatar.png" style="width: 28px; height: 28px; object-fit: cover;"/>
+          <div>
+            <div class="fs10 fw6" style="color: #fff;">Fleet Supervisor</div>
+            <div class="fs9" style="color: #4ade80;">&#9679; Online</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Main -->
-    <div class="fc" style="flex: 1; overflow: hidden;">
-
-      <!-- Header -->
-      <div class="f bgw dashboard-header" style=" border-bottom: 1px solid #e2e8f0; align-items: center; justify-content: space-between; padding: 0 16px; flex-shrink: 0;">
-        <div class="f g2" style="align-items: center;">
-          <button id="menuBtn" type="button" style="background: none; border: none; font-size: 16px; cursor: pointer; color: #475569;">&#9776;</button>
-          <div class="f g hdates" style="align-items: center; color: #475569;"><span>&#128197;</span> <span class="fs13 fw6">08 July 2026</span><span class="fs12 c4">Tuesday</span></div>
-          <div class="f g hdates" style="align-items: center; color: #475569; font-size: 11px;"><span>&#127769;</span> <span>২৪ আষাঢ় ১৪৩৩</span></div>
-          <div class="f g hdates" style="align-items: center; color: #475569; font-size: 11px;"><span>&#9770;</span><span>২৩ মহররম ১৪৪৮</span></div>
-        </div>
-        <div class="f g2" style="align-items: center;">
-          <button style="background: #16a34a; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer;">বাংলা</button>
-          <button style="background: #e2e8f0; color: #475569; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer;">English</button>
-          <div class="f g hphones" style="font-size: 11px; color: #475569;"><span class="cr">&#128680;</span><div><div class="fs10 c4">Emergency</div><div class="fw6">10647</div></div></div>
-          <div class="f g hphones" style="font-size: 11px; color: #475569;"><span class="cg">&#128657;</span><div><div class="fs10 c4">Ambulance</div><div class="fw6">01712-345678</div></div></div>
-          <div style="position: relative; cursor: pointer;"><span style="font-size: 16px;">&#128276;</span><span style="position: absolute; top: -3px; right: -3px; background: #ef4444; color: white; font-size: 8px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</span></div>
-          <div class="f g" style="align-items: center;">
-            <img src="../assets/images/hospital/user-avatar.png" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
-            <div class="fs11"><div class="fw6 c1">Super Admin</div><div class="fs10 c4">Administrator</div></div>
+    <!-- Main Content -->
+    <div class="fc" style="flex: 1; overflow: auto;">
+      <!-- Dashboard Top Header Bar -->
+      <div class="bgw bdr p12 f g dashboard-header" style="justify-content: space-between; align-items: center;">
+        <div class="f g" style="align-items: center;">
+          <button class="btn btn-o" id="menuBtn" onclick="toggleSidebar()" style="padding: 4px 8px; font-size: 14px;">&#9776;</button>
+          <div>
+            <span class="fs13 fw7 c1">Ambulance Fleet Control</span>
+            <span class="fs10 c4" style="margin-left: 6px;">Real-time dispatch &amp; driver management</span>
           </div>
+        </div>
+        <div class="f g hphones" style="font-size: 11px; color: #475569;">
+          <span class="cg">&#128657;</span>
+          <span>Emergency Dispatch: <strong>01712-345678</strong></span>
+          <span style="color: #cbd5e1;">|</span>
+          <span class="co">&#9888;</span>
+          <span>Central Hotline: <strong>10647</strong></span>
         </div>
       </div>
 
-      <!-- Content -->
-      <div style="flex: 1; overflow: auto; padding: 12px;">
+      <!-- Content Area -->
+      <div class="p12">
         <div class="content-grid">
-
-          <!-- Left: Form -->
-          <div class="fc g2">
+          
+          <!-- Column 1: Add New Ambulance Form -->
+          <div class="fc g2" id="add-form">
             <div class="bgw br8 bdr p12">
-              <h3 class="fs14 c1 fw6" style="margin-bottom: 2px;">Add New Ambulance</h3>
-              <p class="fs11 c4" style="margin-bottom: 10px;">Add ambulance and all related information</p>
+              <div class="fs12 fw7 c1" style="margin-bottom: 4px;">&#10133; Register New Ambulance</div>
+              <div class="fs10 c4" style="margin-bottom: 10px;">Fill vehicle and driver information</div>
+              
+              <form class="fc g" onsubmit="event.preventDefault(); alert('Ambulance registered successfully!');">
+                <div class="form2">
+                  <div>
+                    <label class="lbl">Vehicle Type <span class="req">*</span></label>
+                    <select class="inp">
+                      <option>ICU Ambulance (Advanced Life Support)</option>
+                      <option>AC Emergency Ambulance</option>
+                      <option>Non-AC Patient Transport</option>
+                      <option>Freezer Ambulance</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="lbl">Plate Number <span class="req">*</span></label>
+                    <input class="inp" placeholder="DH-11-2024" value="DH-11-2024"/>
+                  </div>
+                </div>
 
-              <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">1. Ambulance Information</div>
-              <div class="form2">
-                <div><label class="lbl">Institution <span class="req">*</span></label><input class="inp" value="Bondhu General Hospital"></div>
-                <div><label class="lbl">Ambulance Type <span class="req">*</span></label><select class="inp"><option>ICU Ambulance</option></select></div>
-                <div><label class="lbl">Name / Title <span class="req">*</span></label><input class="inp" value="Bondhu ICU Ambulance"></div>
-                <div><label class="lbl">Registration No <span class="req">*</span></label><input class="inp" value="DHK-11-1234"></div>
-                <div><label class="lbl">Route / Coverage <span class="req">*</span></label><input class="inp" value="Dhaka City"></div>
-                <div><label class="lbl">Vehicle Type <span class="req">*</span></label><select class="inp"><option>Hiace</option></select></div>
-                <div><label class="lbl">Model / Brand</label><input class="inp" value="Toyota Hiace"></div>
-                <div><label class="lbl">Mfg Year</label><input class="inp" value="2022"></div>
-                <div><label class="lbl">Color</label><input class="inp" value="White"></div>
-                <div><label class="lbl">Fuel Type</label><select class="inp"><option>Diesel</option></select></div>
-                <div><label class="lbl">Seat Capacity</label><input class="inp" value="4"></div>
-                <div><label class="lbl">Equipment</label><input class="inp" value="ICU, Ventilator, Oxygen"></div>
-              </div>
-              <div style="margin-bottom: 10px;"><label class="lbl">Description</label><textarea class="inp" rows="2" placeholder="বিবরণ লিখুন"></textarea></div>
+                <div class="form2">
+                  <div>
+                    <label class="lbl">Base Hospital / Hub</label>
+                    <input class="inp" value="Bondhu General Hospital"/>
+                  </div>
+                  <div>
+                    <label class="lbl">Operating District</label>
+                    <select class="inp">
+                      <option>Dhaka</option>
+                      <option>Chattogram</option>
+                      <option>Rajshahi</option>
+                      <option>Khulna</option>
+                      <option>Sylhet</option>
+                    </select>
+                  </div>
+                </div>
 
-              <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">2. Owner Information</div>
-              <div class="form2">
-                <div><label class="lbl">Owner Name <span class="req">*</span></label><input class="inp" placeholder="নাম লিখুন"></div>
-                <div><label class="lbl">Owner Mobile <span class="req">*</span></label><input class="inp" placeholder="01XXXXXXXXX"></div>
-                <div style="grid-column: span 2;"><label class="lbl">Owner NID Number <span class="req">*</span></label><input class="inp" placeholder="NID নম্বর লিখুন"></div>
-              </div>
-              <div class="form2">
-                <div><label class="lbl">NID Upload <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Front)</div><div class="fs10 c5">JPG, PNG or PDF</div></div></div>
-                <div><label class="lbl" style="opacity: 0;">.</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Back)</div><div class="fs10 c5">JPG, PNG or PDF</div></div></div>
-              </div>
+                <div class="form2">
+                  <div>
+                    <label class="lbl">Driver Full Name <span class="req">*</span></label>
+                    <input class="inp" placeholder="Driver Name" value="Abdullah Rahman"/>
+                  </div>
+                  <div>
+                    <label class="lbl">Driver Phone <span class="req">*</span></label>
+                    <input class="inp" placeholder="01XXXXXXXXX" value="01712-345678"/>
+                  </div>
+                </div>
 
-              <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">3. Driver Information</div>
-              <div class="form2">
-                <div><label class="lbl">Driver Name <span class="req">*</span></label><input class="inp" placeholder="নাম লিখুন"></div>
-                <div><label class="lbl">Driver Mobile <span class="req">*</span></label><input class="inp" placeholder="01XXXXXXXXX"></div>
-                <div><label class="lbl">License Number <span class="req">*</span></label><input class="inp" placeholder="লাইসেন্স নম্বর"></div>
-                <div><label class="lbl">Driver NID <span class="req">*</span></label><input class="inp" placeholder="NID নম্বর লিখুন"></div>
-              </div>
-              <div class="form2">
-                <div><label class="lbl">NID Upload <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Front)</div></div></div>
-                <div><label class="lbl" style="opacity: 0;">.</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload NID (Back)</div></div></div>
-              </div>
-              <div class="form2">
-                <div><label class="lbl">License Upload <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload License (Front)</div></div></div>
-                <div><label class="lbl" style="opacity: 0;">.</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload License (Back)</div></div></div>
-              </div>
-
-              <div class="fs11 fw7 c1" style="margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">4. Documents &amp; Permits</div>
-              <div class="form2">
-                <div><label class="lbl">Vehicle Image</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload Image</div></div></div>
-                <div><label class="lbl">Route Permits</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload File</div></div></div>
-                <div><label class="lbl">Fitness Certificate</label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload File</div></div></div>
-                <div><label class="lbl">Insurance <span class="req">*</span></label><div class="dash"><div style="font-size: 16px;">&#128228;</div><div class="fs11 c4">Upload File</div></div></div>
-              </div>
-
-              <div class="f g" style="justify-content: flex-end;">
-                <button class="btn btn-o">Reset</button>
-                <button class="btn btn-s">&#128190; Save Ambulance</button>
-              </div>
-            </div>
-
-            <!-- Owner Dashboard -->
-            <div class="bgw br8 bdr p12">
-              <h4 class="fs13 c1 fw6" style="margin-bottom: 10px;">&#128100; Owner Dashboard - Bookings</h4>
-              <table class="tbl">
-                <thead><tr><th>Booking ID</th><th>Date &amp; Time</th><th>Patient</th><th>From</th><th>To</th><th>Amount</th><th>Status</th></tr></thead>
-                <tbody>
-                  <tr><td>BK-2026-1250</td><td>08 Jul 2026<br><span class="c5">10:30 AM</span></td><td>Abdullah Rahman</td><td>Dhanmondi</td><td>Mugda Medical</td><td>&#2547;1,200</td><td><span class="bdg bdg-g">Confirmed</span></td></tr>
-                  <tr><td>BK-2026-1249</td><td>07 Jul 2026<br><span class="c5">09:15 AM</span></td><td>Farida Akter</td><td>Uttara</td><td>BSMMU</td><td>&#2547;1,500</td><td><span class="bdg bdg-b">On The Way</span></td></tr>
-                  <tr><td>BK-2026-1248</td><td>07 Jul 2026<br><span class="c5">08:45 PM</span></td><td>Hasan Mahmud</td><td>Mirpur</td><td>Square Hospital</td><td>&#2547;1,300</td><td><span class="bdg bdg-g">Completed</span></td></tr>
-                  <tr><td>BK-2026-1247</td><td>07 Jul 2026<br><span class="c5">06:30 PM</span></td><td>Saima Begum</td><td>Mohammadpur</td><td>Ibn Sina Hospital</td><td>&#2547;1,400</td><td><span class="bdg bdg-r">Cancelled</span></td></tr>
-                </tbody>
-              </table>
-              <div style="text-align: center; margin-top: 6px;"><a href="#" class="fs11 cb" style="text-decoration: none;">View All Bookings &rarr;</a></div>
+                <div style="margin-top: 6px;">
+                  <button class="btn btn-s" style="width: 100%;" type="submit">&#10004; Submit Registration</button>
+                </div>
+              </form>
             </div>
           </div>
 
-          <!-- Center: All Ambulances -->
-          <div class="fc g2">
+          <!-- Column 2: Live Fleet Table -->
+          <div class="fc g2" id="fleet-list">
             <div class="bgw br8 bdr p12">
-              <div class="f" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div><h3 class="fs14 c1 fw6">All Ambulances</h3><p class="fs11 c4">Manage all ambulances</p></div>
-              </div>
-              <div class="f" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div style="position: relative; width: 240px;"><span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 11px;">&#128269;</span><input class="inp" style="padding-left: 26px;" placeholder="Search ambulance..."></div>
-                <button class="btn btn-p">+ Add New Ambulance</button>
-              </div>
-
-              <div class="bgw br8 bdr" style="overflow: hidden;">
-                <table class="tbl">
-                  <thead><tr><th>#</th><th>Ambulance</th><th>Type</th><th>Institution</th><th>Driver</th><th>Status</th><th>Action</th></tr></thead>
-                  <tbody>
-                    <tr><td>1</td><td><div class="f g" style="align-items: center;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 40px; height: 28px; border-radius: 4px; object-fit: cover;"><div><div class="fw5">Bondhu ICU Ambulance</div><div class="fs10 c5">DHK-11-1234</div></div></div></td><td><span class="bdg bdg-r">ICU</span></td><td>Bondhu General Hospital<br><span class="fs10 c5">01712-345678</span></td><td>Rashid Khan<br><span class="fs10 c5">01711-223344</span></td><td><span class="bdg bdg-g">Active</span></td><td><div class="f g" style="gap: 4px;"><button style="background: #eff6ff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #3b82f6; font-size: 10px;">&#128065;</button><button style="background: #fef3c7; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #d97706; font-size: 10px;">&#9998;</button><button style="background: #fee2e2; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #ef4444; font-size: 10px;">&#128465;</button></div></td></tr>
-                    <tr><td>2</td><td><div class="f g" style="align-items: center;"><img src="../assets/images/hospital/ambulance-2.png" style="width: 40px; height: 28px; border-radius: 4px; object-fit: cover;"><div><div class="fw5">Green Life Basic Ambulance</div><div class="fs10 c5">DHA-12-0578</div></div></div></td><td><span class="bdg bdg-b">Basic</span></td><td>Green Life Hospital<br><span class="fs10 c5">01712-987654</span></td><td>Parvez Islam<br><span class="fs10 c5">01722-334455</span></td><td><span class="bdg bdg-g">Active</span></td><td><div class="f g" style="gap: 4px;"><button style="background: #eff6ff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #3b82f6; font-size: 10px;">&#128065;</button><button style="background: #fef3c7; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #d97706; font-size: 10px;">&#9998;</button><button style="background: #fee2e2; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #ef4444; font-size: 10px;">&#128465;</button></div></td></tr>
-                    <tr><td>3</td><td><div class="f g" style="align-items: center;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 40px; height: 28px; border-radius: 4px; object-fit: cover;"><div><div class="fw5">Apona AC Ambulance</div><div class="fs10 c5">DHK-13-9012</div></div></div></td><td><span class="bdg bdg-b">AC</span></td><td>Apona Hospital<br><span class="fs10 c5">01713-456789</span></td><td>Jamil Hasan<br><span class="fs10 c5">01723-445566</span></td><td><span class="bdg bdg-g">Active</span></td><td><div class="f g" style="gap: 4px;"><button style="background: #eff6ff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #3b82f6; font-size: 10px;">&#128065;</button><button style="background: #fef3c7; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #d97706; font-size: 10px;">&#9998;</button><button style="background: #fee2e2; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #ef4444; font-size: 10px;">&#128465;</button></div></td></tr>
-                    <tr><td>4</td><td><div class="f g" style="align-items: center;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 40px; height: 28px; border-radius: 4px; object-fit: cover;"><div><div class="fw5">City Care ICU Ambulance</div><div class="fs10 c5">DHK-14-3456</div></div></div></td><td><span class="bdg bdg-r">ICU</span></td><td>City Care Hospital<br><span class="fs10 c5">01714-567890</span></td><td>Sujon Ahmed<br><span class="fs10 c5">01744-566677</span></td><td><span class="bdg bdg-o">Inactive</span></td><td><div class="f g" style="gap: 4px;"><button style="background: #eff6ff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #3b82f6; font-size: 10px;">&#128065;</button><button style="background: #fef3c7; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #d97706; font-size: 10px;">&#9998;</button><button style="background: #fee2e2; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #ef4444; font-size: 10px;">&#128465;</button></div></td></tr>
-                    <tr><td>5</td><td><div class="f g" style="align-items: center;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 40px; height: 28px; border-radius: 4px; object-fit: cover;"><div><div class="fw5">Life Support Ambulance</div><div class="fs10 c5">DHK-15-7890</div></div></div></td><td><span class="bdg bdg-r">ICU</span></td><td>Life Support Foundation<br><span class="fs10 c5">01715-678901</span></td><td>Noman Ali<br><span class="fs10 c5">01755-667788</span></td><td><span class="bdg bdg-g">Active</span></td><td><div class="f g" style="gap: 4px;"><button style="background: #eff6ff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #3b82f6; font-size: 10px;">&#128065;</button><button style="background: #fef3c7; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #d97706; font-size: 10px;">&#9998;</button><button style="background: #fee2e2; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #ef4444; font-size: 10px;">&#128465;</button></div></td></tr>
-                    <tr><td>6</td><td><div class="f g" style="align-items: center;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 40px; height: 28px; border-radius: 4px; object-fit: cover;"><div><div class="fw5">Bondhu AC Ambulance</div><div class="fs10 c5">DHK-16-2345</div></div></div></td><td><span class="bdg bdg-b">AC</span></td><td>Bondhu General Hospital<br><span class="fs10 c5">01712-345678</span></td><td>Mahfuz Alam<br><span class="fs10 c5">01766-778899</span></td><td><span class="bdg bdg-g">Active</span></td><td><div class="f g" style="gap: 4px;"><button style="background: #eff6ff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #3b82f6; font-size: 10px;">&#128065;</button><button style="background: #fef3c7; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #d97706; font-size: 10px;">&#9998;</button><button style="background: #fee2e2; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; color: #ef4444; font-size: 10px;">&#128465;</button></div></td></tr>
-                  </tbody>
-                </table>
+              <div class="f g" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <div>
+                  <span class="fs12 fw7 c1">&#128652; Registered Fleet Status</span>
+                  <span class="fs10 c4">(Live Dispatch List)</span>
+                </div>
+                <div class="f g">
+                  <button class="btn btn-o fs9">&#128260; Refresh</button>
+                </div>
               </div>
 
-              <div class="f" style="justify-content: space-between; align-items: center; margin-top: 10px;">
-                <span class="fs11 c4">Showing 1 to 6 of 24 entries</span>
-                <div class="f g"><button class="btn btn-o" style="padding: 3px 8px;">&lt;</button><button class="btn" style="padding: 3px 8px; background: #3b82f6; color: white;">1</button><button class="btn btn-o" style="padding: 3px 8px;">2</button><button class="btn btn-o" style="padding: 3px 8px;">3</button><button class="btn btn-o" style="padding: 3px 8px;">4</button><button class="btn btn-o" style="padding: 3px 8px;">&gt;</button></div>
-              </div>
-
-              <div class="stats5">
-                <div class="sc"><div class="sci" style="background: #eff6ff;">&#128657;</div><div><div class="fs10 c4">Total Ambulances</div><div class="fs14 fw7 c1">24</div></div></div>
-                <div class="sc"><div class="sci" style="background: #dcfce7;">&#9989;</div><div><div class="fs10 c4">Active</div><div class="fs14 fw7 cg">20</div></div></div>
-                <div class="sc"><div class="sci" style="background: #ffedd5;">&#9888;&#65039;</div><div><div class="fs10 c4">Inactive</div><div class="fs14 fw7 co">4</div></div></div>
-                <div class="sc"><div class="sci" style="background: #fef3c7;">&#128203;</div><div><div class="fs10 c4">Bookings (Today)</div><div class="fs14 fw7 c1">18</div></div></div>
-                <div class="sc"><div class="sci" style="background: #f3e8ff;">&#128202;</div><div><div class="fs10 c4">Bookings (Monthly)</div><div class="fs14 fw7 c1">245</div></div></div>
-              </div>
-            </div>
-
-            <!-- Driver Dashboard -->
-            <div class="bgw br8 bdr p12">
-              <h4 class="fs13 c1 fw6" style="margin-bottom: 10px;">&#128663; Driver Dashboard - My Trips</h4>
               <table class="tbl">
-                <thead><tr><th>Booking ID</th><th>Date &amp; Time</th><th>Patient Name</th><th>From</th><th>To</th><th>Status</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Vehicle</th>
+                    <th>Type</th>
+                    <th>Driver</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr><td>BK-2026-1250</td><td>08 Jul 2026<br><span class="c5">10:30 AM</span></td><td>Abdullah Rahman</td><td>Dhanmondi</td><td>Mugda Medical</td><td><span class="bdg bdg-b">On The Way</span></td></tr>
-                  <tr><td>BK-2026-1249</td><td>08 Jul 2026<br><span class="c5">09:15 AM</span></td><td>Farida Akter</td><td>Uttara</td><td>BSMMU</td><td><span class="bdg bdg-g">Accepted</span></td></tr>
-                  <tr><td>BK-2026-1248</td><td>07 Jul 2026<br><span class="c5">08:45 PM</span></td><td>Hasan Mahmud</td><td>Mirpur</td><td>Square Hospital</td><td><span class="bdg bdg-g">Completed</span></td></tr>
+                  <tr>
+                    <td>1</td>
+                    <td><div class="fw6">DH-11-2024</div><div class="fs9 c4">Bondhu Hospital</div></td>
+                    <td><span class="bdg bdg-g">ICU ALS</span></td>
+                    <td>Abdullah Rahman</td>
+                    <td>01712-345678</td>
+                    <td><span class="bdg bdg-g">Available</span></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td><div class="fw6">DH-12-5544</div><div class="fs9 c4">Square Hospital</div></td>
+                    <td><span class="bdg bdg-b">AC Van</span></td>
+                    <td>Mohammad Faruk</td>
+                    <td>01711-223344</td>
+                    <td><span class="bdg bdg-o">On Trip</span></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td><div class="fw6">CTG-05-9988</div><div class="fs9 c4">CTG Medical</div></td>
+                    <td><span class="bdg bdg-g">ICU Van</span></td>
+                    <td>Rashedul Karim</td>
+                    <td>01713-456789</td>
+                    <td><span class="bdg bdg-g">Available</span></td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td><div class="fw6">RAJ-03-3322</div><div class="fs9 c4">Rajshahi Red Crescent</div></td>
+                    <td><span class="bdg bdg-b">Non-AC</span></td>
+                    <td>Anisur Rahman</td>
+                    <td>01714-567890</td>
+                    <td><span class="bdg bdg-g">Available</span></td>
+                  </tr>
                 </tbody>
               </table>
-              <div style="text-align: center; margin-top: 6px;"><a href="#" class="fs11 cb" style="text-decoration: none;">View All Trips &rarr;</a></div>
             </div>
           </div>
 
-          <!-- Right: Homepage + Booking + Admin -->
-          <div class="fc g2">
-
-            <!-- Homepage View -->
-            <div class="bgw br8 bdr p12" id="visitor-view">
-              <h4 class="fs13 c1 fw6" style="margin-bottom: 2px;">Homepage View (For Visitors)</h4>
-              <p class="fs11 c4" style="margin-bottom: 10px;">Ambulance list will be shown on homepage</p>
-              <div class="cards3">
-                <div class="bgw br8 bdr" style="overflow: hidden;">
-                  <div style="position: relative;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #ef4444; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">ICU</span></div>
-                  <div class="p8"><div class="fs10 fw6 c1">Bondhu ICU Ambulance</div><div class="fs9 c4">Bondhu General Hospital</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
-                </div>
-                <div class="bgw br8 bdr" style="overflow: hidden;">
-                  <div style="position: relative;"><img src="../assets/images/hospital/ambulance-2.png" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #3b82f6; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">Basic</span></div>
-                  <div class="p8"><div class="fs10 fw6 c1">Green Life Basic Ambulance</div><div class="fs9 c4">Green Life Hospital</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
-                </div>
-                <div class="bgw br8 bdr" style="overflow: hidden;">
-                  <div style="position: relative;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #3b82f6; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">AC</span></div>
-                  <div class="p8"><div class="fs10 fw6 c1">Apona AC Ambulance</div><div class="fs9 c4">Apona Hospital</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
-                </div>
-                <div class="bgw br8 bdr" style="overflow: hidden;">
-                  <div style="position: relative;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #ef4444; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">ICU</span></div>
-                  <div class="p8"><div class="fs10 fw6 c1">City Care ICU Ambulance</div><div class="fs9 c4">City Care Hospital</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
-                </div>
-                <div class="bgw br8 bdr" style="overflow: hidden;">
-                  <div style="position: relative;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #ef4444; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">ICU</span></div>
-                  <div class="p8"><div class="fs10 fw6 c1">Life Support Ambulance</div><div class="fs9 c4">Life Support Foundation</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
-                </div>
-                <div class="bgw br8 bdr" style="overflow: hidden;">
-                  <div style="position: relative;"><img src="../assets/images/hospital/ambulance-1.png" style="width: 100%; height: 50px; object-fit: cover;"><span style="position: absolute; top: 3px; left: 3px; background: #3b82f6; color: white; font-size: 8px; padding: 1px 5px; border-radius: 3px; font-weight: 600;">AC</span></div>
-                  <div class="p8"><div class="fs10 fw6 c1">Bondhu AC Ambulance</div><div class="fs9 c4">Bondhu General Hospital</div><div class="f g" style="align-items: center; margin: 3px 0;"><span class="cg fs10">&#10003;</span><span class="fs9 cg fw5">Verified</span></div><button style="width: 100%; background: #1e3a5f; color: white; border: none; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: 500; cursor: pointer;">Booking Now</button></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Book Ambulance Modal -->
-            <div class="bgw br8 bdr p12" style="border: 2px dashed #cbd5e1;">
-              <h4 class="fs13 c1 fw6" style="margin-bottom: 10px;">&#128203; Book Ambulance</h4>
-              <div class="form2">
-                <div style="grid-column: span 2;"><label class="lbl">Select Ambulance <span class="req">*</span></label><select class="inp"><option>ICU Ambulance</option></select></div>
-                <div><label class="lbl">Patient Name <span class="req">*</span></label><input class="inp" placeholder="রোগীর নাম"></div>
-                <div><label class="lbl">Mobile Number <span class="req">*</span></label><input class="inp" placeholder="01XXXXXXXXX"></div>
-                <div><label class="lbl">Pickup Location <span class="req">*</span></label><input class="inp" placeholder="পিকআপ স্থান"></div>
-                <div><label class="lbl">Drop Location <span class="req">*</span></label><input class="inp" placeholder="ড্রপ স্থান"></div>
-                <div><label class="lbl">Date <span class="req">*</span></label><input class="inp" type="date" value="2026-07-08"></div>
-                <div><label class="lbl">Time <span class="req">*</span></label><input class="inp" type="time" value="10:30"></div>
-                <div style="grid-column: span 2;"><label class="lbl">Patient Condition</label><input class="inp" placeholder="রোগীর অবস্থা"></div>
-                <div style="grid-column: span 2;"><label class="lbl">Note / Special Request</label><textarea class="inp" rows="2" placeholder="বিশেষ অনুরোধ"></textarea></div>
-              </div>
-              <div class="f g" style="justify-content: flex-end; margin-top: 10px;">
-                <button class="btn btn-o">Cancel</button>
-                <button class="btn btn-s">Confirm Booking</button>
-              </div>
-            </div>
-
-            <!-- Admin Dashboard -->
+          <!-- Column 3: Trip Booking -->
+          <div class="fc g2" id="booking-form">
             <div class="bgw br8 bdr p12">
-              <h4 class="fs13 c1 fw6" style="margin-bottom: 10px;">&#128100; Admin Dashboard - All Bookings</h4>
-              <div class="stats4">
-                <div class="sc"><div class="sci" style="background: #fef3c7;">&#128203;</div><div><div class="fs10 c4">Total Bookings</div><div class="fs14 fw7 c1">245</div></div></div>
-                <div class="sc"><div class="sci" style="background: #dbeafe;">&#128197;</div><div><div class="fs10 c4">Today's Bookings</div><div class="fs14 fw7 c1">18</div></div></div>
-                <div class="sc"><div class="sci" style="background: #dcfce7;">&#9989;</div><div><div class="fs10 c4">Completed</div><div class="fs14 fw7 cg">152</div></div></div>
-                <div class="sc"><div class="sci" style="background: #fee2e2;">&#128683;</div><div><div class="fs10 c4">Cancelled</div><div class="fs14 fw7 cr">22</div></div></div>
-              </div>
-              <table class="tbl">
-                <thead><tr><th>Booking ID</th><th>Ambulance</th><th>Patient Name</th><th>Date &amp; Time</th><th>Status</th><th>Action</th></tr></thead>
-                <tbody>
-                  <tr><td>BK-2026-1250</td><td>Bondhu ICU Ambulance</td><td>Abdullah Rahman</td><td>08 Jul 2026<br><span class="c5">10:30 AM</span></td><td><span class="bdg bdg-b">On The Way</span></td><td><button style="background: none; border: none; cursor: pointer; color: #3b82f6; font-size: 12px;">&#128065;</button></td></tr>
-                  <tr><td>BK-2026-1249</td><td>Green Life Basic Ambulance</td><td>Farida Akter</td><td>08 Jul 2026<br><span class="c5">09:15 AM</span></td><td><span class="bdg bdg-g">Accepted</span></td><td><button style="background: none; border: none; cursor: pointer; color: #3b82f6; font-size: 12px;">&#128065;</button></td></tr>
-                  <tr><td>BK-2026-1248</td><td>Apona AC Ambulance</td><td>Hasan Mahmud</td><td>07 Jul 2026<br><span class="c5">08:45 PM</span></td><td><span class="bdg bdg-g">Completed</span></td><td><button style="background: none; border: none; cursor: pointer; color: #3b82f6; font-size: 12px;">&#128065;</button></td></tr>
-                </tbody>
-              </table>
-              <div style="text-align: center; margin-top: 6px;"><a href="#" class="fs11 cb" style="text-decoration: none;">View All Bookings &rarr;</a></div>
-            </div>
+              <div class="fs12 fw7 c1" style="margin-bottom: 4px;">&#128221; Quick Patient Dispatch</div>
+              <div class="fs10 c4" style="margin-bottom: 10px;">Dispatch nearest available vehicle</div>
 
+              <form class="fc g" onsubmit="event.preventDefault(); alert('Trip booked! Driver alerted.');">
+                <div>
+                  <label class="lbl">Patient Name <span class="req">*</span></label>
+                  <input class="inp" placeholder="Patient Name" value="Fatima Begum"/>
+                </div>
+
+                <div class="form2">
+                  <div>
+                    <label class="lbl">Pickup Location <span class="req">*</span></label>
+                    <input class="inp" placeholder="From..." value="Dhanmondi, Dhaka"/>
+                  </div>
+                  <div>
+                    <label class="lbl">Destination Hospital <span class="req">*</span></label>
+                    <input class="inp" placeholder="To..." value="Dhaka Medical College"/>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="lbl">Contact Mobile <span class="req">*</span></label>
+                  <input class="inp" placeholder="01XXXXXXXXX" value="01712000000"/>
+                </div>
+
+                <div style="margin-top: 6px;">
+                  <button class="btn btn-p" style="width: 100%;" type="submit">&#128663; Book &amp; Dispatch</button>
+                </div>
+              </form>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Shared Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-badge">B</div>
+        <div>
+          <h2>Bondhu<span>.</span></h2>
+          <p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:help@bondhu.local">Contact</a>
+        <a href="../pages/donor-register.html">Donation</a>
+        <a href="../pages/news.html">Privacy Policy</a>
+        <a href="../pages/news.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bondhu. All Rights Reserved.</span>
+      <div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
+    </div>
+  </footer>
+
   <script>
-    const sidebar = document.getElementById('sidebar');
-    const backing = document.getElementById('backing');
-    function toggleSidebar(open) {
-      const shouldOpen = typeof open === 'boolean' ? open : !sidebar.classList.contains('open');
-      sidebar.classList.toggle('open', shouldOpen);
-      backing.classList.toggle('show', shouldOpen);
+    function toggleSidebar() {
+      const s = document.getElementById('sidebar');
+      const b = document.getElementById('backing');
+      s.classList.toggle('open');
+      b.classList.toggle('show');
     }
-    document.getElementById('menuBtn').addEventListener('click', () => toggleSidebar());
-    backing.addEventListener('click', () => toggleSidebar(false));
-    sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', () => toggleSidebar(false)));
+
+    // Shared Dynamic Calendar Scripting
+    const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
+    const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
+    const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
+
+    function getBanglaDate(date = new Date(), lang = getLang()) {
+      const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
+      const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
+      const year = date.getFullYear();
+      const startThisYear = new Date(year, 3, 14);
+      const startYear = date >= startThisYear ? year : year - 1;
+      const banglaYear = startYear - 593;
+      const startDate = new Date(startYear, 3, 14);
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      let dayIndex = Math.floor((today - startDate) / 86400000);
+      const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
+      let month = 0;
+      while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
+        dayIndex -= monthLengths[month];
+        month += 1;
+      }
+      const day = dayIndex + 1;
+      if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
+      return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
+    }
+
+    function getArabicDate(date = new Date(), lang = getLang()) {
+      try {
+        const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
+        return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
+      } catch (error) {
+        return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
+      }
+    }
+
+    function applyLanguage(lang = getLang()) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
+      const date = new Date();
+
+      const gregElem = document.getElementById('gregorian-date');
+      const banglaElem = document.getElementById('bangla-calendar');
+      const arabicElem = document.getElementById('arabic-calendar');
+
+      if (gregElem) {
+        const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
+        gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
+      }
+      if (banglaElem) {
+        banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
+      }
+      if (arabicElem) {
+        arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
+      }
+    }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    applyLanguage(getLang());
   </script>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-top">
-<div class="footer-brand">
-<div class="logo-badge">B</div>
-<div>
-<h2>Bondhu<span>.</span></h2>
-<p>একসাথে গড়ি এক নতুন বাংলাদেশ</p>
-</div>
-</div>
-<div class="footer-links">
-<a href="mailto:help@bondhu.local">Contact</a>
-<a href="../pages/donor-register.html">Donation</a>
-<a href="../pages/news.html">Privacy Policy</a>
-<a href="../pages/news.html">Terms &amp; Conditions</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2026 Bondhu. All Rights Reserved.</span>
-<div class="dev-by"><span>Developed By</span><div class="dot-badge">N</div><a href="https://nextechzen.site" rel="noopener" target="_blank">nextechzen.site</a></div>
-</div>
-</footer>
-
-<script>
-  // Shared Dynamic Language & Calendar Scripting
-  const BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  const toBnNumber = (value) => String(value).replace(/\d/g, (d) => BN_DIGITS[d]);
-  const getLang = () => localStorage.getItem('bondhu.lang') || 'bn';
-  const setLang = (lang) => { localStorage.setItem('bondhu.lang', lang); applyLanguage(lang); };
-
-  function getBanglaDate(date = new Date(), lang = getLang()) {
-    const monthNamesBn = ['বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'];
-    const monthNamesEn = ['Boishakh','Joishtho','Ashar','Srabon','Bhadro','Ashwin','Kartik','Agrahayan','Poush','Magh','Falgun','Chaitra'];
-    const year = date.getFullYear();
-    const startThisYear = new Date(year, 3, 14);
-    const startYear = date >= startThisYear ? year : year - 1;
-    const banglaYear = startYear - 593;
-    const startDate = new Date(startYear, 3, 14);
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    let dayIndex = Math.floor((today - startDate) / 86400000);
-    const monthLengths = [31,31,31,31,31,30,30,30,30,30,30,30];
-    let month = 0;
-    while (month < monthLengths.length - 1 && dayIndex >= monthLengths[month]) {
-      dayIndex -= monthLengths[month];
-      month += 1;
-    }
-    const day = dayIndex + 1;
-    if (lang === 'bn') return `${toBnNumber(day)} ${monthNamesBn[month]} ${toBnNumber(banglaYear)} বঙ্গাব্দ`;
-    return `${day} ${monthNamesEn[month]} ${banglaYear} BE`;
-  }
-
-  function getArabicDate(date = new Date(), lang = getLang()) {
-    try {
-      const locale = lang === 'bn' ? 'bn-BD-u-ca-islamic' : 'en-u-ca-islamic';
-      return new Intl.DateTimeFormat(locale, { day:'numeric', month:'long', year:'numeric' }).format(date);
-    } catch (error) {
-      return lang === 'bn' ? 'হিজরি ক্যালেন্ডার' : 'Hijri calendar';
-    }
-  }
-
-  function applyLanguage(lang = getLang()) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.classList.toggle('active', btn.dataset.lang === lang));
-    const date = new Date();
-
-    const gregElem = document.getElementById('gregorian-date');
-    const banglaElem = document.getElementById('bangla-calendar');
-    const arabicElem = document.getElementById('arabic-calendar');
-
-    if (gregElem) {
-      const formatted = new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).format(date);
-      gregElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'ইংরেজি:' : 'English:'}</span> ${formatted}`;
-    }
-    if (banglaElem) {
-      banglaElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'বাংলা:' : 'Bangla:'}</span> ${getBanglaDate(date, lang)}`;
-    }
-    if (arabicElem) {
-      arabicElem.innerHTML = `<span class="calendar-label">${lang === 'bn' ? 'আরবি:' : 'Arabic:'}</span> ${getArabicDate(date, lang)}`;
-    }
-  }
-
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-  applyLanguage(getLang());
-</script>
 </body>
 </html>
