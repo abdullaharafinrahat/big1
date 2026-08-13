@@ -214,6 +214,7 @@
 
 </style>
 <base target="_blank">
+  <link rel="stylesheet" href="../css/components/header-footer.css">
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
 <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity opacity-0" aria-hidden="true" onclick="toggleSidebar()"></div>
@@ -1330,5 +1331,6 @@
   document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
   applyLanguage(getLang());
 </script>
+  <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>

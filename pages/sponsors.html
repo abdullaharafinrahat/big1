@@ -370,6 +370,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
+  <link rel="stylesheet" href="../css/components/header-footer.css">
 </head>
 <body class="flex flex-col min-h-screen text-slate-800">
 
@@ -1133,5 +1134,6 @@
   document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
   applyLanguage(getLang());
 </script>
+  <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>
