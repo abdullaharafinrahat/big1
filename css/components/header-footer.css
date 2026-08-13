@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Bondhu.org Unified Header & Footer Styles (Matching homes.html)
+   ========================================================================== */
+
+:root {
+  --green-dark: #0b5a35;
+  --green: #0e6e42;
+  --green-light: #e9f5ee;
+  --red: #e31e24;
+  --red-dark: #c81419;
+  --pink: #f7d9dc;
+  --ink: #1c2b24;
+  --muted: #6b7a72;
+  --border: #e5e9e6;
+  --radius: 14px;
+}
+
+/* Header Topbar */
+header.topbar, #bondhu-header-container header.topbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border, #e5e9e6);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.brand .logo-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--green-dark, #0b5a35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+  border: 2px solid var(--red, #e31e24);
+  flex-shrink: 0;
+}
+
+.brand-text h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+  color: var(--green-dark, #0b5a35);
+  line-height: 1.1;
+  font-weight: 800;
+}
+.brand-text h1 span {
+  color: var(--red, #e31e24);
+}
+.brand-text p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted, #6b7a72);
+}
+
+.topbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #3a463f;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  background: #f8f9fa;
+  border: 1px solid var(--border, #e5e9e6);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11.5px;
+}
+
+.meta-item .dot {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.calendar-label {
+  font-weight: 800;
+  color: var(--green-dark, #0b5a35);
+  margin-right: 3px;
+}
+
+.mobile-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.lang-switcher {
+  display: inline-flex;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 2px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lang-switcher button {
+  border: 0;
+  background: transparent;
+  color: #667085;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-weight: 800;
+  cursor: pointer;
+  min-height: 36px;
+  font-size: 11.5px;
+  transition: all 0.2s ease;
+}
+
+.lang-switcher button.active {
+  background: var(--red, #e31e24);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(227, 30, 36, 0.18);
+}
+
+.login-btn {
+  background: var(--green-dark, #0b5a35);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  height: 36px;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.login-btn:hover {
+  background: var(--green, #0e6e42);
+}
+
+.login-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* Global Shared Footer */
+footer, #bondhu-footer-container footer {
+  background: var(--green-dark, #0b5a35);
+  color: #eaf3ee;
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-top {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-brand .logo-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--green-dark, #0b5a35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: 2px solid var(--red, #e31e24);
+}
+
+.footer-brand h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.footer-brand h2 span {
+  color: #ff8b8e;
+}
+
+.footer-brand p {
+  margin: 0;
+  font-size: 10.5px;
+  color: #c7dcd1;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+}
+
+.footer-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #eaf3ee;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: #b7ccc0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dev-by {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dev-by .dot-badge {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--green-dark, #0b5a35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.dev-by a {
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* Responsive Header & Footer Breakpoints */
+@media (max-width: 900px) {
+  .topbar-meta {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  header.topbar, #bondhu-header-container header.topbar {
+    padding: 8px 12px;
+  }
+  .brand {
+    gap: 6px;
+  }
+  .brand .logo-badge {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  .brand-text h1 {
+    font-size: 16px;
+  }
+  .brand-text p {
+    display: none;
+  }
+  .login-btn {
+    min-height: 30px;
+    height: 30px;
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+  .lang-switcher button {
+    min-height: 28px;
+    padding: 2px 8px;
+    font-size: 10.5px;
+  }
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 14px;
+  }
+  .footer-links {
+    gap: 12px;
+    font-size: 11.5px;
+  }
+  .footer-bottom {
+    padding: 10px 14px;
+  }
+}

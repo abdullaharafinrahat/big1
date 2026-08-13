@@ -1,0 +1,31 @@
+<!-- ==========================================================================
+     Bondhu.org Modular Header Component (Standardized across all pages)
+     ========================================================================== -->
+<header class="topbar" id="bondhu-main-topbar">
+  <a class="brand" href="{{BASE_PATH}}index.html">
+    <div class="logo-badge">B</div>
+    <div class="brand-text">
+      <h1>Bondhu<span>.</span></h1>
+      <p data-bn="একসাথে গড়ি এক নতুন বাংলাদেশ" data-en="Building a New Bangladesh Together">একসাথে গড়ি এক নতুন বাংলাদেশ</p>
+    </div>
+  </a>
+
+  <!-- Triple Live Calendar Chips (English, Bangla বঙ্গাব্দ, Arabic Hijri) -->
+  <div class="topbar-meta">
+    <div class="meta-item"><span id="gregorian-date">English calendar</span></div>
+    <div class="meta-item"><span id="bangla-calendar">Bangla calendar</span></div>
+    <div class="meta-item"><span id="arabic-calendar">Arabic calendar</span></div>
+  </div>
+
+  <!-- Mobile / Header Actions: Language Switcher + Login -->
+  <div class="mobile-header-right">
+    <div aria-label="Language switcher" class="lang-switcher">
+      <button class="active" data-lang="bn" type="button">BN</button>
+      <button data-lang="en" type="button">EN</button>
+    </div>
+    <a class="login-btn" href="{{PAGES_PATH}}login.html">
+      <img alt="" src="{{ASSETS_PATH}}images/service-icons/person-search.png"/>
+      <span data-bn="Login" data-en="Login">Login</span>
+    </a>
+  </div>
+</header>
