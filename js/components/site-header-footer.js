@@ -2,6 +2,7 @@
  * Bondhu.org Unified Header & Footer Component Loader
  * Single source of truth across all 34+ HTML pages.
  * Matches the layout, typography, calendar chips, and footer credit of pages/homes.html.
+ * Automatically adds hamburger menu toggle beside login button on all dashboard pages.
  */
 
 (function () {
@@ -17,6 +18,16 @@
     } else {
       return { base: './', pages: 'pages/', assets: 'assets/' };
     }
+  }
+
+  function isDashboardPage() {
+    const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
+    const isDashUrl = path.includes('dashboard') || path.includes('profile') || 
+                      path.includes('member-card') || path.includes('messages') || 
+                      path.includes('workflow') || path.includes('blood-tracking') || 
+                      path.includes('sponsors') || path.includes('/admin/') || 
+                      path.includes('/hospital/');
+    return isDashUrl || !!document.querySelector('.sidebar, #app-sidebar, .dash-sidebar');
   }
 
   // --- Language Management ---
@@ -110,6 +121,13 @@
   // --- Header & Footer HTML Generators ---
   function getHeaderHtml() {
     const { base, pages, assets } = getPathPrefixes();
+    const showHamburger = isDashboardPage();
+    const hamburgerBtnHtml = showHamburger ? `
+      <button class="hamburger-btn drawer-toggle" id="drawer-toggle" type="button" aria-label="Toggle Dashboard Menu" title="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    ` : '';
+
     return `
       <a class="brand" href="${base}index.html">
         <div class="logo-badge">B</div>
@@ -132,6 +150,7 @@
           <img alt="" src="${assets}images/service-icons/person-search.png"/>
           <span data-bn="Login" data-en="Login">Login</span>
         </a>
+        ${hamburgerBtnHtml}
       </div>
     `;
   }
@@ -193,9 +212,66 @@
     }
   }
 
+  // --- Drawer Setup on Dashboard Pages ---
+  function setupDrawerListeners() {
+    const toggleBtns = document.querySelectorAll('.hamburger-btn, #drawer-toggle, .drawer-toggle, #mobile-menu');
+    const sidebar = document.querySelector('#app-sidebar, .sidebar, .dash-sidebar');
+    let backdrop = document.getElementById('drawer-backdrop');
+
+    if (!backdrop && sidebar) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'drawer-backdrop';
+      backdrop.className = 'drawer-backdrop hidden';
+      document.body.appendChild(backdrop);
+    }
+
+    const closeBtn = document.querySelector('#drawer-close, .drawer-close');
+
+    const openDrawer = () => {
+      if (sidebar) {
+        sidebar.classList.add('is-open');
+        if (backdrop) backdrop.classList.remove('hidden');
+        document.body.classList.add('menu-open');
+      }
+    };
+
+    const closeDrawer = () => {
+      if (sidebar) {
+        sidebar.classList.remove('is-open');
+        if (backdrop) backdrop.classList.add('hidden');
+        document.body.classList.remove('menu-open');
+      }
+    };
+
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (sidebar && sidebar.classList.contains('is-open')) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    if (sidebar) {
+      sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        if (window.innerWidth <= 820) closeDrawer();
+      }));
+    }
+  }
+
   function init() {
     mountHeader();
     mountFooter();
+    setupDrawerListeners();
 
     // Attach Language Switcher events
     document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => {
@@ -220,6 +296,7 @@
     getFooterHtml,
     mountHeader,
     mountFooter,
+    setupDrawerListeners,
     init
   };
 })();
