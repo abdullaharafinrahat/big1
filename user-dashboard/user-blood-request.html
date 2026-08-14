@@ -277,11 +277,21 @@
       <!-- Form Section with Blood Type Dropdown Button -->
       <form id="user-blood-form" onsubmit="submitUserBloodRequest(event)">
         <!-- Patient Name (Single Font / Language) -->
-        <div class="form-group">
-          <label class="form-label"><span class="lbl-txt" data-bn="রোগীর নাম" data-en="Patient Name">রোগীর নাম</span> <span>*</span></label>
-          <div class="input-wrapper">
-            <i class="fa-regular fa-user input-icon-left"></i>
-            <input type="text" id="u-patient-name" class="form-input" data-bn="যেমন: মো: করিম উদ্দিন" data-en="e.g. Karim Uddin" placeholder="যেমন: মো: করিম উদ্দিন" required>
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="রোগীর নাম" data-en="Patient Name">রোগীর নাম</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-user input-icon-left"></i>
+              <input type="text" id="u-patient-name" class="form-input" data-bn="যেমন: মো: করিম উদ্দিন" data-en="e.g. Karim Uddin" placeholder="যেমন: মো: করিম উদ্দিন" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="আপনার আইডি নম্বর" data-en="Your ID Number">আপনার আইডি নম্বর</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-id-badge input-icon-left"></i>
+              <input type="text" id="u-member-id" class="form-input" readonly data-bn="লগইনের সময় প্রদত্ত আইডি" data-en="ID assigned at login" placeholder="BON00000000">
+            </div>
           </div>
         </div>
 
@@ -467,11 +477,13 @@
       const location = [area, district].filter(Boolean).join(', ');
       const phone = document.getElementById('u-phone').value;
       const urgency = document.getElementById('u-urgency').value;
+      const memberId = document.getElementById('u-member-id').value;
 
       const trackId = 'REQ-2026-' + Math.floor(1000 + Math.random() * 9000);
 
       const requestObj = {
         id: trackId,
+        memberId,
         patientName,
         bloodGroup,
         unitsCount,
@@ -692,6 +704,24 @@
       }
 
       loadData().then(renderDivisions).catch(err => console.error('Cascade load failed', err));
+    })();
+
+    // ---- Auto-fill member ID from login session ----
+    (function fillMemberId() {
+      const el = document.getElementById('u-member-id');
+      if (!el) return;
+      let id = '';
+      try {
+        const u = JSON.parse(localStorage.getItem('bondhu.user') || 'null');
+        if (u && (u.id || u.userId)) id = String(u.id || u.userId);
+      } catch (e) {}
+      if (!id) {
+        try {
+          const acc = JSON.parse(localStorage.getItem('bondhu.registrationAccount') || 'null');
+          if (acc && acc.userId) id = String(acc.userId);
+        } catch (e) {}
+      }
+      el.value = id || 'BON00012345';
     })();
 </script>
   <script src="../js/components/site-header-footer.js"></script>

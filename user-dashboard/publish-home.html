@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publish Home for Rent | Bondhu.org</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/components/header-footer.css">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --border: #e5e9e6;
+      --bg-light: #f4f6f8;
+      --red: #e31e24;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+    html, body {
+      background-color: var(--bg-light);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 16px;
+      width: 100%;
+    }
+
+    .form-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 720px;
+      border-radius: 16px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+      border: 1px solid #eef0f3;
+      padding: 28px 32px 24px 32px;
+      position: relative;
+    }
+
+    .header-logo { text-align: center; margin-bottom: 8px; }
+    .logo-icon {
+      width: 48px; height: 48px; background-color: var(--primary-green); border-radius: 50%; margin: 0 auto 8px;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 105, 92, 0.25);
+    }
+    .logo-icon i { color: white; font-size: 20px; }
+
+    .card-brand-title { font-size: 26px; font-weight: 800; color: #0b5a35; letter-spacing: -0.5px; line-height: 1.1; text-align: center; }
+    .card-brand-title span { color: var(--primary-red); }
+
+    .badge-tag-wrap { display: flex; justify-content: center; margin-top: 8px; }
+    .live-badge-tag {
+      background: #e0f2f1; color: var(--primary-green);
+      padding: 3px 12px; border-radius: 999px;
+      font-size: 11.5px; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+
+    .divider-container { display: flex; align-items: center; justify-content: center; margin: 14px 0 16px; position: relative; }
+    .divider-line { height: 1px; background-color: #e5e7eb; width: 100%; }
+    .divider-drop { position: absolute; background: #ffffff; padding: 0 8px; color: var(--primary-green); font-size: 12px; }
+
+    .welcome-text { text-align: center; font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .sub-welcome-text { text-align: center; font-size: 12.5px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+
+    /* Form Elements — identical pattern to user-blood-request.html */
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 5px; }
+    .form-label span { color: var(--red); }
+
+    .input-wrapper { position: relative; display: flex; align-items: center; }
+    .input-icon-left { position: absolute; left: 12px; color: #888888; font-size: 14px; z-index: 2; }
+
+    .form-input {
+      width: 100%; height: 42px; padding: 8px 12px 8px 36px;
+      border: 1px solid #cbd5e1; border-radius: 8px;
+      font-size: 13px; outline: none; transition: all 0.2s;
+      background: white; color: #1e293b;
+      font-family: inherit;
+    }
+    textarea.form-input { height: auto; min-height: 84px; padding-top: 10px; resize: vertical; }
+    .form-input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.12); }
+
+    .form-row { display: flex; gap: 10px; }
+
+    .amenities-group { margin: 14px 0; }
+    .amenities-title { display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 8px; }
+    .amenities-row { display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 12.5px; color: #334155; }
+    .amenities-row label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+    .amenities-row input[type="checkbox"] { accent-color: var(--primary-green); }
+
+    .btn-submit {
+      width: 100%; height: 46px;
+      background-color: var(--primary-green); color: #ffffff;
+      border: none; border-radius: 8px;
+      font-size: 14.5px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 4px 12px rgba(0, 105, 92, 0.25);
+      margin-top: 16px;
+      font-family: inherit;
+    }
+    .btn-submit:hover { background-color: var(--dark-green); transform: translateY(-1px); }
+
+    /* Success Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: white; border-radius: 14px;
+      padding: 24px; max-width: 400px; width: 92%;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .form-card { padding: 22px 18px; }
+      .form-row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <bondhu-header></bondhu-header>
+
+  <main>
+    <div class="form-card">
+      <div class="header-logo">
+        <div class="logo-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+        <div class="card-brand-title">Publish <span>Home</span></div>
+      </div>
+      <div class="badge-tag-wrap">
+        <span class="live-badge-tag"><i class="fa-solid fa-house-circle-check"></i> রেন্টাল লিস্টিং</span>
+      </div>
+
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <span class="divider-drop"><i class="fa-solid fa-key"></i></span>
+      </div>
+
+      <h2 class="welcome-text" data-bn="বাসা / হোটেল ভাড়ার তথ্য জমা দিন" data-en="Submit Home / Hotel Rental Details">বাসা / হোটেল ভাড়ার তথ্য জমা দিন</h2>
+      <p class="sub-welcome-text" data-bn="আপনার ভাড়াবাসা বা হোটেলের তথ্য জমা দিন। অ্যাডমিন যাচাই করে লাইভ করবে।" data-en="Submit your rental property details. Admin will verify and publish.">আপনার ভাড়াবাসা বা হোটেলের তথ্য জমা দিন। অ্যাডমিন যাচাই করে লাইভ করবে।</p>
+
+      <form id="publish-home-form" onsubmit="return submitPublishHome(event)">
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="বাসা বা ভবনের নাম" data-en="Property Name">বাসা বা ভবনের নাম</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-building input-icon-left"></i>
+            <input type="text" id="h-name" class="form-input" placeholder="যেমন: ধানমন্ডি গ্রিন ভিউ অ্যাপার্টমেন্ট" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="ক্যাটাগরি" data-en="Category">ক্যাটাগরি</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-list input-icon-left"></i>
+            <select id="h-category" class="form-input" required>
+              <option value="family">ফ্যামিলি ফ্ল্যাট (Family Flat)</option>
+              <option value="bachelor">ব্যাচেলর মেস (Bachelor Mess)</option>
+              <option value="sublet">সাবলেট রুম (Sublet Room)</option>
+              <option value="hostel">হোস্টেল (Hostel)</option>
+              <option value="hotel">হোটেল / মোটেল (Hotel/Motel)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="মাসিক ভাড়া / রুম রেট (টাকা)" data-en="Monthly Rent / Room Rate (BDT)">মাসিক ভাড়া / রুম রেট (টাকা)</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-bangladeshi-taka-sign input-icon-left"></i>
+              <input type="number" id="h-rent" class="form-input" placeholder="যেমন: ১৮০০০" min="0" required>
+            </div>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="আবাসনের আয়তন (বর্গফুট)" data-en="Area (sqft)">আবাসনের আয়তন (বর্গফুট)</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-ruler-combined input-icon-left"></i>
+              <input type="number" id="h-sqft" class="form-input" placeholder="যেমন: ১২৫০" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="বেডরুম সংখ্যা" data-en="Bedrooms">বেডরুম সংখ্যা</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-bed input-icon-left"></i>
+              <input type="number" id="h-beds" class="form-input" value="3" min="0" required>
+            </div>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="বাথরুম সংখ্যা" data-en="Bathrooms">বাথরুম সংখ্যা</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-shower input-icon-left"></i>
+              <input type="number" id="h-baths" class="form-input" value="2" min="0" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="জেলা / শহর" data-en="District / City">জেলা / শহর</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-city input-icon-left"></i>
+            <select id="h-district" class="form-input" required>
+              <option>Dhaka</option>
+              <option>Chattogram</option>
+              <option>Rajshahi</option>
+              <option>Khulna</option>
+              <option>Sylhet</option>
+              <option>Barishal</option>
+              <option>Rangpur</option>
+              <option>Mymensingh</option>
+              <option>Cox's Bazar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="পূর্ণ ঠিকানা ও এলাকা" data-en="Full Address & Area">পূর্ণ ঠিকানা ও এলাকা</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-location-dot input-icon-left"></i>
+            <input type="text" id="h-location" class="form-input" placeholder="বাড়ি নং, রোড নং, এলাকা" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="মালিকের নাম" data-en="Owner Name">মালিকের নাম</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-user input-icon-left"></i>
+              <input type="text" id="h-owner" class="form-input" placeholder="যেমন: MD. Shariful Islam" required>
+            </div>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="মালিকের মোবাইল নম্বর" data-en="Owner Mobile">মালিকের মোবাইল নম্বর</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-phone input-icon-left"></i>
+              <input type="tel" id="h-phone" class="form-input" placeholder="01XXXXXXXXX" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="আপনার আইডি নম্বর" data-en="Your ID Number">আপনার আইডি নম্বর</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-id-badge input-icon-left"></i>
+            <input type="text" id="h-member-id" class="form-input" readonly placeholder="BON00000000">
+          </div>
+        </div>
+
+        <div class="amenities-group">
+          <span class="amenities-title" data-bn="সুযোগ-সুবিধা সমূহ (Amenities)" data-en="Amenities">সুযোগ-সুবিধা সমূহ (Amenities)</span>
+          <div class="amenities-row">
+            <label><input type="checkbox" id="am-gas" checked> তিতাস গ্যাস</label>
+            <label><input type="checkbox" id="am-lift" checked> লিফট</label>
+            <label><input type="checkbox" id="am-gen" checked> জেনারেটর</label>
+            <label><input type="checkbox" id="am-wifi"> ওয়াইফাই</label>
+            <label><input type="checkbox" id="am-park"> পার্কিং</label>
+            <label><input type="checkbox" id="am-cctv" checked> সিসিটিভি গার্ড</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span data-bn="অ্যাডমিন ভেরিফিকেশনের জন্য জমা দিন" data-en="Submit for Admin Verification">অ্যাডমিন ভেরিফিকেশনের জন্য জমা দিন</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-backdrop" id="publish-success-modal">
+    <div class="modal-card">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #16a34a; font-size: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">বাসার তথ্য সফলভাবে জমা হয়েছে!</h3>
+      <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">আপনার রেন্টাল লিস্টিং আবেদনটি অ্যাডমিন মডারেশন কিউতে পাঠানো হয়েছে।</p>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left; font-size: 12px; margin-bottom: 18px; line-height: 1.6;">
+        <div>লিস্টিং আইডি: <strong style="color: #0b5a35;" id="pop-list-id">HOM-2026-8812</strong></div>
+        <div>বাসার নাম: <strong id="pop-list-name">—</strong></div>
+        <div>ভাড়ার পরিমাণ: <strong id="pop-list-rent">৳ —</strong></div>
+        <div>স্ট্যাটাস: <span style="color: #d97706; font-weight: 700;">Pending Admin Verification ⏳</span></div>
+      </div>
+
+      <div style="display: flex; gap: 8px;">
+        <button onclick="document.getElementById('publish-success-modal').classList.remove('active');" class="btn-submit" style="flex: 1; margin: 0; height: 40px; font-size: 13px;">ঠিক আছে</button>
+        <a href="../pages/homes.html" class="btn-submit" style="flex: 1; margin: 0; height: 40px; font-size: 13px; text-decoration: none; background: #eef2f7; color: #0f172a; box-shadow: none;">হোম পেইজ দেখুন</a>
+      </div>
+    </div>
+  </div>
+
+  <bondhu-footer></bondhu-footer>
+
+  <script>
+    // Auto-fill member ID from login session
+    (function fillMemberId() {
+      const el = document.getElementById('h-member-id');
+      if (!el) return;
+      let id = '';
+      try {
+        const u = JSON.parse(localStorage.getItem('bondhu.user') || 'null');
+        if (u && (u.id || u.userId)) id = String(u.id || u.userId);
+      } catch (e) {}
+      if (!id) {
+        try {
+          const acc = JSON.parse(localStorage.getItem('bondhu.registrationAccount') || 'null');
+          if (acc && acc.userId) id = String(acc.userId);
+        } catch (e) {}
+      }
+      el.value = id || 'BON00012345';
+    })();
+
+    function submitPublishHome(e) {
+      e.preventDefault();
+      const form = document.getElementById('publish-home-form');
+      const $ = (id) => document.getElementById(id);
+      const catSel = $('h-category');
+      const districtVal = $('h-district').value;
+      const listId = 'HOM-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      const pendingItem = {
+        id: listId,
+        name: $('h-name').value.trim(),
+        category: catSel.value,
+        categoryTitle: catSel.options[catSel.selectedIndex]?.text || catSel.value,
+        rent: $('h-rent').value,
+        bedrooms: $('h-beds').value,
+        bathrooms: $('h-baths').value,
+        sqft: $('h-sqft').value || '1200',
+        district: districtVal,
+        location: `${$('h-location').value.trim()}, ${districtVal}`,
+        ownerName: $('h-owner').value.trim(),
+        phone: $('h-phone').value.trim(),
+        memberId: $('h-member-id').value,
+        amenities: {
+          gas: $('am-gas').checked,
+          lift: $('am-lift').checked,
+          generator: $('am-gen').checked,
+          wifi: $('am-wifi').checked,
+          parking: $('am-park').checked,
+          cctv: $('am-cctv').checked,
+        },
+        applicantUser: $('h-owner').value.trim(),
+        applicantPhone: $('h-phone').value.trim(),
+        submittedAt: new Date().toLocaleString('bn-BD'),
+        status: 'pending_verification'
+      };
+
+      const pendingList = JSON.parse(localStorage.getItem('bondhu.pendingHomes') || '[]');
+      pendingList.unshift(pendingItem);
+      localStorage.setItem('bondhu.pendingHomes', JSON.stringify(pendingList));
+
+      $('pop-list-id').textContent = listId;
+      $('pop-list-name').textContent = pendingItem.name || '—';
+      $('pop-list-rent').textContent = '৳ ' + (pendingItem.rent || '—');
+
+      $('publish-success-modal').classList.add('active');
+      form.reset();
+      return false;
+    }
+  </script>
+  <script src="../js/components/site-header-footer.js"></script>
+</body>
+</html>

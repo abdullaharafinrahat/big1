@@ -227,7 +227,7 @@
       <a data-page="dashboard" href="dashboard.html"><span><i class="fa-solid fa-gauge w-4 text-center"></i></span>Dashboard</a>
       <a data-page="profile" href="profile.html"><span><i class="fa-solid fa-user w-4 text-center"></i></span>Profile</a>
       <a data-page="user-blood-request" href="user-blood-request.html"><span><i class="fa-solid fa-droplet w-4 text-center"></i></span>User Blood Request</a>
-      <a data-page="publish-home" href="#publish-home-section" onclick="showPublishHomeTab()"><span><i class="fa-solid fa-house-chimney-window w-4 text-center"></i></span>Publish Home for Rent</a>
+      <a data-page="publish-home" href="publish-home.html"><span><i class="fa-solid fa-house-chimney-window w-4 text-center"></i></span>Publish Home for Rent</a>
       <a data-page="blood" href="../pages/request-blood.html"><span><i class="fa-solid fa-list-ul w-4 text-center"></i></span>Live Blood Feed</a>
       <a data-page="donors" href="../pages/donor-register.html"><span><i class="fa-solid fa-list-check w-4 text-center"></i></span>Donor List</a>
       <a data-page="hospitals" href="../pages/hospitals.html"><span><i class="fa-solid fa-hospital w-4 text-center"></i></span>Hospitals</a>
@@ -328,91 +328,7 @@
       </section>
     </div>
 
-    <!-- Tab 3: Publish Home for Rent Panel -->
-    <div id="tab-publish-home" style="display: none;">
-      <section class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
-          <div>
-            <h2 style="font-size: 18px; font-weight: 800; color: #0b5a35;">Publish Home or Hotel for Rent</h2>
-            <p style="font-size: 12px; color: #64748b;">ভাড়াবাসা বা হোটেলের তথ্য জমা দিন। অ্যাডমিন যাচাই করে লাইভ করবে।</p>
-          </div>
-          <button onclick="hidePublishHomeTab()" class="btn soft" style="font-size: 11px;">&larr; Back</button>
-        </div>
-
-        <form id="publish-home-form" onsubmit="handlePublishHomeSubmit(event)">
-          <div class="form-grid">
-            <label>বাসা বা ভবনের নাম *<input id="h-name" placeholder="যেমন: ধানমন্ডি গ্রিন ভিউ অ্যাপার্টমেন্ট" required="" type="text"/></label>
-            <label>ক্যাটাগরি *
-              <select id="h-category" required="">
-                <option value="family">ফ্যামিলি ফ্ল্যাট (Family Flat)</option>
-                <option value="bachelor">ব্যাচেলর মেস (Bachelor Mess)</option>
-                <option value="sublet">সাবলেট রুম (Sublet Room)</option>
-                <option value="hostel">হোস্টেল (Hostel)</option>
-                <option value="hotel">হোটেল / মোটেল (Hotel/Motel)</option>
-              </select>
-            </label>
-            <label>মাসিক ভাড়া / রুম রেট (টাকা) *<input id="h-rent" placeholder="যেমন: ১৮০০০" required="" type="number"/></label>
-            <label>বেডরুম সংখ্যা *<input id="h-beds" type="number" value="3" required=""/></label>
-            <label>বাথরুম সংখ্যা *<input id="h-baths" type="number" value="2" required=""/></label>
-            <label>আবাসনের আয়তন (বর্গফুট)<input id="h-sqft" placeholder="যেমন: ১২৫০" type="number"/></label>
-            <label>জেলা / শহর *
-              <select id="h-district" required="">
-                <option>Dhaka</option>
-                <option>Chattogram</option>
-                <option>Rajshahi</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Cox's Bazar</option>
-              </select>
-            </label>
-            <label>পূর্ণ ঠিকানা ও এলাকা *<input id="h-location" placeholder="বাড়ি নং, রোড নং, এলাকা" required="" type="text"/></label>
-            <label>মালিকের নাম *<input id="h-owner" value="MD. Shariful Islam" required="" type="text"/></label>
-            <label>মালিকের মোবাইল নম্বর *<input id="h-phone" value="01712345678" required="" type="tel"/></label>
-          </div>
-
-          <div style="margin: 14px 0;">
-            <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">সুযোগ-সুবিধা সমূহ (Amenities)</label>
-            <div class="radio-row" style="gap: 12px; font-size: 12px;">
-              <label><input type="checkbox" id="am-gas" checked/> তিতাস গ্যাস</label>
-              <label><input type="checkbox" id="am-lift" checked/> লিফট</label>
-              <label><input type="checkbox" id="am-gen" checked/> জেনারেটর</label>
-              <label><input type="checkbox" id="am-wifi"/> ওয়াইফাই</label>
-              <label><input type="checkbox" id="am-park"/> পার্কিং</label>
-              <label><input type="checkbox" id="am-cctv" checked/> সিসিটিভি গার্ড</label>
-            </div>
-          </div>
-
-          <button type="submit" class="btn primary" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 700; margin-top: 10px;">
-            <i class="fa-solid fa-cloud-arrow-up mr-1"></i> অ্যাডমিন ভেরিফিকেশনের জন্য জমা দিন
-          </button>
-        </form>
-      </section>
-    </div>
-
   </main>
-</div>
-
-<!-- Home Publish Success Popup Modal -->
-<div class="modal-backdrop" id="publish-success-modal">
-  <div class="modal-card">
-    <div style="width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #16a34a; font-size: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-      <i class="fa-solid fa-circle-check"></i>
-    </div>
-    <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">বাসার তথ্য সফলভাবে জমা হয়েছে!</h3>
-    <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">আপনার রেন্টাল লিস্টিং আবেদনটি অ্যাডমিন মডারেশন কিউতে পাঠানো হয়েছে।</p>
-    
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left; font-size: 12px; margin-bottom: 18px; line-height: 1.6;">
-      <div>লিস্টিং আইডি: <strong style="color: #0b5a35;" id="pop-list-id">HOM-2026-8812</strong></div>
-      <div>বাসার নাম: <strong id="pop-list-name">গ্রিন ভিউ অ্যাপার্টমেন্ট</strong></div>
-      <div>ভাড়ার পরিমাণ: <strong id="pop-list-rent">৳ ১৮,০০০</strong></div>
-      <div>স্ট্যাটাস: <span style="color: #d97706; font-weight: 700;">Pending Admin Verification ⏳</span></div>
-    </div>
-
-    <div style="display: flex; gap: 8px;">
-      <button onclick="closePublishModal()" class="btn primary" style="flex: 1;">ঠিক আছে</button>
-      <a href="../pages/homes.html" class="btn soft" style="flex: 1; text-align: center; text-decoration: none;">হোম পেইজ দেখুন</a>
-    </div>
-  </div>
 </div>
 
 <div class="toast-region" id="toast-region"></div>
@@ -423,79 +339,11 @@
 <script>
 
 
-  function showPublishHomeTab() {
-    document.getElementById('tab-profile-wizard').style.display = 'none';
-    document.getElementById('tab-publish-home').style.display = 'block';
-    document.querySelectorAll('#app-sidebar a').forEach(a => a.classList.remove('active'));
-    document.querySelector('#app-sidebar a[data-page="publish-home"]')?.classList.add('active');
-  }
-
-  function hidePublishHomeTab() {
-    document.getElementById('tab-publish-home').style.display = 'none';
-    document.getElementById('tab-profile-wizard').style.display = 'block';
-    document.querySelector('#app-sidebar a[data-page="dashboard"]')?.classList.add('active');
-  }
-
-
-
   // Handle Home Publish Submit
-  function handlePublishHomeSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('h-name').value;
-    const category = document.getElementById('h-category').value;
-    const rent = document.getElementById('h-rent').value;
-    const beds = document.getElementById('h-beds').value;
-    const baths = document.getElementById('h-baths').value;
-    const sqft = document.getElementById('h-sqft').value || '1200';
-    const district = document.getElementById('h-district').value;
-    const location = document.getElementById('h-location').value;
-    const ownerName = document.getElementById('h-owner').value;
-    const phone = document.getElementById('h-phone').value;
 
-    const listId = 'HOM-2026-' + Math.floor(1000 + Math.random() * 9000);
-
-    const pendingItem = {
-      id: listId,
-      name,
-      category,
-      categoryTitle: document.getElementById('h-category').options[document.getElementById('h-category').selectedIndex].text,
-      rent,
-      bedrooms: beds,
-      bathrooms: baths,
-      sqft,
-      district,
-      location: `${location}, ${district}`,
-      ownerName,
-      phone,
-      applicantUser: 'MD. Shariful Islam',
-      applicantPhone: '01712345678',
-      submittedAt: new Date().toLocaleString('bn-BD'),
-      status: 'pending_verification'
-    };
-
-    const pendingList = JSON.parse(localStorage.getItem('bondhu.pendingHomes') || '[]');
-    pendingList.unshift(pendingItem);
-    localStorage.setItem('bondhu.pendingHomes', JSON.stringify(pendingList));
-
-    document.getElementById('pop-list-id').textContent = listId;
-    document.getElementById('pop-list-name').textContent = name;
-    document.getElementById('pop-list-rent').textContent = '৳ ' + rent;
-
-    document.getElementById('publish-success-modal').classList.add('active');
-    document.getElementById('publish-home-form').reset();
-  }
-
-  function closePublishModal() {
-    document.getElementById('publish-success-modal').classList.remove('active');
-    hidePublishHomeTab();
-  }
 
   // Check URL parameter tab
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('tab') === 'publish-home' || window.location.hash === '#publish-home-section') {
-    showPublishHomeTab();
-  }
-</script>
+  </script>
 
 <!-- FOOTER -->
 <footer>
