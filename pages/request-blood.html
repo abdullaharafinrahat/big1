@@ -379,12 +379,13 @@
     padding-top: 12px;
   }
 
-  .btn-donate {
-    flex: 1;
-    background: #00a651;
-    color: white;
-    border: none;
-    padding: 9px 12px;
+  .btn-donate,
+  .btn-interest {
+    flex: 1 1 0;
+    min-width: 0;
+    box-sizing: border-box;
+    height: 38px;
+    padding: 0 12px;
     border-radius: 8px;
     font-size: 13px;
     font-weight: 700;
@@ -393,27 +394,28 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    transition: background 0.2s;
     text-decoration: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
-  .btn-donate:hover { background: #008741; }
+  .btn-donate > span,
+  .btn-interest > span {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn-donate {
+    background: #00a651;
+    color: white;
+    border: 1px solid #00a651;
+  }
+  .btn-donate:hover { background: #008741; border-color: #008741; }
 
   .btn-interest {
-    flex: 1;
     background: #eff6ff;
     border: 1px solid #bfdbfe;
     color: #1d4ed8;
-    padding: 9px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: all 0.2s;
-    text-decoration: none;
   }
   .btn-interest:hover {
     background: #dbeafe;
@@ -705,7 +707,8 @@
       padding-top: 8px;
     }
     .btn-donate, .btn-interest {
-      padding: 6px 8px;
+      height: 32px;
+      padding: 0 8px;
       font-size: 11.5px;
       border-radius: 6px;
       gap: 4px;
@@ -1196,17 +1199,17 @@
     // Mock Interested Donors Database (Synchronized with localStorage)
     const initialInterestedDonors = {
       'REQ-2026-08101': [
-        { nameBn: 'মো: রফিকুল ইসলাম', nameEn: 'Md. Rafiqul Islam', blood: 'B+', locationBn: '১.২ কি.মি. • শাহবাগ, ঢাকা', locationEn: '1.2 km • Shahbag, Dhaka', timeBn: '৮ মিনিট আগে', timeEn: '8m ago', verified: true },
-        { nameBn: 'তানজিদ হাসান', nameEn: 'Tanzid Hasan', blood: 'B+', locationBn: '২.৫ কি.মি. • ফার্মগেট, ঢাকা', locationEn: '2.5 km • Farmgate, Dhaka', timeBn: '১৫ মিনিট আগে', timeEn: '15m ago', verified: true }
+        { nameBn: 'মো: রফিকুল ইসলাম', nameEn: 'Md. Rafiqul Islam', blood: 'B+', locationBn: 'শাহবাগ, ঢাকা', locationEn: 'Shahbag, Dhaka', timeBn: '৮ মিনিট আগে', timeEn: '8m ago', verified: true },
+        { nameBn: 'তানজিদ হাসান', nameEn: 'Tanzid Hasan', blood: 'B+', locationBn: 'ফার্মগেট, ঢাকা', locationEn: 'Farmgate, Dhaka', timeBn: '১৫ মিনিট আগে', timeEn: '15m ago', verified: true }
       ],
       'REQ-2026-08102': [
-        { nameBn: 'সাব্বির আহমেদ', nameEn: 'Sabbir Ahmed', blood: 'O+', locationBn: '০.৮ কি.মি. • পান্থপথ, ঢাকা', locationEn: '0.8 km • Panthapath, Dhaka', timeBn: '১৮ মিনিট আগে', timeEn: '18m ago', verified: true }
+        { nameBn: 'সাব্বির আহমেদ', nameEn: 'Sabbir Ahmed', blood: 'O+', locationBn: 'পান্থপথ, ঢাকা', locationEn: 'Panthapath, Dhaka', timeBn: '১৮ মিনিট আগে', timeEn: '18m ago', verified: true }
       ],
       'REQ-2026-08103': [
-        { nameBn: 'মাহমুদুল হক', nameEn: 'Mahmudul Haque', blood: 'AB-', locationBn: '১.৫ কি.মি. • পাঁচলাইশ, চট্টগ্রাম', locationEn: '1.5 km • Panchlaish, Chattogram', timeBn: '২৫ মিনিট আগে', timeEn: '25m ago', verified: true }
+        { nameBn: 'মাহমুদুল হক', nameEn: 'Mahmudul Haque', blood: 'AB-', locationBn: 'পাঁচলাইশ, চট্টগ্রাম', locationEn: 'Panchlaish, Chattogram', timeBn: '২৫ মিনিট আগে', timeEn: '25m ago', verified: true }
       ],
       'REQ-2026-08104': [
-        { nameBn: 'নাজমুল হুদা', nameEn: 'Nazmul Huda', blood: 'A+', locationBn: '১.০ কি.মি. • ধানমন্ডি, ঢাকা', locationEn: '1.0 km • Dhanmondi, Dhaka', timeBn: '৪০ মিনিট আগে', timeEn: '40m ago', verified: true }
+        { nameBn: 'নাজমুল হুদা', nameEn: 'Nazmul Huda', blood: 'A+', locationBn: 'ধানমন্ডি, ঢাকা', locationEn: 'Dhanmondi, Dhaka', timeBn: '৪০ মিনিট আগে', timeEn: '40m ago', verified: true }
       ]
     };
 
@@ -1426,18 +1429,27 @@
           </div>
         `;
       } else {
-        listContainer.innerHTML = list.map(d => `
+        // Strip any leading distance token ("1.2 km • ", "১.২ কি.মি. • ") that
+        // used to appear beside the donor name.
+        const stripDistance = (s) => (s || '')
+          .replace(/^\s*[\d০-৯.]+\s*(?:km|কি\.?মি\.?)\s*[•·-]\s*/i, '')
+          .trim();
+        listContainer.innerHTML = list.map(d => {
+          const loc = stripDistance(lang === 'bn' ? d.locationBn : d.locationEn);
+          const time = lang === 'bn' ? d.timeBn : d.timeEn;
+          const sub = [loc, time].filter(Boolean).join(' • ');
+          return `
           <div class="donor-item">
             <div class="donor-left">
               <div class="donor-pic">${(lang === 'bn' ? d.nameBn : d.nameEn)[0]}</div>
               <div>
                 <div class="donor-name-text">${lang === 'bn' ? d.nameBn : d.nameEn} ${d.verified ? '<i class="fa-solid fa-circle-check text-success" style="color:#16a34a; font-size:11px;" title="Verified"></i>' : ''}</div>
-                <div class="donor-sub-text">${lang === 'bn' ? d.locationBn : d.locationEn} • ${lang === 'bn' ? d.timeBn : d.timeEn}</div>
+                <div class="donor-sub-text">${sub}</div>
               </div>
             </div>
             <span class="donor-blood-tag">${d.blood}</span>
-          </div>
-        `).join('');
+          </div>`;
+        }).join('');
       }
 
       document.getElementById('interested-modal').classList.add('active');
