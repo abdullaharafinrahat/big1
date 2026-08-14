@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Ambulance | Bondhu.org</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/pages/app.css">
+  <link rel="stylesheet" href="../css/components/header-footer.css">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --text-gray: #666;
+      --bg-light: #f4f6f8;
+    }
+
+    body {
+      font-family: 'Hind Siliguri', 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: #1c2b24;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .page-header {
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-green);
+      margin: 0 0 4px;
+    }
+
+    .page-header p {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 18px;
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      right: 15px;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+    .step-item {
+      position: relative;
+      z-index: 2;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 25%;
+      cursor: pointer;
+    }
+    .step-number {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #666;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: bold;
+      margin-bottom: 4px;
+      transition: all 0.2s;
+    }
+    .step-item.active .step-number {
+      background: #f57c00; color: white;
+      box-shadow: 0 0 0 3px rgba(245,124,0,0.2);
+    }
+    .step-item.completed .step-number {
+      background: var(--primary-green); color: white;
+    }
+    .step-label {
+      font-size: 11px; color: var(--text-gray); text-align: center;
+    }
+    .step-item.active .step-label {
+      color: #f57c00; font-weight: 600;
+    }
+
+    /* Form */
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 600;
+      margin-bottom: 4px; color: #444;
+    }
+    .form-group label span { color: var(--primary-red); }
+    .form-control {
+      width: 100%; padding: 9px 11px;
+      border: 1px solid #ccc; border-radius: 6px;
+      font-size: 13px; outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    .form-control:focus { border-color: var(--primary-green); }
+
+    .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .form-row > .form-group { flex: 1; min-width: 180px; }
+
+    .form-actions {
+      display: flex; justify-content: space-between; margin-top: 22px;
+    }
+    .btn-reset, .btn-next {
+      border: none; padding: 9px 18px; border-radius: 6px;
+      cursor: pointer; font-size: 13px; font-weight: 600;
+      font-family: inherit;
+    }
+    .btn-reset { background: #e0e0e0; color: #333; }
+    .btn-next {
+      background: #f57c00; color: white;
+      transition: background 0.2s;
+    }
+    .btn-next:hover { background: #e65100; }
+
+    .wizard-step { display: none; }
+    .wizard-step.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-heading {
+      font-size: 13px; font-weight: 700;
+      color: var(--primary-green); margin-bottom: 12px;
+    }
+
+    /* Success modal */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: white; border-radius: 14px;
+      padding: 24px; max-width: 380px; width: 90%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <bondhu-header></bondhu-header>
+
+  <main class="container">
+    <div class="page-header">
+      <h1><i class="fa-solid fa-truck-medical" style="color:#f57c00;"></i> Register Ambulance</h1>
+      <p>আপনার অ্যাম্বুলেন্স সার্ভিসটি Bondhu নেটওয়ার্কে যুক্ত করুন — যাচাইয়ের পর তালিকায় লাইভ হবে।</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header-title">Register Ambulance</h2>
+      <p class="card-subtitle">অ্যাম্বুলেন্স অন্তর্ভুক্তি ফরম</p>
+
+      <!-- Stepper -->
+      <div class="stepper" id="amb-stepper">
+        <div class="step-item active" data-step="1">
+          <div class="step-number">1</div>
+          <div class="step-label">Vehicle</div>
+        </div>
+        <div class="step-item" data-step="2">
+          <div class="step-number">2</div>
+          <div class="step-label">Driver</div>
+        </div>
+        <div class="step-item" data-step="3">
+          <div class="step-number">3</div>
+          <div class="step-label">Equipment</div>
+        </div>
+        <div class="step-item" data-step="4">
+          <div class="step-number">4</div>
+          <div class="step-label">Submit</div>
+        </div>
+      </div>
+
+      <form id="ambulance-form" onsubmit="event.preventDefault();">
+        <div class="wizard-step active" data-step-panel="1">
+          <div class="step-heading">১. গাড়ির বিবরণ (Vehicle Details)</div>
+          <div class="form-group">
+            <label>Service / Provider Name <span>*</span></label>
+            <input type="text" name="providerName" class="form-control" placeholder="e.g. Bondhu ICU Ambulance" required>
+          </div>
+          <div class="form-group">
+            <label>Vehicle Number Plate <span>*</span></label>
+            <input type="text" name="plate" class="form-control" placeholder="e.g. DH-11-2024" required>
+          </div>
+          <div class="form-group">
+            <label>Ambulance Type <span>*</span></label>
+            <select name="type" class="form-control">
+              <option>ICU Life Support Ambulance</option>
+              <option>AC Emergency Ambulance</option>
+              <option>Non-AC Patient Transport</option>
+              <option>Freezer Ambulance</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>District <span>*</span></label>
+              <select name="district" class="form-control">
+                <option>Dhaka</option>
+                <option>Chattogram</option>
+                <option>Rajshahi</option>
+                <option>Khulna</option>
+                <option>Sylhet</option>
+                <option>Barishal</option>
+                <option>Rangpur</option>
+                <option>Mymensingh</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Base Hospital</label>
+              <input type="text" name="baseHospital" class="form-control" placeholder="হাসপাতাল / স্ট্যান্ড">
+            </div>
+          </div>
+        </div>
+
+        <div class="wizard-step" data-step-panel="2">
+          <div class="step-heading">২. চালকের তথ্য (Driver Details)</div>
+          <div class="form-group">
+            <label>Driver Full Name <span>*</span></label>
+            <input type="text" name="driverName" class="form-control" placeholder="চালকের পূর্ণ নাম" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number <span>*</span></label>
+            <input type="tel" name="driverMobile" class="form-control" placeholder="01XXXXXXXXX" required>
+          </div>
+          <div class="form-group">
+            <label>Driving License Number</label>
+            <input type="text" name="license" class="form-control" placeholder="ড্রাইভিং লাইসেন্স নম্বর">
+          </div>
+        </div>
+
+        <div class="wizard-step" data-step-panel="3">
+          <div class="step-heading">৩. চিকিৎসা সরঞ্জাম (Equipment)</div>
+          <div class="form-group">
+            <label><input type="checkbox" name="eq_icu" checked> ICU Ventilator</label>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" name="eq_o2" checked> Oxygen Cylinder & Mask</label>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" name="eq_defib" checked> Defibrillator</label>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" name="eq_firstaid" checked> First-Aid Kit & Stretcher</label>
+          </div>
+        </div>
+
+        <div class="wizard-step" data-step-panel="4">
+          <div class="step-heading">৪. নিশ্চিতকরণ (Review & Submit)</div>
+          <p style="font-size:13px; color:#555; margin-bottom:10px;">আপনার প্রদত্ত তথ্যাদি যাচাই করে তালিকায় যুক্ত করা হবে।</p>
+          <div id="amb-review" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px; font-size:12.5px; line-height:1.7;"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-reset" id="amb-btn-prev">Back</button>
+          <button type="button" class="btn-next" id="amb-btn-next">Next Step &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Success modal -->
+  <div class="modal-backdrop" id="amb-success-modal">
+    <div class="modal-card">
+      <div style="width:56px; height:56px; border-radius:50%; background:#fff3e0; color:#f57c00; font-size:28px; display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+        <i class="fa-solid fa-truck-medical"></i>
+      </div>
+      <h3 style="font-size:18px; font-weight:800; color:#0f172a; margin-bottom:4px;">অ্যাম্বুলেন্স সফলভাবে জমা হয়েছে!</h3>
+      <p style="font-size:12.5px; color:#64748b; margin-bottom:16px;">অ্যাডমিন যাচাইয়ের পর আপনার অ্যাম্বুলেন্স লাইভ তালিকায় যুক্ত হবে।</p>
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:left; font-size:12px; margin-bottom:16px; line-height:1.6;">
+        <div>ট্র্যাকিং কোড: <strong style="color:#0b5a35;" id="amb-track-id">AMB-2026-0000</strong></div>
+        <div>প্রোভাইডার: <strong id="amb-review-name">—</strong></div>
+      </div>
+      <button onclick="document.getElementById('amb-success-modal').classList.remove('active');" class="btn-next" style="width:100%;">ঠিক আছে</button>
+    </div>
+  </div>
+
+  <bondhu-footer></bondhu-footer>
+
+  <script>
+    // 4-step wizard
+    (function () {
+      const form = document.getElementById('ambulance-form');
+      const items = document.querySelectorAll('#amb-stepper .step-item');
+      const panels = document.querySelectorAll('.wizard-step');
+      const nextBtn = document.getElementById('amb-btn-next');
+      const prevBtn = document.getElementById('amb-btn-prev');
+      const review = document.getElementById('amb-review');
+      const total = 4;
+      let step = 1;
+
+      function renderReview() {
+        const data = Object.fromEntries(new FormData(form));
+        const eq = [
+          form.eq_icu?.checked && 'ICU Ventilator',
+          form.eq_o2?.checked && 'Oxygen Cylinder',
+          form.eq_defib?.checked && 'Defibrillator',
+          form.eq_firstaid?.checked && 'First-Aid Kit',
+        ].filter(Boolean).join(', ');
+        review.innerHTML = `
+          <div><span style="color:#64748b;">Provider:</span> <strong>${data.providerName || '—'}</strong></div>
+          <div><span style="color:#64748b;">Plate:</span> <strong>${data.plate || '—'}</strong></div>
+          <div><span style="color:#64748b;">Type:</span> <strong>${data.type || '—'}</strong></div>
+          <div><span style="color:#64748b;">District:</span> <strong>${data.district || '—'}</strong></div>
+          <div><span style="color:#64748b;">Base Hospital:</span> <strong>${data.baseHospital || '—'}</strong></div>
+          <div><span style="color:#64748b;">Driver:</span> <strong>${data.driverName || '—'}</strong> (${data.driverMobile || '—'})</div>
+          <div><span style="color:#64748b;">License:</span> <strong>${data.license || '—'}</strong></div>
+          <div><span style="color:#64748b;">Equipment:</span> <strong>${eq || '—'}</strong></div>
+        `;
+      }
+
+      function renderStep(s) {
+        step = s;
+        panels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.stepPanel, 10) === step));
+        items.forEach(it => {
+          const idx = parseInt(it.dataset.step, 10);
+          it.classList.toggle('active', idx === step);
+          it.classList.toggle('completed', idx < step);
+        });
+        prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+        nextBtn.textContent = step === total ? 'Submit Ambulance' : 'Next Step →';
+        if (step === total) renderReview();
+      }
+
+      function validateCurrentStep() {
+        const panel = document.querySelector(`.wizard-step[data-step-panel="${step}"]`);
+        if (!panel) return true;
+        for (const el of panel.querySelectorAll('[required]')) {
+          if (!el.value.trim()) { el.reportValidity(); return false; }
+        }
+        return true;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (!validateCurrentStep()) return;
+        if (step < total) {
+          renderStep(step + 1);
+        } else {
+          const data = Object.fromEntries(new FormData(form));
+          const trackId = 'AMB-2026-' + Math.floor(1000 + Math.random() * 9000);
+          const list = JSON.parse(localStorage.getItem('bondhu.ambulanceRegs') || '[]');
+          list.unshift({ id: trackId, ...data, submittedAt: new Date().toISOString(), status: 'pending' });
+          localStorage.setItem('bondhu.ambulanceRegs', JSON.stringify(list));
+          document.getElementById('amb-track-id').textContent = trackId;
+          document.getElementById('amb-review-name').textContent = data.providerName || '—';
+          document.getElementById('amb-success-modal').classList.add('active');
+        }
+      });
+      prevBtn.addEventListener('click', () => { if (step > 1) renderStep(step - 1); });
+
+      items.forEach(it => it.addEventListener('click', () => {
+        const target = parseInt(it.dataset.step, 10);
+        if (target < step) renderStep(target);
+      }));
+
+      renderStep(1);
+    })();
+  </script>
+  <script src="../js/components/site-header-footer.js"></script>
+</body>
+</html>

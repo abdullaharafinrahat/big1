@@ -365,7 +365,7 @@
     /* Content Layout */
     .main-content {
       display: grid;
-      grid-template-columns: 400px 1fr;
+      grid-template-columns: 1fr;
       gap: 20px;
     }
 
@@ -789,181 +789,10 @@
   <!-- Main Content Container -->
   <div class="container">
 
-    <!-- Hero Cards Banner -->
-    <section class="hero-section">
-      <div class="hero-card hero-intro">
-        <div>
-          <h1 class="hero-title">দ্রুততম জরুরি<br>অ্যাম্বুলেন্স নেটওয়ার্ক</h1>
-          <p class="hero-subtitle">সারাদেশের আইসিইউ, এসি ও নন-এসি অ্যাম্বুলেন্স সার্ভিস তাৎক্ষণিকভাবে বুক করুন।</p>
-        </div>
-        <div class="search-input-group">
-          <select id="search-type">
-            <option value="all">District / Hospital</option>
-          </select>
-          <input type="text" id="hero-search-input" placeholder="জেলা বা হাসপাতালের নাম লিখুন...">
-          <button type="button" id="hero-search-btn">খুঁজুন</button>
-        </div>
-      </div>
-
-      <div class="hero-card">
-        <div class="stat-header">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <i class="fa-solid fa-truck-medical" style="color:#f57c00;"></i>
-            <strong>Active Fleet</strong>
-          </div>
-          <span class="stat-badge">+140+</span>
-        </div>
-        <p style="font-size:11px; color:#666; margin-bottom:12px;">২৪ ঘণ্টা অন-কল জরুরি সেবা</p>
-        <div class="stat-grid">
-          <div class="stat-item orange">
-            <div class="number">142</div>
-            <div class="label">Total Ambulances</div>
-          </div>
-          <div class="stat-item green">
-            <div class="number">98</div>
-            <div class="label">Available Now</div>
-          </div>
-          <div class="stat-item red">
-            <div class="number">44</div>
-            <div class="label">On Trip</div>
-          </div>
-        </div>
-        <a href="#ambulance-list" class="btn-block-action btn-orange">সব অ্যাম্বুলেন্স দেখুন</a>
-      </div>
-
-      <div class="hero-card">
-        <div class="stat-header">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <i class="fa-solid fa-phone-volume" style="color:var(--primary-red);"></i>
-            <strong>Emergency Hotline</strong>
-          </div>
-        </div>
-        <div class="stat-grid" style="margin-top:20px;">
-          <div class="stat-item red">
-            <div class="number">10647</div>
-            <div class="label">National Care</div>
-          </div>
-          <div class="stat-item green">
-            <div class="number">&lt; 15 min</div>
-            <div class="label">Average Arrival</div>
-          </div>
-        </div>
-        <a href="tel:10647" class="btn-block-action btn-red" style="margin-top:10px;"><i class="fa-solid fa-phone"></i> সরাসরি কল করুন</a>
-      </div>
-    </section>
-
-    <!-- Main Content Area -->
+<!-- Main Content Area -->
     <div class="main-content">
 
-      <!-- Left Column: Registration Form -->
-      <div class="card">
-        <h2 class="card-header-title">Register Ambulance</h2>
-        <p class="card-subtitle">অ্যাম্বুলেন্স অন্তর্ভুক্তি ফরম</p>
-
-        <!-- Stepper -->
-        <div class="stepper" id="amb-stepper">
-          <div class="step-item active" data-step="1">
-            <div class="step-number">1</div>
-            <div class="step-label">Vehicle</div>
-          </div>
-          <div class="step-item" data-step="2">
-            <div class="step-number">2</div>
-            <div class="step-label">Driver</div>
-          </div>
-          <div class="step-item" data-step="3">
-            <div class="step-number">3</div>
-            <div class="step-label">Equipment</div>
-          </div>
-          <div class="step-item" data-step="4">
-            <div class="step-number">4</div>
-            <div class="step-label">Submit</div>
-          </div>
-        </div>
-
-        <form id="ambulance-form">
-          <div class="wizard-step active" data-step-panel="1">
-            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">১. গাড়ির বিবরণ (Vehicle Details)</div>
-            <div class="form-group">
-              <label>Service / Provider Name <span>*</span></label>
-              <input type="text" class="form-control" placeholder="e.g. Bondhu ICU Ambulance" required>
-            </div>
-            <div class="form-group">
-              <label>Vehicle Number Plate <span>*</span></label>
-              <input type="text" class="form-control" placeholder="e.g. DH-11-2024" required>
-            </div>
-            <div class="form-group">
-              <label>Ambulance Type <span>*</span></label>
-              <select class="form-control">
-                <option>ICU Life Support Ambulance</option>
-                <option>AC Emergency Ambulance</option>
-                <option>Non-AC Patient Transport</option>
-                <option>Freezer Ambulance</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <div class="form-group" style="flex:1;">
-                <label>District <span>*</span></label>
-                <select class="form-control">
-                  <option>Dhaka</option>
-                  <option>Chattogram</option>
-                  <option>Rajshahi</option>
-                  <option>Khulna</option>
-                  <option>Sylhet</option>
-                  <option>Barishal</option>
-                </select>
-              </div>
-              <div class="form-group" style="flex:1;">
-                <label>Base Hospital</label>
-                <input type="text" class="form-control" placeholder="হাসপাতাল / স্ট্যান্ড">
-              </div>
-            </div>
-          </div>
-
-          <div class="wizard-step" data-step-panel="2">
-            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">২. চালকের তথ্য (Driver Details)</div>
-            <div class="form-group">
-              <label>Driver Full Name <span>*</span></label>
-              <input type="text" class="form-control" placeholder="চালকের পূর্ণ নাম" required>
-            </div>
-            <div class="form-group">
-              <label>Mobile Number <span>*</span></label>
-              <input type="text" class="form-control" placeholder="01XXXXXXXXX" required>
-            </div>
-            <div class="form-group">
-              <label>Driving License Number</label>
-              <input type="text" class="form-control" placeholder="ড্রাইভিং লাইসেন্স নম্বর">
-            </div>
-          </div>
-
-          <div class="wizard-step" data-step-panel="3">
-            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">৩. চিকিৎসা সরঞ্জাম (Equipment)</div>
-            <div class="form-group">
-              <label><input type="checkbox" checked> ICU Ventilator</label>
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" checked> Oxygen Cylinder & Mask</label>
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" checked> Defibrillator</label>
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" checked> First-Aid Kit & Stretcher</label>
-            </div>
-          </div>
-
-          <div class="wizard-step" data-step-panel="4">
-            <div style="font-size:12px; font-weight:bold; color:var(--primary-green); margin-bottom:10px;">৪. নিশ্চিতকরণ (Review & Submit)</div>
-            <p style="font-size:12px; color:#666; margin-bottom:10px;">আপনার প্রদত্ত তথ্যাদি যাচাই করে তালিকায় যুক্ত করা হবে।</p>
-          </div>
-
-          <div class="form-actions">
-            <button type="button" class="btn-reset" id="amb-btn-prev">Back</button>
-            <button type="button" class="btn-next" id="amb-btn-next">Next Step &rarr;</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Right Column: Ambulance Directory Grid -->
+<!-- Ambulance Directory Grid (full-width) -->
       <div class="card" id="ambulance-list">
         <h2 class="card-header-title">Available Ambulances</h2>
         
@@ -1050,84 +879,10 @@
       </div>
     </div>
 
-    <!-- Bottom Features Strip -->
-    <div class="bottom-features">
-      <div class="feature-item">
-        <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
-        <div class="feature-text">
-          <h4>দ্রুত রেসপন্স</h4>
-          <p>১৫ মিনিটে অ্যাম্বুলেন্স</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-heart-pulse"></i></div>
-        <div class="feature-text">
-          <h4>লাইফ সাপোর্ট</h4>
-          <p>আইসিইউ ও ভেন্টিলেটর</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-location-crosshairs"></i></div>
-        <div class="feature-text">
-          <h4>জিপিএস ট্র্যাকিং</h4>
-          <p>লাইভ অবস্থান পর্যবেক্ষণ</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon"><i class="fa-solid fa-phone-volume"></i></div>
-        <div class="feature-text">
-          <h4>২৪/৭ হটলাইন</h4>
-          <p>জরুরি সেবা ১০৬৪৭</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon" style="background:#e8f5e9; color:#2e7d32;"><i class="fa-solid fa-shield-halved"></i></div>
-        <div class="feature-text">
-          <h4>ভেরিফাইড চালক</h4>
-          <p>নিরাপদ ও বিশ্বস্ত যাত্রা</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon" style="background:#e1f5fe; color:#0288d1;"><i class="fa-solid fa-snowflake"></i></div>
-        <div class="feature-text">
-          <h4>ফ্রিজার ভ্যান</h4>
-          <p>মরদেহ পরিবহন সুবিধা</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
+</div>
 
   <script>
-    let step = 1;
-    const total = 4;
-    const items = document.querySelectorAll('#amb-stepper .step-item');
-    const panels = document.querySelectorAll('.wizard-step');
-    const nextBtn = document.getElementById('amb-btn-next');
-    const prevBtn = document.getElementById('amb-btn-prev');
-
-    function renderStep(s) {
-      step = s;
-      panels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.stepPanel, 10) === step));
-      items.forEach(it => {
-        const idx = parseInt(it.dataset.step, 10);
-        it.classList.toggle('active', idx === step);
-        it.classList.toggle('completed', idx < step);
-      });
-      prevBtn.style.display = step === 1 ? 'none' : 'block';
-      nextBtn.textContent = step === total ? 'Submit Ambulance' : 'Next Step →';
-    }
-
-    nextBtn.addEventListener('click', () => {
-      if (step < total) renderStep(step + 1);
-      else alert('অ্যাম্বুলেন্স সফলভাবে নিবন্ধিত হয়েছে!');
-    });
-    prevBtn.addEventListener('click', () => {
-      if (step > 1) renderStep(step - 1);
-    });
-    renderStep(1);
-
-    // Filters
+// Filters
     const kw = document.getElementById('filter-amb-keyword');
     const ty = document.getElementById('filter-amb-type');
     const dt = document.getElementById('filter-amb-district');

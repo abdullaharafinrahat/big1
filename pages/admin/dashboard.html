@@ -247,6 +247,79 @@
 
     </div>
 
+    
+    <!-- Ambulance Fleet Overview (moved from public ambulance page) -->
+    <div class="card-box" style="margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; color: #0f172a;">
+            <i class="fa-solid fa-truck-medical" style="color: #f57c00;"></i> Ambulance Fleet Overview
+          </h2>
+          <p style="font-size: 12px; color: #64748b;">দ্রুততম জরুরি অ্যাম্বুলেন্স নেটওয়ার্ক — সারাদেশের আইসিইউ, এসি ও নন-এসি সার্ভিস</p>
+        </div>
+        <span style="background: #fff3e0; color: #e65100; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px;">+140+ Active Fleet</span>
+      </div>
+
+      <!-- Hero search (moved) -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+        <select id="admin-amb-search-type" style="padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; background: white;">
+          <option value="all">District / Hospital</option>
+        </select>
+        <input type="text" id="admin-amb-search-input" placeholder="জেলা বা হাসপাতালের নাম লিখুন..." style="flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;">
+        <button type="button" id="admin-amb-search-btn" style="background: #f57c00; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">খুঁজুন</button>
+      </div>
+
+      <!-- Stats grid: Active Fleet + Emergency Hotline (moved) -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+
+        <!-- Active Fleet card -->
+        <div style="background: #f8fafc; border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-truck-medical" style="color: #f57c00;"></i>
+              <strong style="font-size: 14px; color: #0f172a;">Active Fleet</strong>
+            </div>
+            <span style="background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px;">২৪ ঘণ্টা অন-কল</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; text-align: center; gap: 8px;">
+            <div style="flex: 1; background: white; padding: 10px; border-radius: 8px;">
+              <div style="font-size: 22px; font-weight: 800; color: #f57c00;">142</div>
+              <div style="font-size: 11px; color: #64748b; font-weight: 600;">Total Ambulances</div>
+            </div>
+            <div style="flex: 1; background: white; padding: 10px; border-radius: 8px;">
+              <div style="font-size: 22px; font-weight: 800; color: #16a34a;">98</div>
+              <div style="font-size: 11px; color: #64748b; font-weight: 600;">Available Now</div>
+            </div>
+            <div style="flex: 1; background: white; padding: 10px; border-radius: 8px;">
+              <div style="font-size: 22px; font-weight: 800; color: #d32f2f;">44</div>
+              <div style="font-size: 11px; color: #64748b; font-weight: 600;">On Trip</div>
+            </div>
+          </div>
+          <a href="../ambulance.html#ambulance-list" style="display: block; margin-top: 10px; text-align: center; background: #f57c00; color: white; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none;">সব অ্যাম্বুলেন্স দেখুন</a>
+        </div>
+
+        <!-- Emergency Hotline card -->
+        <div style="background: #f8fafc; border-radius: 10px; padding: 14px;">
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px;">
+            <i class="fa-solid fa-phone-volume" style="color: #d32f2f;"></i>
+            <strong style="font-size: 14px; color: #0f172a;">Emergency Hotline</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; text-align: center; gap: 8px;">
+            <div style="flex: 1; background: white; padding: 10px; border-radius: 8px;">
+              <div style="font-size: 22px; font-weight: 800; color: #d32f2f;">10647</div>
+              <div style="font-size: 11px; color: #64748b; font-weight: 600;">National Care</div>
+            </div>
+            <div style="flex: 1; background: white; padding: 10px; border-radius: 8px;">
+              <div style="font-size: 22px; font-weight: 800; color: #16a34a;">&lt; 15 min</div>
+              <div style="font-size: 11px; color: #64748b; font-weight: 600;">Average Arrival</div>
+            </div>
+          </div>
+          <a href="tel:10647" style="display: block; margin-top: 10px; text-align: center; background: #d32f2f; color: white; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none;"><i class="fa-solid fa-phone"></i> সরাসরি কল করুন</a>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Home & Hotel Rental Verification Queue Section -->
     <div class="card-box" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
