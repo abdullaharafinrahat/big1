@@ -319,7 +319,7 @@
     /* Content Layout */
     .main-content {
       display: grid;
-      grid-template-columns: 460px 1fr;
+      grid-template-columns: 1fr;
       gap: 20px;
     }
 
@@ -525,6 +525,174 @@
       .bottom-features { grid-template-columns: repeat(2, 1fr); }
       .top-header { flex-direction: column; align-items: flex-start; }
     }
+  
+  /* -------- Search Hero (ported from pages/ambulance.html) -------- */
+  .search-hero {
+    background: linear-gradient(135deg, #0b5a35, #004d40);
+    color: white;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(11,90,53,0.12);
+    width: 100%;
+  }
+  .search-hero-content { display: flex; flex-direction: column; gap: 12px; }
+  .search-box-container { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .search-input-wrap {
+    flex: 1; min-width: 260px;
+    display: flex; align-items: center;
+    background: white; border-radius: 10px;
+    padding: 4px 6px 4px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .search-input-wrap .search-icon { color: #94a3b8; font-size: 14px; margin-right: 8px; }
+  .search-input-wrap input {
+    border: none; width: 100%; outline: none;
+    font-size: 13.5px; color: #1e293b; padding: 8px 4px;
+    font-family: inherit;
+  }
+  .btn-search {
+    background: #0b5a35; color: white; border: none;
+    padding: 8px 18px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    transition: background 0.2s; white-space: nowrap;
+    font-family: inherit;
+  }
+  .btn-search:hover { background: #0e6e42; }
+  .search-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .btn-filter-trigger {
+    background: #ffffff; color: #0b5a35;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 10px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .btn-filter-trigger:hover { background: #f0fdf4; color: #0b5a35; transform: translateY(-1px); }
+  .filter-count-badge {
+    background: #d32f2f; color: white; border-radius: 999px;
+    padding: 1px 7px; font-size: 11px; font-weight: 800;
+  }
+  .btn-post-req {
+    background: #d32f2f; color: white; text-decoration: none;
+    padding: 10px 18px; border-radius: 10px;
+    font-size: 13px; font-weight: 700; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 7px;
+    box-shadow: 0 2px 10px rgba(211,47,47,0.3);
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-post-req:hover { background: #b71c1c; transform: translateY(-1px); }
+
+  .active-filters-bar {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 8px; padding-top: 4px;
+  }
+  .filter-chip {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white; font-size: 11.5px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .filter-chip .chip-remove { cursor: pointer; font-weight: 800; opacity: 0.8; }
+  .filter-chip .chip-remove:hover { opacity: 1; }
+
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(15,23,42,0.65);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .modal-backdrop.active { display: flex; }
+  .modal-card {
+    background: white; border-radius: 16px;
+    max-width: 520px; width: 100%; padding: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;
+  }
+  .modal-title-wrap { display: flex; align-items: center; gap: 10px; }
+  .modal-title-icon {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #dcfce7; color: #0b5a35;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .modal-title { font-size: 17px; font-weight: 800; color: #0f172a; }
+  .modal-subtitle { font-size: 11.5px; color: #64748b; }
+  .modal-close-btn {
+    background: none; border: none; font-size: 24px; color: #94a3b8;
+    cursor: pointer; line-height: 1; padding: 2px 6px; border-radius: 4px;
+  }
+  .modal-close-btn:hover { color: #0f172a; }
+
+  .filter-modal-card { max-width: 560px; }
+  .filter-group { margin-bottom: 14px; }
+  .filter-modal-label {
+    display: block; font-size: 12px; font-weight: 700;
+    color: #334155; margin-bottom: 6px;
+  }
+  .status-pills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .status-pill {
+    background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;
+    padding: 6px 4px; font-size: 12px; font-weight: 700;
+    color: #334155; cursor: pointer; text-align: center;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .status-pill:hover { background: #dcfce7; border-color: #86efac; color: #0b5a35; }
+  .status-pill.active { background: #0b5a35; border-color: #0b5a35; color: white; }
+
+  .filter-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .filter-modal-select, .filter-modal-input {
+    width: 100%; border: 1px solid #cbd5e1; border-radius: 8px;
+    padding: 8px 12px; font-size: 12.5px; outline: none;
+    background: white; color: #1e293b;
+    font-family: inherit;
+  }
+  .filter-modal-select:focus, .filter-modal-input:focus {
+    border-color: #0b5a35; box-shadow: 0 0 0 3px rgba(11,90,53,0.1);
+  }
+  .filter-modal-footer {
+    display: flex; gap: 10px; border-top: 1px solid #e2e8f0;
+    padding-top: 14px; margin-top: 18px;
+  }
+  .btn-reset-filters {
+    flex: 1; background: #f1f5f9; border: 1px solid #cbd5e1;
+    color: #475569; padding: 10px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-apply-filters {
+    flex: 2; background: #0b5a35; color: white; border: none;
+    padding: 10px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(11,90,53,0.25);
+    font-family: inherit;
+  }
+  .btn-apply-filters:hover { background: #0e6e42; }
+
+  @media (max-width: 640px) {
+    .search-hero { padding: 12px; }
+    .search-box-container { flex-direction: column; align-items: stretch; }
+    .search-actions { justify-content: space-between; width: 100%; }
+    .btn-filter-trigger, .btn-post-req { flex: 1; justify-content: center; padding: 8px 10px; font-size: 12px; }
+    .filter-grid-2col { grid-template-columns: 1fr; }
+    .status-pills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
   </style>
   <link rel="stylesheet" href="../css/components/header-footer.css">
 </head>
@@ -562,113 +730,44 @@
   <!-- Main Container -->
   <div class="container">
 
-    <!-- Hero Banner -->
-    <section class="hero-section">
-      <div class="hero-card hero-intro">
-        <div>
-          <h1 class="hero-title">নিখোঁজ অনুসন্ধান ও<br>সহায়তা ব্যুরো</h1>
-          <p class="hero-subtitle">সারাদেশের ভলান্টিয়ার ও সাধারণ মানুষের সহযোগিতায় নিখোঁজদের খুঁজে বের করার জাতীয় নেটওয়ার্ক।</p>
-        </div>
-        <div>
-          <a href="#missing-form" class="btn-block-action btn-green" style="width:auto; display:inline-block; padding:8px 18px;">বিজ্ঞপ্তি প্রকাশ করুন &darr;</a>
-        </div>
-      </div>
+    <!-- Sleek Search & Filter Trigger Bar (ported from pages/ambulance.html) -->
+    <section class="search-hero">
+      <div class="search-hero-content">
+        <div class="search-box-container">
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="mb-search-keyword" placeholder="নাম, শেষ দেখার স্থান বা এলাকা দিয়ে খুঁজুন..." oninput="applyMbFilters()">
+            <button type="button" class="btn-search" onclick="applyMbFilters()">
+              <span data-bn="অনুসন্ধান" data-en="Search">অনুসন্ধান</span>
+            </button>
+          </div>
 
-      <div class="hero-card">
-        <div class="stat-header">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <i class="fa-solid fa-users-viewfinder" style="color:var(--primary-green);"></i>
-            <strong>Bureau Status</strong>
-          </div>
-          <span class="stat-badge">Live</span>
-        </div>
-        <div class="stat-grid">
-          <div class="stat-item green">
-            <div class="number">420</div>
-            <div class="label">Total Reports</div>
-          </div>
-          <div class="stat-item green">
-            <div class="number">385</div>
-            <div class="label">Found & Reunited</div>
-          </div>
-          <div class="stat-item red">
-            <div class="number">35</div>
-            <div class="label">Active Search</div>
+          <div class="search-actions">
+            <button type="button" class="btn-filter-trigger" onclick="openMbFilterModal()">
+              <i class="fa-solid fa-sliders"></i>
+              <span data-bn="ফিল্টার" data-en="Filter">ফিল্টার</span>
+              <span id="mb-active-filter-badge" class="filter-count-badge" style="display: none;">0</span>
+            </button>
+            <a href="../user-dashboard/missing-report.html" class="btn-post-req">
+              <i class="fa-solid fa-circle-plus"></i>
+              <span data-bn="বিজ্ঞপ্তি প্রকাশ করুন" data-en="Submit Missing Report">বিজ্ঞপ্তি প্রকাশ করুন</span>
+            </a>
           </div>
         </div>
-        <a href="#missing-directory" class="btn-block-action btn-green">নিখোঁজ তালিকা দেখুন</a>
-      </div>
 
-      <div class="hero-card">
-        <div class="stat-header">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <i class="fa-solid fa-headset" style="color:var(--primary-red);"></i>
-            <strong>Emergency Helpdesk</strong>
-          </div>
-        </div>
-        <div class="stat-grid" style="margin-top:20px;">
-          <div class="stat-item red">
-            <div class="number">10647</div>
-            <div class="label">Free Hotline</div>
-          </div>
-          <div class="stat-item green">
-            <div class="number">64 Districts</div>
-            <div class="label">Volunteer Coverage</div>
-          </div>
-        </div>
-        <a href="tel:10647" class="btn-block-action btn-red" style="margin-top:10px;">জরুরি কল করুন</a>
+        <div id="mb-active-filters-chips" class="active-filters-bar" style="display: none;"></div>
       </div>
     </section>
 
-    <!-- Main Content Area -->
+<!-- Main Content Area -->
     <div class="main-content">
 
-      <!-- Left Column: Report Form -->
-      <div class="card" id="missing-form">
-        <h2 class="card-header-title">Submit Missing Report</h2>
-        <p class="card-subtitle">নিখোঁজ ব্যক্তির তথ্য দিন</p>
-
-        <form id="missing-report-form">
-          <div class="form-group">
-            <label>নিখোঁজ ব্যক্তির নাম <span>*</span></label>
-            <input type="text" class="form-control" placeholder="পূর্ণ নাম" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group" style="flex:1;">
-              <label>বয়স <span>*</span></label>
-              <input type="number" class="form-control" placeholder="যেমন: ৬৮" required>
-            </div>
-            <div class="form-group" style="flex:1;">
-              <label>লিঙ্গ <span>*</span></label>
-              <select class="form-control">
-                <option>পুরুষ (Male)</option>
-                <option>নারী (Female)</option>
-                <option>শিশু (Child)</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>সর্বশেষ দেখার স্থান <span>*</span></label>
-            <input type="text" class="form-control" placeholder="যেমন: নিউ মার্কেট, ঢাকা" required>
-          </div>
-          <div class="form-group">
-            <label>যোগাযোগের ফোন নম্বর <span>*</span></label>
-            <input type="text" class="form-control" placeholder="01XXXXXXXXX" required>
-          </div>
-          <div class="form-group">
-            <label>শারীরিক বিবরণ ও পোশাকের বর্ণনা <span>*</span></label>
-            <textarea class="form-control" rows="3" placeholder="পোশাকের রং, উচ্চতা, বিশেষ কোনো চিহ্ন বা শারীরিক অবস্থা..." required></textarea>
-          </div>
-          <button type="submit" class="btn-submit"><i class="fa-solid fa-shield"></i> মডারেশনের জন্য জমা দিন</button>
-        </form>
-      </div>
-
-      <!-- Right Column: Missing Directory -->
+<!-- Missing Directory (full-width) -->
       <div class="card" id="missing-directory">
         <h2 class="card-header-title">Verified Missing Notices</h2>
         <p class="card-subtitle">যাচাইকৃত সক্রিয় অনুসন্ধান তালিকা</p>
 
-        <div class="missing-card">
+        <div class="missing-card" data-name="Abdur Rahim আব্দুর রহিম" data-status="Active" data-division="Dhaka" data-district="ঢাকা Dhaka" data-upazila="নিউ মার্কেট New Market" data-landmark="নিউ মার্কেট">
           <div class="missing-photo-box"><i class="fa-solid fa-user"></i></div>
           <div class="missing-info">
             <div class="missing-name-row">
@@ -683,7 +782,7 @@
           </div>
         </div>
 
-        <div class="missing-card">
+        <div class="missing-card" data-name="Sumaiya Akter সুমাইয়া আক্তার" data-status="Urgent" data-division="Chattogram" data-district="চট্টগ্রাম Chattogram" data-upazila="জিইসি GEC" data-landmark="জিইসি মোড়">
           <div class="missing-photo-box"><i class="fa-solid fa-child"></i></div>
           <div class="missing-info">
             <div class="missing-name-row">
@@ -750,11 +849,164 @@
   </div>
 
   <script>
-    document.getElementById('missing-report-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('নিখোঁজ বিজ্ঞপ্তি সফলভাবে মডারেশনের জন্য জমা হয়েছে। যাচাই শেষে দ্রুত প্রকাশ করা হবে।');
-      e.target.reset();
-    });
+</script>
+
+
+  <!-- Missing Bureau Filter Modal -->
+  <div class="modal-backdrop" id="mb-filter-modal">
+    <div class="modal-card filter-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-title-icon"><i class="fa-solid fa-sliders"></i></div>
+          <div>
+            <h3 class="modal-title" data-bn="ফিল্টার সেটিংস" data-en="Filter Missing Reports">ফিল্টার সেটিংস</h3>
+            <p class="modal-subtitle" data-bn="অবস্থা ও এলাকা দিয়ে নির্দিষ্ট বিজ্ঞপ্তি খুঁজুন" data-en="Filter reports by status and location">অবস্থা ও এলাকা দিয়ে নির্দিষ্ট বিজ্ঞপ্তি খুঁজুন</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeMbFilterModal()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="filter-group">
+          <label class="filter-modal-label" data-bn="অবস্থা (Status)" data-en="Status">অবস্থা</label>
+          <div class="status-pills-grid" id="mb-status-pills-container">
+            <button type="button" class="status-pill active" data-status-val="all" onclick="selectMbStatusPill('all')"><span data-bn="সকল" data-en="All">সকল</span></button>
+            <button type="button" class="status-pill" data-status-val="Active" onclick="selectMbStatusPill('Active')"><span data-bn="সক্রিয়" data-en="Active">সক্রিয়</span></button>
+            <button type="button" class="status-pill" data-status-val="Urgent" onclick="selectMbStatusPill('Urgent')"><span data-bn="জরুরি" data-en="Urgent">জরুরি</span></button>
+            <button type="button" class="status-pill" data-status-val="Found" onclick="selectMbStatusPill('Found')"><span data-bn="পাওয়া গেছে" data-en="Found">পাওয়া গেছে</span></button>
+          </div>
+        </div>
+
+        <div class="filter-grid-2col">
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="বিভাগ (Division)" data-en="Division">বিভাগ</label>
+            <select id="mb-pop-filter-division" class="filter-modal-select">
+              <option value="all" data-bn="সকল বিভাগ" data-en="All Divisions">সকল বিভাগ</option>
+              <option value="Dhaka" data-bn="ঢাকা" data-en="Dhaka">ঢাকা</option>
+              <option value="Chattogram" data-bn="চট্টগ্রাম" data-en="Chattogram">চট্টগ্রাম</option>
+              <option value="Rajshahi" data-bn="রাজশাহী" data-en="Rajshahi">রাজশাহী</option>
+              <option value="Khulna" data-bn="খুলনা" data-en="Khulna">খুলনা</option>
+              <option value="Sylhet" data-bn="সিলেট" data-en="Sylhet">সিলেট</option>
+              <option value="Barishal" data-bn="বরিশাল" data-en="Barishal">বরিশাল</option>
+              <option value="Rangpur" data-bn="রংপুর" data-en="Rangpur">রংপুর</option>
+              <option value="Mymensingh" data-bn="ময়মনসিংহ" data-en="Mymensingh">ময়মনসিংহ</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="জেলা (District)" data-en="District">জেলা</label>
+            <input type="text" id="mb-pop-filter-district" placeholder="যেমন: ঢাকা, চট্টগ্রাম" class="filter-modal-input">
+          </div>
+        </div>
+
+        <div class="filter-grid-2col">
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="উপজেলা / এলাকা (Upazila / Area)" data-en="Upazila / Area">উপজেলা / এলাকা</label>
+            <input type="text" id="mb-pop-filter-upazila" placeholder="যেমন: নিউ মার্কেট, জিইসি" class="filter-modal-input">
+          </div>
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="ল্যান্ডমার্ক (Landmark)" data-en="Landmark">ল্যান্ডমার্ক</label>
+            <input type="text" id="mb-pop-filter-landmark" placeholder="যেমন: বাসস্ট্যান্ড, বাজার" class="filter-modal-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer filter-modal-footer">
+        <button type="button" class="btn-reset-filters" onclick="resetMbFilters()">
+          <i class="fa-solid fa-rotate-left"></i> <span data-bn="রিসেট" data-en="Reset">রিসেট</span>
+        </button>
+        <button type="button" class="btn-apply-filters" onclick="applyAndCloseMbFilterModal()">
+          <i class="fa-solid fa-check"></i> <span data-bn="ফিল্টার প্রয়োগ করুন" data-en="Apply Filters">ফিল্টার প্রয়োগ করুন</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedMbStatus = 'all';
+    const mbKw = () => document.getElementById('mb-search-keyword');
+    const mbCards = () => document.querySelectorAll('#missing-directory .missing-card');
+    const mbGetLang = () => (typeof getLang === 'function' ? getLang() : (localStorage.getItem('bondhu.lang') || 'bn'));
+
+    function openMbFilterModal()  { document.getElementById('mb-filter-modal').classList.add('active'); }
+    function closeMbFilterModal() { document.getElementById('mb-filter-modal').classList.remove('active'); }
+    function selectMbStatusPill(s) {
+      selectedMbStatus = s;
+      document.querySelectorAll('#mb-status-pills-container .status-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.statusVal === s);
+      });
+    }
+    function resetMbFilters() {
+      selectedMbStatus = 'all';
+      selectMbStatusPill('all');
+      document.getElementById('mb-pop-filter-division').value = 'all';
+      document.getElementById('mb-pop-filter-district').value = '';
+      document.getElementById('mb-pop-filter-upazila').value = '';
+      document.getElementById('mb-pop-filter-landmark').value = '';
+      mbKw().value = '';
+      applyMbFilters();
+      closeMbFilterModal();
+    }
+    function applyAndCloseMbFilterModal() { applyMbFilters(); closeMbFilterModal(); }
+
+    function applyMbFilters() {
+      const q = (mbKw().value || '').toLowerCase().trim();
+      const div = document.getElementById('mb-pop-filter-division').value;
+      const dist = (document.getElementById('mb-pop-filter-district').value || '').toLowerCase().trim();
+      const upa = (document.getElementById('mb-pop-filter-upazila').value || '').toLowerCase().trim();
+      const lm  = (document.getElementById('mb-pop-filter-landmark').value || '').toLowerCase().trim();
+      const st  = selectedMbStatus;
+
+      let n = 0;
+      if (st !== 'all') n++;
+      if (div !== 'all') n++;
+      if (dist) n++;
+      if (upa) n++;
+      if (lm) n++;
+      const badge = document.getElementById('mb-active-filter-badge');
+      if (n > 0) { badge.textContent = n; badge.style.display = 'inline-block'; }
+      else       { badge.style.display = 'none'; }
+
+      renderMbChips(st, div, dist, upa, lm);
+
+      mbCards().forEach(c => {
+        const name = (c.dataset.name || c.textContent || '').toLowerCase();
+        const cSt  = c.dataset.status || '';
+        const cDiv = c.dataset.division || '';
+        const cDist = (c.dataset.district || '').toLowerCase();
+        const cUpa = (c.dataset.upazila || '').toLowerCase();
+        const cLm  = (c.dataset.landmark || '').toLowerCase();
+        const matchQ  = !q || name.includes(q) || cDist.includes(q) || cUpa.includes(q) || cLm.includes(q);
+        const matchSt = (st === 'all') || (cSt === st);
+        const matchDv = (div === 'all') || (cDiv === div);
+        const matchDs = !dist || cDist.includes(dist);
+        const matchUp = !upa  || cUpa.includes(upa);
+        const matchLm = !lm   || cLm.includes(lm);
+        c.style.display = (matchQ && matchSt && matchDv && matchDs && matchUp && matchLm) ? 'flex' : 'none';
+      });
+    }
+
+    function renderMbChips(st, div, dist, upa, lm) {
+      const bar = document.getElementById('mb-active-filters-chips');
+      const lang = mbGetLang();
+      let h = '';
+      if (st !== 'all') h += `<span class="filter-chip">${lang==='bn'?'অবস্থা:':'Status:'} ${st} <span class="chip-remove" onclick="selectMbStatusPill('all'); applyMbFilters();">&times;</span></span>`;
+      if (div !== 'all') h += `<span class="filter-chip">${lang==='bn'?'বিভাগ:':'Div:'} ${div} <span class="chip-remove" onclick="document.getElementById('mb-pop-filter-division').value='all'; applyMbFilters();">&times;</span></span>`;
+      if (dist) h += `<span class="filter-chip">${lang==='bn'?'জেলা:':'Dist:'} ${dist} <span class="chip-remove" onclick="document.getElementById('mb-pop-filter-district').value=''; applyMbFilters();">&times;</span></span>`;
+      if (upa)  h += `<span class="filter-chip">${lang==='bn'?'উপজেলা:':'Area:'} ${upa} <span class="chip-remove" onclick="document.getElementById('mb-pop-filter-upazila').value=''; applyMbFilters();">&times;</span></span>`;
+      if (lm)   h += `<span class="filter-chip">${lang==='bn'?'ল্যান্ডমার্ক:':'Landmark:'} ${lm} <span class="chip-remove" onclick="document.getElementById('mb-pop-filter-landmark').value=''; applyMbFilters();">&times;</span></span>`;
+      if (h) {
+        bar.innerHTML = h + `<span class="filter-chip" style="background: rgba(211,47,47,0.4); cursor: pointer;" onclick="resetMbFilters()">${lang==='bn'?'সব মুছুন':'Clear All'} &times;</span>`;
+        bar.style.display = 'flex';
+      } else {
+        bar.innerHTML = '';
+        bar.style.display = 'none';
+      }
+    }
+
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach(btn =>
+      btn.addEventListener('click', () => setTimeout(applyMbFilters, 30))
+    );
+    applyMbFilters();
   </script>
 
 <!-- FOOTER -->

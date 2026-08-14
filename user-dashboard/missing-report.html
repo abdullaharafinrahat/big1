@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Missing Report | Bondhu.org</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/components/header-footer.css">
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --border: #e5e9e6;
+      --bg-light: #f4f6f8;
+      --red: #e31e24;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+    html, body {
+      background-color: var(--bg-light);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      overflow-x: hidden;
+      width: 100%; max-width: 100%;
+    }
+
+    main {
+      flex: 1; display: flex;
+      justify-content: center; align-items: flex-start;
+      padding: 30px 16px; width: 100%;
+    }
+
+    .form-card {
+      background: #ffffff;
+      width: 100%; max-width: 720px;
+      border-radius: 16px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+      border: 1px solid #eef0f3;
+      padding: 28px 32px 24px 32px;
+      position: relative;
+    }
+
+    .header-logo { text-align: center; margin-bottom: 8px; }
+    .logo-icon {
+      width: 48px; height: 48px;
+      background-color: var(--primary-green);
+      border-radius: 50%; margin: 0 auto 8px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 105, 92, 0.25);
+    }
+    .logo-icon i { color: white; font-size: 20px; }
+
+    .card-brand-title { font-size: 26px; font-weight: 800; color: #0b5a35; letter-spacing: -0.5px; line-height: 1.1; text-align: center; }
+    .card-brand-title span { color: var(--primary-red); }
+
+    .badge-tag-wrap { display: flex; justify-content: center; margin-top: 8px; }
+    .live-badge-tag {
+      background: #e0f2f1; color: var(--primary-green);
+      padding: 3px 12px; border-radius: 999px;
+      font-size: 11.5px; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+
+    .divider-container { display: flex; align-items: center; justify-content: center; margin: 14px 0 16px; position: relative; }
+    .divider-line { height: 1px; background-color: #e5e7eb; width: 100%; }
+    .divider-drop { position: absolute; background: #ffffff; padding: 0 8px; color: var(--primary-green); font-size: 12px; }
+
+    .welcome-text { text-align: center; font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .sub-welcome-text { text-align: center; font-size: 12.5px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+
+    /* Form Elements — identical pattern to user-blood-request / publish-home */
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 5px; }
+    .form-label span { color: var(--red); }
+
+    .input-wrapper { position: relative; display: flex; align-items: center; }
+    .input-icon-left { position: absolute; left: 12px; color: #888888; font-size: 14px; z-index: 2; }
+
+    .form-input {
+      width: 100%; height: 42px; padding: 8px 12px 8px 36px;
+      border: 1px solid #cbd5e1; border-radius: 8px;
+      font-size: 13px; outline: none; transition: all 0.2s;
+      background: white; color: #1e293b;
+      font-family: inherit;
+    }
+    textarea.form-input { height: auto; min-height: 90px; padding-top: 10px; resize: vertical; }
+    .form-input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.12); }
+
+    .form-row { display: flex; gap: 10px; }
+
+    .btn-submit {
+      width: 100%; height: 46px;
+      background-color: var(--primary-green); color: #ffffff;
+      border: none; border-radius: 8px;
+      font-size: 14.5px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 4px 12px rgba(0, 105, 92, 0.25);
+      margin-top: 16px; font-family: inherit;
+    }
+    .btn-submit:hover { background-color: var(--dark-green); transform: translateY(-1px); }
+
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: white; border-radius: 14px;
+      padding: 24px; max-width: 400px; width: 92%;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .form-card { padding: 22px 18px; }
+      .form-row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <bondhu-header></bondhu-header>
+
+  <main>
+    <div class="form-card">
+      <div class="header-logo">
+        <div class="logo-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+        <div class="card-brand-title">Missing <span>Report</span></div>
+      </div>
+      <div class="badge-tag-wrap">
+        <span class="live-badge-tag"><i class="fa-solid fa-shield"></i> নিখোঁজ অনুসন্ধান</span>
+      </div>
+
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <span class="divider-drop"><i class="fa-solid fa-magnifying-glass"></i></span>
+      </div>
+
+      <h2 class="welcome-text" data-bn="নিখোঁজ বিজ্ঞপ্তি জমা দিন" data-en="Submit Missing Report">নিখোঁজ বিজ্ঞপ্তি জমা দিন</h2>
+      <p class="sub-welcome-text" data-bn="নিখোঁজ ব্যক্তির তথ্য দিন — মডারেশনের পর বিজ্ঞপ্তি প্রকাশ করা হবে।" data-en="Provide details of the missing person. It will be published after moderation.">নিখোঁজ ব্যক্তির তথ্য দিন — মডারেশনের পর বিজ্ঞপ্তি প্রকাশ করা হবে।</p>
+
+      <form id="missing-report-form" onsubmit="return submitMissingReport(event)">
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="নিখোঁজ ব্যক্তির নাম" data-en="Missing Person Name">নিখোঁজ ব্যক্তির নাম</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user input-icon-left"></i>
+            <input type="text" id="mr-name" class="form-input" placeholder="পূর্ণ নাম" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="বয়স" data-en="Age">বয়স</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-cake-candles input-icon-left"></i>
+              <input type="number" id="mr-age" class="form-input" placeholder="যেমন: ৬৮" min="0" max="150" required>
+            </div>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="লিঙ্গ" data-en="Gender">লিঙ্গ</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-venus-mars input-icon-left"></i>
+              <select id="mr-gender" class="form-input" required>
+                <option value="Male">পুরুষ (Male)</option>
+                <option value="Female">নারী (Female)</option>
+                <option value="Child">শিশু (Child)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Fields (cascading Division → District → Area) -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="বিভাগ" data-en="Division">বিভাগ</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-map input-icon-left"></i>
+              <select id="mr-division" class="form-input" required>
+                <option value="" data-bn="— বিভাগ নির্বাচন করুন —" data-en="— Select Division —">— বিভাগ নির্বাচন করুন —</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="জেলা" data-en="District">জেলা</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-city input-icon-left"></i>
+              <select id="mr-district" class="form-input" required disabled>
+                <option value="" data-bn="— আগে বিভাগ নির্বাচন করুন —" data-en="— Select Division First —">— আগে বিভাগ নির্বাচন করুন —</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="এলাকা / উপজেলা" data-en="Area / Upazila">এলাকা / উপজেলা</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-location-dot input-icon-left"></i>
+            <select id="mr-area" class="form-input" required disabled>
+              <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="সর্বশেষ দেখার স্থান" data-en="Last Seen Location">সর্বশেষ দেখার স্থান</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-signs-post input-icon-left"></i>
+            <input type="text" id="mr-last-seen" class="form-input" placeholder="যেমন: নিউ মার্কেট মোড়, বাসস্ট্যান্ড সংলগ্ন" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="যোগাযোগের ফোন নম্বর" data-en="Contact Phone">যোগাযোগের ফোন নম্বর</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone input-icon-left"></i>
+            <input type="tel" id="mr-phone" class="form-input" placeholder="01XXXXXXXXX" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="আপনার আইডি নম্বর" data-en="Your ID Number">আপনার আইডি নম্বর</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-id-badge input-icon-left"></i>
+            <input type="text" id="mr-member-id" class="form-input" readonly placeholder="BON00000000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="শারীরিক বিবরণ ও পোশাকের বর্ণনা" data-en="Physical Description & Clothing">শারীরিক বিবরণ ও পোশাকের বর্ণনা</span> <span>*</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-shirt input-icon-left" style="top: 14px; align-self: flex-start;"></i>
+            <textarea id="mr-description" class="form-input" rows="4" placeholder="পোশাকের রং, উচ্চতা, বিশেষ কোনো চিহ্ন বা শারীরিক অবস্থা..." required></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-shield"></i>
+          <span data-bn="মডারেশনের জন্য জমা দিন" data-en="Submit for Moderation">মডারেশনের জন্য জমা দিন</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-backdrop" id="report-success-modal">
+    <div class="modal-card">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #16a34a; font-size: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">নিখোঁজ বিজ্ঞপ্তি সফলভাবে জমা হয়েছে!</h3>
+      <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">যাচাই শেষে দ্রুত প্রকাশ করা হবে। আপনার সহযোগিতার জন্য ধন্যবাদ।</p>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left; font-size: 12px; margin-bottom: 18px; line-height: 1.6;">
+        <div>রিপোর্ট আইডি: <strong style="color: #0b5a35;" id="pop-report-id">MSR-2026-0000</strong></div>
+        <div>নিখোঁজ ব্যক্তি: <strong id="pop-report-name">—</strong></div>
+        <div>স্ট্যাটাস: <span style="color: #d97706; font-weight: 700;">Pending Moderation ⏳</span></div>
+      </div>
+
+      <div style="display: flex; gap: 8px;">
+        <button onclick="document.getElementById('report-success-modal').classList.remove('active');" class="btn-submit" style="flex: 1; margin: 0; height: 40px; font-size: 13px;">ঠিক আছে</button>
+        <a href="../pages/missing-bureau.html" class="btn-submit" style="flex: 1; margin: 0; height: 40px; font-size: 13px; text-decoration: none; background: #eef2f7; color: #0f172a; box-shadow: none;">তালিকা দেখুন</a>
+      </div>
+    </div>
+  </div>
+
+  <bondhu-footer></bondhu-footer>
+
+  <script>
+    // Auto-fill member ID from login session
+    (function fillMemberId() {
+      const el = document.getElementById('mr-member-id');
+      if (!el) return;
+      let id = '';
+      try {
+        const u = JSON.parse(localStorage.getItem('bondhu.user') || 'null');
+        if (u && (u.id || u.userId)) id = String(u.id || u.userId);
+      } catch (e) {}
+      if (!id) {
+        try {
+          const acc = JSON.parse(localStorage.getItem('bondhu.registrationAccount') || 'null');
+          if (acc && acc.userId) id = String(acc.userId);
+        } catch (e) {}
+      }
+      el.value = id || 'BON00012345';
+    })();
+
+    // Cascading Division → District → Area
+    (function initCascade() {
+      const divSel = document.getElementById('mr-division');
+      const disSel = document.getElementById('mr-district');
+      const arSel  = document.getElementById('mr-area');
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [];
+
+      function setPlaceholder(sel, bn, en) {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = ''; opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillOptions(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.id != null ? String(item.id) : item.name;
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-divisions.json').then(r => r.json()),
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+        ]).then(([d, ds, up]) => {
+          DIVISIONS = d.divisions || d;
+          DISTRICTS = ds.districts || ds;
+          UPAZILAS  = up.upazilas || up;
+          DIVISIONS.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        });
+      }
+
+      function renderDivisions() {
+        setPlaceholder(divSel, '— বিভাগ নির্বাচন করুন —', '— Select Division —');
+        fillOptions(divSel, DIVISIONS);
+      }
+
+      divSel.addEventListener('change', () => {
+        setPlaceholder(disSel, '— জেলা নির্বাচন করুন —', '— Select District —');
+        setPlaceholder(arSel,  '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        arSel.disabled = true;
+        if (!divSel.value) { disSel.disabled = true; return; }
+        const districts = DISTRICTS.filter(d => String(d.division_id) === String(divSel.value))
+                                   .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(disSel, districts);
+        disSel.disabled = false;
+      });
+
+      disSel.addEventListener('change', () => {
+        setPlaceholder(arSel, '— এলাকা / উপজেলা নির্বাচন করুন —', '— Select Area / Upazila —');
+        if (!disSel.value) { arSel.disabled = true; return; }
+        const areas = UPAZILAS.filter(u => String(u.district_id) === String(disSel.value))
+                              .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(arSel, areas);
+        arSel.disabled = false;
+      });
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      function refreshLabels() {
+        [divSel, disSel, arSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang()==='bn' ? bn : en;
+          });
+        });
+      }
+
+      loadData().then(renderDivisions).catch(err => console.error('Cascade load failed', err));
+    })();
+
+    function submitMissingReport(e) {
+      e.preventDefault();
+      const form = document.getElementById('missing-report-form');
+      const $ = (id) => document.getElementById(id);
+      const divSel = $('mr-division');
+      const disSel = $('mr-district');
+      const arSel  = $('mr-area');
+      const genSel = $('mr-gender');
+      const division = divSel.options[divSel.selectedIndex]?.text || divSel.value;
+      const district = disSel.options[disSel.selectedIndex]?.text || disSel.value;
+      const area     = arSel.options[arSel.selectedIndex]?.text || arSel.value;
+      const gender   = genSel.options[genSel.selectedIndex]?.text || genSel.value;
+      const reportId = 'MSR-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      const pendingItem = {
+        id: reportId,
+        name: $('mr-name').value.trim(),
+        age: $('mr-age').value,
+        gender,
+        division, district, area,
+        lastSeen: $('mr-last-seen').value.trim(),
+        phone: $('mr-phone').value.trim(),
+        description: $('mr-description').value.trim(),
+        memberId: $('mr-member-id').value,
+        submittedAt: new Date().toLocaleString('bn-BD'),
+        status: 'pending_moderation'
+      };
+
+      const list = JSON.parse(localStorage.getItem('bondhu.pendingMissingReports') || '[]');
+      list.unshift(pendingItem);
+      localStorage.setItem('bondhu.pendingMissingReports', JSON.stringify(list));
+
+      $('pop-report-id').textContent = reportId;
+      $('pop-report-name').textContent = pendingItem.name || '—';
+      $('report-success-modal').classList.add('active');
+      form.reset();
+      // restore auto-filled member id after reset
+      const el = $('mr-member-id');
+      let saved = '';
+      try {
+        const u = JSON.parse(localStorage.getItem('bondhu.user') || 'null');
+        if (u && (u.id || u.userId)) saved = String(u.id || u.userId);
+      } catch (e) {}
+      el.value = saved || 'BON00012345';
+      return false;
+    }
+  </script>
+  <script src="../js/components/site-header-footer.js"></script>
+</body>
+</html>
