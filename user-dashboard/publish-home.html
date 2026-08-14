@@ -215,29 +215,46 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label"><span class="lbl-txt" data-bn="জেলা / শহর" data-en="District / City">জেলা / শহর</span> <span>*</span></label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-city input-icon-left"></i>
-            <select id="h-district" class="form-input" required>
-              <option>Dhaka</option>
-              <option>Chattogram</option>
-              <option>Rajshahi</option>
-              <option>Khulna</option>
-              <option>Sylhet</option>
-              <option>Barishal</option>
-              <option>Rangpur</option>
-              <option>Mymensingh</option>
-              <option>Cox's Bazar</option>
-            </select>
+        <!-- Location Fields (Division, District, Area — cascading, same as user-blood-request) -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="বিভাগ" data-en="Division">বিভাগ</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-map input-icon-left"></i>
+              <select id="h-division" class="form-input" required>
+                <option value="" data-bn="— বিভাগ নির্বাচন করুন —" data-en="— Select Division —">— বিভাগ নির্বাচন করুন —</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="জেলা" data-en="District">জেলা</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-city input-icon-left"></i>
+              <select id="h-district" class="form-input" required disabled>
+                <option value="" data-bn="— আগে বিভাগ নির্বাচন করুন —" data-en="— Select Division First —">— আগে বিভাগ নির্বাচন করুন —</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="এলাকা / উপজেলা" data-en="Area / Upazila">এলাকা / উপজেলা</span> <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-location-dot input-icon-left"></i>
+              <select id="h-area" class="form-input" required disabled>
+                <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+              </select>
+            </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label"><span class="lbl-txt" data-bn="পূর্ণ ঠিকানা ও এলাকা" data-en="Full Address & Area">পূর্ণ ঠিকানা ও এলাকা</span> <span>*</span></label>
+          <label class="form-label"><span class="lbl-txt" data-bn="পূর্ণ ঠিকানা" data-en="Full Address">পূর্ণ ঠিকানা</span> <span>*</span></label>
           <div class="input-wrapper">
-            <i class="fa-solid fa-location-dot input-icon-left"></i>
-            <input type="text" id="h-location" class="form-input" placeholder="বাড়ি নং, রোড নং, এলাকা" required>
+            <i class="fa-solid fa-signs-post input-icon-left"></i>
+            <input type="text" id="h-location" class="form-input" placeholder="বাড়ি নং, রোড নং" required>
           </div>
         </div>
 
@@ -330,12 +347,104 @@
       el.value = id || 'BON00012345';
     })();
 
+    // ---- Cascading Division → District → Area (same pattern as user-blood-request) ----
+    (function initCascade() {
+      const divSel = document.getElementById('h-division');
+      const disSel = document.getElementById('h-district');
+      const arSel  = document.getElementById('h-area');
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [];
+
+      function setPlaceholder(sel, bn, en) {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.setAttribute('data-bn', bn);
+        opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillOptions(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.id != null ? String(item.id) : item.name;
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-divisions.json').then(r => r.json()),
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+        ]).then(([d, ds, up]) => {
+          DIVISIONS = d.divisions || d;
+          DISTRICTS = ds.districts || ds;
+          UPAZILAS  = up.upazilas || up;
+          DIVISIONS.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        });
+      }
+
+      function renderDivisions() {
+        setPlaceholder(divSel, '— বিভাগ নির্বাচন করুন —', '— Select Division —');
+        fillOptions(divSel, DIVISIONS);
+      }
+
+      divSel.addEventListener('change', () => {
+        setPlaceholder(disSel, '— জেলা নির্বাচন করুন —', '— Select District —');
+        setPlaceholder(arSel,  '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        arSel.disabled = true;
+        if (!divSel.value) { disSel.disabled = true; return; }
+        const districts = DISTRICTS.filter(d => String(d.division_id) === String(divSel.value))
+                                   .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(disSel, districts);
+        disSel.disabled = false;
+      });
+
+      disSel.addEventListener('change', () => {
+        setPlaceholder(arSel, '— এলাকা / উপজেলা নির্বাচন করুন —', '— Select Area / Upazila —');
+        if (!disSel.value) { arSel.disabled = true; return; }
+        const areas = UPAZILAS.filter(u => String(u.district_id) === String(disSel.value))
+                              .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(arSel, areas);
+        arSel.disabled = false;
+      });
+
+      // Re-render option text when the language switcher toggles
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      window.addEventListener('storage', (e) => { if (e.key === 'bondhu.lang') refreshLabels(); });
+      function refreshLabels() {
+        [divSel, disSel, arSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang()==='bn' ? bn : en;
+          });
+        });
+      }
+
+      loadData().then(renderDivisions).catch(err => console.error('Cascade load failed', err));
+    })();
+
     function submitPublishHome(e) {
       e.preventDefault();
       const form = document.getElementById('publish-home-form');
       const $ = (id) => document.getElementById(id);
       const catSel = $('h-category');
-      const districtVal = $('h-district').value;
+      const divSel = $('h-division');
+      const disSel = $('h-district');
+      const arSel  = $('h-area');
+      const division = divSel.options[divSel.selectedIndex]?.text || divSel.value;
+      const district = disSel.options[disSel.selectedIndex]?.text || disSel.value;
+      const area     = arSel.options[arSel.selectedIndex]?.text || arSel.value;
+      const addressLine = $('h-location').value.trim();
       const listId = 'HOM-2026-' + Math.floor(1000 + Math.random() * 9000);
 
       const pendingItem = {
@@ -347,8 +456,10 @@
         bedrooms: $('h-beds').value,
         bathrooms: $('h-baths').value,
         sqft: $('h-sqft').value || '1200',
-        district: districtVal,
-        location: `${$('h-location').value.trim()}, ${districtVal}`,
+        division,
+        district,
+        area,
+        location: [addressLine, area, district].filter(Boolean).join(', '),
         ownerName: $('h-owner').value.trim(),
         phone: $('h-phone').value.trim(),
         memberId: $('h-member-id').value,
