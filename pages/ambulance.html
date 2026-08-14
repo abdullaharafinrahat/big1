@@ -538,25 +538,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Filters */
-    .filter-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .filter-bar input, .filter-bar select {
-      padding: 8px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 12px;
-      outline: none;
-    }
-
-    .filter-bar input { flex: 2; min-width: 140px; }
-    .filter-bar select { flex: 1; min-width: 100px; }
-
     /* Ambulance Grid */
     .grid-container {
       display: grid;
@@ -752,6 +733,177 @@
       .date-widgets { width: 100%; justify-content: space-between; }
       .top-right-actions { width: 100%; justify-content: space-between; }
     }
+  
+  /* -------- Search Hero (ported from pages/request-blood.html) -------- */
+  .search-hero {
+    background: linear-gradient(135deg, #0b5a35, #004d40);
+    color: white;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(11,90,53,0.12);
+    width: 100%;
+  }
+  .search-hero-content { display: flex; flex-direction: column; gap: 12px; }
+  .search-box-container { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .search-input-wrap {
+    flex: 1; min-width: 260px;
+    display: flex; align-items: center;
+    background: white; border-radius: 10px;
+    padding: 4px 6px 4px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .search-input-wrap .search-icon { color: #94a3b8; font-size: 14px; margin-right: 8px; }
+  .search-input-wrap input {
+    border: none; width: 100%; outline: none;
+    font-size: 13.5px; color: #1e293b; padding: 8px 4px;
+    font-family: inherit;
+  }
+  .btn-search {
+    background: #0b5a35; color: white; border: none;
+    padding: 8px 18px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    transition: background 0.2s; white-space: nowrap;
+    font-family: inherit;
+  }
+  .btn-search:hover { background: #0e6e42; }
+  .search-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .btn-filter-trigger {
+    background: #ffffff; color: #0b5a35;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 10px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .btn-filter-trigger:hover { background: #f0fdf4; color: #0b5a35; transform: translateY(-1px); }
+  .filter-count-badge {
+    background: #d32f2f; color: white; border-radius: 999px;
+    padding: 1px 7px; font-size: 11px; font-weight: 800;
+  }
+  .btn-post-req {
+    background: #d32f2f; color: white; text-decoration: none;
+    padding: 10px 18px; border-radius: 10px;
+    font-size: 13px; font-weight: 700; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 7px;
+    box-shadow: 0 2px 10px rgba(211,47,47,0.3);
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-post-req:hover { background: #b71c1c; transform: translateY(-1px); }
+
+  /* Active Filters Bar */
+  .active-filters-bar {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 8px; padding-top: 4px;
+  }
+  .filter-chip {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white; font-size: 11.5px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .filter-chip .chip-remove { cursor: pointer; font-weight: 800; opacity: 0.8; }
+  .filter-chip .chip-remove:hover { opacity: 1; }
+
+  /* Modals base */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(15,23,42,0.65);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .modal-backdrop.active { display: flex; }
+  .modal-card {
+    background: white; border-radius: 16px;
+    max-width: 520px; width: 100%; padding: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;
+  }
+  .modal-title-wrap { display: flex; align-items: center; gap: 10px; }
+  .modal-title-icon {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #fee2e2; color: #d32f2f;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .modal-title { font-size: 17px; font-weight: 800; color: #0f172a; }
+  .modal-subtitle { font-size: 11.5px; color: #64748b; }
+  .modal-close-btn {
+    background: none; border: none; font-size: 24px; color: #94a3b8;
+    cursor: pointer; line-height: 1; padding: 2px 6px; border-radius: 4px;
+  }
+  .modal-close-btn:hover { color: #0f172a; }
+
+  /* Filter Modal Specifics */
+  .filter-modal-card { max-width: 560px; }
+  .filter-group { margin-bottom: 14px; }
+  .filter-modal-label {
+    display: block; font-size: 12px; font-weight: 700;
+    color: #334155; margin-bottom: 6px;
+  }
+  .blood-pills-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .blood-pill {
+    background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;
+    padding: 6px 4px; font-size: 12px; font-weight: 700;
+    color: #334155; cursor: pointer; text-align: center;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .blood-pill:hover { background: #fff3e0; border-color: #ffb74d; color: #e65100; }
+  .blood-pill.active { background: #f57c00; border-color: #f57c00; color: white; }
+
+  .filter-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .filter-modal-select, .filter-modal-input {
+    width: 100%; border: 1px solid #cbd5e1; border-radius: 8px;
+    padding: 8px 12px; font-size: 12.5px; outline: none;
+    background: white; color: #1e293b;
+    font-family: inherit;
+  }
+  .filter-modal-select:focus, .filter-modal-input:focus {
+    border-color: #0b5a35; box-shadow: 0 0 0 3px rgba(11,90,53,0.1);
+  }
+  .filter-modal-footer {
+    display: flex; gap: 10px; border-top: 1px solid #e2e8f0;
+    padding-top: 14px; margin-top: 18px;
+  }
+  .btn-reset-filters {
+    flex: 1; background: #f1f5f9; border: 1px solid #cbd5e1;
+    color: #475569; padding: 10px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-apply-filters {
+    flex: 2; background: #0b5a35; color: white; border: none;
+    padding: 10px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(11,90,53,0.25);
+    font-family: inherit;
+  }
+  .btn-apply-filters:hover { background: #0e6e42; }
+
+  @media (max-width: 640px) {
+    .search-hero { padding: 12px; }
+    .search-box-container { flex-direction: column; align-items: stretch; }
+    .search-actions { justify-content: space-between; width: 100%; }
+    .btn-filter-trigger, .btn-post-req { flex: 1; justify-content: center; padding: 8px 10px; font-size: 12px; }
+    .filter-grid-2col { grid-template-columns: 1fr; }
+    .blood-pills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
   </style>
   <link rel="stylesheet" href="../css/components/header-footer.css">
 </head>
@@ -789,6 +941,38 @@
   <!-- Main Content Container -->
   <div class="container">
 
+    <!-- Sleek Search & Filter Trigger Bar (ported from request-blood.html) -->
+    <section class="search-hero">
+      <div class="search-hero-content">
+        <div class="search-box-container">
+          <!-- Quick Search Bar -->
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="amb-search-keyword" placeholder="জেলা, হাসপাতাল, চালক বা অ্যাম্বুলেন্সের নাম দিয়ে খুঁজুন..." oninput="applyAmbFilters()">
+            <button type="button" class="btn-search" onclick="applyAmbFilters()">
+              <span data-bn="অনুসন্ধান" data-en="Search">অনুসন্ধান</span>
+            </button>
+          </div>
+
+          <!-- Actions: Filter Popup Trigger + Register Ambulance -->
+          <div class="search-actions">
+            <button type="button" class="btn-filter-trigger" onclick="openAmbFilterModal()">
+              <i class="fa-solid fa-sliders"></i>
+              <span data-bn="ফিল্টার" data-en="Filter">ফিল্টার</span>
+              <span id="amb-active-filter-badge" class="filter-count-badge" style="display: none;">0</span>
+            </button>
+            <a href="../user-dashboard/register-ambulance.html" class="btn-post-req">
+              <i class="fa-solid fa-circle-plus"></i>
+              <span data-bn="অ্যাম্বুলেন্স রেজিস্টার করুন" data-en="Register Ambulance">অ্যাম্বুলেন্স রেজিস্টার করুন</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Active Filter Chips Row -->
+        <div id="amb-active-filters-chips" class="active-filters-bar" style="display: none;"></div>
+      </div>
+    </section>
+
 <!-- Main Content Area -->
     <div class="main-content">
 
@@ -796,28 +980,10 @@
       <div class="card" id="ambulance-list">
         <h2 class="card-header-title">Available Ambulances</h2>
         
-        <!-- Filters -->
-        <div class="filter-bar">
-          <input type="text" id="filter-amb-keyword" placeholder="🔍 জেলা, হাসপাতাল বা নাম দিয়ে খুঁজুন">
-          <select id="filter-amb-type">
-            <option value="">All Types</option>
-            <option value="ICU">ICU Ambulance</option>
-            <option value="AC">AC Ambulance</option>
-            <option value="Non-AC">Non-AC Transport</option>
-          </select>
-          <select id="filter-amb-district">
-            <option value="">All Districts</option>
-            <option value="Dhaka">Dhaka</option>
-            <option value="Chattogram">Chattogram</option>
-            <option value="Rajshahi">Rajshahi</option>
-            <option value="Khulna">Khulna</option>
-          </select>
-        </div>
-
-        <!-- Grid -->
+<!-- Grid -->
         <div class="grid-container" id="amb-grid">
           <!-- Ambulance 1 -->
-          <div class="ambulance-card" data-district="Dhaka" data-type="ICU" data-name="Bondhu ICU Ambulance">
+          <div class="ambulance-card" data-district="Dhaka" data-type="ICU" data-name="Bondhu ICU Ambulance" data-division="Dhaka" data-upazila="Mirpur" data-hospital="Bondhu General Hospital">
             <div class="card-banner">
               <img src="../assets/images/hospital/ambulance-1.png" alt="Ambulance">
               <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
@@ -837,7 +1003,7 @@
           </div>
 
           <!-- Ambulance 2 -->
-          <div class="ambulance-card" data-district="Dhaka" data-type="AC" data-name="City Care Emergency Ambulance">
+          <div class="ambulance-card" data-district="Dhaka" data-type="AC" data-name="City Care Emergency Ambulance" data-division="Dhaka" data-upazila="Panthapath" data-hospital="Square Hospital">
             <div class="card-banner">
               <img src="../assets/images/hospital/ambulance-2.png" alt="Ambulance">
               <span class="status-badge onduty"><i class="fa-solid fa-clock"></i> On Duty</span>
@@ -857,7 +1023,7 @@
           </div>
 
           <!-- Ambulance 3 -->
-          <div class="ambulance-card" data-district="Chattogram" data-type="ICU" data-name="Chattogram Medical Ambulance">
+          <div class="ambulance-card" data-district="Chattogram" data-type="ICU" data-name="Chattogram Medical Ambulance" data-division="Chattogram" data-upazila="Panchlaish" data-hospital="Chattogram Medical College">
             <div class="card-banner">
               <img src="../assets/images/hospital/ambulance-exterior.png" alt="Ambulance">
               <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
@@ -879,37 +1045,197 @@
       </div>
     </div>
 
+
+  <!-- Ambulance Filter Modal (ported from request-blood.html) -->
+  <div class="modal-backdrop" id="amb-filter-modal">
+    <div class="modal-card filter-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-title-icon" style="background:#fff3e0; color:#f57c00;"><i class="fa-solid fa-sliders"></i></div>
+          <div>
+            <h3 class="modal-title" data-bn="ফিল্টার সেটিংস" data-en="Filter Ambulances">ফিল্টার সেটিংস</h3>
+            <p class="modal-subtitle" data-bn="অ্যাম্বুলেন্সের ধরন ও এলাকা দিয়ে নির্দিষ্ট গাড়ি খুঁজুন" data-en="Filter ambulances by type and location">অ্যাম্বুলেন্সের ধরন ও এলাকা দিয়ে নির্দিষ্ট গাড়ি খুঁজুন</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeAmbFilterModal()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Ambulance Type Pills (same visual as blood-group pills) -->
+        <div class="filter-group">
+          <label class="filter-modal-label" data-bn="অ্যাম্বুলেন্সের ধরন (Type)" data-en="Ambulance Type">অ্যাম্বুলেন্সের ধরন</label>
+          <div class="blood-pills-grid" id="amb-type-pills-container" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+            <button type="button" class="blood-pill active" data-type-val="all" onclick="selectAmbTypePill('all')"><span data-bn="সকল" data-en="All">সকল</span></button>
+            <button type="button" class="blood-pill" data-type-val="ICU" onclick="selectAmbTypePill('ICU')">ICU</button>
+            <button type="button" class="blood-pill" data-type-val="AC" onclick="selectAmbTypePill('AC')">AC</button>
+            <button type="button" class="blood-pill" data-type-val="Non-AC" onclick="selectAmbTypePill('Non-AC')">Non-AC</button>
+            <button type="button" class="blood-pill" data-type-val="Freezer" onclick="selectAmbTypePill('Freezer')">Freezer</button>
+          </div>
+        </div>
+
+        <div class="filter-grid-2col">
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="বিভাগ (Division)" data-en="Division">বিভাগ</label>
+            <select id="amb-pop-filter-division" class="filter-modal-select">
+              <option value="all" data-bn="সকল বিভাগ" data-en="All Divisions">সকল বিভাগ</option>
+              <option value="Dhaka" data-bn="ঢাকা" data-en="Dhaka">ঢাকা</option>
+              <option value="Chattogram" data-bn="চট্টগ্রাম" data-en="Chattogram">চট্টগ্রাম</option>
+              <option value="Rajshahi" data-bn="রাজশাহী" data-en="Rajshahi">রাজশাহী</option>
+              <option value="Khulna" data-bn="খুলনা" data-en="Khulna">খুলনা</option>
+              <option value="Sylhet" data-bn="সিলেট" data-en="Sylhet">সিলেট</option>
+              <option value="Barishal" data-bn="বরিশাল" data-en="Barishal">বরিশাল</option>
+              <option value="Rangpur" data-bn="রংপুর" data-en="Rangpur">রংপুর</option>
+              <option value="Mymensingh" data-bn="ময়মনসিংহ" data-en="Mymensingh">ময়মনসিংহ</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="জেলা (District)" data-en="District">জেলা</label>
+            <input type="text" id="amb-pop-filter-district" placeholder="যেমন: ঢাকা, চট্টগ্রাম" class="filter-modal-input">
+          </div>
+        </div>
+
+        <div class="filter-grid-2col">
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="উপজেলা / এলাকা (Upazila / Area)" data-en="Upazila / Area">উপজেলা / এলাকা</label>
+            <input type="text" id="amb-pop-filter-upazila" placeholder="যেমন: মিরপুর, পাঁচলাইশ" class="filter-modal-input">
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="হাসপাতাল (Hospital)" data-en="Hospital">হাসপাতাল</label>
+            <input type="text" id="amb-pop-filter-hospital" placeholder="যেমন: ঢাকা মেডিকেল, স্কয়ার" class="filter-modal-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer filter-modal-footer">
+        <button type="button" class="btn-reset-filters" onclick="resetAmbFilters()">
+          <i class="fa-solid fa-rotate-left"></i> <span data-bn="রিসেট" data-en="Reset">রিসেট</span>
+        </button>
+        <button type="button" class="btn-apply-filters" onclick="applyAndCloseAmbFilterModal()">
+          <i class="fa-solid fa-check"></i> <span data-bn="ফিল্টার প্রয়োগ করুন" data-en="Apply Filters">ফিল্টার প্রয়োগ করুন</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
   <script>
-// Filters
-    const kw = document.getElementById('filter-amb-keyword');
-    const ty = document.getElementById('filter-amb-type');
-    const dt = document.getElementById('filter-amb-district');
-    const ambCards = document.querySelectorAll('#amb-grid .ambulance-card');
+// ========== Filter State & Logic (ported from request-blood.html) ==========
+    let selectedAmbType = 'all';
+    const kwInput = () => document.getElementById('amb-search-keyword');
+    const ambCards = () => document.querySelectorAll('#amb-grid .ambulance-card');
+    const getLangSafe = () => (typeof getLang === 'function' ? getLang() : (localStorage.getItem('bondhu.lang') || 'bn'));
 
-    function filterAmbs() {
-      const q = (kw.value || '').toLowerCase();
-      const t = ty.value;
-      const d = dt.value;
+    function openAmbFilterModal() {
+      document.getElementById('amb-filter-modal').classList.add('active');
+    }
+    function closeAmbFilterModal() {
+      document.getElementById('amb-filter-modal').classList.remove('active');
+    }
+    function selectAmbTypePill(t) {
+      selectedAmbType = t;
+      document.querySelectorAll('#amb-type-pills-container .blood-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.typeVal === t);
+      });
+    }
+    function resetAmbFilters() {
+      selectedAmbType = 'all';
+      selectAmbTypePill('all');
+      document.getElementById('amb-pop-filter-division').value = 'all';
+      document.getElementById('amb-pop-filter-district').value = '';
+      document.getElementById('amb-pop-filter-upazila').value = '';
+      document.getElementById('amb-pop-filter-hospital').value = '';
+      kwInput().value = '';
+      applyAmbFilters();
+      closeAmbFilterModal();
+    }
+    function applyAndCloseAmbFilterModal() {
+      applyAmbFilters();
+      closeAmbFilterModal();
+    }
 
-      ambCards.forEach(c => {
-        const name = (c.dataset.name || '').toLowerCase();
-        const dist = c.dataset.district || '';
-        const typ = c.dataset.type || '';
+    function applyAmbFilters() {
+      const q = (kwInput().value || '').toLowerCase().trim();
+      const div = document.getElementById('amb-pop-filter-division').value;
+      const dist = (document.getElementById('amb-pop-filter-district').value || '').toLowerCase().trim();
+      const upazila = (document.getElementById('amb-pop-filter-upazila').value || '').toLowerCase().trim();
+      const hosp = (document.getElementById('amb-pop-filter-hospital').value || '').toLowerCase().trim();
+      const type = selectedAmbType;
 
-        const mQ = !q || name.includes(q) || dist.toLowerCase().includes(q);
-        const mT = !t || typ === t;
-        const mD = !d || dist === d;
+      let activeFilterCount = 0;
+      if (type !== 'all') activeFilterCount++;
+      if (div !== 'all') activeFilterCount++;
+      if (dist) activeFilterCount++;
+      if (upazila) activeFilterCount++;
+      if (hosp) activeFilterCount++;
 
-        c.style.display = (mQ && mT && mD) ? 'block' : 'none';
+      const badge = document.getElementById('amb-active-filter-badge');
+      if (activeFilterCount > 0) {
+        badge.textContent = activeFilterCount;
+        badge.style.display = 'inline-block';
+      } else {
+        badge.style.display = 'none';
+      }
+
+      renderAmbActiveChips(type, div, dist, upazila, hosp);
+
+      ambCards().forEach(card => {
+        const name = (card.dataset.name || '').toLowerCase();
+        const cType = card.dataset.type || '';
+        const cDiv = card.dataset.division || '';
+        const cDist = (card.dataset.district || '').toLowerCase();
+        const cUpazila = (card.dataset.upazila || '').toLowerCase();
+        const cHosp = (card.dataset.hospital || '').toLowerCase();
+
+        const matchSearch = !q || name.includes(q) || cHosp.includes(q) || cDist.includes(q) || cUpazila.includes(q) || cType.toLowerCase().includes(q);
+        const matchType = (type === 'all') || (cType === type);
+        const matchDiv = (div === 'all') || (cDiv === div);
+        const matchDist = !dist || cDist.includes(dist);
+        const matchUpazila = !upazila || cUpazila.includes(upazila);
+        const matchHosp = !hosp || cHosp.includes(hosp);
+
+        card.style.display = (matchSearch && matchType && matchDiv && matchDist && matchUpazila && matchHosp) ? 'block' : 'none';
       });
     }
 
-    kw.addEventListener('input', filterAmbs);
-    ty.addEventListener('change', filterAmbs);
-    dt.addEventListener('change', filterAmbs);
-  </script>
+    function renderAmbActiveChips(type, div, dist, upazila, hosp) {
+      const bar = document.getElementById('amb-active-filters-chips');
+      const lang = getLangSafe();
+      let html = '';
+      if (type !== 'all') {
+        html += `<span class="filter-chip">${lang==='bn'?'ধরন:':'Type:'} ${type} <span class="chip-remove" onclick="selectAmbTypePill('all'); applyAmbFilters();">&times;</span></span>`;
+      }
+      if (div !== 'all') {
+        html += `<span class="filter-chip">${lang==='bn'?'বিভাগ:':'Div:'} ${div} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-division').value='all'; applyAmbFilters();">&times;</span></span>`;
+      }
+      if (dist) {
+        html += `<span class="filter-chip">${lang==='bn'?'জেলা:':'Dist:'} ${dist} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-district').value=''; applyAmbFilters();">&times;</span></span>`;
+      }
+      if (upazila) {
+        html += `<span class="filter-chip">${lang==='bn'?'উপজেলা:':'Area:'} ${upazila} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-upazila').value=''; applyAmbFilters();">&times;</span></span>`;
+      }
+      if (hosp) {
+        html += `<span class="filter-chip">${lang==='bn'?'হাসপাতাল:':'Hosp:'} ${hosp} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-hospital').value=''; applyAmbFilters();">&times;</span></span>`;
+      }
+      if (html) {
+        bar.innerHTML = html + `<span class="filter-chip" style="background: rgba(211,47,47,0.4); cursor: pointer;" onclick="resetAmbFilters()">${lang==='bn'?'সব মুছুন':'Clear All'} &times;</span>`;
+        bar.style.display = 'flex';
+      } else {
+        bar.innerHTML = '';
+        bar.style.display = 'none';
+      }
+    }
+
+    // Re-render chips on language toggle
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach(btn => {
+      btn.addEventListener('click', () => setTimeout(applyAmbFilters, 30));
+    });
+
+    // Initial pass so chips/badge reflect any preset (none by default)
+    applyAmbFilters();
+</script>
 
 <!-- FOOTER -->
 <footer>
