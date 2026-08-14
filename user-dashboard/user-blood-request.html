@@ -322,35 +322,42 @@
           </div>
         </div>
 
-        <!-- Location Fields (Division & District/Area) -->
+        <!-- Location Fields (Division, District, Area — cascading) -->
         <div class="form-row">
           <div class="form-group" style="flex: 1;">
             <label class="form-label"><span class="lbl-txt" data-bn="বিভাগ" data-en="Division">বিভাগ</span> <span>*</span></label>
             <select id="u-division" class="form-input" required>
-              <option value="Dhaka" data-bn="ঢাকা" data-en="Dhaka">ঢাকা</option>
-              <option value="Chattogram" data-bn="চট্টগ্রাম" data-en="Chattogram">চট্টগ্রাম</option>
-              <option value="Rajshahi" data-bn="রাজশাহী" data-en="Rajshahi">রাজশাহী</option>
-              <option value="Khulna" data-bn="খুলনা" data-en="Khulna">খুলনা</option>
-              <option value="Sylhet" data-bn="সিলেট" data-en="Sylhet">সিলেট</option>
-              <option value="Barishal" data-bn="বরিশাল" data-en="Barishal">বরিশাল</option>
-              <option value="Rangpur" data-bn="রংপুর" data-en="Rangpur">রংপুর</option>
-              <option value="Mymensingh" data-bn="ময়মনসিংহ" data-en="Mymensingh">ময়মনসিংহ</option>
+              <option value="" data-bn="— বিভাগ নির্বাচন করুন —" data-en="— Select Division —">— বিভাগ নির্বাচন করুন —</option>
             </select>
           </div>
 
           <div class="form-group" style="flex: 1;">
-            <label class="form-label"><span class="lbl-txt" data-bn="জেলা ও এলাকা" data-en="District & Area">জেলা ও এলাকা</span> <span>*</span></label>
-            <input type="text" id="u-location" class="form-input" data-bn="যেমন: শাহবাগ, ঢাকা" data-en="e.g. Shahbag, Dhaka" placeholder="যেমন: শাহবাগ, ঢাকা" required style="padding-left: 12px;">
+            <label class="form-label"><span class="lbl-txt" data-bn="জেলা" data-en="District">জেলা</span> <span>*</span></label>
+            <select id="u-district" class="form-input" required disabled>
+              <option value="" data-bn="— আগে বিভাগ নির্বাচন করুন —" data-en="— Select Division First —">— আগে বিভাগ নির্বাচন করুন —</option>
+            </select>
           </div>
         </div>
 
-        <!-- Hospital / Clinic Name (Below Division & Location) -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="এলাকা / উপজেলা" data-en="Area / Upazila">এলাকা / উপজেলা</span> <span>*</span></label>
+            <select id="u-area" class="form-input" required disabled>
+              <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hospital / Clinic Name (dropdown; falls back to text input via "Other") -->
         <div class="form-group">
           <label class="form-label"><span class="lbl-txt" data-bn="হাসপাতাল / ক্লিনিকের নাম" data-en="Hospital / Clinic Name">হাসপাতাল / ক্লিনিকের নাম</span> <span>*</span></label>
           <div class="input-wrapper">
             <i class="fa-solid fa-hospital input-icon-left"></i>
-            <input type="text" id="u-hospital" class="form-input" data-bn="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" data-en="e.g. Dhaka Medical College Hospital" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required>
+            <select id="u-hospital" class="form-input" required disabled style="padding-left: 38px;">
+              <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
           </div>
+          <input type="text" id="u-hospital-other" class="form-input" data-bn="হাসপাতাল / ক্লিনিকের নাম টাইপ করুন" data-en="Type hospital / clinic name" placeholder="হাসপাতাল / ক্লিনিকের নাম টাইপ করুন" style="display: none; margin-top: 8px;">
         </div>
 
         <!-- Contact Phone & Urgency Row -->
@@ -446,9 +453,18 @@
       const bloodGroup = document.getElementById('u-blood-type').value;
       const unitsCount = document.getElementById('u-units').value;
       const reason = document.getElementById('u-reason').value;
-      const hospitalName = document.getElementById('u-hospital').value;
-      const division = document.getElementById('u-division').value;
-      const location = document.getElementById('u-location').value;
+      const hospitalSelect = document.getElementById('u-hospital');
+      let hospitalName = hospitalSelect.value;
+      if (hospitalName === '__other__') {
+        hospitalName = (document.getElementById('u-hospital-other').value || '').trim();
+      }
+      const divisionSel = document.getElementById('u-division');
+      const districtSel = document.getElementById('u-district');
+      const areaSel = document.getElementById('u-area');
+      const division = divisionSel.options[divisionSel.selectedIndex]?.text || divisionSel.value;
+      const district = districtSel.options[districtSel.selectedIndex]?.text || districtSel.value;
+      const area = areaSel.options[areaSel.selectedIndex]?.text || areaSel.value;
+      const location = [area, district].filter(Boolean).join(', ');
       const phone = document.getElementById('u-phone').value;
       const urgency = document.getElementById('u-urgency').value;
 
@@ -462,7 +478,9 @@
         reason,
         hospitalName,
         division,
-        district: location,
+        district,
+        area,
+        location,
         phone,
         urgency,
         publishedAt: '১০ আগস্ট ২০২৬'
@@ -553,7 +571,129 @@
 
     document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
     applyLanguage(getLang());
-  </script>
+  
+
+    // ---- Cascading Division → District → Area → Hospital ----
+    (function initCascade() {
+      const divSel = document.getElementById('u-division');
+      const disSel = document.getElementById('u-district');
+      const arSel  = document.getElementById('u-area');
+      const hoSel  = document.getElementById('u-hospital');
+      const hoOther = document.getElementById('u-hospital-other');
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [], HOSPITALS = {};
+
+      function setPlaceholder(sel, bn, en) {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.setAttribute('data-bn', bn);
+        opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillOptions(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.id != null ? String(item.id) : item.name;
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-divisions.json').then(r => r.json()),
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+          fetch('../assets/data/bd-hospitals.json').then(r => r.json()),
+        ]).then(([d, ds, up, h]) => {
+          DIVISIONS = d.divisions || d;
+          DISTRICTS = ds.districts || ds;
+          UPAZILAS  = up.upazilas || up;
+          HOSPITALS = h.hospitals || h;
+          DIVISIONS.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        });
+      }
+
+      function renderDivisions() {
+        setPlaceholder(divSel, '— বিভাগ নির্বাচন করুন —', '— Select Division —');
+        fillOptions(divSel, DIVISIONS);
+      }
+
+      divSel.addEventListener('change', () => {
+        setPlaceholder(disSel, '— জেলা নির্বাচন করুন —', '— Select District —');
+        setPlaceholder(arSel,  '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        setPlaceholder(hoSel,  '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        arSel.disabled = true; hoSel.disabled = true;
+        hoOther.style.display = 'none'; hoOther.value = ''; hoOther.required = false;
+        if (!divSel.value) { disSel.disabled = true; return; }
+        const districts = DISTRICTS.filter(d => String(d.division_id) === String(divSel.value))
+                                   .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(disSel, districts);
+        disSel.disabled = false;
+      });
+
+      disSel.addEventListener('change', () => {
+        setPlaceholder(arSel, '— এলাকা / উপজেলা নির্বাচন করুন —', '— Select Area / Upazila —');
+        setPlaceholder(hoSel, '— হাসপাতাল / ক্লিনিক নির্বাচন করুন —', '— Select Hospital / Clinic —');
+        hoOther.style.display = 'none'; hoOther.value = ''; hoOther.required = false;
+        if (!disSel.value) { arSel.disabled = true; hoSel.disabled = true; return; }
+        const areas = UPAZILAS.filter(u => String(u.district_id) === String(disSel.value))
+                              .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(arSel, areas);
+        arSel.disabled = false;
+
+        const hlist = (HOSPITALS[String(disSel.value)] || []).slice();
+        hlist.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillOptions(hoSel, hlist);
+        // Append "Other" option
+        const other = document.createElement('option');
+        other.value = '__other__';
+        other.setAttribute('data-bn', 'অন্যান্য (নিজে লিখুন)');
+        other.setAttribute('data-en', 'Other (type name)');
+        other.textContent = lang()==='bn' ? 'অন্যান্য (নিজে লিখুন)' : 'Other (type name)';
+        hoSel.appendChild(other);
+        hoSel.disabled = false;
+      });
+
+      hoSel.addEventListener('change', () => {
+        if (hoSel.value === '__other__') {
+          hoOther.style.display = 'block';
+          hoOther.required = true;
+          hoOther.focus();
+        } else {
+          hoOther.style.display = 'none';
+          hoOther.required = false;
+          hoOther.value = '';
+        }
+      });
+
+      // Re-render option text when language toggles
+      window.addEventListener('storage', (e) => { if (e.key === 'bondhu.lang') refreshLabels(); });
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      function refreshLabels() {
+        [divSel, disSel, arSel, hoSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang()==='bn' ? bn : en;
+          });
+        });
+        const oph = hoOther.getAttribute(lang()==='bn' ? 'data-bn' : 'data-en');
+        if (oph) hoOther.placeholder = oph;
+      }
+
+      loadData().then(renderDivisions).catch(err => console.error('Cascade load failed', err));
+    })();
+</script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>
