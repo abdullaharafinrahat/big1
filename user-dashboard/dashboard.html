@@ -226,7 +226,7 @@
     <nav>
       <a data-page="dashboard" href="dashboard.html"><span><i class="fa-solid fa-gauge w-4 text-center"></i></span>Dashboard</a>
       <a data-page="profile" href="profile.html"><span><i class="fa-solid fa-user w-4 text-center"></i></span>Profile</a>
-      <a data-page="user-blood-request" href="#user-blood-request-section" onclick="showUserBloodRequestTab()"><span><i class="fa-solid fa-droplet w-4 text-center"></i></span>User Blood Request</a>
+      <a data-page="user-blood-request" href="user-blood-request.html"><span><i class="fa-solid fa-droplet w-4 text-center"></i></span>User Blood Request</a>
       <a data-page="publish-home" href="#publish-home-section" onclick="showPublishHomeTab()"><span><i class="fa-solid fa-house-chimney-window w-4 text-center"></i></span>Publish Home for Rent</a>
       <a data-page="blood" href="../pages/request-blood.html"><span><i class="fa-solid fa-list-ul w-4 text-center"></i></span>Live Blood Feed</a>
       <a data-page="donors" href="../pages/donor-register.html"><span><i class="fa-solid fa-list-check w-4 text-center"></i></span>Donor List</a>
@@ -327,79 +327,6 @@
       </section>
     </div>
 
-    <!-- Tab 2: User Blood Request (Added as requested) -->
-    <div id="tab-user-blood-request" style="display: none;">
-      <section class="card">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
-          <div>
-            <span style="background: #fee2e2; color: #d32f2f; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 6px;">
-              <i class="fa-solid fa-droplet"></i> জরুরি রক্তের লাইভ ফিড
-            </span>
-            <h2 style="font-size: 18px; font-weight: 800; color: #d32f2f; margin-bottom: 2px;">জরুরি রক্তের প্রয়োজনীয়তা ও ডোনার পোর্টাল</h2>
-            <p style="font-size: 12px; color: #64748b;">মুহূর্তের মধ্যে রোগীর জন্য রক্তদাতা খুঁজে নিন অথবা সরাসরি রক্তদানে সাড়া দিন।</p>
-          </div>
-          <button onclick="hideUserBloodRequestTab()" class="btn soft" style="font-size: 11px;">&larr; Back</button>
-        </div>
-
-        <form id="dash-blood-request-form" onsubmit="handleDashBloodSubmit(event)">
-          <div class="form-grid">
-            <label>রোগীর নাম *<input id="db-patient" placeholder="যেমন: মো: করিম উদ্দিন" required="" type="text"/></label>
-            
-            <!-- Blood Type Dropdown Button -->
-            <label>রক্তের গ্রুপ *
-              <select id="db-blood-type" required="">
-                <option value="A+">A+ (Positive)</option>
-                <option value="A-">A- (Negative)</option>
-                <option value="B+">B+ (Positive)</option>
-                <option value="B-">B- (Negative)</option>
-                <option value="O+" selected="">O+ (Positive)</option>
-                <option value="O-">O- (Negative)</option>
-                <option value="AB+">AB+ (Positive)</option>
-                <option value="AB-">AB- (Negative)</option>
-              </select>
-            </label>
-
-            <label>রক্তের পরিমাণ (ব্যাগ) *<input id="db-units" min="1" max="10" type="number" value="1" required=""/></label>
-            
-            <label>জরুরিতা *
-              <select id="db-urgency" required="">
-                <option value="immediate">তাৎক্ষণিক</option>
-                <option value="urgent" selected="">জরুরি</option>
-                <option value="scheduled">পরিকল্পিত</option>
-              </select>
-            </label>
-
-            <label style="grid-column: 1 / -1;">প্রয়োজনের কারণ *
-              <input id="db-reason" placeholder="যেমন: ব্রেন সার্জারি / সিজার / থ্যালাসেমিয়া / দুর্ঘটনা" required="" type="text"/>
-            </label>
-            
-            <label>বিভাগ *
-              <select id="db-division" required="">
-                <option value="Dhaka">ঢাকা</option>
-                <option value="Chattogram">চট্টগ্রাম</option>
-                <option value="Rajshahi">রাজশাহী</option>
-                <option value="Khulna">খুলনা</option>
-                <option value="Sylhet">সিলেট</option>
-                <option value="Barishal">বরিশাল</option>
-                <option value="Rangpur">রংপুর</option>
-                <option value="Mymensingh">ময়মনসিংহ</option>
-              </select>
-            </label>
-
-            <label>জেলা ও উপজেলা *<input id="db-location" placeholder="যেমন: শাহবাগ, ঢাকা" required="" type="text"/></label>
-
-            <label style="grid-column: 1 / -1;">হাসপাতাল / ক্লিনিকের নাম *<input id="db-hospital" placeholder="যেমন: ঢাকা মেডিকেল কলেজ হাসপাতাল" required="" type="text"/></label>
-            
-            <label>যোগাযোগের মোবাইল নম্বর *<input id="db-phone" value="01712345678" required="" type="tel"/></label>
-          </div>
-
-          <button type="submit" class="btn primary" style="background: #d32f2f; width: 100%; padding: 12px; font-size: 14px; font-weight: 700; margin-top: 14px;">
-            <i class="fa-solid fa-paper-plane mr-1"></i> রক্তের অনুরোধ পোস্ট করুন
-          </button>
-        </form>
-      </section>
-    </div>
-
     <!-- Tab 3: Publish Home for Rent Panel -->
     <div id="tab-publish-home" style="display: none;">
       <section class="card">
@@ -464,30 +391,6 @@
   </main>
 </div>
 
-<!-- Blood Request Success Popup Modal -->
-<div class="modal-backdrop" id="blood-success-modal">
-  <div class="modal-card">
-    <div style="width: 56px; height: 56px; border-radius: 50%; background: #fee2e2; color: #d32f2f; font-size: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-      <i class="fa-solid fa-droplet"></i>
-    </div>
-    <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">রক্তের অনুরোধ সফলভাবে পোস্ট হয়েছে!</h3>
-    <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">নিকটস্থ রক্তদাতাদের সতর্কবার্তা পাঠানো হয়েছে এবং লাইভ ফিডে যুক্ত করা হয়েছে।</p>
-    
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left; font-size: 12px; margin-bottom: 18px; line-height: 1.6;">
-      <div>ট্র্যাকিং কোড: <strong style="color: #0b5a35;" id="db-pop-track-id">REQ-2026-08101</strong></div>
-      <div>রোগীর নাম: <strong id="db-pop-name">করিম উদ্দিন</strong></div>
-      <div>রক্তের গ্রুপ: <strong style="color: #d32f2f;" id="db-pop-blood">O+</strong></div>
-      <div>হাসপাতাল: <strong id="db-pop-hospital">ঢাকা মেডিকেল কলেজ হাসপাতাল</strong></div>
-      <div>স্ট্যাটাস: <span style="color: #16a34a; font-weight: 700;">Live Searching 🔴</span></div>
-    </div>
-
-    <div style="display: flex; gap: 8px;">
-      <button onclick="closeBloodModal()" class="btn primary" style="flex: 1;">ঠিক আছে</button>
-      <a href="../pages/request-blood.html" class="btn soft" style="flex: 1; text-align: center; text-decoration: none;">লাইভ ফিড দেখুন</a>
-    </div>
-  </div>
-</div>
-
 <!-- Home Publish Success Popup Modal -->
 <div class="modal-backdrop" id="publish-success-modal">
   <div class="modal-card">
@@ -517,23 +420,10 @@
 <script src="../js/pages/profile.page.js"></script>
 
 <script>
-  function showUserBloodRequestTab() {
-    document.getElementById('tab-profile-wizard').style.display = 'none';
-    document.getElementById('tab-publish-home').style.display = 'none';
-    document.getElementById('tab-user-blood-request').style.display = 'block';
-    document.querySelectorAll('#app-sidebar a').forEach(a => a.classList.remove('active'));
-    document.querySelector('#app-sidebar a[data-page="user-blood-request"]')?.classList.add('active');
-  }
 
-  function hideUserBloodRequestTab() {
-    document.getElementById('tab-user-blood-request').style.display = 'none';
-    document.getElementById('tab-profile-wizard').style.display = 'block';
-    document.querySelector('#app-sidebar a[data-page="dashboard"]')?.classList.add('active');
-  }
 
   function showPublishHomeTab() {
     document.getElementById('tab-profile-wizard').style.display = 'none';
-    document.getElementById('tab-user-blood-request').style.display = 'none';
     document.getElementById('tab-publish-home').style.display = 'block';
     document.querySelectorAll('#app-sidebar a').forEach(a => a.classList.remove('active'));
     document.querySelector('#app-sidebar a[data-page="publish-home"]')?.classList.add('active');
@@ -545,54 +435,7 @@
     document.querySelector('#app-sidebar a[data-page="dashboard"]')?.classList.add('active');
   }
 
-  function handleDashBloodSubmit(e) {
-    e.preventDefault();
-    const patientName = document.getElementById('db-patient').value;
-    const bloodGroup = document.getElementById('db-blood-type').value;
-    const unitsCount = document.getElementById('db-units').value;
-    const urgency = document.getElementById('db-urgency').value;
-    const reason = document.getElementById('db-reason').value;
-    const hospitalName = document.getElementById('db-hospital').value;
-    const division = document.getElementById('db-division').value;
-    const location = document.getElementById('db-location').value;
-    const phone = document.getElementById('db-phone').value;
 
-    const trackId = 'REQ-2026-' + Math.floor(1000 + Math.random() * 9000);
-
-    const requestObj = {
-      id: trackId,
-      patientName,
-      bloodGroup,
-      unitsCount,
-      reason,
-      hospitalName,
-      division,
-      district: location,
-      phone,
-      urgency,
-      publishedAt: '১০ আগস্ট ২০২৬'
-    };
-
-    // Save to userBloodRequests in localStorage
-    const list = JSON.parse(localStorage.getItem('bondhu.userBloodRequests') || '[]');
-    list.unshift(requestObj);
-    localStorage.setItem('bondhu.userBloodRequests', JSON.stringify(list));
-
-    // Fill Modal
-    document.getElementById('db-pop-track-id').textContent = trackId;
-    document.getElementById('db-pop-name').textContent = patientName;
-    document.getElementById('db-pop-blood').textContent = bloodGroup;
-    document.getElementById('db-pop-hospital').textContent = hospitalName;
-
-    // Show popup
-    document.getElementById('blood-success-modal').classList.add('active');
-    document.getElementById('dash-blood-request-form').reset();
-  }
-
-  function closeBloodModal() {
-    document.getElementById('blood-success-modal').classList.remove('active');
-    hideUserBloodRequestTab();
-  }
 
   // Handle Home Publish Submit
   function handlePublishHomeSubmit(e) {
@@ -648,9 +491,7 @@
 
   // Check URL parameter tab
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('tab') === 'blood-request' || window.location.hash === '#user-blood-request-section') {
-    showUserBloodRequestTab();
-  } else if (urlParams.get('tab') === 'publish-home' || window.location.hash === '#publish-home-section') {
+  if (urlParams.get('tab') === 'publish-home' || window.location.hash === '#publish-home-section') {
     showPublishHomeTab();
   }
 </script>
