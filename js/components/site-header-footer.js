@@ -11,7 +11,7 @@
   // --- Path Resolver based on directory depth ---
   function getPathPrefixes() {
     const path = window.location.pathname.replace(/\\/g, '/');
-    if (path.includes('/pages/admin/') || path.includes('/hospital/admin')) {
+    if (path.includes('/pages/admin/') || path.includes('/pages/foundation/') || path.includes('/hospital/admin')) {
       return { base: '../../', pages: '../', assets: '../../assets/', userDash: '../../user-dashboard/' };
     } else if (path.includes('/pages/') || path.includes('/hospital/')) {
       return { base: '../', pages: '', assets: '../assets/', userDash: '../user-dashboard/' };
