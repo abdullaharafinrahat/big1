@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Complete Profile | Bondhu.org</title>
+<title>Member Badge &amp; ID | Bondhu.org</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/><link href="../css/pages/app.css" rel="stylesheet"/>
 <style>
 
@@ -216,7 +216,7 @@
 <button class="active" data-lang="bn" type="button">BN</button>
 <button data-lang="en" type="button">EN</button>
 </div>
-<a class="login-btn" href="../pages/login.html">
+<a class="login-btn" href="login.html">
 <img alt="" src="../assets/images/service-icons/person-search.png"/>
 <span>Login</span>
 </a>
@@ -231,36 +231,30 @@
 <aside class="sidebar" id="app-sidebar"><button class="drawer-close" id="drawer-close" type="button">×</button><nav>
 <a data-page="dashboard" href="dashboard.html"><span><i class="fa-solid fa-gauge w-4 text-center"></i></span>Dashboard</a>
 <a data-page="profile" href="profile.html"><span><i class="fa-solid fa-user w-4 text-center"></i></span>Profile</a>
-<a data-page="blood" href="request-blood.html"><span><i class="fa-solid fa-droplet w-4 text-center"></i></span>Blood Request</a>
-<a data-page="donors" href="donor-register.html"><span><i class="fa-solid fa-list-check w-4 text-center"></i></span>Donor List</a>
-<a data-page="hospitals" href="hospitals.html"><span><i class="fa-solid fa-hospital w-4 text-center"></i></span>Hospitals</a>
-<a data-page="ambulance" href="ambulance.html"><span><i class="fa-solid fa-truck-medical w-4 text-center"></i></span>Ambulance</a>
-<a data-page="missing" href="missing-bureau.html"><span><i class="fa-solid fa-person-circle-question w-4 text-center"></i></span>Missing Bureau</a>
-<a data-page="news" href="news.html"><span><i class="fa-solid fa-newspaper w-4 text-center"></i></span>News &amp; Notices</a>
-<a data-page="pharmacy" href="medicine-info.html"><span><i class="fa-solid fa-pills w-4 text-center"></i></span>Pharmacy</a>
-<a data-page="foundation" href="foundations.html"><span><i class="fa-solid fa-building-columns w-4 text-center"></i></span>Foundation</a>
+<a data-page="blood" href="../pages/request-blood.html"><span><i class="fa-solid fa-droplet w-4 text-center"></i></span>Blood Request</a>
+<a data-page="donors" href="../pages/donor-register.html"><span><i class="fa-solid fa-list-check w-4 text-center"></i></span>Donor List</a>
+<a data-page="hospitals" href="../pages/hospitals.html"><span><i class="fa-solid fa-hospital w-4 text-center"></i></span>Hospitals</a>
+<a data-page="ambulance" href="../pages/ambulance.html"><span><i class="fa-solid fa-truck-medical w-4 text-center"></i></span>Ambulance</a>
+<a data-page="missing" href="../pages/missing-bureau.html"><span><i class="fa-solid fa-person-circle-question w-4 text-center"></i></span>Missing Bureau</a>
+<a data-page="news" href="../pages/news.html"><span><i class="fa-solid fa-newspaper w-4 text-center"></i></span>News &amp; Notices</a>
+<a data-page="pharmacy" href="../pages/medicine-info.html"><span><i class="fa-solid fa-pills w-4 text-center"></i></span>Pharmacy</a>
+<a data-page="foundation" href="../pages/foundations.html"><span><i class="fa-solid fa-building-columns w-4 text-center"></i></span>Foundation</a>
 <a data-page="messages" href="messages.html"><span><i class="fa-solid fa-envelope w-4 text-center"></i></span>Messages<b class="badge">3</b></a>
 <a data-page="badges" href="member-card.html"><span><i class="fa-solid fa-id-card w-4 text-center"></i></span>Badges &amp; ID</a>
-<a data-page="support" href="helpline.html"><span><i class="fa-solid fa-headset w-4 text-center"></i></span>Support</a>
+<a data-page="support" href="../pages/helpline.html"><span><i class="fa-solid fa-headset w-4 text-center"></i></span>Support</a>
 <div class="sidebar-divider"></div>
 <button id="logout-btn" type="button">↪ Logout</button>
 </nav></aside>
 <div class="drawer-backdrop hidden" id="drawer-backdrop"></div>
 <main class="app-main">
-<section class="page-title"><div><h1>Complete Profile</h1><p>Fill up your information and submit it for verification.</p></div><a class="soft-link" href="dashboard.html">Back to Dashboard</a></section>
-<section class="card"><div class="step-progress" id="step-progress"></div><form id="profile-wizard" novalidate=""><div class="wizard-panels">
-<section class="wizard-panel" data-step="0"><h2>Personal Information</h2><div class="upload-box" id="photo-box"><span>📷</span></div><input accept="image/*" hidden="" id="photo-input" type="file"/><div class="form-grid"><label>Full Name *<input name="fullName" required="" value="MD. Shariful Islam"/></label><label>Father's Name<input name="fatherName" value="MD. Abdul Karim"/></label><label>Mother's Name<input name="motherName" value="Mst. Shahana Begum"/></label><label>Date of Birth *<input name="dateOfBirth" required="" type="date" value="1995-05-15"/></label><label>Gender *<select name="gender" required=""><option>Male</option><option>Female</option><option>Other</option></select></label><label>Mobile Number *<input name="primaryMobile" required="" value="01712345678"/></label></div></section>
-<section class="wizard-panel" data-step="1"><h2>Address</h2><div class="radio-row"><label><input checked="" name="locationType" type="radio" value="bd"/> Bangladesh</label><label><input name="locationType" type="radio" value="international"/> International</label></div><div class="form-grid three" id="bd-address"><label>Division *<input name="presentDivision" value="Dhaka"/></label><label>District *<input name="presentDistrict" value="Dhaka"/></label><label>Upazila *<input name="presentUpazila" value="Dhamrai"/></label><label>Union / Thana *<input name="presentUnion" value="Sutarpara"/></label><label>Ward<input name="presentWard" value="05"/></label><label>Village / Area<input name="presentArea" value="Sutarpara Bazar"/></label></div><div class="form-grid hidden" id="intl-address"><label>Country *<input name="country" value="United States"/></label><label>State / Province *<input name="state" value="California"/></label><label>City *<input name="city" value="Los Angeles"/></label><label>Zip / Postal Code *<input name="zip" value="90001"/></label><label style="grid-column:1/-1">Address Line 1 *<input name="addressLine" value="123 Main Street"/></label></div><label class="check-row"><input checked="" name="sameAsPermanent" type="checkbox"/> Same as Permanent Address?</label></section>
-<section class="wizard-panel" data-step="2"><h2>Occupation &amp; Institution</h2><div class="form-grid"><label>Occupation *<select name="occupation" required=""><option>Service Holder</option><option>Student</option><option>Business</option><option>Doctor</option><option>Engineer</option><option>Other</option></select></label><label>Profession / Skill<input name="profession" value="Software Developer"/></label><label>Organization Type<select name="orgType"><option>Private Company</option><option>Government</option><option>NGO</option><option>Educational Institute</option></select></label><label>Organization Name<input name="orgName" value="Tech Solutions Ltd."/></label><label>Designation<input name="designation" value="Senior Developer"/></label><label>Workplace Address<input name="workplace" value="Dhaka, Bangladesh"/></label></div><label class="check-row"><input checked="" name="volunteer" type="checkbox"/> I am a Volunteer</label></section>
-<section class="wizard-panel" data-step="3"><h2>Identity &amp; Blood Group</h2><div class="form-grid"><label>National ID Number<input name="identityNumber" required="" value="1234567890123"/></label><label>Passport Number<input name="passport" value="A12345678"/></label><label>Blood Group *<select name="bloodGroup" required=""><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select></label><label>Last Donation Date<input name="lastDonationDate" type="date" value="2025-02-10"/></label><label>Emergency Contact Name<input name="emergencyName" required="" value="MD. Abdul Karim"/></label><label>Emergency Contact Number<input name="emergencyMobile" required="" value="01712000000"/></label></div></section>
-<section class="wizard-panel" data-step="4"><h2>Review &amp; Submit</h2><p>Please review your information before submitting.</p><div class="review-list" id="review-list"></div><label class="check-row"><input name="confirm" required="" type="checkbox"/> I confirm that all information is correct</label></section>
-</div><div class="button-row"><button class="btn soft" id="prev-step" type="button">← Back</button><button class="btn primary" id="next-step" type="button">Next →</button><button class="btn primary hidden" id="submit-profile" type="submit">Submit for Verification</button></div></form></section>
+<section class="page-title"><div><h1>Verified Artifacts &amp; Badges</h1><p>Digital identity assets generated after verification.</p></div><button class="btn soft" id="print-artifacts">Print / Save PDF</button></section>
+<section class="grid grid-4"><article class="card badge-card"><p class="pill verified">Verified Badge</p><div class="member-photo" id="badge-initials">MS<span class="verify-dot">✓</span></div><h2 class="member-name">MD. Shariful Islam</h2><p>Blood Group: <strong class="blood-group" style="color:var(--red)">O+</strong></p><p>Member ID: <strong class="member-id">BON00012345</strong></p><button class="btn primary copy-share">Copy Share Text</button></article><article class="card"><p class="pill verified">Digital ID Card</p><div class="id-card-preview"><h3>Bondhu.org</h3><div style="display:flex;gap:12px;align-items:center"><div class="member-photo" id="id-initials" style="width:54px;height:54px">MS</div><div><strong class="member-name">MD. Shariful Islam</strong><p>ID: <span class="member-id">BON00012345</span></p><p>Blood: <span class="blood-group">O+</span></p></div></div><p style="border-top:1px solid var(--border);padding-top:8px;margin-top:8px">Together We Save Lives · QR</p></div></article><article class="card"><p class="pill verified">Certificate</p><div class="certificate-preview"><h3>🏅 Bondhu.org</h3><p>Certificate of Membership</p><p>This certifies that</p><h2 class="member-name">MD. Shariful Islam</h2><p>is a verified member of Bondhu.org.</p><p>Date: <span id="cert-date"></span></p></div></article><article class="card"><p class="pill verified">Social Share Card</p><div class="share-card-preview"><p>I am a Verified Member of</p><h2>Bondhu.org</h2><div class="member-photo" id="share-initials">MS</div><h3 class="member-name">MD. Shariful Islam</h3><p>I am a Blood Donor. Are You?</p><p style="color:var(--red)">#DonateBlood #SaveLife #BondhuOrg</p></div></article></section>
 </main>
 </div>
 
 <div class="toast-region" id="toast-region"></div>
 <script src="../js/pages/app-shell.js"></script>
-<script src="../js/pages/profile.page.js"></script>
+<script src="../js/pages/member-card.page.js"></script>
 
 <!-- FOOTER -->
 <footer>

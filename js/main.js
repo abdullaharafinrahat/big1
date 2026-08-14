@@ -3,7 +3,7 @@ import { initHeroCarousel } from './components/hero-carousel.js';
 import { getLanguage, setLanguage, translatePage } from './utils/i18n.js';
 
 const page = document.documentElement.dataset.page;
-const base = location.pathname.includes('/pages/admin/') ? '../../' : location.pathname.includes('/pages/') ? '../' : './';
+const base = location.pathname.includes('/pages/admin/') ? '../../' : (location.pathname.includes('/pages/') || location.pathname.includes('/user-dashboard/')) ? '../' : './';
 const lang = getLanguage() === 'en' ? 'en' : 'bn';
 
 const labels = {
@@ -36,7 +36,7 @@ if (header) {
           <button class="${lang === 'bn' ? 'active' : ''}" data-lang="bn" type="button">BN</button>
           <button class="${lang === 'en' ? 'active' : ''}" data-lang="en" type="button">EN</button>
         </div>
-        <a class="login-btn" href="${base}pages/login.html">
+        <a class="login-btn" href="${base}user-dashboard/login.html">
           <img alt="" src="${base}assets/images/service-icons/person-search.png">
           <span>${labels.login}</span>
         </a>

@@ -12,11 +12,13 @@
   function getPathPrefixes() {
     const path = window.location.pathname.replace(/\\/g, '/');
     if (path.includes('/pages/admin/') || path.includes('/hospital/admin')) {
-      return { base: '../../', pages: '../', assets: '../../assets/' };
+      return { base: '../../', pages: '../', assets: '../../assets/', userDash: '../../user-dashboard/' };
     } else if (path.includes('/pages/') || path.includes('/hospital/')) {
-      return { base: '../', pages: '', assets: '../assets/' };
+      return { base: '../', pages: '', assets: '../assets/', userDash: '../user-dashboard/' };
+    } else if (path.includes('/user-dashboard/')) {
+      return { base: '../', pages: '../pages/', assets: '../assets/', userDash: '' };
     } else {
-      return { base: './', pages: 'pages/', assets: 'assets/' };
+      return { base: './', pages: 'pages/', assets: 'assets/', userDash: 'user-dashboard/' };
     }
   }
 
@@ -120,7 +122,7 @@
 
   // --- Header & Footer HTML Generators ---
   function getHeaderHtml() {
-    const { base, pages, assets } = getPathPrefixes();
+    const { base, pages, assets, userDash } = getPathPrefixes();
     const showHamburger = isDashboardPage();
     const hamburgerBtnHtml = showHamburger ? `
       <button class="hamburger-btn drawer-toggle" id="drawer-toggle" type="button" aria-label="Toggle Dashboard Menu" title="Menu">
@@ -146,7 +148,7 @@
           <button class="active" data-lang="bn" type="button">BN</button>
           <button data-lang="en" type="button">EN</button>
         </div>
-        <a class="login-btn" href="${pages}login.html">
+        <a class="login-btn" href="${userDash}login.html">
           <img alt="" src="${assets}images/service-icons/person-search.png"/>
           <span data-bn="Login" data-en="Login">Login</span>
         </a>
