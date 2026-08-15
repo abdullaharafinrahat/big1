@@ -1057,7 +1057,7 @@
 <!-- Grid -->
         <div class="grid-container" id="amb-grid">
           <!-- Ambulance 1 -->
-          <div class="ambulance-card" data-district="Dhaka" data-type="ICU" data-name="Bondhu ICU Ambulance" data-division="Dhaka" data-upazila="Mirpur" data-hospital="Bondhu General Hospital">
+          <div class="ambulance-card" data-district="ঢাকা Dhaka" data-type="ICU" data-name="Bondhu ICU Ambulance" data-division="Dhaka" data-upazila="মিরপুর Mirpur" data-hospital="Bondhu General Hospital">
             <div class="card-banner">
               <img src="../assets/images/hospital/ambulance-1.png" alt="Ambulance">
               <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
@@ -1077,7 +1077,7 @@
           </div>
 
           <!-- Ambulance 2 -->
-          <div class="ambulance-card" data-district="Dhaka" data-type="AC" data-name="City Care Emergency Ambulance" data-division="Dhaka" data-upazila="Panthapath" data-hospital="Square Hospital">
+          <div class="ambulance-card" data-district="ঢাকা Dhaka" data-type="AC" data-name="City Care Emergency Ambulance" data-division="Dhaka" data-upazila="Panthapath পান্থপথ" data-hospital="Square Hospital">
             <div class="card-banner">
               <img src="../assets/images/hospital/ambulance-2.png" alt="Ambulance">
               <span class="status-badge onduty"><i class="fa-solid fa-clock"></i> On Duty</span>
@@ -1097,7 +1097,7 @@
           </div>
 
           <!-- Ambulance 3 -->
-          <div class="ambulance-card" data-district="Chattogram" data-type="ICU" data-name="Chattogram Medical Ambulance" data-division="Chattogram" data-upazila="Panchlaish" data-hospital="Chattogram Medical College">
+          <div class="ambulance-card" data-district="চট্টগ্রাম Chattogram" data-type="ICU" data-name="Chattogram Medical Ambulance" data-division="Chattogram" data-upazila="Panchlaish পাঁচলাইশ" data-hospital="Chattogram Medical College">
             <div class="card-banner">
               <img src="../assets/images/hospital/ambulance-exterior.png" alt="Ambulance">
               <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
@@ -1306,27 +1306,23 @@
             <label class="filter-modal-label" data-bn="বিভাগ (Division)" data-en="Division">বিভাগ</label>
             <select id="amb-pop-filter-division" class="filter-modal-select">
               <option value="all" data-bn="সকল বিভাগ" data-en="All Divisions">সকল বিভাগ</option>
-              <option value="Dhaka" data-bn="ঢাকা" data-en="Dhaka">ঢাকা</option>
-              <option value="Chattogram" data-bn="চট্টগ্রাম" data-en="Chattogram">চট্টগ্রাম</option>
-              <option value="Rajshahi" data-bn="রাজশাহী" data-en="Rajshahi">রাজশাহী</option>
-              <option value="Khulna" data-bn="খুলনা" data-en="Khulna">খুলনা</option>
-              <option value="Sylhet" data-bn="সিলেট" data-en="Sylhet">সিলেট</option>
-              <option value="Barishal" data-bn="বরিশাল" data-en="Barishal">বরিশাল</option>
-              <option value="Rangpur" data-bn="রংপুর" data-en="Rangpur">রংপুর</option>
-              <option value="Mymensingh" data-bn="ময়মনসিংহ" data-en="Mymensingh">ময়মনসিংহ</option>
             </select>
           </div>
 
           <div class="filter-group">
             <label class="filter-modal-label" data-bn="জেলা (District)" data-en="District">জেলা</label>
-            <input type="text" id="amb-pop-filter-district" placeholder="যেমন: ঢাকা, চট্টগ্রাম" class="filter-modal-input">
+            <select id="amb-pop-filter-district" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে বিভাগ নির্বাচন করুন —" data-en="— Select Division First —">— আগে বিভাগ নির্বাচন করুন —</option>
+            </select>
           </div>
         </div>
 
         <div class="filter-grid-2col">
           <div class="filter-group">
             <label class="filter-modal-label" data-bn="উপজেলা / এলাকা (Upazila / Area)" data-en="Upazila / Area">উপজেলা / এলাকা</label>
-            <input type="text" id="amb-pop-filter-upazila" placeholder="যেমন: মিরপুর, পাঁচলাইশ" class="filter-modal-input">
+            <select id="amb-pop-filter-upazila" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
           </div>
 
           <div class="filter-group">
@@ -1371,9 +1367,9 @@
     function resetAmbFilters() {
       selectedAmbType = 'all';
       selectAmbTypePill('all');
-      document.getElementById('amb-pop-filter-division').value = 'all';
-      document.getElementById('amb-pop-filter-district').value = '';
-      document.getElementById('amb-pop-filter-upazila').value = '';
+      const df = document.getElementById('amb-pop-filter-division');
+      df.value = 'all';
+      df.dispatchEvent(new Event('change'));
       document.getElementById('amb-pop-filter-hospital').value = '';
       kwInput().value = '';
       applyAmbFilters();
@@ -1387,8 +1383,10 @@
     function applyAmbFilters() {
       const q = (kwInput().value || '').toLowerCase().trim();
       const div = document.getElementById('amb-pop-filter-division').value;
-      const dist = (document.getElementById('amb-pop-filter-district').value || '').toLowerCase().trim();
-      const upazila = (document.getElementById('amb-pop-filter-upazila').value || '').toLowerCase().trim();
+      const distSel = document.getElementById('amb-pop-filter-district');
+      const upaSel = document.getElementById('amb-pop-filter-upazila');
+      const distRaw = distSel.value; const dist = (distRaw === 'all' ? '' : distRaw).toLowerCase().trim();
+      const upaRaw = upaSel.value;  const upazila = (upaRaw === 'all' ? '' : upaRaw).toLowerCase().trim();
       const hosp = (document.getElementById('amb-pop-filter-hospital').value || '').toLowerCase().trim();
       const type = selectedAmbType;
 
@@ -1439,10 +1437,10 @@
         html += `<span class="filter-chip">${lang==='bn'?'বিভাগ:':'Div:'} ${div} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-division').value='all'; applyAmbFilters();">&times;</span></span>`;
       }
       if (dist) {
-        html += `<span class="filter-chip">${lang==='bn'?'জেলা:':'Dist:'} ${dist} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-district').value=''; applyAmbFilters();">&times;</span></span>`;
+        html += `<span class="filter-chip">${lang==='bn'?'জেলা:':'Dist:'} ${dist} <span class="chip-remove" onclick="const s=document.getElementById('amb-pop-filter-district'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       }
       if (upazila) {
-        html += `<span class="filter-chip">${lang==='bn'?'উপজেলা:':'Area:'} ${upazila} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-upazila').value=''; applyAmbFilters();">&times;</span></span>`;
+        html += `<span class="filter-chip">${lang==='bn'?'উপজেলা:':'Area:'} ${upazila} <span class="chip-remove" onclick="const s=document.getElementById('amb-pop-filter-upazila'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       }
       if (hosp) {
         html += `<span class="filter-chip">${lang==='bn'?'হাসপাতাল:':'Hosp:'} ${hosp} <span class="chip-remove" onclick="document.getElementById('amb-pop-filter-hospital').value=''; applyAmbFilters();">&times;</span></span>`;
@@ -1706,6 +1704,119 @@
       bookForm().reset();
       return false;
     }
+
+
+    // ---- Cascading address dropdowns in filter modal (amb-pop-filter-) ----
+    (function initFilterAddressCascade() {
+      const divSel = document.getElementById('amb-pop-filter-division');
+      const disSel = document.getElementById('amb-pop-filter-district');
+      const arSel  = document.getElementById('amb-pop-filter-upazila');
+      if (!divSel || !disSel || !arSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [];
+
+      function setPh(sel, bn, en, val='all') {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillObjs(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          // value = the current-language name (used for matching against dual-language data-attrs)
+          opt.value = label(item);
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-divisions.json').then(r => r.json()),
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+        ]).then(([d, ds, up]) => {
+          DIVISIONS = d.divisions || d;
+          DISTRICTS = ds.districts || ds;
+          UPAZILAS  = up.upazilas || up;
+          DIVISIONS.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        });
+      }
+
+      function renderDivisions() {
+        setPh(divSel, 'সকল বিভাগ', 'All Divisions');
+        fillObjs(divSel, DIVISIONS);
+      }
+
+      divSel.addEventListener('change', () => {
+        setPh(disSel, 'সকল জেলা', 'All Districts');
+        setPh(arSel,  'সকল উপজেলা', 'All Upazilas');
+        disSel.disabled = false; arSel.disabled = true;
+        if (!divSel.value || divSel.value === 'all') {
+          disSel.disabled = true;
+          applyAmbFilters();
+          return;
+        }
+        // Find division id whose current-lang label matches divSel.value
+        const chosenDiv = DIVISIONS.find(d => label(d) === divSel.value);
+        if (chosenDiv) {
+          const districts = DISTRICTS.filter(d => String(d.division_id) === String(chosenDiv.id))
+                                     .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+          fillObjs(disSel, districts);
+        }
+        applyAmbFilters();
+      });
+
+      disSel.addEventListener('change', () => {
+        setPh(arSel, 'সকল উপজেলা', 'All Upazilas');
+        arSel.disabled = false;
+        if (!disSel.value || disSel.value === 'all') {
+          arSel.disabled = true;
+          applyAmbFilters();
+          return;
+        }
+        const chosenDis = DISTRICTS.find(d => label(d) === disSel.value);
+        if (chosenDis) {
+          const areas = UPAZILAS.filter(u => String(u.district_id) === String(chosenDis.id))
+                                .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+          fillObjs(arSel, areas);
+        }
+        applyAmbFilters();
+      });
+
+      arSel.addEventListener('change', () => applyAmbFilters());
+
+      // Re-render labels on language switch
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      function refreshLabels() {
+        [divSel, disSel, arSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+          });
+          // Update the value of the currently selected option to match new language
+          if (sel.selectedIndex >= 0) {
+            const cur = sel.options[sel.selectedIndex];
+            if (cur.getAttribute('data-bn') && cur.getAttribute('data-en')) {
+              cur.value = cur.textContent;
+            }
+          }
+        });
+      }
+
+      loadData().then(renderDivisions).catch(err => console.error('Filter cascade load failed', err));
+    })();
 
 </script>
 

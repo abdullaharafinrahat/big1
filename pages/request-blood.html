@@ -792,7 +792,7 @@
     <div class="requests-grid" id="requests-cards-container">
 
       <!-- Card 1: Karim Uddin -->
-      <article class="req-card" data-blood="B+" data-division="Dhaka" data-district="ঢাকা" data-upazila="শাহবাগ" data-hospital="ঢাকা মেডিকেল কলেজ হাসপাতাল" data-name-bn="করিম উদ্দিন" data-name-en="Karim Uddin" data-req-id="REQ-2026-08101">
+      <article class="req-card" data-blood="B+" data-division="Dhaka" data-district="ঢাকা Dhaka" data-upazila="শাহবাগ Shahbag" data-hospital="ঢাকা মেডিকেল কলেজ হাসপাতাল" data-name-bn="করিম উদ্দিন" data-name-en="Karim Uddin" data-req-id="REQ-2026-08101">
         <div>
           <div class="card-header-row">
             <div class="patient-info">
@@ -843,7 +843,7 @@
       </article>
 
       <!-- Card 2: Fatima Begum -->
-      <article class="req-card" data-blood="O+" data-division="Dhaka" data-district="ঢাকা" data-upazila="পান্থপথ" data-hospital="স্কয়ার হাসপাতাল" data-name-bn="ফাতিমা বেগম" data-name-en="Fatima Begum" data-req-id="REQ-2026-08102">
+      <article class="req-card" data-blood="O+" data-division="Dhaka" data-district="ঢাকা Dhaka" data-upazila="পান্থপথ Panthapath" data-hospital="স্কয়ার হাসপাতাল" data-name-bn="ফাতিমা বেগম" data-name-en="Fatima Begum" data-req-id="REQ-2026-08102">
         <div>
           <div class="card-header-row">
             <div class="patient-info">
@@ -894,7 +894,7 @@
       </article>
 
       <!-- Card 3: Tanvir Ahmed -->
-      <article class="req-card" data-blood="AB-" data-division="Chattogram" data-district="চট্টগ্রাম" data-upazila="পাঁচলাইশ" data-hospital="চট্টগ্রাম মেডিকেল কলেজ হাসপাতাল" data-name-bn="তানভীর আহমেদ" data-name-en="Tanvir Ahmed" data-req-id="REQ-2026-08103">
+      <article class="req-card" data-blood="AB-" data-division="Chattogram" data-district="চট্টগ্রাম Chattogram" data-upazila="পাঁচলাইশ Panchlaish" data-hospital="চট্টগ্রাম মেডিকেল কলেজ হাসপাতাল" data-name-bn="তানভীর আহমেদ" data-name-en="Tanvir Ahmed" data-req-id="REQ-2026-08103">
         <div>
           <div class="card-header-row">
             <div class="patient-info">
@@ -945,7 +945,7 @@
       </article>
 
       <!-- Card 4: Saima Akter -->
-      <article class="req-card" data-blood="A+" data-division="Dhaka" data-district="ঢাকা" data-upazila="ধানমন্ডি" data-hospital="ইবনে সিনা স্পেশালাইজড হাসপাতাল" data-name-bn="সায়মা আক্তার" data-name-en="Saima Akter" data-req-id="REQ-2026-08104">
+      <article class="req-card" data-blood="A+" data-division="Dhaka" data-district="ঢাকা Dhaka" data-upazila="ধানমন্ডি Dhanmondi" data-hospital="ইবনে সিনা স্পেশালাইজড হাসপাতাল" data-name-bn="সায়মা আক্তার" data-name-en="Saima Akter" data-req-id="REQ-2026-08104">
         <div>
           <div class="card-header-row">
             <div class="patient-info">
@@ -1036,21 +1036,15 @@
             <label class="filter-modal-label" data-bn="বিভাগ (Division)" data-en="Division">বিভাগ</label>
             <select id="pop-filter-division" class="filter-modal-select">
               <option value="all" data-bn="সকল বিভাগ" data-en="All Divisions">সকল বিভাগ</option>
-              <option value="Dhaka" data-bn="ঢাকা" data-en="Dhaka">ঢাকা</option>
-              <option value="Chattogram" data-bn="চট্টগ্রাম" data-en="Chattogram">চট্টগ্রাম</option>
-              <option value="Rajshahi" data-bn="রাজশাহী" data-en="Rajshahi">রাজশাহী</option>
-              <option value="Khulna" data-bn="খুলনা" data-en="Khulna">খুলনা</option>
-              <option value="Sylhet" data-bn="সিলেট" data-en="Sylhet">সিলেট</option>
-              <option value="Barishal" data-bn="বরিশাল" data-en="Barishal">বরিশাল</option>
-              <option value="Rangpur" data-bn="রংপুর" data-en="Rangpur">রংপুর</option>
-              <option value="Mymensingh" data-bn="ময়মনসিংহ" data-en="Mymensingh">ময়মনসিংহ</option>
             </select>
           </div>
 
           <!-- District -->
           <div class="filter-group">
             <label class="filter-modal-label" data-bn="জেলা (District)" data-en="District">জেলা</label>
-            <input type="text" id="pop-filter-district" placeholder="যেমন: ঢাকা, চট্টগ্রাম" class="filter-modal-input">
+            <select id="pop-filter-district" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে বিভাগ নির্বাচন করুন —" data-en="— Select Division First —">— আগে বিভাগ নির্বাচন করুন —</option>
+            </select>
           </div>
         </div>
 
@@ -1058,7 +1052,9 @@
           <!-- Upazila / Area -->
           <div class="filter-group">
             <label class="filter-modal-label" data-bn="উপজেলা / এলাকা (Upazila / Area)" data-en="Upazila / Area">উপজেলা / এলাকা</label>
-            <input type="text" id="pop-filter-upazila" placeholder="যেমন: শাহবাগ, ধানমন্ডি" class="filter-modal-input">
+            <select id="pop-filter-upazila" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
           </div>
 
           <!-- Hospital -->
@@ -1246,9 +1242,9 @@
     function resetBloodFilters() {
       selectedBloodGroup = 'all';
       selectBloodPill('all');
-      document.getElementById('pop-filter-division').value = 'all';
-      document.getElementById('pop-filter-district').value = '';
-      document.getElementById('pop-filter-upazila').value = '';
+      const df = document.getElementById('pop-filter-division');
+      df.value = 'all';
+      df.dispatchEvent(new Event('change'));
       document.getElementById('pop-filter-hospital').value = '';
       document.getElementById('req-search-keyword').value = '';
       applyBloodFilters();
@@ -1264,8 +1260,10 @@
     function applyBloodFilters() {
       const q = (document.getElementById('req-search-keyword').value || '').toLowerCase().trim();
       const div = document.getElementById('pop-filter-division').value;
-      const dist = (document.getElementById('pop-filter-district').value || '').toLowerCase().trim();
-      const upazila = (document.getElementById('pop-filter-upazila').value || '').toLowerCase().trim();
+      const distSel = document.getElementById('pop-filter-district');
+      const upaSel = document.getElementById('pop-filter-upazila');
+      const distRaw = distSel.value; const dist = (distRaw === 'all' ? '' : distRaw).toLowerCase().trim();
+      const upaRaw = upaSel.value;  const upazila = (upaRaw === 'all' ? '' : upaRaw).toLowerCase().trim();
       const hosp = (document.getElementById('pop-filter-hospital').value || '').toLowerCase().trim();
       const blood = selectedBloodGroup;
 
@@ -1328,10 +1326,10 @@
         chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'বিভাগ:' : 'Div:'} ${div} <span class="chip-remove" onclick="document.getElementById('pop-filter-division').value='all'; applyBloodFilters();">&times;</span></span>`;
       }
       if (dist) {
-        chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'জেলা:' : 'Dist:'} ${dist} <span class="chip-remove" onclick="document.getElementById('pop-filter-district').value=''; applyBloodFilters();">&times;</span></span>`;
+        chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'জেলা:' : 'Dist:'} ${dist} <span class="chip-remove" onclick="const s=document.getElementById('pop-filter-district'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       }
       if (upazila) {
-        chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'উপজেলা:' : 'Area:'} ${upazila} <span class="chip-remove" onclick="document.getElementById('pop-filter-upazila').value=''; applyBloodFilters();">&times;</span></span>`;
+        chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'উপজেলা:' : 'Area:'} ${upazila} <span class="chip-remove" onclick="const s=document.getElementById('pop-filter-upazila'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       }
       if (hosp) {
         chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'হাসপাতাল:' : 'Hosp:'} ${hosp} <span class="chip-remove" onclick="document.getElementById('pop-filter-hospital').value=''; applyBloodFilters();">&times;</span></span>`;
@@ -1629,6 +1627,119 @@
 
     document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
     applyLanguage(getLang());
+  
+    // ---- Cascading address dropdowns in filter modal (pop-filter-) ----
+    (function initFilterAddressCascade() {
+      const divSel = document.getElementById('pop-filter-division');
+      const disSel = document.getElementById('pop-filter-district');
+      const arSel  = document.getElementById('pop-filter-upazila');
+      if (!divSel || !disSel || !arSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [];
+
+      function setPh(sel, bn, en, val='all') {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillObjs(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          // value = the current-language name (used for matching against dual-language data-attrs)
+          opt.value = label(item);
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-divisions.json').then(r => r.json()),
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+        ]).then(([d, ds, up]) => {
+          DIVISIONS = d.divisions || d;
+          DISTRICTS = ds.districts || ds;
+          UPAZILAS  = up.upazilas || up;
+          DIVISIONS.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        });
+      }
+
+      function renderDivisions() {
+        setPh(divSel, 'সকল বিভাগ', 'All Divisions');
+        fillObjs(divSel, DIVISIONS);
+      }
+
+      divSel.addEventListener('change', () => {
+        setPh(disSel, 'সকল জেলা', 'All Districts');
+        setPh(arSel,  'সকল উপজেলা', 'All Upazilas');
+        disSel.disabled = false; arSel.disabled = true;
+        if (!divSel.value || divSel.value === 'all') {
+          disSel.disabled = true;
+          applyBloodFilters();
+          return;
+        }
+        // Find division id whose current-lang label matches divSel.value
+        const chosenDiv = DIVISIONS.find(d => label(d) === divSel.value);
+        if (chosenDiv) {
+          const districts = DISTRICTS.filter(d => String(d.division_id) === String(chosenDiv.id))
+                                     .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+          fillObjs(disSel, districts);
+        }
+        applyBloodFilters();
+      });
+
+      disSel.addEventListener('change', () => {
+        setPh(arSel, 'সকল উপজেলা', 'All Upazilas');
+        arSel.disabled = false;
+        if (!disSel.value || disSel.value === 'all') {
+          arSel.disabled = true;
+          applyBloodFilters();
+          return;
+        }
+        const chosenDis = DISTRICTS.find(d => label(d) === disSel.value);
+        if (chosenDis) {
+          const areas = UPAZILAS.filter(u => String(u.district_id) === String(chosenDis.id))
+                                .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+          fillObjs(arSel, areas);
+        }
+        applyBloodFilters();
+      });
+
+      arSel.addEventListener('change', () => applyBloodFilters());
+
+      // Re-render labels on language switch
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      function refreshLabels() {
+        [divSel, disSel, arSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+          });
+          // Update the value of the currently selected option to match new language
+          if (sel.selectedIndex >= 0) {
+            const cur = sel.options[sel.selectedIndex];
+            if (cur.getAttribute('data-bn') && cur.getAttribute('data-en')) {
+              cur.value = cur.textContent;
+            }
+          }
+        });
+      }
+
+      loadData().then(renderDivisions).catch(err => console.error('Filter cascade load failed', err));
+    })();
+
   </script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
