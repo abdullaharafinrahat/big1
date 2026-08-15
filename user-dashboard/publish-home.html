@@ -250,6 +250,32 @@
           </div>
         </div>
 
+        <!-- Ward No. + Village (cascading from District) -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="ওয়ার্ড নম্বর" data-en="Ward No.">ওয়ার্ড নম্বর</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-hashtag input-icon-left"></i>
+              <select id="h-ward" class="form-input" disabled>
+                <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+              </select>
+            </div>
+            <input type="text" id="h-ward-other" class="form-input" data-bn="ওয়ার্ড নম্বর টাইপ করুন" data-en="Type ward number" placeholder="ওয়ার্ড নম্বর টাইপ করুন" style="display: none; margin-top: 8px;">
+          </div>
+
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label"><span class="lbl-txt" data-bn="গ্রাম / এলাকা" data-en="Village / Neighbourhood">গ্রাম / এলাকা</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-tree input-icon-left"></i>
+              <select id="h-village" class="form-input" disabled>
+                <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+              </select>
+            </div>
+            <input type="text" id="h-village-other" class="form-input" data-bn="গ্রামের নাম টাইপ করুন" data-en="Type village name" placeholder="গ্রামের নাম টাইপ করুন" style="display: none; margin-top: 8px;">
+          </div>
+        </div>
+
+
         <div class="form-group">
           <label class="form-label"><span class="lbl-txt" data-bn="পূর্ণ ঠিকানা" data-en="Full Address">পূর্ণ ঠিকানা</span> <span>*</span></label>
           <div class="input-wrapper">
@@ -433,6 +459,116 @@
       loadData().then(renderDivisions).catch(err => console.error('Cascade load failed', err));
     })();
 
+    // ---- Ward + Village cascade driven by District (h-district) ----
+    (function initWardVillage() {
+      const disSel = document.getElementById('h-district');
+      const wSel   = document.getElementById('h-ward');
+      const wOther = document.getElementById('h-ward-other');
+      const vSel   = document.getElementById('h-village');
+      const vOther = document.getElementById('h-village-other');
+      if (!disSel || !wSel || !vSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      let WARDS = {}, VILLAGES = {};
+
+      function setPlaceholder(sel, bn, en) {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function appendOptions(sel, items, labelFn) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          const isObj = typeof item === 'object' && item !== null;
+          opt.value = isObj ? (item.name || labelFn(item)) : String(item);
+          const bn = isObj ? (item.bn_name || item.name) : String(item);
+          const en = isObj ? (item.name || item.bn_name) : String(item);
+          opt.setAttribute('data-bn', bn);
+          opt.setAttribute('data-en', en);
+          opt.textContent = lang() === 'bn' ? bn : en;
+          sel.appendChild(opt);
+        });
+      }
+      function appendOther(sel) {
+        const opt = document.createElement('option');
+        opt.value = '__other__';
+        opt.setAttribute('data-bn', 'অন্যান্য (নিজে লিখুন)');
+        opt.setAttribute('data-en', 'Other (type name)');
+        opt.textContent = lang() === 'bn' ? 'অন্যান্য (নিজে লিখুন)' : 'Other (type name)';
+        sel.appendChild(opt);
+      }
+
+      function bindOther(sel, other) {
+        sel.addEventListener('change', () => {
+          if (sel.value === '__other__') {
+            other.style.display = 'block';
+            other.focus();
+          } else {
+            other.style.display = 'none';
+            other.value = '';
+          }
+        });
+      }
+      bindOther(wSel, wOther);
+      bindOther(vSel, vOther);
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-wards.json').then(r => r.json()),
+          fetch('../assets/data/bd-villages.json').then(r => r.json()),
+        ]).then(([w, v]) => {
+          WARDS = w.wards || w;
+          VILLAGES = v.villages || v;
+        });
+      }
+
+      function refresh() {
+        const districtId = disSel.value;
+        setPlaceholder(wSel, '— ওয়ার্ড নির্বাচন করুন —', '— Select Ward —');
+        setPlaceholder(vSel, '— গ্রাম / এলাকা নির্বাচন করুন —', '— Select Village / Area —');
+        wOther.style.display = 'none'; wOther.value = '';
+        vOther.style.display = 'none'; vOther.value = '';
+
+        if (!districtId) {
+          setPlaceholder(wSel, '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+          setPlaceholder(vSel, '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+          wSel.disabled = true; vSel.disabled = true;
+          return;
+        }
+        const wl = (WARDS[String(districtId)] || []).slice();
+        appendOptions(wSel, wl);
+        appendOther(wSel);
+        wSel.disabled = false;
+
+        const vl = (VILLAGES[String(districtId)] || []).slice();
+        appendOptions(vSel, vl);
+        appendOther(vSel);
+        vSel.disabled = false;
+      }
+
+      disSel.addEventListener('change', refresh);
+
+      // Re-render option text on language toggle
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      function refreshLabels() {
+        [wSel, vSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+          });
+        });
+      }
+
+      loadData().then(refresh).catch(err => console.error('Ward/village load failed', err));
+    })();
+
+
     function submitPublishHome(e) {
       e.preventDefault();
       const form = document.getElementById('publish-home-form');
@@ -445,6 +581,12 @@
       const district = disSel.options[disSel.selectedIndex]?.text || disSel.value;
       const area     = arSel.options[arSel.selectedIndex]?.text || arSel.value;
       const addressLine = $('h-location').value.trim();
+      const wardSel = $('h-ward');
+      let ward = wardSel ? wardSel.value : '';
+      if (ward === '__other__') ward = ($('h-ward-other').value || '').trim();
+      const villageSel = $('h-village');
+      let village = villageSel ? villageSel.value : '';
+      if (village === '__other__') village = ($('h-village-other').value || '').trim();
       const listId = 'HOM-2026-' + Math.floor(1000 + Math.random() * 9000);
 
       const pendingItem = {
@@ -459,7 +601,9 @@
         division,
         district,
         area,
-        location: [addressLine, area, district].filter(Boolean).join(', '),
+        ward,
+        village,
+        location: [addressLine, village, ward, area, district].filter(Boolean).join(', '),
         ownerName: $('h-owner').value.trim(),
         phone: $('h-phone').value.trim(),
         memberId: $('h-member-id').value,

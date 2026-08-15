@@ -24,10 +24,11 @@
 
   function isDashboardPage() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
-    const isDashUrl = path.includes('dashboard') || path.includes('profile') || 
-                      path.includes('member-card') || path.includes('messages') || 
-                      path.includes('workflow') || path.includes('blood-tracking') || 
-                      path.includes('sponsors') || path.includes('/admin/') || 
+    const isDashUrl = path.includes('/user-dashboard/') ||
+                      path.includes('dashboard') || path.includes('profile') ||
+                      path.includes('member-card') || path.includes('messages') ||
+                      path.includes('workflow') || path.includes('blood-tracking') ||
+                      path.includes('sponsors') || path.includes('/admin/') ||
                       path.includes('/hospital/');
     return isDashUrl || !!document.querySelector('.sidebar, #app-sidebar, .dash-sidebar');
   }
@@ -249,10 +250,18 @@
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (sidebar && sidebar.classList.contains('is-open')) {
-          closeDrawer();
+        if (sidebar) {
+          if (sidebar.classList.contains('is-open')) closeDrawer();
+          else openDrawer();
         } else {
-          openDrawer();
+          // No sidebar on this page (e.g. standalone user-dashboard form pages).
+          // Navigate back to the dashboard which owns the real sidebar.
+          const path = window.location.pathname.replace(/\\/g, '/');
+          const to = path.includes('/user-dashboard/') ? 'dashboard.html'
+                   : path.includes('/pages/admin/') ? '../../user-dashboard/dashboard.html'
+                   : path.includes('/pages/') || path.includes('/hospital/') ? '../user-dashboard/dashboard.html'
+                   : 'user-dashboard/dashboard.html';
+          window.location.href = to;
         }
       });
     });
