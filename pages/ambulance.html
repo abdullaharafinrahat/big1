@@ -904,6 +904,80 @@
     .blood-pills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
+  
+  /* -------- Book Ambulance button (replaces .btn-call) -------- */
+  .btn-book {
+    font-size: 12px;
+    background: #f57c00;
+    color: white;
+    border: none;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+  }
+  .btn-book:hover { background: #e65100; transform: translateY(-1px); }
+
+  /* -------- Booking Modal form styling (mirrors user-blood-request) -------- */
+  .book-form-group { margin-bottom: 14px; }
+  .book-form-label { display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 5px; }
+  .book-form-label .req-star { color: #d32f2f; }
+
+  .book-input-wrapper { position: relative; display: flex; align-items: center; }
+  .book-input-icon { position: absolute; left: 12px; color: #888; font-size: 14px; z-index: 2; }
+
+  .book-form-input {
+    width: 100%; height: 42px;
+    padding: 8px 12px 8px 36px;
+    border: 1px solid #cbd5e1; border-radius: 8px;
+    font-size: 13px; outline: none;
+    background: white; color: #1e293b;
+    font-family: inherit;
+    transition: all 0.2s;
+    box-sizing: border-box;
+  }
+  textarea.book-form-input { height: auto; min-height: 68px; padding-top: 10px; resize: vertical; }
+  .book-form-input:focus { border-color: #f57c00; box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.15); }
+
+  .book-form-row { display: flex; gap: 10px; }
+  .book-form-row > .book-form-group { flex: 1; min-width: 0; }
+
+  .booking-modal-card { max-width: 640px; }
+  .booking-summary-line {
+    background: #fff7ed; border: 1px solid #fed7aa;
+    color: #7c2d12; font-size: 12px; font-weight: 600;
+    padding: 8px 12px; border-radius: 8px; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .booking-summary-line i { color: #f57c00; }
+
+  .btn-book-submit {
+    width: 100%; height: 46px;
+    background-color: #f57c00; color: white;
+    border: none; border-radius: 8px;
+    font-size: 14.5px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer; transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 4px 12px rgba(245, 124, 0, 0.25);
+    margin-top: 8px;
+    font-family: inherit;
+  }
+  .btn-book-submit:hover { background-color: #e65100; transform: translateY(-1px); }
+
+  .booking-success-screen { text-align: center; padding: 12px 6px; }
+  .booking-success-screen .icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #dcfce7; color: #16a34a;
+    font-size: 28px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+  }
+
   </style>
   <link rel="stylesheet" href="../css/components/header-footer.css">
 </head>
@@ -997,7 +1071,7 @@
               <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Abdullah Rahman</div>
               <div class="card-footer-tags">
                 <span class="tag">ICU Life Support</span>
-                <a href="tel:01712345678" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+                <button type="button" class="btn-book" onclick="openAmbBookingModal(this)" data-driver-phone="01712345678"><i class="fa-solid fa-calendar-check"></i> বুকিং করুন</button>
               </div>
             </div>
           </div>
@@ -1017,7 +1091,7 @@
               <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Mohammad Faruk</div>
               <div class="card-footer-tags">
                 <span class="tag">AC Emergency</span>
-                <a href="tel:01711223344" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+                <button type="button" class="btn-book" onclick="openAmbBookingModal(this)" data-driver-phone="01711223344"><i class="fa-solid fa-calendar-check"></i> বুকিং করুন</button>
               </div>
             </div>
           </div>
@@ -1037,7 +1111,7 @@
               <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Rashedul Karim</div>
               <div class="card-footer-tags">
                 <span class="tag">ICU Ambulance</span>
-                <a href="tel:01713456789" class="btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+                <button type="button" class="btn-book" onclick="openAmbBookingModal(this)" data-driver-phone="01713456789"><i class="fa-solid fa-calendar-check"></i> বুকিং করুন</button>
               </div>
             </div>
           </div>
@@ -1045,6 +1119,160 @@
       </div>
     </div>
 
+
+  
+  <!-- Ambulance Booking Modal -->
+  <div class="modal-backdrop" id="amb-booking-modal">
+    <div class="modal-card booking-modal-card">
+      <!-- FORM view -->
+      <div id="amb-booking-form-view">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <div class="modal-title-icon" style="background:#fff3e0; color:#f57c00;"><i class="fa-solid fa-calendar-check"></i></div>
+            <div>
+              <h3 class="modal-title" data-bn="অ্যাম্বুলেন্স বুকিং" data-en="Ambulance Booking">অ্যাম্বুলেন্স বুকিং</h3>
+              <p class="modal-subtitle" data-bn="আপনার তথ্য দিন — অ্যাম্বুলেন্স নির্ধারিত ঠিকানায় পৌঁছে যাবে" data-en="Fill in your details — the ambulance will be dispatched to your address">আপনার তথ্য দিন — অ্যাম্বুলেন্স নির্ধারিত ঠিকানায় পৌঁছে যাবে</p>
+            </div>
+          </div>
+          <button type="button" class="modal-close-btn" onclick="closeAmbBookingModal()">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="booking-summary-line">
+            <i class="fa-solid fa-truck-medical"></i>
+            <span>
+              <span data-bn="বুকিং:" data-en="Booking:">বুকিং:</span>
+              <strong id="book-amb-title">—</strong>
+              (<span id="book-amb-code">—</span>)
+            </span>
+          </div>
+
+          <form id="amb-booking-form" onsubmit="return submitAmbBooking(event)">
+            <div class="book-form-row">
+              <div class="book-form-group">
+                <label class="book-form-label"><span data-bn="পূর্ণ নাম" data-en="Full Name">পূর্ণ নাম</span> <span class="req-star">*</span></label>
+                <div class="book-input-wrapper">
+                  <i class="fa-regular fa-user book-input-icon"></i>
+                  <input type="text" id="book-name" class="book-form-input" placeholder="যেমন: মো: করিম উদ্দিন" required>
+                </div>
+              </div>
+              <div class="book-form-group">
+                <label class="book-form-label"><span data-bn="যোগাযোগের মোবাইল" data-en="Contact Mobile">যোগাযোগের মোবাইল</span> <span class="req-star">*</span></label>
+                <div class="book-input-wrapper">
+                  <i class="fa-solid fa-phone book-input-icon"></i>
+                  <input type="tel" id="book-phone" class="book-form-input" placeholder="01XXXXXXXXX" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address (Division → District → Area) -->
+            <div class="book-form-row">
+              <div class="book-form-group">
+                <label class="book-form-label"><span data-bn="বিভাগ" data-en="Division">বিভাগ</span> <span class="req-star">*</span></label>
+                <div class="book-input-wrapper">
+                  <i class="fa-solid fa-map book-input-icon"></i>
+                  <select id="book-division" class="book-form-input" required>
+                    <option value="" data-bn="— বিভাগ নির্বাচন করুন —" data-en="— Select Division —">— বিভাগ নির্বাচন করুন —</option>
+                  </select>
+                </div>
+              </div>
+              <div class="book-form-group">
+                <label class="book-form-label"><span data-bn="জেলা" data-en="District">জেলা</span> <span class="req-star">*</span></label>
+                <div class="book-input-wrapper">
+                  <i class="fa-solid fa-city book-input-icon"></i>
+                  <select id="book-district" class="book-form-input" required disabled>
+                    <option value="" data-bn="— আগে বিভাগ নির্বাচন করুন —" data-en="— Select Division First —">— আগে বিভাগ নির্বাচন করুন —</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="book-form-group">
+              <label class="book-form-label"><span data-bn="এলাকা / উপজেলা" data-en="Area / Upazila">এলাকা / উপজেলা</span> <span class="req-star">*</span></label>
+              <div class="book-input-wrapper">
+                <i class="fa-solid fa-location-dot book-input-icon"></i>
+                <select id="book-area" class="book-form-input" required disabled>
+                  <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Ward + Village (cascading, matches user-blood-request) -->
+            <div class="book-form-row">
+              <div class="book-form-group">
+                <label class="book-form-label"><span data-bn="ওয়ার্ড নম্বর" data-en="Ward No.">ওয়ার্ড নম্বর</span></label>
+                <div class="book-input-wrapper">
+                  <i class="fa-solid fa-hashtag book-input-icon"></i>
+                  <select id="book-ward" class="book-form-input" disabled>
+                    <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+                  </select>
+                </div>
+                <input type="text" id="book-ward-other" class="book-form-input" placeholder="ওয়ার্ড নম্বর টাইপ করুন" style="display: none; margin-top: 8px;">
+              </div>
+              <div class="book-form-group">
+                <label class="book-form-label"><span data-bn="গ্রাম / এলাকা" data-en="Village / Neighbourhood">গ্রাম / এলাকা</span></label>
+                <div class="book-input-wrapper">
+                  <i class="fa-solid fa-tree book-input-icon"></i>
+                  <select id="book-village" class="book-form-input" disabled>
+                    <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+                  </select>
+                </div>
+                <input type="text" id="book-village-other" class="book-form-input" placeholder="গ্রামের নাম টাইপ করুন" style="display: none; margin-top: 8px;">
+              </div>
+            </div>
+
+            <div class="book-form-group">
+              <label class="book-form-label"><span data-bn="পিকআপ ঠিকানা (বাড়ি নং, রোড)" data-en="Pickup Address (House, Road)">পিকআপ ঠিকানা (বাড়ি নং, রোড)</span></label>
+              <div class="book-input-wrapper">
+                <i class="fa-solid fa-signs-post book-input-icon"></i>
+                <input type="text" id="book-pickup" class="book-form-input" placeholder="বাড়ি নং, রোড নং">
+              </div>
+            </div>
+
+            <!-- Destination Hospital (dropdown from bd-hospitals.json + Other) -->
+            <div class="book-form-group">
+              <label class="book-form-label"><span data-bn="গন্তব্য হাসপাতাল / ক্লিনিক" data-en="Destination Hospital / Clinic">গন্তব্য হাসপাতাল / ক্লিনিক</span> <span class="req-star">*</span></label>
+              <div class="book-input-wrapper">
+                <i class="fa-solid fa-hospital book-input-icon"></i>
+                <select id="book-dest-hospital" class="book-form-input" required disabled>
+                  <option value="" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+                </select>
+              </div>
+              <input type="text" id="book-dest-hospital-other" class="book-form-input" placeholder="হাসপাতাল / ক্লিনিকের নাম টাইপ করুন" style="display: none; margin-top: 8px;">
+            </div>
+
+            <button type="submit" class="btn-book-submit">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span data-bn="বুকিং কনফার্ম করুন" data-en="Confirm Booking">বুকিং কনফার্ম করুন</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SUCCESS view (hidden by default) -->
+      <div id="amb-booking-success-view" style="display: none;">
+        <div class="booking-success-screen">
+          <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">বুকিং সফলভাবে কনফার্ম হয়েছে!</h3>
+          <p style="font-size: 12.5px; color: #64748b; margin-bottom: 16px;">অ্যাম্বুলেন্স আপনার ঠিকানায় দ্রুত পৌঁছে যাচ্ছে। চালক শীঘ্রই কল করবে।</p>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left; font-size: 12.5px; margin-bottom: 18px; line-height: 1.65;">
+            <div>বুকিং কোড: <strong style="color: #f57c00;" id="book-track-id">AMB-B-0000</strong></div>
+            <div>অ্যাম্বুলেন্স: <strong id="book-summary-amb">—</strong></div>
+            <div>নাম: <strong id="book-summary-name">—</strong></div>
+            <div>ফোন: <strong id="book-summary-phone">—</strong></div>
+            <div>পিকআপ: <strong id="book-summary-pickup">—</strong></div>
+            <div>গন্তব্য: <strong id="book-summary-dest">—</strong></div>
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-book-submit" style="flex: 1; margin: 0; height: 40px; font-size: 13px;" onclick="closeAmbBookingModal()">ঠিক আছে</button>
+            <a href="tel:10647" class="btn-book-submit" style="flex: 1; margin: 0; height: 40px; font-size: 13px; text-decoration: none; background: #d32f2f; box-shadow: 0 4px 12px rgba(211,47,47,0.25);">জরুরি হটলাইন</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Ambulance Filter Modal (ported from request-blood.html) -->
   <div class="modal-backdrop" id="amb-filter-modal">
@@ -1235,6 +1463,250 @@
 
     // Initial pass so chips/badge reflect any preset (none by default)
     applyAmbFilters();
+
+    // =========== Ambulance Booking Modal ============
+    const bookModal = () => document.getElementById('amb-booking-modal');
+    const bookForm  = () => document.getElementById('amb-booking-form');
+    let bookedAmbulance = { title: '—', code: '—', driverPhone: '' };
+
+    function openAmbBookingModal(btn) {
+      const card = btn.closest('.ambulance-card');
+      const title = card?.querySelector('.ambulance-title')?.textContent?.trim() || card?.dataset?.name || 'Ambulance';
+      const code  = card?.querySelector('.ambulance-code')?.textContent?.trim() || '';
+      bookedAmbulance = { title, code, driverPhone: btn.dataset.driverPhone || '' };
+      document.getElementById('book-amb-title').textContent = title;
+      document.getElementById('book-amb-code').textContent = code || '—';
+      document.getElementById('amb-booking-form-view').style.display = 'block';
+      document.getElementById('amb-booking-success-view').style.display = 'none';
+      bookModal().classList.add('active');
+    }
+    function closeAmbBookingModal() {
+      bookModal().classList.remove('active');
+    }
+
+    // Prefill contact from login session if available
+    (function prefillBookingContact() {
+      try {
+        const u = JSON.parse(localStorage.getItem('bondhu.user') || 'null');
+        if (u) {
+          if (u.name) document.getElementById('book-name').value = u.name;
+          if (u.phone) document.getElementById('book-phone').value = u.phone;
+        }
+      } catch (e) {}
+    })();
+
+    // ---- Cascading Division → District → Area → Ward + Village + Hospital ----
+    (function initBookingCascade() {
+      const divSel = document.getElementById('book-division');
+      const disSel = document.getElementById('book-district');
+      const arSel  = document.getElementById('book-area');
+      const wSel   = document.getElementById('book-ward');
+      const wOther = document.getElementById('book-ward-other');
+      const vSel   = document.getElementById('book-village');
+      const vOther = document.getElementById('book-village-other');
+      const hSel   = document.getElementById('book-dest-hospital');
+      const hOther = document.getElementById('book-dest-hospital-other');
+      if (!divSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [], WARDS = {}, VILLAGES = {}, HOSPITALS = {};
+
+      function setPh(sel, bn, en) {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillObjs(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.id != null ? String(item.id) : item.name;
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+      function fillStrings(sel, items) {
+        items.forEach(v => {
+          const opt = document.createElement('option');
+          const isObj = typeof v === 'object' && v !== null;
+          opt.value = isObj ? (v.name || String(v)) : String(v);
+          const bn = isObj ? (v.bn_name || v.name) : String(v);
+          const en = isObj ? (v.name || v.bn_name) : String(v);
+          opt.setAttribute('data-bn', bn);
+          opt.setAttribute('data-en', en);
+          opt.textContent = lang() === 'bn' ? bn : en;
+          sel.appendChild(opt);
+        });
+      }
+      function appendOther(sel) {
+        const opt = document.createElement('option');
+        opt.value = '__other__';
+        opt.setAttribute('data-bn', 'অন্যান্য (নিজে লিখুন)');
+        opt.setAttribute('data-en', 'Other (type name)');
+        opt.textContent = lang() === 'bn' ? 'অন্যান্য (নিজে লিখুন)' : 'Other (type name)';
+        sel.appendChild(opt);
+      }
+      function bindOther(sel, other) {
+        sel.addEventListener('change', () => {
+          if (sel.value === '__other__') {
+            other.style.display = 'block';
+            other.focus();
+          } else {
+            other.style.display = 'none';
+            other.value = '';
+          }
+        });
+      }
+      bindOther(wSel, wOther);
+      bindOther(vSel, vOther);
+      bindOther(hSel, hOther);
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-divisions.json').then(r => r.json()),
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+          fetch('../assets/data/bd-wards.json').then(r => r.json()),
+          fetch('../assets/data/bd-villages.json').then(r => r.json()),
+          fetch('../assets/data/bd-hospitals.json').then(r => r.json()),
+        ]).then(([d, ds, up, w, v, h]) => {
+          DIVISIONS = d.divisions || d;
+          DISTRICTS = ds.districts || ds;
+          UPAZILAS  = up.upazilas || up;
+          WARDS     = w.wards || w;
+          VILLAGES  = v.villages || v;
+          HOSPITALS = h.hospitals || h;
+          DIVISIONS.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        });
+      }
+
+      function renderDivisions() {
+        setPh(divSel, '— বিভাগ নির্বাচন করুন —', '— Select Division —');
+        fillObjs(divSel, DIVISIONS);
+      }
+
+      divSel.addEventListener('change', () => {
+        setPh(disSel, '— জেলা নির্বাচন করুন —', '— Select District —');
+        setPh(arSel,  '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        setPh(wSel,   '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        setPh(vSel,   '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        setPh(hSel,   '— আগে জেলা নির্বাচন করুন —', '— Select District First —');
+        arSel.disabled = true; wSel.disabled = true; vSel.disabled = true; hSel.disabled = true;
+        wOther.style.display = 'none'; wOther.value = '';
+        vOther.style.display = 'none'; vOther.value = '';
+        hOther.style.display = 'none'; hOther.value = '';
+        if (!divSel.value) { disSel.disabled = true; return; }
+        const districts = DISTRICTS.filter(d => String(d.division_id) === String(divSel.value))
+                                   .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillObjs(disSel, districts);
+        disSel.disabled = false;
+      });
+
+      disSel.addEventListener('change', () => {
+        setPh(arSel, '— এলাকা / উপজেলা নির্বাচন করুন —', '— Select Area / Upazila —');
+        setPh(wSel,  '— ওয়ার্ড নির্বাচন করুন —', '— Select Ward —');
+        setPh(vSel,  '— গ্রাম / এলাকা নির্বাচন করুন —', '— Select Village / Area —');
+        setPh(hSel,  '— হাসপাতাল / ক্লিনিক নির্বাচন করুন —', '— Select Hospital / Clinic —');
+        wOther.style.display = 'none'; wOther.value = '';
+        vOther.style.display = 'none'; vOther.value = '';
+        hOther.style.display = 'none'; hOther.value = '';
+        if (!disSel.value) { arSel.disabled = true; wSel.disabled = true; vSel.disabled = true; hSel.disabled = true; return; }
+        const areas = UPAZILAS.filter(u => String(u.district_id) === String(disSel.value))
+                              .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillObjs(arSel, areas);
+        arSel.disabled = false;
+
+        fillStrings(wSel, WARDS[String(disSel.value)] || []);
+        appendOther(wSel);
+        wSel.disabled = false;
+
+        const villages = (VILLAGES[String(disSel.value)] || []).slice();
+        fillStrings(vSel, villages);
+        appendOther(vSel);
+        vSel.disabled = false;
+
+        const hospitals = (HOSPITALS[String(disSel.value)] || []).slice();
+        hospitals.sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillObjs(hSel, hospitals);
+        appendOther(hSel);
+        hSel.disabled = false;
+      });
+
+      // Re-render option text on language switch
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 20);
+      });
+      function refreshLabels() {
+        [divSel, disSel, arSel, wSel, vSel, hSel].forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+          });
+        });
+      }
+
+      loadData().then(renderDivisions).catch(err => console.error('Booking cascade load failed', err));
+    })();
+
+    function submitAmbBooking(e) {
+      e.preventDefault();
+      const $ = (id) => document.getElementById(id);
+      const divSel = $('book-division'), disSel = $('book-district'), arSel = $('book-area');
+      const wSel = $('book-ward'), vSel = $('book-village'), hSel = $('book-dest-hospital');
+
+      const division = divSel.options[divSel.selectedIndex]?.text || divSel.value;
+      const district = disSel.options[disSel.selectedIndex]?.text || disSel.value;
+      const area     = arSel.options[arSel.selectedIndex]?.text || arSel.value;
+      let ward = wSel.value; if (ward === '__other__') ward = ($('book-ward-other').value || '').trim();
+      else if (ward) ward = wSel.options[wSel.selectedIndex]?.text || ward;
+      let village = vSel.value; if (village === '__other__') village = ($('book-village-other').value || '').trim();
+      else if (village) village = vSel.options[vSel.selectedIndex]?.text || village;
+      let destHospital = hSel.value;
+      if (destHospital === '__other__') destHospital = ($('book-dest-hospital-other').value || '').trim();
+      else if (destHospital) destHospital = hSel.options[hSel.selectedIndex]?.text || destHospital;
+
+      const bookingId = 'AMB-B-' + Math.floor(1000 + Math.random() * 9000);
+      const pickupParts = [$('book-pickup').value.trim(), village, ward, area, district].filter(Boolean);
+      const pickupAddress = pickupParts.join(', ');
+
+      const booking = {
+        id: bookingId,
+        ambulance: bookedAmbulance.title,
+        ambulanceCode: bookedAmbulance.code,
+        driverPhone: bookedAmbulance.driverPhone,
+        customerName: $('book-name').value.trim(),
+        customerPhone: $('book-phone').value.trim(),
+        division, district, area, ward, village,
+        pickupAddress,
+        destinationHospital: destHospital,
+        bookedAt: new Date().toLocaleString('bn-BD'),
+        status: 'pending_dispatch'
+      };
+
+      const list = JSON.parse(localStorage.getItem('bondhu.ambulanceBookings') || '[]');
+      list.unshift(booking);
+      localStorage.setItem('bondhu.ambulanceBookings', JSON.stringify(list));
+
+      $('book-track-id').textContent = bookingId;
+      $('book-summary-amb').textContent = bookedAmbulance.title + (bookedAmbulance.code ? ' (' + bookedAmbulance.code + ')' : '');
+      $('book-summary-name').textContent = booking.customerName || '—';
+      $('book-summary-phone').textContent = booking.customerPhone || '—';
+      $('book-summary-pickup').textContent = pickupAddress || '—';
+      $('book-summary-dest').textContent = destHospital || '—';
+
+      document.getElementById('amb-booking-form-view').style.display = 'none';
+      document.getElementById('amb-booking-success-view').style.display = 'block';
+      bookForm().reset();
+      return false;
+    }
+
 </script>
 
 <!-- FOOTER -->
