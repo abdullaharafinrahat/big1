@@ -904,6 +904,24 @@
             <input type="text" id="mb-pop-filter-landmark" placeholder="যেমন: বাসস্ট্যান্ড, বাজার" class="filter-modal-input">
           </div>
         </div>
+
+        <div class="filter-grid-2col">
+          <!-- Ward -->
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="ওয়ার্ড নম্বর (Ward No.)" data-en="Ward No.">ওয়ার্ড নম্বর</label>
+            <select id="mb-pop-filter-ward" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+
+          <!-- Village -->
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="গ্রাম / এলাকা (Village)" data-en="Village">গ্রাম / এলাকা</label>
+            <select id="mb-pop-filter-village" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে জেলা নির্বাচন করুন —" data-en="— Select District First —">— আগে জেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <div class="modal-footer filter-modal-footer">
@@ -952,6 +970,10 @@
       const distRaw = distSel.value; const dist = (distRaw === 'all' ? '' : distRaw).toLowerCase().trim();
       const upaRaw = upaSel.value;  const upa = (upaRaw === 'all' ? '' : upaRaw).toLowerCase().trim();
       const lm  = (document.getElementById('mb-pop-filter-landmark').value || '').toLowerCase().trim();
+      const wRaw = document.getElementById('mb-pop-filter-ward')?.value || '';
+      const ward = (wRaw === 'all' ? '' : wRaw).toLowerCase().trim();
+      const vRaw = document.getElementById('mb-pop-filter-village')?.value || '';
+      const village = (vRaw === 'all' ? '' : vRaw).toLowerCase().trim();
       const st  = selectedMbStatus;
 
       let n = 0;
@@ -960,11 +982,13 @@
       if (dist) n++;
       if (upa) n++;
       if (lm) n++;
+      if (ward) n++;
+      if (village) n++;
       const badge = document.getElementById('mb-active-filter-badge');
       if (n > 0) { badge.textContent = n; badge.style.display = 'inline-block'; }
       else       { badge.style.display = 'none'; }
 
-      renderMbChips(st, div, dist, upa, lm);
+      renderMbChips(st, div, dist, upa, lm, ward, village);
 
       mbCards().forEach(c => {
         const name = (c.dataset.name || c.textContent || '').toLowerCase();
@@ -979,11 +1003,15 @@
         const matchDs = !dist || cDist.includes(dist);
         const matchUp = !upa  || cUpa.includes(upa);
         const matchLm = !lm   || cLm.includes(lm);
-        c.style.display = (matchQ && matchSt && matchDv && matchDs && matchUp && matchLm) ? 'flex' : 'none';
+        const cWard = (c.dataset.ward || '').toLowerCase();
+        const cVillage = (c.dataset.village || '').toLowerCase();
+        const matchWard = !ward || !cWard || cWard.includes(ward);
+        const matchVillage = !village || !cVillage || cVillage.includes(village);
+        c.style.display = (matchQ && matchSt && matchDv && matchDs && matchUp && matchLm && matchWard && matchVillage) ? 'flex' : 'none';
       });
     }
 
-    function renderMbChips(st, div, dist, upa, lm) {
+    function renderMbChips(st, div, dist, upa, lm, ward, village) {
       const bar = document.getElementById('mb-active-filters-chips');
       const lang = mbGetLang();
       let h = '';
@@ -992,6 +1020,8 @@
       if (dist) h += `<span class="filter-chip">${lang==='bn'?'জেলা:':'Dist:'} ${dist} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-district'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       if (upa)  h += `<span class="filter-chip">${lang==='bn'?'উপজেলা:':'Area:'} ${upa} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-upazila'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       if (lm)   h += `<span class="filter-chip">${lang==='bn'?'ল্যান্ডমার্ক:':'Landmark:'} ${lm} <span class="chip-remove" onclick="document.getElementById('mb-pop-filter-landmark').value=''; applyMbFilters();">&times;</span></span>`;
+      if (ward)  h += `<span class="filter-chip">${lang==='bn'?'ওয়ার্ড:':'Ward:'} ${ward} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-ward'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
+      if (village) h += `<span class="filter-chip">${lang==='bn'?'গ্রাম:':'Village:'} ${village} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-village'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       if (h) {
         bar.innerHTML = h + `<span class="filter-chip" style="background: rgba(211,47,47,0.4); cursor: pointer;" onclick="resetMbFilters()">${lang==='bn'?'সব মুছুন':'Clear All'} &times;</span>`;
         bar.style.display = 'flex';
@@ -1116,6 +1146,121 @@
       }
 
       loadData().then(renderDivisions).catch(err => console.error('Filter cascade load failed', err));
+    })();
+
+
+    // ---- Extend filter cascade with Ward + Village (mb-pop-filter-) ----
+    (function extendFilterCascade() {
+      const divSel = document.getElementById('mb-pop-filter-division');
+      const disSel = document.getElementById('mb-pop-filter-district');
+      const wSel   = document.getElementById('mb-pop-filter-ward');
+      const vSel   = document.getElementById('mb-pop-filter-village');
+      
+      if (!divSel || !disSel || !wSel || !vSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => (typeof o === 'string') ? o
+        : (lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name));
+
+      let DISTRICTS = [], WARDS = {}, VILLAGES = {}, HOSPITALS = {};
+
+      function setPhF(sel, bn, en, val='all') {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillStringsF(sel, items) {
+        items.forEach(v => {
+          const opt = document.createElement('option');
+          const isObj = typeof v === 'object' && v !== null;
+          opt.value = isObj ? label(v) : String(v);
+          const bn = isObj ? (v.bn_name || v.name) : String(v);
+          const en = isObj ? (v.name || v.bn_name) : String(v);
+          opt.setAttribute('data-bn', bn);
+          opt.setAttribute('data-en', en);
+          opt.textContent = isObj ? label(v) : String(v);
+          sel.appendChild(opt);
+        });
+      }
+      function fillObjsF(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = label(item);
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-districts.json').then(r => r.json()),
+          fetch('../assets/data/bd-wards.json').then(r => r.json()),
+          fetch('../assets/data/bd-villages.json').then(r => r.json()),
+          
+        ]).then(([ds, w, v]) => {
+          DISTRICTS = ds.districts || ds;
+          WARDS     = w.wards || w;
+          VILLAGES  = v.villages || v;
+          
+        });
+      }
+
+      // Piggy-back on the existing cascade change handlers by using capture-phase
+      // listeners that run AFTER the main handler resets the child dropdowns.
+      divSel.addEventListener('change', () => {
+        setPhF(wSel, 'সকল ওয়ার্ড', 'All Wards');
+        setPhF(vSel, 'সকল গ্রাম / এলাকা', 'All Villages');
+        wSel.disabled = true; vSel.disabled = true;
+
+        applyMbFilters();
+      });
+
+      disSel.addEventListener('change', () => {
+        setPhF(wSel, 'সকল ওয়ার্ড', 'All Wards');
+        setPhF(vSel, 'সকল গ্রাম / এলাকা', 'All Villages');
+        if (!disSel.value || disSel.value === 'all') {
+          wSel.disabled = true; vSel.disabled = true;
+
+          applyMbFilters();
+          return;
+        }
+        const chosenDis = DISTRICTS.find(d => label(d) === disSel.value);
+        if (chosenDis) {
+          const wl = (WARDS[String(chosenDis.id)] || []).slice();
+          fillStringsF(wSel, wl);
+          wSel.disabled = false;
+
+          const vl = (VILLAGES[String(chosenDis.id)] || []).slice();
+          fillStringsF(vSel, vl);
+          vSel.disabled = false;
+        } else { wSel.disabled = true; vSel.disabled = true; }
+
+        applyMbFilters();
+      });
+
+      wSel.addEventListener('change', () => applyMbFilters());
+      vSel.addEventListener('change', () => applyMbFilters());
+      
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabelsF, 20);
+      });
+      function refreshLabelsF() {
+        [wSel, vSel].filter(Boolean).forEach(sel => {
+          Array.from(sel.options).forEach(o => {
+            const bn = o.getAttribute('data-bn');
+            const en = o.getAttribute('data-en');
+            if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+          });
+        });
+      }
+
+      loadData().catch(err => console.error('Filter ward/village load failed', err));
     })();
 
 </script>
