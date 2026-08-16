@@ -143,15 +143,35 @@ Four separate dashboards need to exist and show role-appropriate content:
 Registration form must include the full location cascade AND upload fields for
 regulatory documents.
 
-- ⬜ **6.1** Location cascade in registration form:
-  Division → District → Upazila → Union → Ward → Village.
-- ⬜ **6.2** Tax Token / Tax document — upload + text input.
-- ⬜ **6.3** Route Permit — document upload + text input.
-- ⬜ **6.4** Any other required document types (❓ ASK: trade license, NID of
-  owner, vehicle registration certificate, fitness certificate?).
-- ⬜ **6.5** Submit → send to Admin Review queue with `status: pending`.
-- ⬜ **6.6** Document storage strategy (❓ ASK: localStorage base64 for demo,
-  or real upload endpoint on the backend?).
+- ✅ **6.1** Full location cascade added to Vehicle step of
+  `user-dashboard/register-ambulance.html`:
+  Division → District → Upazila → Union → Ward → Village
+  (all cascading, bilingual, uses the shared `bd-*.json` datasets).
+- ✅ **6.2** Tax Token — number + expiry date + file upload.
+- ✅ **6.3** Route Permit — number + expiry date + file upload.
+  Plus additional required BRTA vehicle docs:
+  - Fitness Certificate (number + expiry + file, required)
+  - Insurance (policy no + expiry + file, optional)
+  - Vehicle Registration Certificate / Blue Book (registration no + file, required)
+  - Owner NID (nid no + file, required)
+- ✅ **6.4** Documents stored as **base64 data URLs** in
+  `localStorage['bondhu.pendingRegistrations']` with 5 MB per-file cap.
+  Persistence layer double-writes to legacy `bondhu.ambulanceRegs` for
+  backwards-compat. If localStorage quota is hit, metadata-only fallback
+  is stored (with `storedMetaOnly: true` flag).
+- ✅ **6.5** Submit routes each record to the unified admin-review queue
+  (`bondhu.pendingRegistrations`) with `status: 'pending_admin_review'`,
+  a `reviewNotes: []` array ready for admin annotations, and full
+  submission timestamps (ISO + local Bangla).
+- ✅ **6.6** Wizard restructured from 4 to 5 steps
+  (Vehicle → Driver → Equipment → **Documents** → Submit); review step
+  now summarises location, driver, equipment, and each document with
+  a green tick when uploaded.
+
+*Note*: Section 6 originally described "Registration" generically — implemented
+against `register-ambulance.html` because Tax Token + Route Permit are
+BRTA vehicle documents. If the main user-signup form (`register.html`) also
+needs the location cascade (without docs), open a follow-up.
 
 ---
 

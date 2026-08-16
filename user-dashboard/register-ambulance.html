@@ -183,6 +183,26 @@
       padding: 24px; max-width: 380px; width: 90%;
       text-align: center;
     }
+  
+    /* Registration Documents step */
+    .doc-group {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .doc-title {
+      font-size: 12.5px; font-weight: 800; color: #0b5a35;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .doc-title i { color: #f57c00; font-size: 14px; }
+    .doc-title .req { color: #d32f2f; margin-left: 4px; }
+    .doc-group .form-row { gap: 10px; }
+    .doc-group .form-group { margin-bottom: 8px; }
+    input[type="file"].form-control { padding: 6px 8px; }
+
   </style>
 </head>
 <body>
@@ -215,6 +235,10 @@
         </div>
         <div class="step-item" data-step="4">
           <div class="step-number">4</div>
+          <div class="step-label">Documents</div>
+        </div>
+        <div class="step-item" data-step="5">
+          <div class="step-number">5</div>
           <div class="step-label">Submit</div>
         </div>
       </div>
@@ -239,24 +263,55 @@
               <option>Freezer Ambulance</option>
             </select>
           </div>
+          <!-- Full location cascade: Division → District → Upazila → Union → Ward → Village -->
           <div class="form-row">
             <div class="form-group">
-              <label>District <span>*</span></label>
-              <select name="district" class="form-control">
-                <option>Dhaka</option>
-                <option>Chattogram</option>
-                <option>Rajshahi</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Barishal</option>
-                <option>Rangpur</option>
-                <option>Mymensingh</option>
+              <label>বিভাগ / Division <span>*</span></label>
+              <select id="reg-division" name="division" class="form-control" required>
+                <option value="">— বিভাগ নির্বাচন করুন —</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Base Hospital</label>
-              <input type="text" name="baseHospital" class="form-control" placeholder="হাসপাতাল / স্ট্যান্ড">
+              <label>জেলা / District <span>*</span></label>
+              <select id="reg-district" name="district" class="form-control" required disabled>
+                <option value="">— আগে বিভাগ নির্বাচন করুন —</option>
+              </select>
             </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>উপজেলা / Upazila <span>*</span></label>
+              <select id="reg-area" name="area" class="form-control" required disabled>
+                <option value="">— আগে জেলা নির্বাচন করুন —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>ইউনিয়ন / Union</label>
+              <select id="reg-union" name="unionName" class="form-control" disabled>
+                <option value="">— আগে উপজেলা নির্বাচন করুন —</option>
+              </select>
+              <input type="text" id="reg-union-other" class="form-control" placeholder="ইউনিয়নের নাম টাইপ করুন" style="display:none; margin-top:6px;">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ওয়ার্ড / Ward</label>
+              <select id="reg-ward" name="ward" class="form-control" disabled>
+                <option value="">— আগে জেলা নির্বাচন করুন —</option>
+              </select>
+              <input type="text" id="reg-ward-other" class="form-control" placeholder="ওয়ার্ড নম্বর টাইপ করুন" style="display:none; margin-top:6px;">
+            </div>
+            <div class="form-group">
+              <label>গ্রাম / Village</label>
+              <select id="reg-village" name="village" class="form-control" disabled>
+                <option value="">— আগে জেলা নির্বাচন করুন —</option>
+              </select>
+              <input type="text" id="reg-village-other" class="form-control" placeholder="গ্রামের নাম টাইপ করুন" style="display:none; margin-top:6px;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Base Hospital / Stand</label>
+            <input type="text" name="baseHospital" class="form-control" placeholder="হাসপাতাল / স্ট্যান্ড">
           </div>
         </div>
 
@@ -293,8 +348,114 @@
         </div>
 
         <div class="wizard-step" data-step-panel="4">
-          <div class="step-heading">৪. নিশ্চিতকরণ (Review & Submit)</div>
-          <p style="font-size:13px; color:#555; margin-bottom:10px;">আপনার প্রদত্ত তথ্যাদি যাচাই করে তালিকায় যুক্ত করা হবে।</p>
+          <div class="step-heading">৪. রেজিস্ট্রেশন ডকুমেন্টস (Registration Documents)</div>
+          <p style="font-size:12px; color:#64748b; margin-bottom:12px;">প্রতিটি ডকুমেন্টের PDF/JPG/PNG স্ক্যান আপলোড করুন (৫ MB পর্যন্ত)।</p>
+
+          <div class="doc-group">
+            <div class="doc-title"><i class="fa-solid fa-receipt"></i> Tax Token / ট্যাক্স টোকেন <span class="req">*</span></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tax Token No.</label>
+                <input type="text" name="taxTokenNo" class="form-control" placeholder="যেমন: TT-DH-2025-XXXX" required>
+              </div>
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="date" name="taxTokenExpiry" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Tax Token Document</label>
+              <input type="file" name="taxTokenFile" data-doc-key="taxToken" class="form-control doc-file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+          </div>
+
+          <div class="doc-group">
+            <div class="doc-title"><i class="fa-solid fa-route"></i> Route Permit / রুট পারমিট <span class="req">*</span></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Permit No.</label>
+                <input type="text" name="routePermitNo" class="form-control" placeholder="যেমন: RP-CTG-XXX" required>
+              </div>
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="date" name="routePermitExpiry" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Route Permit Document</label>
+              <input type="file" name="routePermitFile" data-doc-key="routePermit" class="form-control doc-file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+          </div>
+
+          <div class="doc-group">
+            <div class="doc-title"><i class="fa-solid fa-file-medical"></i> Fitness Certificate / ফিটনেস সার্টিফিকেট <span class="req">*</span></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Certificate No.</label>
+                <input type="text" name="fitnessNo" class="form-control" placeholder="যেমন: FC-XXX" required>
+              </div>
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="date" name="fitnessExpiry" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Fitness Document</label>
+              <input type="file" name="fitnessFile" data-doc-key="fitness" class="form-control doc-file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+          </div>
+
+          <div class="doc-group">
+            <div class="doc-title"><i class="fa-solid fa-shield-halved"></i> Insurance / বীমা</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Policy No.</label>
+                <input type="text" name="insuranceNo" class="form-control" placeholder="যেমন: INS-XXX">
+              </div>
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="date" name="insuranceExpiry" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Insurance Document</label>
+              <input type="file" name="insuranceFile" data-doc-key="insurance" class="form-control doc-file" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+          </div>
+
+          <div class="doc-group">
+            <div class="doc-title"><i class="fa-solid fa-book"></i> Vehicle Registration Certificate (Blue Book) <span class="req">*</span></div>
+            <div class="form-group">
+              <label>Registration No.</label>
+              <input type="text" name="regNo" class="form-control" placeholder="যেমন: BRTA-XXX" required>
+            </div>
+            <div class="form-group">
+              <label>Blue Book Scan</label>
+              <input type="file" name="regFile" data-doc-key="registration" class="form-control doc-file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+          </div>
+
+          <div class="doc-group">
+            <div class="doc-title"><i class="fa-regular fa-id-card"></i> Owner NID / মালিকের এনআইডি <span class="req">*</span></div>
+            <div class="form-group">
+              <label>NID No.</label>
+              <input type="text" name="ownerNidNo" class="form-control" placeholder="১৩ বা ১৭ ডিজিটের এনআইডি নম্বর" required>
+            </div>
+            <div class="form-group">
+              <label>NID Scan (both sides preferred)</label>
+              <input type="file" name="ownerNidFile" data-doc-key="ownerNid" class="form-control doc-file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+          </div>
+
+          <p style="font-size:11px; color:#64748b; background:#f8fafc; padding:8px 10px; border-radius:6px; margin-top:10px;">
+            <i class="fa-solid fa-circle-info"></i>
+            সকল ডকুমেন্ট অ্যাডমিন যাচাই করার পর আপনার অ্যাম্বুলেন্স লাইভ তালিকায় যুক্ত হবে।
+          </p>
+        </div>
+
+        <div class="wizard-step" data-step-panel="5">
+          <div class="step-heading">৫. নিশ্চিতকরণ (Review & Submit)</div>
+          <p style="font-size:13px; color:#555; margin-bottom:10px;">আপনার প্রদত্ত তথ্যাদি যাচাই করে অ্যাডমিন রিভিউতে পাঠানো হবে।</p>
           <div id="amb-review" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px; font-size:12.5px; line-height:1.7;"></div>
         </div>
 
@@ -333,8 +494,35 @@
       const nextBtn = document.getElementById('amb-btn-next');
       const prevBtn = document.getElementById('amb-btn-prev');
       const review = document.getElementById('amb-review');
-      const total = 4;
+      const total = 5;
       let step = 1;
+      // Documents captured as base64 data URLs when the user picks a file.
+      const uploadedDocs = {};  // { taxToken: {name, size, mime, dataUrl}, ... }
+      const MAX_FILE_BYTES = 5 * 1024 * 1024;
+      form.querySelectorAll('.doc-file').forEach(inp => {
+        inp.addEventListener('change', (e) => {
+          const key = inp.dataset.docKey;
+          const file = inp.files && inp.files[0];
+          if (!file) { delete uploadedDocs[key]; return; }
+          if (file.size > MAX_FILE_BYTES) {
+            alert('ফাইলটি ৫ MB এর বেশি — ছোট ফাইল আপলোড করুন।');
+            inp.value = '';
+            delete uploadedDocs[key];
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = () => {
+            uploadedDocs[key] = {
+              name: file.name,
+              size: file.size,
+              mime: file.type,
+              dataUrl: reader.result, // base64
+              uploadedAt: new Date().toISOString(),
+            };
+          };
+          reader.readAsDataURL(file);
+        });
+      });
 
       function renderReview() {
         const data = Object.fromEntries(new FormData(form));
@@ -344,15 +532,34 @@
           form.eq_defib?.checked && 'Defibrillator',
           form.eq_firstaid?.checked && 'First-Aid Kit',
         ].filter(Boolean).join(', ');
+        const location = [data.village, data.ward, data.unionName, data.area, data.district, data.division]
+                          .filter(v => v && v !== '__other__').join(', ');
+        // Union override
+        const unionVal = data.unionName === '__other__' ? (document.getElementById('reg-union-other').value || '').trim() : data.unionName;
+        const wardVal  = data.ward     === '__other__' ? (document.getElementById('reg-ward-other').value  || '').trim() : data.ward;
+        const villVal  = data.village  === '__other__' ? (document.getElementById('reg-village-other').value || '').trim() : data.village;
+        const loc = [villVal, wardVal, unionVal, data.area, data.district, data.division].filter(Boolean).join(', ');
+        const docLine = (k, num, exp) => `<div><span style="color:#64748b;">${k}:</span> <strong>${num || '—'}</strong>${exp?` <span style="color:#94a3b8;">(exp ${exp})</span>`:''} ${uploadedDocs[k] ? `<i class="fa-solid fa-circle-check" style="color:#16a34a;" title="Uploaded"></i>` : ''}</div>`;
         review.innerHTML = `
+          <div style="font-weight:800; color:#0b5a35; margin-bottom:4px;">যান ও অবস্থান</div>
           <div><span style="color:#64748b;">Provider:</span> <strong>${data.providerName || '—'}</strong></div>
           <div><span style="color:#64748b;">Plate:</span> <strong>${data.plate || '—'}</strong></div>
           <div><span style="color:#64748b;">Type:</span> <strong>${data.type || '—'}</strong></div>
-          <div><span style="color:#64748b;">District:</span> <strong>${data.district || '—'}</strong></div>
+          <div><span style="color:#64748b;">Location:</span> <strong>${loc || '—'}</strong></div>
           <div><span style="color:#64748b;">Base Hospital:</span> <strong>${data.baseHospital || '—'}</strong></div>
+
+          <div style="font-weight:800; color:#0b5a35; margin:8px 0 4px;">চালক ও সরঞ্জাম</div>
           <div><span style="color:#64748b;">Driver:</span> <strong>${data.driverName || '—'}</strong> (${data.driverMobile || '—'})</div>
           <div><span style="color:#64748b;">License:</span> <strong>${data.license || '—'}</strong></div>
           <div><span style="color:#64748b;">Equipment:</span> <strong>${eq || '—'}</strong></div>
+
+          <div style="font-weight:800; color:#0b5a35; margin:8px 0 4px;">ডকুমেন্টস</div>
+          ${docLine('taxToken',      data.taxTokenNo,     data.taxTokenExpiry)}
+          ${docLine('routePermit',   data.routePermitNo,  data.routePermitExpiry)}
+          ${docLine('fitness',       data.fitnessNo,      data.fitnessExpiry)}
+          ${docLine('insurance',     data.insuranceNo,    data.insuranceExpiry)}
+          ${docLine('registration',  data.regNo,          '')}
+          ${docLine('ownerNid',      data.ownerNidNo,     '')}
         `;
       }
 
@@ -384,10 +591,44 @@
           renderStep(step + 1);
         } else {
           const data = Object.fromEntries(new FormData(form));
+          // Resolve 'Other' overrides for cascade fields
+          if (data.unionName === '__other__') data.unionName = (document.getElementById('reg-union-other').value || '').trim();
+          if (data.ward     === '__other__') data.ward     = (document.getElementById('reg-ward-other').value  || '').trim();
+          if (data.village  === '__other__') data.village  = (document.getElementById('reg-village-other').value || '').trim();
+
           const trackId = 'AMB-2026-' + Math.floor(1000 + Math.random() * 9000);
-          const list = JSON.parse(localStorage.getItem('bondhu.ambulanceRegs') || '[]');
-          list.unshift({ id: trackId, ...data, submittedAt: new Date().toISOString(), status: 'pending' });
-          localStorage.setItem('bondhu.ambulanceRegs', JSON.stringify(list));
+          const record = {
+            id: trackId,
+            kind: 'ambulance_registration',
+            ...data,
+            equipment: {
+              icuVentilator:    !!form.eq_icu?.checked,
+              oxygenCylinder:   !!form.eq_o2?.checked,
+              defibrillator:    !!form.eq_defib?.checked,
+              firstAidStretcher:!!form.eq_firstaid?.checked,
+            },
+            documents: uploadedDocs,     // base64 data URLs
+            submittedAt: new Date().toISOString(),
+            submittedAtLocal: new Date().toLocaleString('bn-BD'),
+            status: 'pending_admin_review',
+            reviewNotes: [],
+          };
+          // Legacy bucket (kept for backwards-compat)
+          const legacy = JSON.parse(localStorage.getItem('bondhu.ambulanceRegs') || '[]');
+          legacy.unshift(record);
+          localStorage.setItem('bondhu.ambulanceRegs', JSON.stringify(legacy));
+          // New unified admin-review bucket
+          const pending = JSON.parse(localStorage.getItem('bondhu.pendingRegistrations') || '[]');
+          pending.unshift(record);
+          try {
+            localStorage.setItem('bondhu.pendingRegistrations', JSON.stringify(pending));
+          } catch (err) {
+            // Storage quota exceeded — drop file bytes and retry
+            console.warn('localStorage quota hit, storing metadata only', err);
+            const slim = { ...record, documents: Object.fromEntries(Object.entries(uploadedDocs).map(([k,v]) => [k, {...v, dataUrl: undefined, storedMetaOnly: true}])) };
+            pending[0] = slim;
+            localStorage.setItem('bondhu.pendingRegistrations', JSON.stringify(pending));
+          }
           document.getElementById('amb-track-id').textContent = trackId;
           document.getElementById('amb-review-name').textContent = data.providerName || '—';
           document.getElementById('amb-success-modal').classList.add('active');
@@ -402,6 +643,124 @@
 
       renderStep(1);
     })();
+
+    // ---- Location cascade for the Vehicle step ----
+    (function initRegCascade() {
+      const divSel = document.getElementById('reg-division');
+      const disSel = document.getElementById('reg-district');
+      const arSel  = document.getElementById('reg-area');
+      const uSel   = document.getElementById('reg-union');
+      const uOther = document.getElementById('reg-union-other');
+      const wSel   = document.getElementById('reg-ward');
+      const wOther = document.getElementById('reg-ward-other');
+      const vSel   = document.getElementById('reg-village');
+      const vOther = document.getElementById('reg-village-other');
+      if (!divSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => (typeof o === 'string') ? o
+                          : (lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name));
+
+      let DIVISIONS = [], DISTRICTS = [], UPAZILAS = [], UNIONS = {}, WARDS = {}, VILLAGES = {};
+
+      function setPh(sel, txt) {
+        sel.innerHTML = '';
+        const o = document.createElement('option');
+        o.value = ''; o.textContent = txt;
+        sel.appendChild(o);
+      }
+      function fillObjs(sel, items, valueField='id') {
+        items.forEach(item => {
+          const o = document.createElement('option');
+          o.value = (valueField && item[valueField] != null) ? String(item[valueField]) : (item.name || label(item));
+          o.textContent = label(item);
+          sel.appendChild(o);
+        });
+      }
+      function fillStrings(sel, items) {
+        items.forEach(v => {
+          const o = document.createElement('option');
+          const isObj = typeof v === 'object' && v !== null;
+          o.value = isObj ? label(v) : String(v);
+          o.textContent = isObj ? label(v) : String(v);
+          sel.appendChild(o);
+        });
+      }
+      function appendOther(sel) {
+        const o = document.createElement('option');
+        o.value = '__other__';
+        o.textContent = lang() === 'bn' ? 'অন্যান্য (নিজে লিখুন)' : 'Other (type name)';
+        sel.appendChild(o);
+      }
+      function bindOther(sel, other) {
+        sel.addEventListener('change', () => {
+          if (sel.value === '__other__') { other.style.display='block'; other.focus(); }
+          else { other.style.display='none'; other.value=''; }
+        });
+      }
+      bindOther(uSel, uOther);
+      bindOther(wSel, wOther);
+      bindOther(vSel, vOther);
+
+      Promise.all([
+        fetch('../assets/data/bd-divisions.json').then(r=>r.json()),
+        fetch('../assets/data/bd-districts.json').then(r=>r.json()),
+        fetch('../assets/data/bd-upazilas.json').then(r=>r.json()),
+        fetch('../assets/data/bd-unions.json').then(r=>r.json()),
+        fetch('../assets/data/bd-wards.json').then(r=>r.json()),
+        fetch('../assets/data/bd-villages.json').then(r=>r.json()),
+      ]).then(([d, ds, up, un, w, v]) => {
+        DIVISIONS = d.divisions || d;
+        DISTRICTS = ds.districts || ds;
+        UPAZILAS  = up.upazilas || up;
+        UNIONS    = un.unions || un;
+        WARDS     = w.wards || w;
+        VILLAGES  = v.villages || v;
+        setPh(divSel, '— বিভাগ নির্বাচন করুন —');
+        fillObjs(divSel, DIVISIONS);
+      }).catch(err => console.error('Reg cascade load failed', err));
+
+      divSel.addEventListener('change', () => {
+        setPh(disSel, '— জেলা নির্বাচন করুন —');
+        setPh(arSel,  '— আগে জেলা নির্বাচন করুন —');
+        setPh(uSel,   '— আগে উপজেলা নির্বাচন করুন —');
+        setPh(wSel,   '— আগে জেলা নির্বাচন করুন —');
+        setPh(vSel,   '— আগে জেলা নির্বাচন করুন —');
+        [arSel, uSel, wSel, vSel].forEach(s => s.disabled = true);
+        [uOther, wOther, vOther].forEach(o => { o.style.display='none'; o.value=''; });
+        if (!divSel.value) { disSel.disabled = true; return; }
+        const districts = DISTRICTS.filter(d => String(d.division_id) === String(divSel.value));
+        fillObjs(disSel, districts);
+        disSel.disabled = false;
+      });
+
+      disSel.addEventListener('change', () => {
+        setPh(arSel, '— এলাকা / উপজেলা নির্বাচন করুন —');
+        setPh(uSel,  '— আগে উপজেলা নির্বাচন করুন —');
+        setPh(wSel,  '— ওয়ার্ড নির্বাচন করুন —');
+        setPh(vSel,  '— গ্রাম / এলাকা নির্বাচন করুন —');
+        [uOther, wOther, vOther].forEach(o => { o.style.display='none'; o.value=''; });
+        if (!disSel.value) { [arSel, uSel, wSel, vSel].forEach(s => s.disabled = true); return; }
+        const areas = UPAZILAS.filter(u => String(u.district_id) === String(disSel.value));
+        fillObjs(arSel, areas); arSel.disabled = false;
+        // Ward + Village
+        fillStrings(wSel, WARDS[String(disSel.value)] || []); appendOther(wSel); wSel.disabled = false;
+        fillStrings(vSel, VILLAGES[String(disSel.value)] || []); appendOther(vSel); vSel.disabled = false;
+        // Union stays disabled until upazila
+        uSel.disabled = true;
+      });
+
+      arSel.addEventListener('change', () => {
+        setPh(uSel, '— ইউনিয়ন নির্বাচন করুন —');
+        uOther.style.display = 'none'; uOther.value = '';
+        if (!arSel.value) { uSel.disabled = true; return; }
+        const list = UNIONS[String(arSel.value)] || [];
+        fillStrings(uSel, list);
+        appendOther(uSel);
+        uSel.disabled = false;
+      });
+    })();
+
   </script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
