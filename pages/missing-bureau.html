@@ -906,7 +906,15 @@
         </div>
 
         <div class="filter-grid-2col">
-          <!-- Ward -->
+          
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="ইউনিয়ন (Union)" data-en="Union">ইউনিয়ন</label>
+            <select id="mb-pop-filter-union" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে উপজেলা নির্বাচন করুন —" data-en="— Select Upazila First —">— আগে উপজেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+
+        <!-- Ward -->
           <div class="filter-group">
             <label class="filter-modal-label" data-bn="ওয়ার্ড নম্বর (Ward No.)" data-en="Ward No.">ওয়ার্ড নম্বর</label>
             <select id="mb-pop-filter-ward" class="filter-modal-select" disabled>
@@ -974,6 +982,8 @@
       const ward = (wRaw === 'all' ? '' : wRaw).toLowerCase().trim();
       const vRaw = document.getElementById('mb-pop-filter-village')?.value || '';
       const village = (vRaw === 'all' ? '' : vRaw).toLowerCase().trim();
+      const uRaw = document.getElementById('mb-pop-filter-union')?.value || '';
+      const unionF = (uRaw === 'all' ? '' : uRaw).toLowerCase().trim();
       const st  = selectedMbStatus;
 
       let n = 0;
@@ -984,11 +994,12 @@
       if (lm) n++;
       if (ward) n++;
       if (village) n++;
+      if (unionF) n++;
       const badge = document.getElementById('mb-active-filter-badge');
       if (n > 0) { badge.textContent = n; badge.style.display = 'inline-block'; }
       else       { badge.style.display = 'none'; }
 
-      renderMbChips(st, div, dist, upa, lm, ward, village);
+      renderMbChips(st, div, dist, upa, lm, ward, village, unionF);
 
       mbCards().forEach(c => {
         const name = (c.dataset.name || c.textContent || '').toLowerCase();
@@ -1007,11 +1018,13 @@
         const cVillage = (c.dataset.village || '').toLowerCase();
         const matchWard = !ward || !cWard || cWard.includes(ward);
         const matchVillage = !village || !cVillage || cVillage.includes(village);
-        c.style.display = (matchQ && matchSt && matchDv && matchDs && matchUp && matchLm && matchWard && matchVillage) ? 'flex' : 'none';
+        const cUnion = (c.dataset.union || '').toLowerCase();
+        const matchUnion = !unionF || !cUnion || cUnion.includes(unionF);
+        c.style.display = (matchQ && matchSt && matchDv && matchDs && matchUp && matchLm && matchWard && matchVillage && matchUnion) ? 'flex' : 'none';
       });
     }
 
-    function renderMbChips(st, div, dist, upa, lm, ward, village) {
+    function renderMbChips(st, div, dist, upa, lm, ward, village, unionF) {
       const bar = document.getElementById('mb-active-filters-chips');
       const lang = mbGetLang();
       let h = '';
@@ -1022,6 +1035,7 @@
       if (lm)   h += `<span class="filter-chip">${lang==='bn'?'ল্যান্ডমার্ক:':'Landmark:'} ${lm} <span class="chip-remove" onclick="document.getElementById('mb-pop-filter-landmark').value=''; applyMbFilters();">&times;</span></span>`;
       if (ward)  h += `<span class="filter-chip">${lang==='bn'?'ওয়ার্ড:':'Ward:'} ${ward} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-ward'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       if (village) h += `<span class="filter-chip">${lang==='bn'?'গ্রাম:':'Village:'} ${village} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-village'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
+      if (unionF) h += `<span class="filter-chip">${lang==='bn'?'ইউনিয়ন:':'Union:'} ${unionF} <span class="chip-remove" onclick="const s=document.getElementById('mb-pop-filter-union'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       if (h) {
         bar.innerHTML = h + `<span class="filter-chip" style="background: rgba(211,47,47,0.4); cursor: pointer;" onclick="resetMbFilters()">${lang==='bn'?'সব মুছুন':'Clear All'} &times;</span>`;
         bar.style.display = 'flex';
@@ -1261,6 +1275,89 @@
       }
 
       loadData().catch(err => console.error('Filter ward/village load failed', err));
+    })();
+
+
+    // ---- Filter Union cascade driven by Upazila (mb-pop-filter-) ----
+    (function initFilterUnionCascade_mb_pop_filter_() {
+      const upaSel = document.getElementById('mb-pop-filter-upazila');
+      const uSel   = document.getElementById('mb-pop-filter-union');
+      if (!upaSel || !uSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let UNIONS = {}, UPAZILAS = [];
+
+      function setPh(sel, bn, en, val='all') {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillObjs(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = label(item);
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-unions.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+        ]).then(([d, up]) => {
+          UNIONS = d.unions || d;
+          UPAZILAS = up.upazilas || up;
+        });
+      }
+
+      function findUpazilaId(labelText) {
+        // Filter selects store DISPLAY LABEL as the value. Find matching id.
+        if (!labelText || labelText === 'all') return null;
+        const match = UPAZILAS.find(u => label(u) === labelText
+                                       || u.name === labelText
+                                       || u.bn_name === labelText);
+        return match ? match.id : null;
+      }
+
+      function refresh() {
+        setPh(uSel, 'সকল ইউনিয়ন', 'All Unions');
+        const upId = findUpazilaId(upaSel.value);
+        if (!upId) {
+          uSel.disabled = true;
+          setPh(uSel, '— আগে উপজেলা নির্বাচন করুন —', '— Select Upazila First —');
+          applyMbFilters();
+          return;
+        }
+        const list = (UNIONS[String(upId)] || []).slice()
+                          .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillObjs(uSel, list);
+        uSel.disabled = list.length === 0;
+        applyMbFilters();
+      }
+
+      upaSel.addEventListener('change', refresh);
+      uSel.addEventListener('change', () => applyMbFilters());
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 30);
+      });
+      function refreshLabels() {
+        Array.from(uSel.options).forEach(o => {
+          const bn = o.getAttribute('data-bn');
+          const en = o.getAttribute('data-en');
+          if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+        });
+      }
+
+      loadData().catch(err => console.error('Filter union load failed', err));
     })();
 
 </script>

@@ -359,6 +359,18 @@
         </div>
 
 
+        
+        <div class="form-group">
+          <label class="form-label"><span class="lbl-txt" data-bn="ইউনিয়ন" data-en="Union">ইউনিয়ন</span></label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-diagram-project input-icon-left"></i>
+            <select id="u-union" class="form-input" disabled>
+              <option value="" data-bn="— আগে উপজেলা নির্বাচন করুন —" data-en="— Select Upazila First —">— আগে উপজেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+          <input type="text" id="u-union-other" class="form-input" data-bn="ইউনিয়নের নাম টাইপ করুন" data-en="Type union name" placeholder="ইউনিয়নের নাম টাইপ করুন" style="display: none; margin-top: 8px;">
+        </div>
+
         <!-- Ward No. + Village (cascading from District) -->
         <div class="form-row">
           <div class="form-group" style="flex: 1;">
@@ -510,6 +522,9 @@
       const villageSel = document.getElementById('u-village');
       let village = villageSel ? villageSel.value : '';
       if (village === '__other__') village = (document.getElementById('u-village-other').value || '').trim();
+      const unionSel = document.getElementById('u-union');
+      let union = unionSel ? unionSel.value : '';
+      if (union === '__other__') union = (document.getElementById('u-union-other').value || '').trim();
 
       const trackId = 'REQ-2026-' + Math.floor(1000 + Math.random() * 9000);
 
@@ -526,6 +541,7 @@
         area,
         ward,
         village,
+        union,
         location,
         phone,
         urgency,
@@ -848,6 +864,88 @@
 
       loadData().then(refresh).catch(err => console.error('Ward/village load failed', err));
     })();
+
+    // ---- Union cascade driven by Upazila (u-) ----
+    (function initUnionCascade_u_() {
+      const upaSel = document.getElementById('u-area');
+      const uSel   = document.getElementById('u-union');
+      const uOther = document.getElementById('u-union-other');
+      if (!upaSel || !uSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let UNIONS = {};
+
+      function setPh(sel, bn, en) {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillObjs(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = label(item);
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+      function appendOther(sel) {
+        const opt = document.createElement('option');
+        opt.value = '__other__';
+        opt.setAttribute('data-bn', 'অন্যান্য (নিজে লিখুন)');
+        opt.setAttribute('data-en', 'Other (type name)');
+        opt.textContent = lang() === 'bn' ? 'অন্যান্য (নিজে লিখুন)' : 'Other (type name)';
+        sel.appendChild(opt);
+      }
+      uSel.addEventListener('change', () => {
+        if (uSel.value === '__other__') { uOther.style.display = 'block'; uOther.focus(); }
+        else { uOther.style.display = 'none'; uOther.value = ''; }
+      });
+
+      function loadData() {
+        return fetch('../assets/data/bd-unions.json').then(r => r.json()).then(d => {
+          UNIONS = d.unions || d;
+        });
+      }
+
+      function refresh() {
+        setPh(uSel, '— ইউনিয়ন নির্বাচন করুন —', '— Select Union —');
+        uOther.style.display = 'none'; uOther.value = '';
+        if (!upaSel.value) {
+          setPh(uSel, '— আগে উপজেলা নির্বাচন করুন —', '— Select Upazila First —');
+          uSel.disabled = true;
+          return;
+        }
+        // upaSel option value in form pages == id (numeric string). Look it up.
+        const list = (UNIONS[String(upaSel.value)] || []).slice()
+                                 .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillObjs(uSel, list);
+        appendOther(uSel);
+        uSel.disabled = false;
+      }
+
+      upaSel.addEventListener('change', refresh);
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 30);
+      });
+      function refreshLabels() {
+        Array.from(uSel.options).forEach(o => {
+          const bn = o.getAttribute('data-bn');
+          const en = o.getAttribute('data-en');
+          if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+        });
+      }
+
+      loadData().catch(err => console.error('Union load failed', err));
+    })();
+
 
 
     // ---- Auto-fill member ID from login session ----

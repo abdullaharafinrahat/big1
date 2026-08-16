@@ -1067,7 +1067,15 @@
         </div>
 
         <div class="filter-grid-2col">
-          <!-- Ward -->
+          
+          <div class="filter-group">
+            <label class="filter-modal-label" data-bn="ইউনিয়ন (Union)" data-en="Union">ইউনিয়ন</label>
+            <select id="pop-filter-union" class="filter-modal-select" disabled>
+              <option value="all" data-bn="— আগে উপজেলা নির্বাচন করুন —" data-en="— Select Upazila First —">— আগে উপজেলা নির্বাচন করুন —</option>
+            </select>
+          </div>
+
+        <!-- Ward -->
           <div class="filter-group">
             <label class="filter-modal-label" data-bn="ওয়ার্ড নম্বর (Ward No.)" data-en="Ward No.">ওয়ার্ড নম্বর</label>
             <select id="pop-filter-ward" class="filter-modal-select" disabled>
@@ -1288,6 +1296,8 @@
       const hosp = (hRaw === 'all' ? '' : hRaw).toLowerCase().trim();
       const wRaw = document.getElementById('pop-filter-ward')?.value || '';
       const ward = (wRaw === 'all' ? '' : wRaw).toLowerCase().trim();
+      const uRaw = document.getElementById('pop-filter-union')?.value || '';
+      const unionF = (uRaw === 'all' ? '' : uRaw).toLowerCase().trim();
       const vRaw = document.getElementById('pop-filter-village')?.value || '';
       const village = (vRaw === 'all' ? '' : vRaw).toLowerCase().trim();
       const blood = selectedBloodGroup;
@@ -1303,6 +1313,7 @@
       if (hosp) activeFilterCount++;
       if (ward) activeFilterCount++;
       if (village) activeFilterCount++;
+      if (unionF) activeFilterCount++;
 
       // Update Filter Badge
       const badge = document.getElementById('active-filter-badge');
@@ -1314,7 +1325,7 @@
       }
 
       // Render Active Filter Chips
-      renderActiveChips(blood, div, dist, upazila, hosp, ward, village);
+      renderActiveChips(blood, div, dist, upazila, hosp, ward, village, unionF);
 
       cards.forEach(card => {
         const nameBn = (card.dataset.nameBn || '').toLowerCase();
@@ -1335,9 +1346,11 @@
         // If card has no data-ward/village, treat as pass (demo data).
         const matchWard = !ward || !cWard || cWard.includes(ward);
         const matchVillage = !village || !cVillage || cVillage.includes(village);
+        const cUnion = (card.dataset.union || '').toLowerCase();
+        const matchUnion = !unionF || !cUnion || cUnion.includes(unionF);
         const matchBlood = (blood === 'all') || (cBlood === blood);
 
-        if (matchSearch && matchDiv && matchDist && matchUpazila && matchHosp && matchBlood && matchWard && matchVillage) {
+        if (matchSearch && matchDiv && matchDist && matchUpazila && matchHosp && matchBlood && matchWard && matchVillage && matchUnion) {
           card.style.display = 'flex';
           visible++;
         } else {
@@ -1346,7 +1359,7 @@
       });
     }
 
-    function renderActiveChips(blood, div, dist, upazila, hosp, ward, village) {
+    function renderActiveChips(blood, div, dist, upazila, hosp, ward, village, unionF) {
       const bar = document.getElementById('active-filters-chips');
       let chipsHtml = '';
       const lang = getLang();
@@ -1371,6 +1384,9 @@
       }
       if (village) {
         chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'গ্রাম:' : 'Village:'} ${village} <span class="chip-remove" onclick="const s=document.getElementById('pop-filter-village'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
+      }
+      if (unionF) {
+        chipsHtml += `<span class="filter-chip">${lang === 'bn' ? 'ইউনিয়ন:' : 'Union:'} ${unionF} <span class="chip-remove" onclick="const s=document.getElementById('pop-filter-union'); s.value='all'; s.dispatchEvent(new Event('change'));">&times;</span></span>`;
       }
 
       if (chipsHtml) {
@@ -1904,6 +1920,89 @@
       }
 
       loadData().catch(err => console.error('Filter ward/village load failed', err));
+    })();
+
+  
+    // ---- Filter Union cascade driven by Upazila (pop-filter-) ----
+    (function initFilterUnionCascade_pop_filter_() {
+      const upaSel = document.getElementById('pop-filter-upazila');
+      const uSel   = document.getElementById('pop-filter-union');
+      if (!upaSel || !uSel) return;
+
+      const lang = () => (localStorage.getItem('bondhu.lang') || 'bn');
+      const label = (o) => lang() === 'bn' ? (o.bn_name || o.name) : (o.name || o.bn_name);
+
+      let UNIONS = {}, UPAZILAS = [];
+
+      function setPh(sel, bn, en, val='all') {
+        sel.innerHTML = '';
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.setAttribute('data-bn', bn); opt.setAttribute('data-en', en);
+        opt.textContent = lang() === 'bn' ? bn : en;
+        sel.appendChild(opt);
+      }
+      function fillObjs(sel, items) {
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = label(item);
+          opt.setAttribute('data-bn', item.bn_name || item.name);
+          opt.setAttribute('data-en', item.name || item.bn_name);
+          opt.textContent = label(item);
+          sel.appendChild(opt);
+        });
+      }
+
+      function loadData() {
+        return Promise.all([
+          fetch('../assets/data/bd-unions.json').then(r => r.json()),
+          fetch('../assets/data/bd-upazilas.json').then(r => r.json()),
+        ]).then(([d, up]) => {
+          UNIONS = d.unions || d;
+          UPAZILAS = up.upazilas || up;
+        });
+      }
+
+      function findUpazilaId(labelText) {
+        // Filter selects store DISPLAY LABEL as the value. Find matching id.
+        if (!labelText || labelText === 'all') return null;
+        const match = UPAZILAS.find(u => label(u) === labelText
+                                       || u.name === labelText
+                                       || u.bn_name === labelText);
+        return match ? match.id : null;
+      }
+
+      function refresh() {
+        setPh(uSel, 'সকল ইউনিয়ন', 'All Unions');
+        const upId = findUpazilaId(upaSel.value);
+        if (!upId) {
+          uSel.disabled = true;
+          setPh(uSel, '— আগে উপজেলা নির্বাচন করুন —', '— Select Upazila First —');
+          applyBloodFilters();
+          return;
+        }
+        const list = (UNIONS[String(upId)] || []).slice()
+                          .sort((a,b)=>label(a).localeCompare(label(b), lang()==='bn'?'bn':'en'));
+        fillObjs(uSel, list);
+        uSel.disabled = list.length === 0;
+        applyBloodFilters();
+      }
+
+      upaSel.addEventListener('change', refresh);
+      uSel.addEventListener('change', () => applyBloodFilters());
+
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-switcher')) setTimeout(refreshLabels, 30);
+      });
+      function refreshLabels() {
+        Array.from(uSel.options).forEach(o => {
+          const bn = o.getAttribute('data-bn');
+          const en = o.getAttribute('data-en');
+          if (bn && en) o.textContent = lang() === 'bn' ? bn : en;
+        });
+      }
+
+      loadData().catch(err => console.error('Filter union load failed', err));
     })();
 
   </script>
