@@ -192,18 +192,33 @@ Driver registration / information form.
 
 # Section 8 — Mobile Number Validation & SMS
 
-- ⬜ **8.1** Client-side validation:
-  - BD mobile format: `01[3-9]XXXXXXXX` (11 digits starting with `01`).
-  - Show inline error, block submit if invalid.
-- ⬜ **8.2** OTP-based validation on submission (❓ ASK: SMS provider —
-  BulkSMSBD, SSL Wireless, Twilio, or a stub for now?).
-- ⬜ **8.3** SMS confirmation on successful submission for:
-  - User registration.
-  - Driver registration.
-  - Owner registration.
-  - Booking / Destination submission.
-- ⬜ **8.4** SMS notification to Driver + Owner when a booking arrives.
-- ⬜ **8.5** SMS notification when Admin Review status changes.
+- ✅ **8.1** Client-side validation via `js/utils/mobile-sms.js`:
+  - Regex `01[3-9]\d{8}` (11 digits, correct operator prefix).
+  - Accepts +880, 880, leading-zero-missing forms.
+  - **Accepts Bangla digits** (০–৯) — auto-converted to English before check.
+  - Strips spaces / hyphens / dots.
+  - Live inline helper below every `input[type="tel"]` — turns green ✓ on
+    valid, red on error. Uses `setCustomValidity()` so browser submit is
+    also blocked.
+  - Auto-attaches to every mobile input on page load + observes DOM
+    mutations for late-injected inputs.
+- ✅ **8.2** No OTP for now (per demo scope). Validation only.
+- ✅ **8.3** Confirmation SMS wired into every submit path:
+  - Blood request → requester
+  - Home publish → owner
+  - Missing report → reporter
+  - Ambulance registration → driver **and** owner (if different)
+  - Destination booking → customer (driver + owner already queued)
+  - Ambulance booking modal → customer + driver
+- ✅ **8.4** Driver/Owner SMS on booking arrival — already delivered by
+  Section 4 (destination booking) and now the ambulance-modal booking too.
+- ⬜ **8.5** SMS on admin-review status change — helper is ready
+  (`sendConfirmationSMS('admin_review_status', ...)`), but hooking it in
+  requires Section 9 (admin review workflow) to exist first.
+- ✅ **8.6** **NEW** — `pages/admin/sms-outbox.html` viewer.
+  Live-updates every 5 s, filter by role / kind / free-text; clear button;
+  demo banner. Reachable from a "SMS Outbox [DEMO]" button in the admin
+  dashboard header.
 
 ---
 

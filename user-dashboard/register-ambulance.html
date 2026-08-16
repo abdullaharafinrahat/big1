@@ -632,6 +632,18 @@
           document.getElementById('amb-track-id').textContent = trackId;
           document.getElementById('amb-review-name').textContent = data.providerName || '—';
           document.getElementById('amb-success-modal').classList.add('active');
+          // ---- Section 8: SMS to driver (registration) and owner ----
+          if (window.BondhuSMS) {
+            const drvPhone = record.driverMobile || '';
+            const ownPhone = record.ownerPhone || record.driverMobile || '';
+            if (drvPhone) window.BondhuSMS.sendConfirmationSMS('ambulance_registration', drvPhone, {
+              code: trackId, role: 'driver',
+            });
+            if (ownPhone && ownPhone !== drvPhone) window.BondhuSMS.sendConfirmationSMS('ambulance_registration_owner', ownPhone, {
+              code: trackId, plate: record.plate, name: record.providerName, role: 'owner',
+            });
+          }
+
         }
       });
       prevBtn.addEventListener('click', () => { if (step > 1) renderStep(step - 1); });
@@ -762,6 +774,7 @@
     })();
 
   </script>
+  <script src="../js/utils/mobile-sms.js"></script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>

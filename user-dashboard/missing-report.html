@@ -648,6 +648,15 @@
       $('pop-report-id').textContent = reportId;
       $('pop-report-name').textContent = pendingItem.name || '—';
       $('report-success-modal').classList.add('active');
+      // ---- Section 8: confirmation SMS to reporter ----
+      if (window.BondhuSMS) {
+        window.BondhuSMS.sendConfirmationSMS('missing_report', pendingItem.phone, {
+          code: reportId,
+          name: pendingItem.name,
+          role: 'user',
+        });
+      }
+
       form.reset();
       // restore auto-filled member id after reset
       const el = $('mr-member-id');
@@ -660,6 +669,7 @@
       return false;
     }
   </script>
+  <script src="../js/utils/mobile-sms.js"></script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>

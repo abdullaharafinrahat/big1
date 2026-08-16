@@ -562,6 +562,15 @@
 
       // Show popup
       document.getElementById('request-success-modal').classList.add('active');
+      // ---- Section 8: confirmation SMS to requester ----
+      if (window.BondhuSMS) {
+        window.BondhuSMS.sendConfirmationSMS('blood_request', phone, {
+          code: trackId,
+          name: patientName,
+          role: 'user',
+        });
+      }
+
     }
 
     // Shared Dynamic Calendar Scripting
@@ -966,6 +975,7 @@
       el.value = id || 'BON00012345';
     })();
 </script>
+  <script src="../js/utils/mobile-sms.js"></script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>

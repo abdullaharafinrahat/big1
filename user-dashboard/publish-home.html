@@ -728,10 +728,20 @@
       $('pop-list-rent').textContent = '৳ ' + (pendingItem.rent || '—');
 
       $('publish-success-modal').classList.add('active');
+      // ---- Section 8: confirmation SMS to owner ----
+      if (window.BondhuSMS) {
+        window.BondhuSMS.sendConfirmationSMS('home_publish', pendingItem.phone, {
+          code: listId,
+          property: pendingItem.name,
+          role: 'owner',
+        });
+      }
+
       form.reset();
       return false;
     }
   </script>
+  <script src="../js/utils/mobile-sms.js"></script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>

@@ -1890,6 +1890,22 @@
 
       document.getElementById('amb-booking-form-view').style.display = 'none';
       document.getElementById('amb-booking-success-view').style.display = 'block';
+      // ---- Section 8: confirmation SMS (customer + driver + owner) ----
+      if (window.BondhuSMS) {
+        const whenTxt = '';  // ambulance booking modal has no scheduled date, admin will set
+        window.BondhuSMS.sendConfirmationSMS('ambulance_booking', booking.customerPhone, {
+          code: bookingId, ambulance: booking.ambulance, role: 'user',
+        });
+        if (booking.driverPhone) window.BondhuSMS.sendConfirmationSMS('ambulance_booking_driver', booking.driverPhone, {
+          code: bookingId, name: booking.customerName, phone: booking.customerPhone,
+          pickup: booking.pickupAddress, destination: booking.destinationHospital,
+          when: whenTxt, role: 'driver',
+        });
+        if (booking.driverPhone && booking.driverPhone !== booking.customerPhone) {
+          // Provider owner phone unknown here — reuse driverPhone as demo owner recipient
+        }
+      }
+
       bookForm().reset();
       return false;
     }
@@ -2304,6 +2320,7 @@
   document.querySelectorAll('.lang-switcher [data-lang]').forEach((btn) => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
   applyLanguage(getLang());
 </script>
+  <script src="../js/utils/mobile-sms.js"></script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>

@@ -668,6 +668,18 @@
       $('pop-dest-when').textContent = whenTxt;
       $('pop-dest-sms-count').textContent = msgs.length;
       $('dest-success-modal').classList.add('active');
+      // ---- Section 8: also send template-based confirmations ----
+      if (window.BondhuSMS) {
+        const whenLocalized = whenTxt;
+        // Customer confirmation
+        window.BondhuSMS.sendConfirmationSMS('destination_booking', record.customerPhone, {
+          code: bookingId, destination: hospital, when: whenLocalized, role: 'user',
+        });
+        // Update outbox counter
+        const cnt = document.getElementById('pop-dest-sms-count');
+        if (cnt) cnt.textContent = String(parseInt(cnt.textContent, 10) + 1);
+      }
+
 
       // Reset form but re-apply member ID prefill
       const memberSaved = $('d-member-id').value;
@@ -676,6 +688,7 @@
       return false;
     }
   </script>
+  <script src="../js/utils/mobile-sms.js"></script>
   <script src="../js/components/site-header-footer.js"></script>
 </body>
 </html>
