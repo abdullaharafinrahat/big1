@@ -389,6 +389,94 @@
       </div>
     </div>
 
+
+    <!-- Unified Admin Review Queue (Section 9) -->
+    <div class="card-box" id="review-queue-card" style="margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; color: #0f172a;">
+            <i class="fa-solid fa-clipboard-check" style="color:#0369a1;"></i> Admin Review Queue
+          </h2>
+          <p style="font-size: 12px; color: #64748b;">সমস্ত সাবমিশন এখানে যাচাই করুন — Pending → Under Review → Approved / Hold / Rejected</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span id="rev-count-badge" style="background:#f1f5f9; color:#334155; font-size:12px; font-weight:800; padding:4px 12px; border-radius:999px;">0 items</span>
+        </div>
+      </div>
+
+      <!-- Kind tabs -->
+      <div id="rev-kind-tabs" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:10px;"></div>
+
+      <!-- Toolbar: search + status filter -->
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <input type="search" id="rev-search" placeholder="ID, name, phone দিয়ে খুঁজুন..." style="flex:1; min-width:220px; padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px;">
+        <select id="rev-status-filter" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; background:white;">
+          <option value="all">সব স্ট্যাটাস</option>
+          <option value="pending">Pending</option>
+          <option value="under_review">Under Review</option>
+          <option value="approved">Approved</option>
+          <option value="hold">Hold</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div class="table-responsive">
+        <table class="admin-table" id="rev-table">
+          <thead>
+            <tr>
+              <th style="min-width:120px;">Code</th>
+              <th>Kind</th>
+              <th>Applicant</th>
+              <th>Location</th>
+              <th style="min-width:120px;">Phone</th>
+              <th>Submitted</th>
+              <th>Status</th>
+              <th style="text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="rev-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============ Slide-out Review Modal ============ -->
+    <div id="rev-modal-backdrop" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:3000; align-items:stretch; justify-content:flex-end;">
+      <div id="rev-modal-card" style="background:white; width:100%; max-width:780px; height:100%; overflow-y:auto; padding:24px; box-shadow:-10px 0 30px rgba(0,0,0,0.15); font-family:'Hind Siliguri', 'Inter', sans-serif;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #e2e8f0; padding-bottom:14px; margin-bottom:16px;">
+          <div>
+            <div id="rev-mod-kind" style="font-size:11px; font-weight:800; color:#f57c00; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px;"></div>
+            <h3 style="font-size:20px; font-weight:800; color:#0f172a;" id="rev-mod-title">—</h3>
+            <p style="font-size:12px; color:#64748b; margin-top:4px;" id="rev-mod-subtitle">—</p>
+          </div>
+          <button type="button" onclick="closeReviewModal()" style="background:none; border:none; font-size:24px; color:#94a3b8; cursor:pointer; padding:4px 8px;">&times;</button>
+        </div>
+
+        <!-- Current status + quick actions -->
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px; margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:12px; color:#64748b; font-weight:700;">Current status:</span>
+              <span id="rev-mod-status-pill"></span>
+            </div>
+            <div style="font-size:11px; color:#94a3b8;" id="rev-mod-submitted">—</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" onclick="applyReviewStatus('under_review')" style="background:#e0f2fe; color:#0369a1; border:1px solid #7dd3fc; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;"><i class="fa-solid fa-magnifying-glass"></i> Under Review</button>
+            <button type="button" onclick="applyReviewStatus('approved')"     style="background:#dcfce7; color:#166534; border:1px solid #86efac; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;"><i class="fa-solid fa-circle-check"></i> Approve</button>
+            <button type="button" onclick="applyReviewStatus('hold')"         style="background:#ffedd5; color:#9a3412; border:1px solid #fdba74; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;"><i class="fa-solid fa-hand"></i> Hold</button>
+            <button type="button" onclick="applyReviewStatus('rejected')"     style="background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;"><i class="fa-solid fa-circle-xmark"></i> Reject</button>
+          </div>
+          <div style="margin-top:10px;">
+            <label style="font-size:11.5px; color:#64748b; font-weight:700; display:block; margin-bottom:4px;">অ্যাডমিন নোট (SMS-এ পাঠানো হবে)</label>
+            <textarea id="rev-mod-note" rows="2" placeholder="e.g. Documents verified, please pay dispatch fee before first trip." style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12.5px; font-family:inherit; resize:vertical;"></textarea>
+          </div>
+        </div>
+
+        <!-- Record details -->
+        <div id="rev-mod-body"></div>
+      </div>
+    </div>
+
     <!-- Home & Hotel Rental Verification Queue Section -->
     <div class="card-box" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -600,5 +688,278 @@
     applyLanguage(getLang());
   </script>
   <script src="../../js/components/site-header-footer.js"></script>
+
+<script src="../../js/utils/mobile-sms.js"></script>
+<script src="../../js/utils/admin-review.js"></script>
+<script>
+  // ---------------- Unified Admin Review Queue ----------------
+  (function () {
+    if (!window.BondhuReview) return;
+
+    let activeKind = 'all';
+    let currentItem = null;   // {id, kind, ...} currently open in modal
+
+    const KIND_TABS = [
+      { k: 'all',                     label: 'সব / All',          icon: 'fa-list' },
+      { k: 'ambulance_registration',  label: 'অ্যাম্বুলেন্স রেজিস্ট্রেশন', icon: 'fa-truck-medical' },
+      { k: 'home_publish',            label: 'হোম পাবলিশ',           icon: 'fa-house-chimney-window' },
+      { k: 'missing_report',          label: 'মিসিং রিপোর্ট',        icon: 'fa-users-viewfinder' },
+      { k: 'blood_request',           label: 'ব্লাড রিকোয়েস্ট',       icon: 'fa-droplet' },
+      { k: 'ambulance_booking',       label: 'অ্যাম্বুলেন্স বুকিং',    icon: 'fa-calendar-check' },
+      { k: 'destination_booking',     label: 'গন্তব্য বুকিং',        icon: 'fa-route' },
+      { k: 'user_registration',       label: 'ইউজার রেজিস্ট্রেশন',   icon: 'fa-user-plus' },
+    ];
+
+    function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function timeAgo(iso){
+      try {
+        const d = new Date(iso), now = new Date();
+        const s = Math.floor((now - d) / 1000);
+        if (isNaN(s)) return '—';
+        if (s < 60) return s + 's ago';
+        if (s < 3600) return Math.floor(s/60) + 'm ago';
+        if (s < 86400) return Math.floor(s/3600) + 'h ago';
+        if (s < 30*86400) return Math.floor(s/86400) + 'd ago';
+        return d.toLocaleDateString();
+      } catch (e) { return '—'; }
+    }
+    function statusPill(status) {
+      const m = BondhuReview.STATUS_META[status] || BondhuReview.STATUS_META.pending;
+      return `<span style="display:inline-flex; align-items:center; gap:4px; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:800; color:${m.color}; background:${m.bg};"><i class="fa-solid ${m.icon}"></i> ${m.label}</span>`;
+    }
+
+    function renderTabs() {
+      const c = BondhuReview.counts();
+      const el = document.getElementById('rev-kind-tabs');
+      el.innerHTML = KIND_TABS.map(t => {
+        const n = t.k === 'all' ? Object.values(c.byKind).reduce((a,b)=>a+b,0) : (c.byKind[t.k] || 0);
+        const active = t.k === activeKind;
+        return `<button type="button" data-tab="${t.k}" style="background:${active?'#0369a1':'#f1f5f9'}; color:${active?'white':'#334155'}; border:1px solid ${active?'#0369a1':'#e2e8f0'}; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+          <i class="fa-solid ${t.icon}"></i> ${t.label}
+          <span style="background:${active?'rgba(255,255,255,0.25)':'#e2e8f0'}; color:${active?'white':'#475569'}; padding:1px 7px; border-radius:999px; font-size:10.5px; font-weight:800;">${n}</span>
+        </button>`;
+      }).join('');
+      el.querySelectorAll('[data-tab]').forEach(btn => btn.addEventListener('click', () => {
+        activeKind = btn.dataset.tab;
+        renderTabs();
+        renderTable();
+      }));
+    }
+
+    function renderTable() {
+      const q = document.getElementById('rev-search').value;
+      const status = document.getElementById('rev-status-filter').value;
+      const items = BondhuReview.list({ kind: activeKind, status, q });
+      document.getElementById('rev-count-badge').textContent = items.length + ' items';
+      const tbody = document.getElementById('rev-tbody');
+      if (!items.length) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#94a3b8; padding:30px;">কোনো রিভিউ আইটেম পাওয়া যায়নি।</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = items.map(it => `
+        <tr>
+          <td style="font-family:monospace; font-size:12px; color:#0b5a35; font-weight:700;">${esc(it.id)}</td>
+          <td style="font-size:12px;"><i class="fa-solid ${it.kindIcon}" style="color:${it.kindColor}; margin-right:4px;"></i> ${esc(it.kindLabel)}</td>
+          <td style="font-size:12.5px; font-weight:600;">${esc(it.applicant)}${it.driverName?` <span style="color:#94a3b8; font-size:11px;">(driver: ${esc(it.driverName)})</span>`:''}</td>
+          <td style="font-size:11.5px; color:#64748b;">${esc(it.location || '—')}</td>
+          <td style="font-family:monospace; font-size:11.5px;">${esc(it.phone || '—')}</td>
+          <td style="font-size:11px; color:#64748b;">${esc(timeAgo(it.submittedAt))}</td>
+          <td>${statusPill(it.status)}</td>
+          <td style="text-align:right;">
+            <button type="button" data-review-id="${esc(it.id)}" data-review-kind="${esc(it.kind)}" style="background:#0b5a35; color:white; border:none; padding:5px 12px; border-radius:6px; font-size:11.5px; font-weight:700; cursor:pointer;">
+              <i class="fa-solid fa-eye"></i> Review
+            </button>
+          </td>
+        </tr>`).join('');
+      tbody.querySelectorAll('[data-review-id]').forEach(b => b.addEventListener('click', () => {
+        openReviewModal(b.dataset.reviewId, b.dataset.reviewKind);
+      }));
+    }
+
+    function docPreview(key, doc) {
+      if (!doc) return '';
+      if (doc.storedMetaOnly) {
+        return `<div style="padding:12px; background:#f1f5f9; color:#64748b; font-size:12px; border-radius:6px;"><i class="fa-solid fa-file"></i> ${esc(doc.name)} <span style="color:#94a3b8;">(metadata only — file bytes not stored)</span></div>`;
+      }
+      const url = doc.dataUrl || '';
+      const isImage = /^data:image\//.test(url);
+      const isPdf   = /^data:application\/pdf/.test(url);
+      const openBtn = `<a href="${esc(url)}" download="${esc(doc.name)}" style="background:#0b5a35; color:white; padding:4px 10px; border-radius:4px; font-size:11px; text-decoration:none; font-weight:700;"><i class="fa-solid fa-download"></i> Download</a>`;
+      const openInTab = `<a href="${esc(url)}" target="_blank" style="background:#eff6ff; color:#1d4ed8; padding:4px 10px; border-radius:4px; font-size:11px; text-decoration:none; font-weight:700; margin-left:4px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open</a>`;
+      let preview = '';
+      if (isImage) {
+        preview = `<img src="${esc(url)}" style="max-width:100%; max-height:280px; border-radius:6px; border:1px solid #e2e8f0; cursor:zoom-in; display:block; margin-top:6px;" onclick="window.open('${esc(url)}','_blank');">`;
+      } else if (isPdf) {
+        preview = `<iframe src="${esc(url)}" style="width:100%; height:280px; border:1px solid #e2e8f0; border-radius:6px; margin-top:6px; background:white;"></iframe>`;
+      } else if (url) {
+        preview = `<div style="padding:12px; background:#f1f5f9; color:#64748b; font-size:12px; border-radius:6px; margin-top:6px;"><i class="fa-solid fa-file"></i> ${esc(doc.name)}</div>`;
+      }
+      return `<div style="margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:12.5px; font-weight:800; color:#334155; text-transform:capitalize;">${esc(key)}</div>
+          <div>${openBtn}${openInTab}</div>
+        </div>
+        <div style="font-size:11px; color:#94a3b8; margin-top:2px;">${esc(doc.name)} · ${((doc.size||0)/1024).toFixed(1)} KB</div>
+        ${preview}
+      </div>`;
+    }
+
+    function renderRecord(item) {
+      const r = item.record;
+      const rows = [];
+      // Group 1: Identity
+      rows.push({ h: 'Identity', kvs: [
+        ['Code', item.id], ['Kind', item.kindLabel],
+        ['Applicant', item.applicant], ['Driver', item.driverName || '—'],
+        ['Phone', item.phone || '—'], ['Member ID', r.memberId || '—'],
+      ]});
+      // Group 2: Location
+      const loc = [r.village, r.ward, r.unionName || r.union, r.area, r.district, r.division]
+                    .filter(v => v && v !== '__other__');
+      if (loc.length) rows.push({ h: 'Location', kvs: [
+        ['Division', r.division], ['District', r.district],
+        ['Upazila', r.area], ['Union', r.unionName || r.union],
+        ['Ward', r.ward], ['Village', r.village],
+        ['Full', loc.join(', ')],
+      ].filter(([k,v]) => v && v !== '__other__')});
+      // Group 3: Vehicle (ambulance registration)
+      if (r.plate || r.providerName) rows.push({ h: 'Vehicle', kvs: [
+        ['Provider', r.providerName], ['Plate', r.plate], ['Type', r.type],
+        ['Base Hospital', r.baseHospital],
+      ].filter(([,v]) => v)});
+      // Group 4: Equipment (if object)
+      if (r.equipment && typeof r.equipment === 'object') {
+        const eq = Object.entries(r.equipment).filter(([,v]) => v).map(([k]) => k).join(', ');
+        rows.push({ h: 'Equipment', kvs: [['Included', eq || '—']] });
+      }
+      // Group 5: Booking-specific
+      if (item.kind === 'ambulance_booking' || item.kind === 'destination_booking') {
+        rows.push({ h: 'Trip', kvs: [
+          ['Ambulance', r.ambulanceTitle || r.ambulance], ['Plate', r.ambulancePlate || r.ambulanceCode],
+          ['Driver', r.driverName], ['Driver Phone', r.driverPhone],
+          ['Owner', r.ownerName], ['Owner Phone', r.ownerPhone],
+          ['Pickup', r.pickupAddress], ['Destination', r.destinationHospital],
+          ['Scheduled', r.scheduledAtISO ? new Date(r.scheduledAtISO).toLocaleString('bn-BD') : ''],
+        ].filter(([,v]) => v)});
+      }
+      // Group 6: Home publish specifics
+      if (item.kind === 'home_publish') {
+        rows.push({ h: 'Property', kvs: [
+          ['Name', r.name], ['Category', r.categoryTitle || r.category],
+          ['Rent', r.rent ? '৳ ' + r.rent : ''], ['Bedrooms', r.bedrooms],
+          ['Bathrooms', r.bathrooms], ['Area sqft', r.sqft],
+          ['Owner', r.ownerName],
+        ].filter(([,v]) => v)});
+      }
+      // Group 7: Missing report specifics
+      if (item.kind === 'missing_report') {
+        rows.push({ h: 'Missing Person', kvs: [
+          ['Name', r.name], ['Age', r.age], ['Gender', r.gender],
+          ['Last seen', r.lastSeen], ['Description', r.description],
+        ].filter(([,v]) => v)});
+      }
+      // Group 8: Blood request specifics
+      if (item.kind === 'blood_request') {
+        rows.push({ h: 'Blood Request', kvs: [
+          ['Patient', r.patientName], ['Blood group', r.bloodGroup],
+          ['Units', r.unitsCount], ['Reason', r.reason],
+          ['Hospital', r.hospitalName], ['Urgency', r.urgency],
+        ].filter(([,v]) => v)});
+      }
+      // Group 9: Notes history
+      const notesHtml = (item.notes || []).map(n => `
+        <div style="border-left:3px solid ${(BondhuReview.STATUS_META[n.status]||{}).color || '#cbd5e1'}; padding:6px 10px; margin-bottom:6px; background:#f8fafc; border-radius:4px;">
+          <div style="font-size:11.5px; font-weight:700; color:#334155;">${esc((BondhuReview.STATUS_META[n.status]||{}).label || n.status)} <span style="color:#94a3b8; font-weight:500;">by ${esc(n.by || 'admin')} · ${esc(n.atLocal || timeAgo(n.at))}</span></div>
+          ${n.note ? `<div style="font-size:12px; color:#0f172a; margin-top:2px;">${esc(n.note)}</div>` : ''}
+        </div>`).join('') || '<div style="color:#94a3b8; font-size:12px;">এখনও কোনো নোট নেই।</div>';
+
+      const groupsHtml = rows.map(g => `
+        <div style="margin-bottom:16px;">
+          <div style="font-size:11.5px; font-weight:800; color:#0369a1; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:4px;">${esc(g.h)}</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 20px;">
+            ${g.kvs.map(([k, v]) => `<div style="display:flex; justify-content:space-between; padding:3px 0; font-size:12.5px; border-bottom:1px dotted #eef2f7;"><span style="color:#64748b; font-weight:600;">${esc(k)}</span><span style="color:#0f172a; font-weight:700; text-align:right;">${esc(v)}</span></div>`).join('')}
+          </div>
+        </div>`).join('');
+
+      // Documents
+      const docs = item.documents || {};
+      const docKeys = Object.keys(docs);
+      const docsHtml = docKeys.length ? `
+        <div style="margin-bottom:16px;">
+          <div style="font-size:11.5px; font-weight:800; color:#0369a1; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:4px;">Documents</div>
+          ${docKeys.map(k => docPreview(k, docs[k])).join('')}
+        </div>` : '';
+
+      return groupsHtml + docsHtml + `
+        <div>
+          <div style="font-size:11.5px; font-weight:800; color:#0369a1; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:4px;">Review History</div>
+          ${notesHtml}
+        </div>`;
+    }
+
+    window.openReviewModal = function (id, kind) {
+      const item = BondhuReview.list({ kind, status: 'all', q: '' }).find(x => x.id === id);
+      if (!item) { alert('আইটেম পাওয়া যায়নি।'); return; }
+      currentItem = item;
+      document.getElementById('rev-mod-kind').textContent = item.kindLabel;
+      document.getElementById('rev-mod-title').textContent = item.applicant + ' — ' + item.id;
+      document.getElementById('rev-mod-subtitle').textContent = item.phone + ' · ' + (item.location || '—');
+      document.getElementById('rev-mod-status-pill').innerHTML = statusPill(item.status);
+      document.getElementById('rev-mod-submitted').textContent = 'জমা: ' + (item.submittedAtLocal || item.submittedAt || '—');
+      document.getElementById('rev-mod-note').value = '';
+      document.getElementById('rev-mod-body').innerHTML = renderRecord(item);
+      const bd = document.getElementById('rev-modal-backdrop');
+      bd.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+    window.closeReviewModal = function () {
+      document.getElementById('rev-modal-backdrop').style.display = 'none';
+      document.body.style.overflow = '';
+      currentItem = null;
+    };
+    // Backdrop click closes (only when clicking outside the card)
+    document.getElementById('rev-modal-backdrop').addEventListener('click', (e) => {
+      if (e.target.id === 'rev-modal-backdrop') window.closeReviewModal();
+    });
+
+    window.applyReviewStatus = function (newStatus) {
+      if (!currentItem) return;
+      const note = document.getElementById('rev-mod-note').value.trim();
+      try {
+        BondhuReview.setStatus(currentItem.id, currentItem.kind, newStatus, { note, by: 'admin' });
+      } catch (e) { alert('Failed: ' + e.message); return; }
+      // Re-render underlying table + this modal
+      renderTabs();
+      renderTable();
+      const updated = BondhuReview.list({ kind: currentItem.kind, status: 'all', q: '' }).find(x => x.id === currentItem.id);
+      if (updated) window.openReviewModal(updated.id, updated.kind);
+      // Small toast
+      const msg = 'স্ট্যাটাস আপডেট: ' + (BondhuReview.STATUS_META[BondhuReview.canonicalStatus(newStatus)] || {}).label;
+      showToast(msg);
+    };
+
+    function showToast(msg) {
+      let t = document.getElementById('rev-toast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'rev-toast';
+        t.style.cssText = 'position:fixed; bottom:24px; right:24px; background:#0f172a; color:white; padding:10px 18px; border-radius:8px; font-size:13px; font-weight:700; z-index:5000; box-shadow:0 6px 20px rgba(0,0,0,0.25); font-family:inherit; opacity:0; transition:opacity .2s;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      setTimeout(() => { t.style.opacity = '0'; }, 2500);
+    }
+
+    document.getElementById('rev-search').addEventListener('input', renderTable);
+    document.getElementById('rev-status-filter').addEventListener('change', renderTable);
+
+    renderTabs();
+    renderTable();
+    // Refresh every 5s so new submissions from other tabs appear
+    setInterval(() => { renderTabs(); renderTable(); }, 5000);
+  })();
+</script>
+
 </body>
 </html>

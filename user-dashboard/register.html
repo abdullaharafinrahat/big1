@@ -456,6 +456,36 @@
       document.getElementById('pop-user-name').textContent = name;
       document.getElementById('pop-user-phone').textContent = phone;
 
+      // ---- Section 9: push to Admin Review queue ----
+      const memberId = document.getElementById('pop-user-id')?.textContent
+                        || 'BON-2026-' + Math.floor(1000 + Math.random() * 9000);
+      const record = {
+        id: memberId,
+        kind: 'user_registration',
+        name,
+        phone,
+        submittedAt: new Date().toISOString(),
+        submittedAtLocal: new Date().toLocaleString('bn-BD'),
+        status: 'pending_admin_review',
+        reviewNotes: [],
+      };
+      try {
+        const list = JSON.parse(localStorage.getItem('bondhu.pendingUsers') || '[]');
+        list.unshift(record);
+        localStorage.setItem('bondhu.pendingUsers', JSON.stringify(list));
+      } catch (err) { console.warn('pendingUsers write failed', err); }
+
+      // ---- Section 8: confirmation SMS to new user ----
+      if (window.BondhuSMS && window.BondhuSMS.isValidBdMobile(phone)) {
+        window.BondhuSMS.queueSMS({
+          to: phone,
+          role: 'user',
+          kind: 'user_registration',
+          bookingId: memberId,
+          body: 'Bondhu: রেজিস্ট্রেশন সফলভাবে জমা হয়েছে (মেম্বার আইডি: ' + memberId + '). অ্যাডমিন যাচাইয়ের পর অ্যাকাউন্ট সক্রিয় হবে।',
+        });
+      }
+
       // Show Popup Modal
       document.getElementById('user-success-modal').classList.add('active');
     });

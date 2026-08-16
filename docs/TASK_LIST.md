@@ -212,9 +212,9 @@ Driver registration / information form.
   - Ambulance booking modal → customer + driver
 - ✅ **8.4** Driver/Owner SMS on booking arrival — already delivered by
   Section 4 (destination booking) and now the ambulance-modal booking too.
-- ⬜ **8.5** SMS on admin-review status change — helper is ready
-  (`sendConfirmationSMS('admin_review_status', ...)`), but hooking it in
-  requires Section 9 (admin review workflow) to exist first.
+- ✅ **8.5** SMS on admin-review status change — wired in Section 9.
+  Every Approve/Hold/Reject/Under-Review action fires an SMS to the
+  applicant with the admin's note. Visible in the SMS Outbox viewer.
 - ✅ **8.6** **NEW** — `pages/admin/sms-outbox.html` viewer.
   Live-updates every 5 s, filter by role / kind / free-text; clear button;
   demo banner. Reachable from a "SMS Outbox [DEMO]" button in the admin
@@ -224,18 +224,37 @@ Driver registration / information form.
 
 # Section 9 — Admin Review System
 
-- ⬜ **9.1** Review queue tables in admin dashboard for:
-  - User registrations.
-  - Driver information.
-  - Owner information.
-  - Bookings / Requests.
-- ⬜ **9.2** Ability to open a submission → view all fields + documents.
-- ⬜ **9.3** Status workflow:
-  - `Pending` → `Under Review` → **`Approved` / `Hold` / `Rejected`**
-  - Each status change requires an optional admin note.
-- ⬜ **9.4** After Admin Review completes, send SMS + in-app notification to
-  the affected user/driver/owner.
-- ⬜ **9.5** Audit log per submission (who reviewed, when, what note).
+- ✅ **9.1** Unified 'Admin Review Queue' section on
+  `pages/admin/dashboard.html` covering **every** submission bucket:
+  ambulance_registration, home_publish, missing_report, blood_request,
+  ambulance_booking, destination_booking, user_registration. Kind tabs
+  (with per-tab counts), free-text search, status filter. Live-refresh
+  every 5 s. Legacy 'Home & Hotel Rental Verification Queue' left in
+  place for backwards compatibility.
+- ✅ **9.2** Click any row → slide-out review modal (right side, 780px
+  wide). Shows: current status pill, submission timestamp, quick-action
+  buttons (Under Review / Approve / Hold / Reject), admin-note textarea,
+  full record dump grouped into Identity / Location / Vehicle /
+  Equipment / Trip / Property / Missing Person / Blood Request as
+  appropriate for each kind, uploaded documents with **inline previews**
+  (images as `<img>`, PDFs in `<iframe>`, click to open full), and the
+  chronological review history.
+- ✅ **9.3** Canonical status workflow enforced by `js/utils/admin-review.js`:
+  `pending` → `under_review` → **`approved` / `hold` / `rejected`**.
+  Existing status aliases (`pending_verification`, `pending_admin_review`,
+  `pending_dispatch`, `pending_moderation`, `verified`, `on_hold`, etc.)
+  auto-mapped to the canonical enum.
+- ✅ **9.4** Every status change fires an SMS via
+  `BondhuSMS.sendConfirmationSMS('admin_review_status', phone, {code, status, note})`.
+  The admin's note is included in the SMS body verbatim. Visible in the
+  SMS Outbox viewer.
+- ✅ **9.5** Audit log per submission: `record.reviewNotes` array. Each
+  entry has `{status, prevStatus, note, by, at (ISO), atLocal (Bangla)}`.
+  Rendered chronologically inside the review modal.
+- ✅ **9.6** Main user signup form (`user-dashboard/register.html`) now
+  writes a record to `bondhu.pendingUsers` on submit and fires a
+  confirmation SMS to the new member, so user registrations flow into
+  the same review queue.
 
 ---
 
