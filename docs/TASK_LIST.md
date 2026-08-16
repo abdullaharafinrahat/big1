@@ -85,19 +85,23 @@ location cascade including Union (added in `cbe7829`). Needs verification.
 > Division → District → Upazila → Union → Ward → Village → **Hospital
 > Name** → **Time** → **Date** → Submit
 
-- ⬜ **4.1** Decide where Destination lives (❓ ASK):
-  - Is it an extension of the existing ambulance booking modal?
-  - Or a new standalone page like `user-dashboard/destination-booking.html`?
-- ⬜ **4.2** Build the location cascade + Hospital dropdown + Time picker +
-  Date picker.
-- ⬜ **4.3** Submit action:
-  - Persist to `localStorage['bondhu.destinationBookings']`.
-  - Fire SMS notification to Driver.
-  - Fire SMS notification to Owner.
-  - Time & date must be stored in ISO format (not just display strings).
-- ⬜ **4.4** Show the full destination booking on:
-  - Driver Dashboard.
-  - Owner Dashboard.
+- ✅ **4.1** Standalone page `user-dashboard/destination-booking.html`. Sidebar
+  entry added to the user dashboard; public entry link on `pages/ambulance.html`
+  next to the "Register Ambulance" CTA.
+- ✅ **4.2** Full cascading location (Division → District → Upazila → Union →
+  Ward → Village) + Destination Hospital picker + Ambulance picker
+  (Available-only from `assets/data/ambulances.json`) + native Date + Time
+  pickers (min date = today, default = +1 hr from now rounded to 15 min).
+  Contact name/phone/member ID auto-prefill from login session.
+- ✅ **4.3** Submit:
+  - Persist to `localStorage['bondhu.destinationBookings']` with
+    `scheduledAtISO` (ISO 8601), plus separate `scheduledDate` + `scheduledTime`.
+  - SMS to Driver + Owner queued to `localStorage['bondhu.smsOutbox']` with
+    role, bookingId, body, queuedAt, status='queued'. Console-logged with
+    `[SMS stub → outbox]` prefix. **Stub only** — swap in real provider later.
+  - Success modal shows `DST-2026-NNNN` tracking code + summary + SMS count.
+- ⬜ **4.4** Show the full destination booking on Driver / Owner Dashboards
+  (blocked by Section 5.2 / 5.3 — those dashboards don't exist yet).
 
 ---
 
