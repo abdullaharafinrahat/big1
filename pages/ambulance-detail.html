@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambulance Details | Bondhu.org</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/components/header-footer.css">
+
+  <style>
+    :root {
+      --primary-red: #d32f2f;
+      --primary-green: #00695c;
+      --dark-green: #004d40;
+      --bg-light: #f4f6f8;
+      --border: #e5e9e6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+    html, body {
+      background-color: var(--bg-light);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      overflow-x: hidden;
+      width: 100%; max-width: 100%;
+    }
+    main {
+      flex: 1;
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px 100px;
+    }
+
+    .back-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white; border: 1px solid var(--border);
+      padding: 8px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; color: #334155;
+      text-decoration: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: all 0.15s;
+    }
+    .back-link:hover { border-color: #94a3b8; color: #0f172a; }
+
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px;
+      font-size: 12px; font-weight: 800;
+    }
+    .status-pill.available { background: #dcfce7; color: #166534; }
+    .status-pill.onduty    { background: #ffedd5; color: #9a3412; }
+    .status-pill.offline   { background: #e2e8f0; color: #475569; }
+
+    /* Layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Hero */
+    .hero-card {
+      background: white; border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .hero-photo {
+      width: 100%; height: 260px;
+      object-fit: cover;
+      background: #f1f5f9;
+      display: block;
+    }
+    .hero-body { padding: 20px 22px; }
+    .hero-title-row {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .hero-title { font-size: 22px; font-weight: 800; color: #0f172a; }
+    .hero-plate {
+      font-size: 12.5px; color: #64748b; font-weight: 700;
+      letter-spacing: 0.3px; margin-bottom: 6px;
+    }
+    .hero-type-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff3e0; color: #e65100;
+      padding: 4px 12px; border-radius: 999px;
+      font-size: 12px; font-weight: 800;
+    }
+
+    /* Section cards */
+    .section {
+      background: white; border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      padding: 18px 20px; margin-top: 16px;
+    }
+    .section-title {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 15px; font-weight: 800; color: #0f172a;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .section-title i { color: var(--primary-green); }
+
+    .kv-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+    @media (max-width: 640px) { .kv-list { grid-template-columns: 1fr; } }
+    .kv-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13.5px; padding: 4px 0;
+    }
+    .kv-row .k { color: #64748b; font-weight: 600; }
+    .kv-row .v { color: #0f172a; font-weight: 700; text-align: right; }
+
+    .equipment-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 14px;
+    }
+    .eq-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; padding: 6px 8px; border-radius: 8px;
+    }
+    .eq-item.on  { background: #ecfdf5; color: #14532d; }
+    .eq-item.off { background: #f1f5f9; color: #94a3b8; text-decoration: line-through; }
+    .eq-item i { font-size: 11px; }
+
+    .trips-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .trips-table th, .trips-table td {
+      padding: 8px 10px; text-align: left;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .trips-table th { color: #64748b; font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .trips-table tr:last-child td { border-bottom: none; }
+
+    /* Right column: rates + book */
+    .rates-card {
+      background: linear-gradient(135deg, #0b5a35, #004d40);
+      color: white; border-radius: 16px;
+      padding: 20px 22px;
+      box-shadow: 0 8px 30px rgba(11,90,53,0.20);
+    }
+    .rates-card h3 {
+      font-size: 14px; font-weight: 800; letter-spacing: 0.4px;
+      text-transform: uppercase; opacity: 0.85; margin-bottom: 12px;
+    }
+    .rate-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .rate-row:last-child { border-bottom: none; }
+    .rate-row .rl { font-size: 13px; opacity: 0.9; }
+    .rate-row .rv { font-size: 17px; font-weight: 800; }
+
+    .contact-card {
+      background: white; border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px; margin-top: 16px;
+    }
+    .contact-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; font-size: 13px;
+    }
+    .contact-row i { color: var(--primary-green); width: 20px; text-align: center; }
+
+    /* Sticky book CTA */
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; justify-content: center;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+      z-index: 500;
+    }
+    .btn-book-lg {
+      background: #f57c00; color: white; border: none;
+      padding: 12px 40px; border-radius: 10px;
+      font-size: 15px; font-weight: 800;
+      display: inline-flex; align-items: center; gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(245,124,0,0.35);
+      font-family: inherit;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-book-lg:hover { background: #e65100; transform: translateY(-1px); }
+    .btn-book-lg:disabled {
+      background: #cbd5e1; color: #64748b; box-shadow: none; cursor: not-allowed;
+    }
+
+    /* Empty / loading */
+    .center-msg {
+      text-align: center; color: #64748b;
+      font-size: 14px; padding: 40px 20px;
+      background: white; border-radius: 14px;
+      border: 1px dashed var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <bondhu-header></bondhu-header>
+
+  <main>
+    <div class="back-bar">
+      <a href="ambulance.html" class="back-link" id="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-bn="ফিরে যান" data-en="Back">ফিরে যান</span>
+      </a>
+      <span id="detail-status-pill"></span>
+    </div>
+
+    <div id="detail-content">
+      <div class="center-msg">
+        <i class="fa-solid fa-circle-notch fa-spin" style="margin-right:8px;"></i>
+        <span data-bn="লোড হচ্ছে..." data-en="Loading...">লোড হচ্ছে...</span>
+      </div>
+    </div>
+  </main>
+
+  <div class="sticky-cta" id="sticky-cta" style="display:none;">
+    <button type="button" class="btn-book-lg" id="book-cta-btn">
+      <i class="fa-solid fa-calendar-check"></i>
+      <span data-bn="এখনই বুকিং করুন" data-en="Book Now">এখনই বুকিং করুন</span>
+    </button>
+  </div>
+
+  <bondhu-footer></bondhu-footer>
+
+  <script>
+    // ---------- Helpers ----------
+    function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function qs(k){ return new URLSearchParams(location.search).get(k); }
+
+    const STATUS_MAP = {
+      available: { cls:'available', icon:'fa-circle-check', bn:'সহজলভ্য', en:'Available' },
+      onduty:    { cls:'onduty',    icon:'fa-clock',        bn:'দায়িত্বে', en:'On Duty'  },
+      offline:   { cls:'offline',   icon:'fa-circle-minus', bn:'অফলাইন',   en:'Off-line'},
+    };
+
+    // ---------- Wire back link ----------
+    (function wireBack(){
+      const back = qs('back');
+      if (back) {
+        try { document.getElementById('back-link').href = decodeURIComponent(back); } catch(e){}
+      }
+    })();
+
+    // ---------- Load & render ----------
+    (function load(){
+      const id = qs('id');
+      const container = document.getElementById('detail-content');
+      if (!id) {
+        container.innerHTML = `<div class="center-msg">
+          <i class="fa-solid fa-circle-exclamation" style="color:#d32f2f;"></i>
+          <span data-bn=" কোনো অ্যাম্বুলেন্স আইডি নেই। " data-en=" No ambulance ID given. "> কোনো অ্যাম্বুলেন্স আইডি নেই। </span>
+        </div>`;
+        return;
+      }
+
+      fetch('../assets/data/ambulances.json')
+        .then(r => r.json())
+        .then(d => {
+          const amb = (d.ambulances || []).find(a => a.id === id);
+          if (!amb) {
+            container.innerHTML = `<div class="center-msg">
+              <i class="fa-solid fa-circle-question" style="color:#d32f2f;"></i>
+              <span data-bn=" এই আইডির অ্যাম্বুলেন্স পাওয়া যায়নি। " data-en=" Ambulance not found. "> এই আইডির অ্যাম্বুলেন্স পাওয়া যায়নি। </span>
+            </div>`;
+            return;
+          }
+          renderAmbulance(amb);
+        })
+        .catch(err => {
+          console.error(err);
+          container.innerHTML = `<div class="center-msg">
+            <i class="fa-solid fa-triangle-exclamation" style="color:#d32f2f;"></i>
+            <span data-bn=" তথ্য লোড করা যায়নি। " data-en=" Could not load ambulance data. "> তথ্য লোড করা যায়নি। </span>
+          </div>`;
+        });
+    })();
+
+    function renderAmbulance(a) {
+      const bh = a.baseHospital || {};
+      const dr = a.driver || {};
+      const ow = a.owner || {};
+      const ve = a.vehicle || {};
+      const eq = a.equipment || {};
+      const rt = a.rates || {};
+      const trips = a.recentTrips || [];
+      const status = STATUS_MAP[a.status] || STATUS_MAP.available;
+
+      // Status pill at top
+      document.getElementById('detail-status-pill').innerHTML =
+        `<span class="status-pill ${status.cls}"><i class="fa-solid ${status.icon}"></i> ${status.bn} / ${status.en}</span>`;
+
+      // Sticky book CTA
+      const cta = document.getElementById('sticky-cta');
+      const btn = document.getElementById('book-cta-btn');
+      cta.style.display = 'flex';
+      if (a.status === 'offline') {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-ban"></i> <span data-bn="বর্তমানে অনুপলব্ধ" data-en="Currently Unavailable">বর্তমানে অনুপলব্ধ</span>`;
+      }
+      btn.addEventListener('click', () => openBookingRedirect(a));
+
+      // Equipment map
+      const equipmentItems = [
+        { key:'icuVentilator',    bn:'আইসিইউ ভেন্টিলেটর',  en:'ICU Ventilator' },
+        { key:'oxygenCylinder',   bn:'অক্সিজেন সিলিন্ডার',   en:'Oxygen Cylinder' },
+        { key:'defibrillator',    bn:'ডেফিব্রিলেটর',        en:'Defibrillator' },
+        { key:'firstAidStretcher',bn:'ফার্স্ট এইড কিট ও স্ট্রেচার', en:'First-Aid Kit & Stretcher' },
+        { key:'freezer',          bn:'ফ্রিজার (মরদেহ পরিবহন)',  en:'Freezer (mortuary)' },
+      ];
+      const eqHtml = equipmentItems.map(it => {
+        const on = !!eq[it.key];
+        const icon = on ? 'fa-circle-check' : 'fa-circle-xmark';
+        return `<div class="eq-item ${on?'on':'off'}"><i class="fa-solid ${icon}"></i> ${esc(it.bn)} <span style="opacity:.6;">/ ${esc(it.en)}</span></div>`;
+      }).join('');
+
+      // Trip rows
+      const tripsHtml = trips.length ? trips.map(t => `
+        <tr>
+          <td>${esc(t.date)}</td>
+          <td>${esc(t.from)}</td>
+          <td>${esc(t.to)}</td>
+          <td style="text-align:right;">${esc(t.distanceKm)} km</td>
+        </tr>`).join('') : `<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:14px;">এখনও কোনো ট্রিপ রেকর্ড নেই।</td></tr>`;
+
+      const html = `
+        <div class="detail-grid">
+          <!-- LEFT column -->
+          <div>
+            <div class="hero-card">
+              <img class="hero-photo" src="../${esc(a.photo)}" alt="${esc(a.title)}" onerror="this.style.background='#e2e8f0'; this.src='';">
+              <div class="hero-body">
+                <div class="hero-title-row">
+                  <div>
+                    <div class="hero-plate">${esc(a.plate)}</div>
+                    <div class="hero-title">${esc(a.title)}</div>
+                  </div>
+                  <span class="hero-type-tag"><i class="fa-solid fa-truck-medical"></i> ${esc(a.typeLabel || a.type)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title"><i class="fa-solid fa-car-side"></i> <span data-bn="যানবাহনের তথ্য" data-en="Vehicle">যানবাহনের তথ্য</span></div>
+              <div class="kv-list">
+                <div class="kv-row"><span class="k">Make</span><span class="v">${esc(ve.make || '—')}</span></div>
+                <div class="kv-row"><span class="k">Model</span><span class="v">${esc(ve.model || '—')}</span></div>
+                <div class="kv-row"><span class="k">Year</span><span class="v">${esc(ve.year || '—')}</span></div>
+                <div class="kv-row"><span class="k">Seats</span><span class="v">${esc(ve.seats || '—')}</span></div>
+                <div class="kv-row"><span class="k">Color</span><span class="v">${esc(ve.color || '—')}</span></div>
+                <div class="kv-row"><span class="k">Plate</span><span class="v">${esc(a.plate)}</span></div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title"><i class="fa-solid fa-hospital"></i> <span data-bn="বেস হাসপাতাল ও ঠিকানা" data-en="Base Hospital & Address">বেস হাসপাতাল ও ঠিকানা</span></div>
+              <div class="kv-list">
+                <div class="kv-row"><span class="k">Hospital</span><span class="v">${esc(bh.name || '—')}</span></div>
+                <div class="kv-row"><span class="k">Division</span><span class="v">${esc(bh.division || '—')}</span></div>
+                <div class="kv-row"><span class="k">District</span><span class="v">${esc(bh.district || '—')}</span></div>
+                <div class="kv-row"><span class="k">Upazila</span><span class="v">${esc(bh.upazila || '—')}</span></div>
+                <div class="kv-row"><span class="k">Union</span><span class="v">${esc(bh.union || '—')}</span></div>
+                <div class="kv-row"><span class="k">Ward</span><span class="v">${esc(bh.ward || '—')}</span></div>
+                <div class="kv-row"><span class="k">Village</span><span class="v">${esc(bh.village || '—')}</span></div>
+                <div class="kv-row" style="grid-column: 1 / -1;"><span class="k">Full address</span><span class="v">${esc(bh.fullAddress || '—')}</span></div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title"><i class="fa-solid fa-user-tie"></i> <span data-bn="চালকের তথ্য" data-en="Driver">চালকের তথ্য</span></div>
+              <div class="kv-list">
+                <div class="kv-row"><span class="k">Name</span><span class="v">${esc(dr.name || '—')} ${dr.verified ? '<i class="fa-solid fa-circle-check" style="color:#16a34a; font-size:11px; margin-left:4px;" title="Verified"></i>' : ''}</span></div>
+                <div class="kv-row"><span class="k">Experience</span><span class="v">${esc(dr.experienceYears || 0)} yrs</span></div>
+                <div class="kv-row"><span class="k">Licence No.</span><span class="v">${esc(dr.license || '—')}</span></div>
+                <div class="kv-row"><span class="k">Mobile</span><span class="v" style="color:#64748b;">শেয়ার করা হবে বুকিংয়ের পর</span></div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title"><i class="fa-solid fa-briefcase-medical"></i> <span data-bn="চিকিৎসা সরঞ্জাম" data-en="Equipment">চিকিৎসা সরঞ্জাম</span></div>
+              <div class="equipment-list">${eqHtml}</div>
+            </div>
+
+            <div class="section">
+              <div class="section-title"><i class="fa-solid fa-clock-rotate-left"></i> <span data-bn="সাম্প্রতিক ট্রিপ" data-en="Recent Trips">সাম্প্রতিক ট্রিপ</span></div>
+              <div style="overflow-x:auto;">
+                <table class="trips-table">
+                  <thead><tr><th>Date</th><th>From</th><th>To</th><th style="text-align:right;">Distance</th></tr></thead>
+                  <tbody>${tripsHtml}</tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT column -->
+          <div>
+            <div class="rates-card">
+              <h3><i class="fa-solid fa-bangladeshi-taka-sign"></i> রেট / Rates</h3>
+              <div class="rate-row"><span class="rl">Dispatch Fee</span><span class="rv">৳ ${esc(rt.dispatchFeeBdt || 0)}</span></div>
+              <div class="rate-row"><span class="rl">Per Km</span><span class="rv">৳ ${esc(rt.perKmBdt || 0)}</span></div>
+              <div class="rate-row"><span class="rl">Hourly</span><span class="rv">৳ ${esc(rt.hourlyBdt || 0)}</span></div>
+              <p style="margin-top:12px; font-size:11.5px; opacity:.85; line-height:1.5;">
+                চূড়ান্ত ভাড়া ট্রিপ শেষে পরিমাপ করা হবে।
+              </p>
+            </div>
+
+            <div class="contact-card">
+              <div class="section-title" style="margin-bottom:8px; padding-bottom:8px;"><i class="fa-solid fa-building-shield"></i> <span>প্রোভাইডার / Provider</span></div>
+              <div class="contact-row"><i class="fa-solid fa-building"></i> <strong>${esc(ow.name || '—')}</strong></div>
+              <div class="contact-row"><i class="fa-solid fa-headset"></i> ২৪/৭ হটলাইন: <strong>10647</strong></div>
+              <div class="contact-row"><i class="fa-solid fa-phone"></i> <a href="tel:10647" style="color:#0b5a35; font-weight:800; text-decoration:none;">সরাসরি কল করুন</a></div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('detail-content').innerHTML = html;
+    }
+
+    // ---------- Booking redirect ----------
+    // The booking modal lives on ambulance.html. Simplest reliable UX: navigate
+    // back to that page with a query param that auto-opens the booking modal
+    // for this ambulance.
+    function openBookingRedirect(a) {
+      const params = new URLSearchParams();
+      params.set('book', a.id);
+      location.href = `ambulance.html?${params.toString()}#ambulance-list`;
+    }
+  </script>
+  <script src="../js/components/site-header-footer.js"></script>
+</body>
+</html>

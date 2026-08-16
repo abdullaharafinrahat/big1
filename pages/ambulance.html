@@ -978,6 +978,15 @@
     margin: 0 auto 12px;
   }
 
+  
+  /* Card-anchor wrapper (added when card renders from JSON) */
+  .ambulance-card-link { display: block; }
+  .ambulance-card-link:hover .ambulance-card {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .status-badge.offline { color: #64748b; }
+
   </style>
   <link rel="stylesheet" href="../css/components/header-footer.css">
 </head>
@@ -1056,65 +1065,7 @@
         
 <!-- Grid -->
         <div class="grid-container" id="amb-grid">
-          <!-- Ambulance 1 -->
-          <div class="ambulance-card" data-district="ঢাকা Dhaka" data-type="ICU" data-name="Bondhu ICU Ambulance" data-division="Dhaka" data-upazila="মিরপুর Mirpur" data-hospital="Bondhu General Hospital">
-            <div class="card-banner">
-              <img src="../assets/images/hospital/ambulance-1.png" alt="Ambulance">
-              <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
-              <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
-            </div>
-            <div class="card-content">
-              <div class="ambulance-code">DH-11-2024</div>
-              <div class="ambulance-title">Bondhu ICU Ambulance</div>
-              <div class="info-line"><i class="fa-solid fa-hospital"></i> Bondhu General Hospital</div>
-              <div class="info-line"><i class="fa-solid fa-location-dot"></i> Mirpur-10, Dhaka</div>
-              <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Abdullah Rahman</div>
-              <div class="card-footer-tags">
-                <span class="tag">ICU Life Support</span>
-                <button type="button" class="btn-book" onclick="openAmbBookingModal(this)" data-driver-phone="01712345678"><i class="fa-solid fa-calendar-check"></i> বুকিং করুন</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ambulance 2 -->
-          <div class="ambulance-card" data-district="ঢাকা Dhaka" data-type="AC" data-name="City Care Emergency Ambulance" data-division="Dhaka" data-upazila="Panthapath পান্থপথ" data-hospital="Square Hospital">
-            <div class="card-banner">
-              <img src="../assets/images/hospital/ambulance-2.png" alt="Ambulance">
-              <span class="status-badge onduty"><i class="fa-solid fa-clock"></i> On Duty</span>
-              <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
-            </div>
-            <div class="card-content">
-              <div class="ambulance-code">DH-12-5544</div>
-              <div class="ambulance-title">City Care Emergency</div>
-              <div class="info-line"><i class="fa-solid fa-hospital"></i> Square Hospital</div>
-              <div class="info-line"><i class="fa-solid fa-location-dot"></i> Panthapath, Dhaka</div>
-              <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Mohammad Faruk</div>
-              <div class="card-footer-tags">
-                <span class="tag">AC Emergency</span>
-                <button type="button" class="btn-book" onclick="openAmbBookingModal(this)" data-driver-phone="01711223344"><i class="fa-solid fa-calendar-check"></i> বুকিং করুন</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ambulance 3 -->
-          <div class="ambulance-card" data-district="চট্টগ্রাম Chattogram" data-type="ICU" data-name="Chattogram Medical Ambulance" data-division="Chattogram" data-upazila="Panchlaish পাঁচলাইশ" data-hospital="Chattogram Medical College">
-            <div class="card-banner">
-              <img src="../assets/images/hospital/ambulance-exterior.png" alt="Ambulance">
-              <span class="status-badge available"><i class="fa-solid fa-circle-check"></i> Available</span>
-              <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
-            </div>
-            <div class="card-content">
-              <div class="ambulance-code">CTG-05-9988</div>
-              <div class="ambulance-title">Chattogram Med Ambulance</div>
-              <div class="info-line"><i class="fa-solid fa-hospital"></i> Chattogram Medical College</div>
-              <div class="info-line"><i class="fa-solid fa-location-dot"></i> Panchlaish, Chattogram</div>
-              <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: Rashedul Karim</div>
-              <div class="card-footer-tags">
-                <span class="tag">ICU Ambulance</span>
-                <button type="button" class="btn-book" onclick="openAmbBookingModal(this)" data-driver-phone="01713456789"><i class="fa-solid fa-calendar-check"></i> বুকিং করুন</button>
-              </div>
-            </div>
-          </div>
+          <!-- Cards rendered by JS from assets/data/ambulances.json -->
         </div>
       </div>
     </div>
@@ -1386,7 +1337,90 @@
 </div>
 
   <script>
-// ========== Filter State & Logic (ported from request-blood.html) ==========
+// ========== Ambulance List Renderer (from assets/data/ambulances.json) ==========
+    (function renderAmbulances() {
+      const grid = document.getElementById('amb-grid');
+      if (!grid) return;
+      const currentUrl = encodeURIComponent(location.pathname + location.search);
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+      function statusPill(status) {
+        const map = {
+          available: { cls: 'available', icon: 'fa-circle-check', label: 'Available' },
+          onduty:    { cls: 'onduty',    icon: 'fa-clock',        label: 'On Duty'   },
+          offline:   { cls: 'offline',   icon: 'fa-circle-minus', label: 'Off-line'  },
+        };
+        const s = map[status] || map.available;
+        return `<span class="status-badge ${s.cls}"><i class="fa-solid ${s.icon}"></i> ${s.label}</span>`;
+      }
+
+      fetch('../assets/data/ambulances.json')
+        .then(r => r.json())
+        .then(d => {
+          const list = d.ambulances || [];
+          grid.innerHTML = list.map(a => {
+            const bh = a.baseHospital || {};
+            const dr = a.driver || {};
+            const distEnBn = `${bh.district || ''}`;
+            const upaEnBn  = `${bh.upazila  || ''}`;
+            const detailHref = `ambulance-detail.html?id=${encodeURIComponent(a.id)}&back=${currentUrl}`;
+            return `
+              <a href="${detailHref}" class="ambulance-card-link" style="text-decoration:none; color:inherit; display:block;">
+                <div class="ambulance-card" data-id="${esc(a.id)}"
+                     data-district="${esc(distEnBn)}"
+                     data-upazila="${esc(upaEnBn)}"
+                     data-division="${esc(bh.division || '')}"
+                     data-hospital="${esc(bh.name || '')}"
+                     data-union="${esc(bh.union || '')}"
+                     data-ward="${esc(bh.ward || '')}"
+                     data-village="${esc(bh.village || '')}"
+                     data-type="${esc(a.type || '')}"
+                     data-name="${esc(a.title || '')}">
+                  <div class="card-banner">
+                    <img src="../${esc(a.photo)}" alt="${esc(a.title)}">
+                    ${statusPill(a.status)}
+                    <div class="ambulance-icon-badge"><i class="fa-solid fa-truck-medical"></i></div>
+                  </div>
+                  <div class="card-content">
+                    <div class="ambulance-code">${esc(a.plate)}</div>
+                    <div class="ambulance-title">${esc(a.title)}</div>
+                    <div class="info-line"><i class="fa-solid fa-hospital"></i> ${esc(bh.name || '')}</div>
+                    <div class="info-line"><i class="fa-solid fa-location-dot"></i> ${esc(bh.fullAddress || '')}</div>
+                    <div class="info-line"><i class="fa-solid fa-user-tie"></i> Driver: ${esc(dr.name || '')}</div>
+                    <div class="card-footer-tags">
+                      <span class="tag">${esc(a.typeLabel || a.type)}</span>
+                      <button type="button" class="btn-book"
+                              onclick="event.preventDefault(); event.stopPropagation(); openAmbBookingModal(this);"
+                              data-driver-phone="${esc(dr.phone || '')}">
+                        <i class="fa-solid fa-calendar-check"></i> বুকিং করুন
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </a>`;
+          }).join('');
+          // After rendering, re-run filters so any pre-set filter chips apply.
+          if (typeof applyAmbFilters === 'function') applyAmbFilters();
+          // Auto-open booking modal if user arrived from ambulance-detail.html?book=<id>
+          const bookId = new URLSearchParams(location.search).get('book');
+          if (bookId) {
+            const btn = document.querySelector(`.ambulance-card[data-id="${bookId}"] .btn-book`);
+            if (btn && typeof openAmbBookingModal === 'function') {
+              openAmbBookingModal(btn);
+            }
+          }
+        })
+        .catch(err => {
+          console.error('Ambulance list load failed', err);
+          grid.innerHTML = '<div style="padding:20px; text-align:center; color:#94a3b8;">অ্যাম্বুলেন্স তালিকা লোড করা যায়নি।</div>';
+        });
+    })();
+
+    // ========== Filter State & Logic (ported from request-blood.html) ==========
     let selectedAmbType = 'all';
     const kwInput = () => document.getElementById('amb-search-keyword');
     const ambCards = () => document.querySelectorAll('#amb-grid .ambulance-card');

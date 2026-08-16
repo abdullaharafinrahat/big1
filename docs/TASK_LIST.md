@@ -53,27 +53,12 @@ ambulance cards. Currently each card only exposes a "বুকিং করু�
 (added in commit `7ce66c6`). Tapping the card body itself should open a
 full **Total Details Page** for that specific ambulance.
 
-- ⬜ **2.1** Make each ambulance card clickable (whole card = link) — but
-  keep the existing "বুকিং করুন" button working without opening the
-  details page (stop propagation on the button click).
-- ⬜ **2.2** Decide the details page location (❓ ASK):
-  - Standalone page like `pages/ambulance-detail.html?id=<AMB-ID>`?
-  - Or full-page overlay/modal within `pages/ambulance.html`?
-- ⬜ **2.3** The Total Details Page must show every attribute of the
-  selected ambulance:
-  - Vehicle plate + type + photo(s).
-  - Availability status (Available / On Duty / Off-line).
-  - Base hospital + full address.
-  - Driver: name, mobile, license number, verified badge.
-  - Equipment checklist (ICU vent / O₂ / defibrillator / first-aid /
-    freezer, etc.).
-  - Owner / provider name.
-  - Trip history summary (optional).
-  - Rates (if applicable).
-- ⬜ **2.4** Sticky "বুকিং করুন" CTA at the bottom that opens the same
-  booking modal we already have, pre-filled with this ambulance.
-- ⬜ **2.5** Back link to the ambulance directory (retain any active
-  filters via URL query string).
+- ✅ **2.1** Whole card is now a clickable link (`ambulance-detail.html?id=<AMB-ID>&back=…`); the "বুকিং করুন" button uses `stopPropagation` so it still opens the booking modal in place.
+- ✅ **2.2** Standalone page **`pages/ambulance-detail.html?id=…`**.
+- ✅ **2.3** Total Details Page renders all attributes (hero photo + plate + type, vehicle info, base hospital with full Division→Village address, driver + verified badge + experience + licence, equipment checklist as on/off pills, owner/provider, rate card, recent trips table).
+- ✅ **2.4** Sticky "এখনই বুকিং করুন" CTA at page bottom — navigates back to `ambulance.html?book=<id>` which auto-opens the same booking modal pre-selected with this ambulance. Disabled when status = off-line.
+- ✅ **2.5** Back link at top uses `?back=…` query param to preserve wherever the user came from (filter chips, scroll pos, etc.).
+- ✅ **2.6** New `assets/data/ambulances.json` as single source of truth (fleet is now data-driven; both list + detail pages read from it).
 
 ---
 

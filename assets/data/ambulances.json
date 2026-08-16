@@ -1,0 +1,165 @@
+{
+  "_note": "Ambulance fleet data. Extends the three demo cards previously hardcoded in pages/ambulance.html. Adds fields consumed by ambulance-detail.html (rates, equipment breakdown, address, etc.).",
+  "ambulances": [
+    {
+      "id": "AMB-BD-001",
+      "plate": "DH-11-2024",
+      "title": "Bondhu ICU Ambulance",
+      "type": "ICU",
+      "typeLabel": "ICU Life Support Ambulance",
+      "status": "available",
+      "photo": "assets/images/hospital/ambulance-1.png",
+      "vehicle": {
+        "make": "Toyota HiAce",
+        "model": "GL 2020",
+        "year": 2020,
+        "seats": 6,
+        "color": "White / Red stripe"
+      },
+      "baseHospital": {
+        "name": "Bondhu General Hospital",
+        "division": "Dhaka",
+        "district": "Dhaka",
+        "upazila": "Mirpur",
+        "union": "Mirpur Model Thana",
+        "ward": "Ward 6",
+        "village": "Mirpur-10",
+        "fullAddress": "Mirpur-10, Dhaka"
+      },
+      "driver": {
+        "name": "Abdullah Rahman",
+        "phone": "01712345678",
+        "license": "DL-DH-88422",
+        "verified": true,
+        "experienceYears": 8
+      },
+      "owner": {
+        "name": "Bondhu Foundation",
+        "phone": "01711000001"
+      },
+      "equipment": {
+        "icuVentilator": true,
+        "oxygenCylinder": true,
+        "defibrillator": true,
+        "firstAidStretcher": true,
+        "freezer": false
+      },
+      "rates": {
+        "dispatchFeeBdt": 500,
+        "perKmBdt": 45,
+        "hourlyBdt": 1200
+      },
+      "recentTrips": [
+        { "date": "২ আগস্ট ২০২৬", "from": "Mirpur", "to": "Bondhu General Hospital", "distanceKm": 3.4 },
+        { "date": "১ আগস্ট ২০২৬", "from": "Dhanmondi", "to": "United Hospital", "distanceKm": 8.1 },
+        { "date": "৩১ জুলাই ২০২৬", "from": "Uttara", "to": "Kurmitola General Hospital", "distanceKm": 6.9 }
+      ]
+    },
+    {
+      "id": "AMB-BD-002",
+      "plate": "DH-12-5544",
+      "title": "City Care Emergency",
+      "type": "AC",
+      "typeLabel": "AC Emergency Ambulance",
+      "status": "onduty",
+      "photo": "assets/images/hospital/ambulance-2.png",
+      "vehicle": {
+        "make": "Nissan Urvan",
+        "model": "NV350 2022",
+        "year": 2022,
+        "seats": 5,
+        "color": "White"
+      },
+      "baseHospital": {
+        "name": "Square Hospital",
+        "division": "Dhaka",
+        "district": "Dhaka",
+        "upazila": "Panthapath",
+        "union": "West Panthapath",
+        "ward": "Ward 19",
+        "village": "Panthapath",
+        "fullAddress": "Panthapath, Dhaka"
+      },
+      "driver": {
+        "name": "Mohammad Faruk",
+        "phone": "01711223344",
+        "license": "DL-DH-91177",
+        "verified": true,
+        "experienceYears": 5
+      },
+      "owner": {
+        "name": "City Care Ltd.",
+        "phone": "01711000002"
+      },
+      "equipment": {
+        "icuVentilator": false,
+        "oxygenCylinder": true,
+        "defibrillator": false,
+        "firstAidStretcher": true,
+        "freezer": false
+      },
+      "rates": {
+        "dispatchFeeBdt": 400,
+        "perKmBdt": 35,
+        "hourlyBdt": 900
+      },
+      "recentTrips": [
+        { "date": "২ আগস্ট ২০২৬", "from": "Panthapath", "to": "Square Hospital", "distanceKm": 0.8 },
+        { "date": "১ আগস্ট ২০২৬", "from": "Kalabagan", "to": "Ibn Sina Hospital", "distanceKm": 2.1 }
+      ]
+    },
+    {
+      "id": "AMB-CTG-001",
+      "plate": "CTG-05-9988",
+      "title": "Chattogram Med Ambulance",
+      "type": "ICU",
+      "typeLabel": "ICU Ambulance",
+      "status": "available",
+      "photo": "assets/images/hospital/ambulance-exterior.png",
+      "vehicle": {
+        "make": "Toyota HiAce",
+        "model": "Super GL 2019",
+        "year": 2019,
+        "seats": 6,
+        "color": "White / Green stripe"
+      },
+      "baseHospital": {
+        "name": "Chattogram Medical College",
+        "division": "Chattogram",
+        "district": "Chattogram",
+        "upazila": "Panchlaish",
+        "union": "Panchlaish Ward",
+        "ward": "Ward 8",
+        "village": "Panchlaish",
+        "fullAddress": "Panchlaish, Chattogram"
+      },
+      "driver": {
+        "name": "Rashedul Karim",
+        "phone": "01713456789",
+        "license": "DL-CTG-33091",
+        "verified": true,
+        "experienceYears": 10
+      },
+      "owner": {
+        "name": "Chattogram Medical Ambulance Service",
+        "phone": "01711000003"
+      },
+      "equipment": {
+        "icuVentilator": true,
+        "oxygenCylinder": true,
+        "defibrillator": true,
+        "firstAidStretcher": true,
+        "freezer": false
+      },
+      "rates": {
+        "dispatchFeeBdt": 500,
+        "perKmBdt": 42,
+        "hourlyBdt": 1100
+      },
+      "recentTrips": [
+        { "date": "২ আগস্ট ২০২৬", "from": "Panchlaish", "to": "Chattogram Medical College", "distanceKm": 1.2 },
+        { "date": "৩১ জুলাই ২০২৬", "from": "Agrabad", "to": "Chevron Hospital", "distanceKm": 5.5 }
+      ]
+    }
+  ]
+}
