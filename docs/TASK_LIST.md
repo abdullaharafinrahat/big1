@@ -46,19 +46,34 @@ selection are shown.
 
 ---
 
-# Section 2 — কার্ট পেইজ (Cart Page)
+# Section 2 — কার্ড পেইজ (Ambulance Card → Full Details Page)
 
-**Currently:** no cart page exists anywhere in the project.
+**Context:** on `pages/ambulance.html` the directory shows a grid of
+ambulance cards. Currently each card only exposes a "বুকিং করুন" button
+(added in commit `7ce66c6`). Tapping the card body itself should open a
+full **Total Details Page** for that specific ambulance.
 
-- ⬜ **2.1** Decide the cart's purpose (❓ ASK FIRST):
-  - Is it for donation basket, medicine orders, blood-request pledges,
-    ambulance bookings, or something else?
-- ⬜ **2.2** Add a cart icon in the shared header (with an item-count badge).
-- ⬜ **2.3** Create `user-dashboard/cart.html` = "Total Details Page":
-  - List every selected item with: name, quantity, subtotal, remove button.
-  - Grand total, taxes/fees (if any), payment CTA.
-- ⬜ **2.4** Global cart state persisted in `localStorage['bondhu.cart']`.
-- ⬜ **2.5** Sidebar link "কার্ট / Cart" in the user dashboard.
+- ⬜ **2.1** Make each ambulance card clickable (whole card = link) — but
+  keep the existing "বুকিং করুন" button working without opening the
+  details page (stop propagation on the button click).
+- ⬜ **2.2** Decide the details page location (❓ ASK):
+  - Standalone page like `pages/ambulance-detail.html?id=<AMB-ID>`?
+  - Or full-page overlay/modal within `pages/ambulance.html`?
+- ⬜ **2.3** The Total Details Page must show every attribute of the
+  selected ambulance:
+  - Vehicle plate + type + photo(s).
+  - Availability status (Available / On Duty / Off-line).
+  - Base hospital + full address.
+  - Driver: name, mobile, license number, verified badge.
+  - Equipment checklist (ICU vent / O₂ / defibrillator / first-aid /
+    freezer, etc.).
+  - Owner / provider name.
+  - Trip history summary (optional).
+  - Rates (if applicable).
+- ⬜ **2.4** Sticky "বুকিং করুন" CTA at the bottom that opens the same
+  booking modal we already have, pre-filled with this ambulance.
+- ⬜ **2.5** Back link to the ambulance directory (retain any active
+  filters via URL query string).
 
 ---
 
@@ -226,7 +241,7 @@ Following your stated priority:
 3. **Destination page** (Section 4) — new flow.
 4. **Registration cascade + document uploads** (Section 6) — user + owner.
 5. **Driver Information page** (Section 7).
-6. **Cart page** (Section 2).
+6. **Ambulance card → Total Details Page** (Section 2).
 7. **Driver Dashboard** (Section 5.2) + **Owner Dashboard** (Section 5.3).
 8. **User Dashboard status/notifications** (Section 5.1).
 9. **Admin Dashboard review queues + workflow** (Sections 5.4 + 9).
